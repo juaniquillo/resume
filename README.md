@@ -1,1 +1,0 @@
-# Victor Sánchez's (Juaniquillo) Resume
