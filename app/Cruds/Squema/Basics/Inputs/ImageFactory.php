@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\Basics\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -21,6 +22,15 @@ class ImageFactory
         self::form($input);
 
         return $input;
+    }
+
+    public static function validation(InputInterface $input): void
+    {
+        $input->setRecipe(
+            (new LaravelValidationRulesRecipe([
+                'nullable'
+            ]))
+        );
     }
 
     public static function form(InputInterface $input): void

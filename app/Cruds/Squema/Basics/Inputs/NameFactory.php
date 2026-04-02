@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Basics\Inputs;
 
+use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -20,6 +21,16 @@ class NameFactory
         self::form($input);
 
         return $input;
+    }
+
+    
+    public static function validation(InputInterface $input): void
+    {
+        $input->setRecipe(
+            (new LaravelValidationRulesRecipe([
+                'required'
+            ]))
+        );
     }
 
     public static function form(InputInterface $input): void

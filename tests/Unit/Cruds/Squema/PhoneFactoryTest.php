@@ -2,6 +2,7 @@
 
 use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\InputComponentAction\Contracts\InputComponentRecipeInterface;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 
@@ -18,4 +19,20 @@ test('it creates a phone input with correct configuration', function () {
 
     expect($attributes['label'])->toBe(PhoneFactory::LABEL);
     expect($attributes['type'])->toBe('tel');
+});
+
+
+test('it can be used to create a form input using the input component action', function(){
+
+    $crud = CrudAssistant::make([
+        PhoneFactory::make()
+    ]);
+
+    $output = $crud->execute(
+        new InputComponentAction()
+    );
+
+    // dd($crud);
+    // dd($output);
+
 });
