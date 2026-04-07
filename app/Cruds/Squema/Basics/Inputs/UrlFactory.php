@@ -10,11 +10,11 @@ use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class LabelFactory
+class UrlFactory
 {
-    const NAME = 'label_basics';
+    const NAME = 'url_basics';
 
-    const LABEL = 'Label';
+    const LABEL = 'URL';
 
     public static function make(): InputInterface
     {
@@ -31,7 +31,8 @@ class LabelFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
+                'url',
             ]))
         );
     }
@@ -44,6 +45,7 @@ class LabelFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'type' => 'url',
                         ])
                 )
         );
@@ -54,7 +56,7 @@ class LabelFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, $faker) {
-                    $output->{ $input->getName() } = $faker->jobTitle();
+                    $output->{ $input->getName() } = $faker->url();
                 }
             )
         );

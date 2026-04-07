@@ -10,11 +10,11 @@ use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class LabelFactory
+class EmailFactory
 {
-    const NAME = 'label_basics';
+    const NAME = 'email_basics';
 
-    const LABEL = 'Label';
+    const LABEL = 'Email';
 
     public static function make(): InputInterface
     {
@@ -32,6 +32,7 @@ class LabelFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
+                'email',
             ]))
         );
     }
@@ -44,6 +45,7 @@ class LabelFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'type' => 'email',
                         ])
                 )
         );
@@ -54,7 +56,7 @@ class LabelFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, $faker) {
-                    $output->{ $input->getName() } = $faker->jobTitle();
+                    $output->{ $input->getName() } = $faker->safeEmail();
                 }
             )
         );

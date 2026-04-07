@@ -2,14 +2,18 @@
 
 namespace App\Cruds\Squema\Basics;
 
-use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Squema\Basics\Inputs\EmailFactory;
 use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Cruds\Squema\Basics\Inputs\LabelFactory;
 use App\Cruds\Squema\Basics\Inputs\NameFactory;
 use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use App\Cruds\Squema\Basics\Inputs\SummaryFactory;
+use App\Cruds\Squema\Basics\Inputs\UrlFactory;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\CrudAssistant;
@@ -17,36 +21,36 @@ use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
 
-class BasicsCrud
+class BasicsCrud implements CrudInterface
 {
+    use IsCrud;
+
     public static function make(): InputCollection
     {
         return CrudAssistant::make([
             NameFactory::make(),
             LabelFactory::make(),
+            EmailFactory::make(),
             PhoneFactory::make(),
+            UrlFactory::make(),
             ImageFactory::make(),
+            SummaryFactory::make(),
         ]);
     }
 
     public static function form(array $inputs): MainBackendComponent
     {
-        return ComponentBuilder::make(ComponentEnum::FORM)
+        return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', route('dashboard.basics'))
             ->setThemes([
-                'display' => 'grid',
-                'grid' => 'gap-md',
+                'forms' => 'two-column',
             ])
             ->setContents($inputs)
             ->setContent(
-                ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setTheme('margin', 'top-sm')
+                LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                    ->setTheme('forms', 'column-span-full')
                     ->setContent(
-                        FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                            ->setAttribute('type', 'submit')
-                            ->setAttribute('variant', 'primary')
-                            ->setAttribute('color', 'blue')
-                            ->setContent('Save')
+                        self::saveButton()
                     )
             );
     }
