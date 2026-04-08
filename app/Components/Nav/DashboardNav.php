@@ -29,8 +29,27 @@ class DashboardNav
             [
                 'name' => 'basics',
                 'label' => 'Basics',
-                'route' => 'dashboard.basics',
                 'icon' => 'document-text',
+                'sub-nav' => [
+                    [
+                        'name' => 'basics',
+                        'label' => 'Basic Info',
+                        'route' => 'dashboard.basics',
+                        'icon' => 'document-text',
+                    ],
+                    [
+                        'name' => 'basics.locations',
+                        'label' => 'Locations',
+                        'route' => 'dashboard.basics.locations',
+                        'icon' => 'map-pin',
+                    ],
+                    [
+                        'name' => 'basics.profiles',
+                        'label' => 'Profiles',
+                        'route' => 'dashboard.basics.profiles',
+                        'icon' => 'user',
+                    ],
+                ],
             ],
         ];
     }

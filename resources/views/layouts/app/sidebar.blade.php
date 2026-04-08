@@ -15,11 +15,9 @@
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    
-                    {{ $navItems }}
+                
+                {{ $navItems }}
 
-                </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />

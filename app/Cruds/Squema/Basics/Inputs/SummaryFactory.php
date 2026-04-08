@@ -5,12 +5,12 @@ namespace App\Cruds\Squema\Basics\Inputs;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class SummaryFactory
@@ -44,8 +44,8 @@ class SummaryFactory
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setComponentBag(
-                    (new DefaultComponentBag())
-                        ->setInputType(FluxComponentEnum::TEXTAREA) 
+                    (new DefaultComponentBag)
+                        ->setInputType(FluxComponentEnum::TEXTAREA)
                 )
                 ->setAttributeBag(
                     (new DefaultAttributeBag)
@@ -60,8 +60,8 @@ class SummaryFactory
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, $faker) {
-                    $output->{ $input->getName() } = $faker->paragraph();
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{ $input->getName() } = $faker->paragraph;
                 }
             )
         );

@@ -13,46 +13,55 @@ use App\Cruds\Squema\Basics\Inputs\NameFactory;
 use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
 use App\Cruds\Squema\Basics\Inputs\SummaryFactory;
 use App\Cruds\Squema\Basics\Inputs\UrlFactory;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use App\Cruds\Squema\Basics\Inputs\UserFactory;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class BasicsCrud implements CrudInterface
 {
     use IsCrud;
 
-    public static function make(): InputCollection
+    public static function inputsArray(): array
     {
-        return CrudAssistant::make([
-            NameFactory::make(),
-            LabelFactory::make(),
-            EmailFactory::make(),
-            PhoneFactory::make(),
-            UrlFactory::make(),
-            ImageFactory::make(),
-            SummaryFactory::make(),
-        ]);
+        return [
+            'user' => UserFactory::make(),
+            'name' => NameFactory::make(),
+            'label' => LabelFactory::make(),
+            'email' => EmailFactory::make(),
+            'phone' => PhoneFactory::make(),
+            'url' => UrlFactory::make(),
+            'image' => ImageFactory::make(),
+            'summary' => SummaryFactory::make(),
+        ];
     }
 
-    public static function form(array $inputs): MainBackendComponent
+    public static function formAction(): string
     {
-        return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.basics'))
-            ->setThemes([
-                'forms' => 'two-column',
-            ])
-            ->setContents($inputs)
-            ->setContent(
-                LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                    ->setTheme('forms', 'column-span-full')
-                    ->setContent(
-                        self::saveButton()
-                    )
-            );
+        return route('dashboard.basics');
+    }
+
+    public static function formWithTextareaSpanFull(?array $values = null, ?array $errors = null, ?Model $model = null): MainBackendComponent
+    {
+        $inputs = self::inputsArray();
+        $summary = $inputs['summary'] ?? null;
+
+        // Textarea input with column span full theme
+        $inputs['summary'] = self::spanFullContainer([
+            $summary,
+        ]);
+
+        return self::form(
+            inputs: $inputs,
+            values: $values,
+            errors: $errors,
+            model: $model
+        );
     }
 
     public static function dashboardComponentBag(): ComponentBag
@@ -60,5 +69,20 @@ class BasicsCrud implements CrudInterface
         return (new DefaultComponentBag)
             ->setInputType(FluxComponentEnum::TEXT_INPUT)
             ->setInputComponent(FluxBackendComponent::class);
+    }
+
+    public static function spanFullContainer(array $contents): InputCollection
+    {
+        return CrudAssistant::make($contents)
+            ->setName('span_full_container')
+            ->setRecipe(
+                (new InputComponentRecipe)
+                    ->setThemeBag(
+                        (new DefaultThemeBag)
+                            ->setWrapperTheme([
+                                'forms' => 'column-span-full',
+                            ])
+                    )
+            );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\Basics\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -44,6 +45,7 @@ class LabelFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'badge' => 'required',
                         ])
                 )
         );
@@ -53,8 +55,8 @@ class LabelFactory
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, $faker) {
-                    $output->{ $input->getName() } = $faker->jobTitle();
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{ $input->getName() } = $faker->jobTitle;
                 }
             )
         );

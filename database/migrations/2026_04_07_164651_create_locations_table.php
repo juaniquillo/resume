@@ -11,27 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
 
-            $table->uuid('uid');
-
-            $table->string('name');
-            $table->string('position');
-
-            $table->text('summary')->nullable();
-
-            $table->json('highlights')->nullable();
-
             $table
-                ->foreignUlid('user_id')
+                ->foreignUlid('basic_id')
                 ->index()
-                ->constrained('users')
+                ->constrained('basics')
                 ->cascadeOnDelete();
 
-            $table->timestamp('starts_at');
-            $table->timestamp('ends_at')->nullable();
-            
+            $table->string('address');
+            $table->string('postalCode');
+            $table->string('city');
+            $table->string('countryCode');
+            $table->string('region');
+
             $table->timestamps();
         });
     }
@@ -41,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('locations');
     }
 };

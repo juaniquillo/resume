@@ -32,6 +32,7 @@ class PhoneFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
+                'digits:10',
             ]))
         );
     }
