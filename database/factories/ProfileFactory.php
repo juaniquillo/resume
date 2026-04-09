@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Profiles\ProfilesCrud;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,8 +19,10 @@ class ProfileFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        $crud = ProfilesCrud::make();
+
+        return $crud->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

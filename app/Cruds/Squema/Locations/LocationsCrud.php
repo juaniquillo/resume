@@ -31,5 +31,4 @@ class LocationsCrud implements CrudInterface
     {
         return '';
     }
-
 }

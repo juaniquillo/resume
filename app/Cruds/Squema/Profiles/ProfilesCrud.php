@@ -13,7 +13,6 @@ class ProfilesCrud implements CrudInterface
 {
     use IsCrud;
 
-
     public static function inputsArray(): array
     {
         return [
@@ -28,5 +27,4 @@ class ProfilesCrud implements CrudInterface
     {
         return '';
     }
-
 }

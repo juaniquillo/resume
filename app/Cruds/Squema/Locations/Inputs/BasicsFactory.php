@@ -23,6 +23,4 @@ class BasicsFactory
 
         return $input;
     }
-
-
 }

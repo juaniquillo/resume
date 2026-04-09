@@ -10,7 +10,7 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 trait IsFluxNavigation
 {
-    public static function make(): BackendComponent
+    public static function makeNav(): BackendComponent
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents(
@@ -23,7 +23,7 @@ trait IsFluxNavigation
         $items = [];
 
         foreach (self::items() as $item) {
-            
+
             if ($item['sub-nav'] ?? false) {
                 $subItems = [];
 
@@ -32,13 +32,13 @@ trait IsFluxNavigation
                 foreach ($item['sub-nav'] as $subItem) {
                     $subItems[] = self::single($subItem);
                 }
-                
-                $itemComponent =  $group->setContents($subItems);
-                
+
+                $itemComponent = $group->setContents($subItems);
+
             } else {
                 $itemComponent = self::single($item);
-           }
-            
+            }
+
             $items[] = $itemComponent;
         }
 
@@ -58,7 +58,7 @@ trait IsFluxNavigation
 
     }
 
-    public static function single(array $item) : BackendComponent|ContentComponent
+    public static function single(array $item): BackendComponent|ContentComponent
     {
         $itemComponent = FluxComponentBuilder::make('sidebar.item')
             ->setAttributes([

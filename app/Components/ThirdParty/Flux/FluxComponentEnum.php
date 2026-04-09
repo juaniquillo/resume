@@ -9,4 +9,8 @@ enum FluxComponentEnum: string
     case TEXT_FILE = 'file';
     case TEXTAREA = 'textarea';
     case BUTTON = 'button';
+    case CARD = 'card';
+    case HEADING = 'heading';
+    case TEXT = 'text';
+    case ICON = 'icon';
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\BasicsControllerCreate;
 use App\Http\Controllers\BasicsLocationController;
 use App\Http\Controllers\BasicsProfileController;
+use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
 
+    Route::get('works' , [WorkController::class, 'index'])->name('dashboard.works');
+    
 });
 
 require __DIR__.'/settings.php';

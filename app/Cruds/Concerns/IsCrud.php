@@ -42,7 +42,7 @@ trait IsCrud
             ->setContent($label);
     }
 
-    public static function form(array $inputs = null, array $values = null, ?array $errors = null, ?Model $model = null): BackendComponent|CompoundComponent
+    public static function form(?array $inputs = null, ?array $values = null, ?array $errors = null, ?Model $model = null): BackendComponent|CompoundComponent
     {
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', self::formAction())
@@ -84,5 +84,4 @@ trait IsCrud
             'forms' => 'two-column',
         ];
     }
-
 }

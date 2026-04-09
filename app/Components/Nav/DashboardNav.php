@@ -2,19 +2,29 @@
 
 namespace App\Components\Nav;
 
+use App\Components\Concerns\HasFluxCards;
 use App\Components\Concerns\IsFluxNavigation;
 
 class DashboardNav
 {
-    use IsFluxNavigation;
+    use IsFluxNavigation,
+        HasFluxCards;
 
     /**
      * @return array<
      *  array{
-     *      name: string,
-     *      label: string,
-     *      route: string,
-     *      icon: string,
+     *    name: string,
+     *    label: string,
+     *    route: string,
+     *    icon: string,
+     *    description?: string,
+     *    sub-nav?: array<array{
+     *     name: string,
+     *     label: string,
+     *     route: string,
+     *     icon: string,
+     *   }>
+     *      
      *  }
      * > */
     public static function items(): array
@@ -25,11 +35,12 @@ class DashboardNav
                 'label' => 'Dashboard',
                 'route' => 'dashboard',
                 'icon' => 'home',
+                'ignore-dashboard' => true,
             ],
             [
                 'name' => 'basics',
                 'label' => 'Basics',
-                'icon' => 'document-text',
+                'description' => 'Update basic info.',
                 'sub-nav' => [
                     [
                         'name' => 'basics',
@@ -51,6 +62,36 @@ class DashboardNav
                     ],
                 ],
             ],
+            [
+                'name' => 'works',
+                'label' => 'Works',
+                'route' => 'dashboard.works',
+                'icon' => 'briefcase',
+                'description' => 'Add, edit and manage your works.',
+            ],
         ];
+    }
+
+    public  static function cards(): array
+    {
+        $links = [];
+
+        foreach(self::items() as $item) {
+            if($item['ignore-dashboard'] ?? false) {
+                continue;
+            }
+
+            $firstSubNav = $item['sub-nav'] ?? false ? $item['sub-nav'][0] : null;
+
+            $links[] = [
+                'label' => $item['label'],
+                'href' => $firstSubNav ? route($firstSubNav['route']) : route($item['route']),
+                'icon' => $firstSubNav ? $firstSubNav['icon'] : $item['icon'],
+                'description' => $item['description'] ?? null,
+            ];
+
+        }
+        
+        return $links;
     }
 }

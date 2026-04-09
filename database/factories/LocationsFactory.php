@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Locations\LocationsCrud;
 use App\Models\Locations;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,8 +19,10 @@ class LocationsFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        $crud = LocationsCrud::make();
+
+        return $crud->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

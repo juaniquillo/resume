@@ -1,6 +1,6 @@
 @php
     use App\Components\Nav\DashboardNav;
-    $navItems = DashboardNav::make();
+    $navItems = DashboardNav::makeNav();
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">

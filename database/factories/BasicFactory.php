@@ -17,10 +17,6 @@ class BasicFactory extends Factory
     {
         $crud = BasicsCrud::make();
 
-        dd($crud->execute(
-            new LaravelFactoryAction
-        )->toArray());
-
         return $crud->execute(
             new LaravelFactoryAction
         )->toArray();

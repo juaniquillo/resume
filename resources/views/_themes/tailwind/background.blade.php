@@ -1,6 +1,5 @@
 <?php
     return [
-        // theme_name => theme_classes
         "default" => "bg-blue-700",
         "error" => "bg-red-700",
         "success" => "bg-teal-100",

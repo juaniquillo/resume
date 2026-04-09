@@ -21,8 +21,6 @@ return new class extends Migration
 
             $table->text('summary')->nullable();
 
-            $table->json('highlights')->nullable();
-
             $table
                 ->foreignUlid('user_id')
                 ->index()
@@ -31,7 +29,7 @@ return new class extends Migration
 
             $table->timestamp('starts_at');
             $table->timestamp('ends_at')->nullable();
-            
+
             $table->timestamps();
         });
     }

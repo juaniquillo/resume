@@ -66,3 +66,11 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+.dashboard-card-link {
+     width: 250px;
+}
+
+.dashboard-card {
+    @apply h-full flex flex-col hover:bg-zinc-50 dark:hover:bg-zinc-700;
+}
