@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('volunteers', function (Blueprint $table) {
             $table->id();
-            $table->uuid('id')->primary();
+            $table->uuid('uuid');
 
             $table->string('organization');
             $table->string('position');
             $table->string('url')->nullable();
 
             $table->text('summary')->nullable();
-            
+
             $table
                 ->foreignUlid('user_id')
                 ->index()

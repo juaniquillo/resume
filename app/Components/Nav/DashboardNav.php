@@ -7,8 +7,8 @@ use App\Components\Concerns\IsFluxNavigation;
 
 class DashboardNav
 {
-    use IsFluxNavigation,
-        HasFluxCards;
+    use HasFluxCards,
+        IsFluxNavigation;
 
     /**
      * @return array<
@@ -24,7 +24,7 @@ class DashboardNav
      *     route: string,
      *     icon: string,
      *   }>
-     *      
+     *
      *  }
      * > */
     public static function items(): array
@@ -69,6 +69,13 @@ class DashboardNav
                 'icon' => 'briefcase',
                 'description' => 'Add, edit and manage your works.',
             ],
+            [
+                'name' => 'volunteers',
+                'label' => 'Volunteers',
+                'route' => 'dashboard.volunteers',
+                'icon' => 'user-group',
+                'description' => 'Add, edit and manage your volunteer work.',
+            ],
             // [
             //     'label' => 'Works',
             //     'description' => 'Add, edit and manage your works.',
@@ -90,12 +97,12 @@ class DashboardNav
         ];
     }
 
-    public  static function cards(): array
+    public static function cards(): array
     {
         $links = [];
 
-        foreach(self::items() as $item) {
-            if($item['ignore-dashboard'] ?? false) {
+        foreach (self::items() as $item) {
+            if ($item['ignore-dashboard'] ?? false) {
                 continue;
             }
 
@@ -109,7 +116,7 @@ class DashboardNav
             ];
 
         }
-        
+
         return $links;
     }
 }
