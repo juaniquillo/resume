@@ -8,7 +8,7 @@ class BasicsLocationController extends Controller
 {
     public function index()
     {
-        $form = LocationsCrud::form();
+        $form = LocationsCrud::build()->form();
 
         return view('dashboard.basics.locations.index')
             ->with('form', $form);

@@ -8,7 +8,7 @@ class BasicsProfileController extends Controller
 {
     public function index()
     {
-        $form = ProfilesCrud::form();
+        $form = ProfilesCrud::build()->form();
 
         return view('dashboard.basics.profiles.index')
             ->with('form', $form);

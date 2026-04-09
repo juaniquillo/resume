@@ -10,12 +10,29 @@ use App\Cruds\Squema\Locations\Inputs\CityFactory;
 use App\Cruds\Squema\Locations\Inputs\CountryCodeFactory;
 use App\Cruds\Squema\Locations\Inputs\PostalCodeFactory;
 use App\Cruds\Squema\Locations\Inputs\RegionFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class LocationsCrud implements CrudInterface
 {
     use IsCrud;
 
-    public static function inputsArray(): array
+    public function __construct(
+        protected array $values = [],
+        protected array $errors = [],
+        protected ?Model $model = null,
+    )
+    {}
+
+    public static function build(array $values = [], array $errors = [], ?Model $model = null,) : static
+    {
+        return new static(
+            values: $values,
+            errors: $errors,
+            model: $model,
+        );
+    }
+
+    public function inputsArray(): array
     {
         return [
             BasicsFactory::make(),
@@ -27,7 +44,7 @@ class LocationsCrud implements CrudInterface
         ];
     }
 
-    public static function formAction(): string
+    public function formAction(): string
     {
         return '';
     }

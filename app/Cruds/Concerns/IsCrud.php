@@ -3,8 +3,8 @@
 namespace App\Cruds\Concerns;
 
 use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
-use App\Cruds\Squema\Basics\BasicsCrud;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -12,28 +12,32 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
+use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Containers\InputComponentOutput;
+use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 trait IsCrud
 {
-    public static function inputsArray(): array
+    public function inputsArray(): array
     {
         return [];
     }
 
-    public static function formAction(): string
+    public function formAction(): string
     {
         return '';
     }
 
-    public static function make(?array $inputs = null): InputCollection
+    public function make(?array $inputs = null): InputCollection
     {
-        return CrudAssistant::make($inputs ?? self::inputsArray());
+        return CrudAssistant::make($inputs ?? $this->inputsArray());
     }
 
-    public static function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
@@ -42,34 +46,31 @@ trait IsCrud
             ->setContent($label);
     }
 
-    public static function form(?array $inputs = null, ?array $values = null, ?array $errors = null, ?Model $model = null): BackendComponent|CompoundComponent
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', self::formAction())
-            ->setThemes(self::formClasses())
+            ->setAttribute('action', $this->formAction())
+            ->setThemes($this->formClasses())
             ->setContents(
-                self::inputs(
+                $this->inputs(
                     inputs: $inputs,
-                    values: $values,
-                    errors: $errors,
-                    model: $model
                 )
             )
             ->setContent(
                 LocalThemeComponentBuilder::make(ComponentEnum::DIV)
                     ->setTheme('forms', 'column-span-full')
                     ->setContent(
-                        self::saveButton()
+                        $this->saveButton()
                     )
             );
     }
 
-    public static function inputs(?array $inputs = null, ?array $values = null, ?array $errors = null, ?Model $model = null): array
+    public function inputs(?array $inputs = null): array
     {
-        $output = self::make($inputs)->execute(
-            (new InputComponentAction($values ?? [], $errors ?? []))
+        $output = $this->make($inputs)->execute(
+            (new InputComponentAction($this->getValues(), $this->getErrors()))
                 ->setDefaultInputGroup(NoWrapSoleInputGroup::class)
-                ->setDefaultComponentBag(BasicsCrud::dashboardComponentBag())
+                ->setDefaultComponentBag($this->dashboardComponentBag())
         );
 
         /** @var InputComponentOutput $output */
@@ -78,10 +79,68 @@ trait IsCrud
         return $inputs->toArray();
     }
 
-    public static function formClasses(): array
+    public function spanFullContainer(array $contents): InputCollection
+    {
+        return CrudAssistant::make($contents)
+            ->setName('span_full_container')
+            ->setRecipe(
+                (new InputComponentRecipe)
+                    ->setThemeBag(
+                        (new DefaultThemeBag)
+                            ->setWrapperTheme([
+                                'forms' => 'column-span-full',
+                            ])
+                    )
+            );
+    }
+    
+    public function formClasses(): array
     {
         return [
             'forms' => 'two-column',
         ];
+    }
+
+    public function dashboardComponentBag(): ComponentBag
+    {
+        return (new DefaultComponentBag)
+            ->setInputType(FluxComponentEnum::TEXT_INPUT)
+            ->setInputComponent(FluxBackendComponent::class);
+    }
+
+    public function setErrors(array $errors): static
+    {
+        $this->errors = $errors;
+
+        return $this;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    public function setValues(array $values): static
+    {
+        $this->values = $values;
+
+        return $this;
+    }
+
+    public function getValues(): array
+    {
+        return $this->values;
+    }
+
+    public function setModel(Model $model): static
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function getModel(): ?Model
+    {
+        return $this->model ?? null;
     }
 }

@@ -9,13 +9,25 @@ use Juaniquillo\CrudAssistant\InputCollection;
 
 interface CrudInterface
 {
-    public static function inputsArray(): array;
+    public function inputsArray(): array;
 
-    public static function make(?array $inputs = null): InputCollection;
+    public function make(?array $inputs = null): InputCollection;
 
-    public static function form(?array $inputs = null, ?array $values = null, ?array $errors = null, ?Model $model = null): BackendComponent|CompoundComponent;
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent;
 
-    public static function inputs(?array $inputs = null, ?array $values = null, ?array $errors = null, ?Model $model = null): array;
+    public function inputs(?array $inputs = null): array;
 
-    public static function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent;
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent;
+
+    public function setModel(Model $model): static;
+
+    public function getModel(): ?Model;
+
+    public function setValues(array $values): static;
+
+    public function getValues(): array;
+
+    public function setErrors(array $errors): static;
+
+    public function getErrors(): array;
 }

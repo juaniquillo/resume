@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Basics;
 
-use App\Components\ThirdParty\Flux\FluxBackendComponent;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Basics\Inputs\EmailFactory;
@@ -16,18 +14,28 @@ use App\Cruds\Squema\Basics\Inputs\UrlFactory;
 use App\Cruds\Squema\Basics\Inputs\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\MainBackendComponent;
-use Juaniquillo\CrudAssistant\CrudAssistant;
-use Juaniquillo\CrudAssistant\InputCollection;
-use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
-use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
-use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class BasicsCrud implements CrudInterface
+final class BasicsCrud implements CrudInterface
 {
     use IsCrud;
 
-    public static function inputsArray(): array
+    public function __construct(
+        protected array $values = [],
+        protected array $errors = [],
+        protected ?Model $model = null,
+    )
+    {}
+
+    public static function build(array $values = [], array $errors = [], ?Model $model = null,) : static
+    {
+        return new static(
+            values: $values,
+            errors: $errors,
+            model: $model,
+        );
+    }
+
+    public function inputsArray(): array
     {
         return [
             'user' => UserFactory::make(),
@@ -41,48 +49,24 @@ class BasicsCrud implements CrudInterface
         ];
     }
 
-    public static function formAction(): string
+    public function formAction(): string
     {
         return route('dashboard.basics');
     }
 
-    public static function formWithTextareaSpanFull(?array $values = null, ?array $errors = null, ?Model $model = null): MainBackendComponent
+    public function formWithTextareaSpanFull(?array $values = null): MainBackendComponent
     {
-        $inputs = self::inputsArray();
+        $inputs = $this->inputsArray();
         $summary = $inputs['summary'] ?? null;
 
         // Textarea input with column span full theme
-        $inputs['summary'] = self::spanFullContainer([
+        $inputs['summary'] = $this->spanFullContainer([
             $summary,
         ]);
 
-        return self::form(
+        return $this->form(
             inputs: $inputs,
-            values: $values,
-            errors: $errors,
-            model: $model
         );
     }
 
-    public static function dashboardComponentBag(): ComponentBag
-    {
-        return (new DefaultComponentBag)
-            ->setInputType(FluxComponentEnum::TEXT_INPUT)
-            ->setInputComponent(FluxBackendComponent::class);
-    }
-
-    public static function spanFullContainer(array $contents): InputCollection
-    {
-        return CrudAssistant::make($contents)
-            ->setName('span_full_container')
-            ->setRecipe(
-                (new InputComponentRecipe)
-                    ->setThemeBag(
-                        (new DefaultThemeBag)
-                            ->setWrapperTheme([
-                                'forms' => 'column-span-full',
-                            ])
-                    )
-            );
-    }
 }

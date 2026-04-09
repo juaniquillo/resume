@@ -15,11 +15,8 @@ class BasicsController extends Controller
 
         // $model = Basic::query()->find(1);
 
-        $form = BasicsCrud::formWithTextareaSpanFull(
-            values: $values,
-            errors: $errors,
-            model: $model ?? null
-        );
+        $form = BasicsCrud::build(values: $values, errors: $errors)
+            ->formWithTextareaSpanFull();
 
         return view('dashboard.basics.index')
             ->with('form', $form);

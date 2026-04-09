@@ -9,7 +9,7 @@ class WorkController extends Controller
 {
     public function index()
     {
-        $form = WorksCrud::formWithTextareaSpanFull();
+        $form = WorksCrud::build()->formWithTextareaSpanFull();
         return view('dashboard.works.index')
             ->with('form', $form);
     }
