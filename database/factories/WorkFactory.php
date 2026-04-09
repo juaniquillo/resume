@@ -15,9 +15,9 @@ class WorkFactory extends Factory
     /** @return array<string, mixed> */
     public function definition(): array
     {
-        $crud = BasicsCrud::make();
+        $crud = BasicsCrud::build();
 
-        return $crud->execute(
+        return  $crud->make()->execute(
             new LaravelFactoryAction
         )->toArray();
     }

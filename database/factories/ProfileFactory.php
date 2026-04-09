@@ -19,9 +19,9 @@ class ProfileFactory extends Factory
      */
     public function definition(): array
     {
-        $crud = ProfilesCrud::make();
+        $crud = ProfilesCrud::build();
 
-        return $crud->execute(
+        return $crud->make()->execute(
             new LaravelFactoryAction
         )->toArray();
     }

@@ -19,10 +19,11 @@ class LocationsFactory extends Factory
      */
     public function definition(): array
     {
-        $crud = LocationsCrud::make();
+        $crud = LocationsCrud::build();
 
-        return $crud->execute(
+        return $crud->make()->execute(
             new LaravelFactoryAction
         )->toArray();
+
     }
 }
