@@ -69,6 +69,24 @@ class DashboardNav
                 'icon' => 'briefcase',
                 'description' => 'Add, edit and manage your works.',
             ],
+            // [
+            //     'label' => 'Works',
+            //     'description' => 'Add, edit and manage your works.',
+            //     'sub-nav' => [
+            //         [
+            //             'name' => 'works',
+            //             'label' => 'Manage Works',
+            //             'route' => 'dashboard.works',
+            //             'icon' => 'briefcase',
+            //         ],
+            //         [
+            //             'name' => 'works.highlights',
+            //             'label' => 'Highlights',
+            //             'route' => 'dashboard.works.highlights',
+            //             'icon' => 'briefcase',
+            //         ]
+            //     ],
+            // ],
         ];
     }
 

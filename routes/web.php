@@ -6,6 +6,7 @@ use App\Http\Controllers\BasicsControllerCreate;
 use App\Http\Controllers\BasicsLocationController;
 use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
@@ -22,7 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
 
     Route::get('works' , [WorkController::class, 'index'])->name('dashboard.works');
-    
+    Route::get('works/highlights' , [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
+
 });
 
 require __DIR__.'/settings.php';
