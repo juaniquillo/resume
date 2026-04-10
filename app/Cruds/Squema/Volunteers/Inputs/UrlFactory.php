@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class UrlFactory
 {
-    const NAME = 'url_volunteers';
+    const NAME = 'url';
 
     const LABEL = 'URL';
 

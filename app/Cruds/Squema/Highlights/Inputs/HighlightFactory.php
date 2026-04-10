@@ -9,9 +9,7 @@ class HighlightFactory
 {
     public static function make(): InputInterface
     {
-        $input =  new DefaultInput();
-
-        
+        $input = new DefaultInput('highlight', 'Highlight');
 
         return $input;
     }

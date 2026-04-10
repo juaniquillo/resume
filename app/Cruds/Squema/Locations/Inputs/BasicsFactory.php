@@ -8,7 +8,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class BasicsFactory
 {
-    const NAME = 'basics_locations';
+    const NAME = 'basics';
 
     const LABEL = 'Basics';
 

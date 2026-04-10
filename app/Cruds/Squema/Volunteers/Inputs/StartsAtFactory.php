@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class StartsAtFactory
 {
-    const NAME = 'starts_at_volunteers';
+    const NAME = 'starts_at';
 
     const LABEL = 'Starts At';
 

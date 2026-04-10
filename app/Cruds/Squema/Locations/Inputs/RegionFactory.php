@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class RegionFactory
 {
-    const NAME = 'region_locations';
+    const NAME = 'region';
 
     const LABEL = 'Region';
 

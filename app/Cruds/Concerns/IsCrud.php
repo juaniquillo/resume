@@ -67,11 +67,15 @@ trait IsCrud
 
     public function inputs(?array $inputs = null): array
     {
-        $output = $this->make($inputs)->execute(
-            (new InputComponentAction($this->getValues(), $this->getErrors()))
-                ->setDefaultInputGroup(NoWrapSoleInputGroup::class)
-                ->setDefaultComponentBag($this->dashboardComponentBag())
-        );
+        $action = (new InputComponentAction($this->getValues(), $this->getErrors()))
+            ->setDefaultInputGroup(NoWrapSoleInputGroup::class)
+            ->setDefaultComponentBag($this->dashboardComponentBag());
+
+        if ($this->getModel()) {
+            $action->setModel($this->getModel());
+        }
+
+        $output = $this->make($inputs)->execute($action);
 
         /** @var InputComponentOutput $output */
         $inputs = $output->inputs;
@@ -93,7 +97,7 @@ trait IsCrud
                     )
             );
     }
-    
+
     public function formClasses(): array
     {
         return [

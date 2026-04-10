@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class NetworkFactory
 {
-    const NAME = 'network_profiles';
+    const NAME = 'network';
 
     const LABEL = 'Network';
 

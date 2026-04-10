@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class LabelFactory
 {
-    const NAME = 'label_basics';
+    const NAME = 'label';
 
     const LABEL = 'Label';
 

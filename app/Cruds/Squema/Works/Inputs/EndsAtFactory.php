@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class EndsAtFactory
 {
-    const NAME = 'ends_at_works';
+    const NAME = 'ends_at';
 
     const LABEL = 'Ends At';
 

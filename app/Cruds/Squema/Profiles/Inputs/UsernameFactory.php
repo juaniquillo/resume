@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class UsernameFactory
 {
-    const NAME = 'username_profiles';
+    const NAME = 'username';
 
     const LABEL = 'Username';
 

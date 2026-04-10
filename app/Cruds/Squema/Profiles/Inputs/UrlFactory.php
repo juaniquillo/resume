@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class UrlFactory
 {
-    const NAME = 'url_profiles';
+    const NAME = 'url';
 
     const LABEL = 'URL';
 

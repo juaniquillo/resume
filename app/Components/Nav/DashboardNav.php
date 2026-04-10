@@ -64,7 +64,7 @@ class DashboardNav
             ],
             [
                 'name' => 'works',
-                'label' => 'Works',
+                'label' => 'Work Experience',
                 'route' => 'dashboard.works',
                 'icon' => 'briefcase',
                 'description' => 'Add, edit and manage your works.',
@@ -76,24 +76,20 @@ class DashboardNav
                 'icon' => 'user-group',
                 'description' => 'Add, edit and manage your volunteer work.',
             ],
-            // [
-            //     'label' => 'Works',
-            //     'description' => 'Add, edit and manage your works.',
-            //     'sub-nav' => [
-            //         [
-            //             'name' => 'works',
-            //             'label' => 'Manage Works',
-            //             'route' => 'dashboard.works',
-            //             'icon' => 'briefcase',
-            //         ],
-            //         [
-            //             'name' => 'works.highlights',
-            //             'label' => 'Highlights',
-            //             'route' => 'dashboard.works.highlights',
-            //             'icon' => 'briefcase',
-            //         ]
-            //     ],
-            // ],
+            [
+                'name' => 'education',
+                'label' => 'Education',
+                'route' => 'dashboard.education',
+                'icon' => 'academic-cap',
+                'description' => 'Add, edit and manage your education.',
+            ],
+            [
+                'name' => 'awards',
+                'label' => 'Awards',
+                'route' => 'dashboard.awards',
+                'icon' => 'trophy',
+                'description' => 'Add, edit and manage your awards.',
+            ],
         ];
     }
 

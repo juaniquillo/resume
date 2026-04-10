@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Cruds\Squema\Volunteers\VolunteersCrud;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class VolunteersController extends Controller

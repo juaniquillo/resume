@@ -6,11 +6,13 @@ use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Http\Requests\BasicsFormRequest;
 use App\Models\Basic;
 
-class BasicsControllerCreate extends Controller
+class BasicsCreateController extends Controller
 {
     public function __invoke(BasicsFormRequest $request)
     {
         $validated = $request->validated();
+
+        // dd($validated);
 
         // upload image
         if ($request->hasFile(ImageFactory::NAME)) {
@@ -20,10 +22,11 @@ class BasicsControllerCreate extends Controller
         }
 
         $basics = Basic::updateOrCreate(
-            ['user_id' => auth()->user()->id],
+            ['user_id' => $request->user()->id],
             $validated
         );
 
-        return redirect()->route('dashboard.basics')->with('success', 'Basics information updated successfully.');
+        return redirect()
+            ->back()->with('success', 'Basics information updated successfully.');
     }
 }

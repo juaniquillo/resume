@@ -8,7 +8,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class UserFactory
 {
-    const NAME = 'user_volunteers';
+    const NAME = 'user';
 
     const LABEL = 'User';
 

@@ -33,10 +33,9 @@ class WorksCrud implements CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    )
-    {}
+    ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null,) : static
+    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
         return new static(
             values: $values,
@@ -44,9 +43,10 @@ class WorksCrud implements CrudInterface
             model: $model,
         );
     }
+
     public function formAction(): string
     {
-        return route('dashboard.works');
+        return route('dashboard.works.edit');
     }
 
     public function formWithTextareaSpanFull(?array $values = null, ?array $errors = null, ?Model $model = null): MainBackendComponent
@@ -63,6 +63,4 @@ class WorksCrud implements CrudInterface
             inputs: $inputs,
         );
     }
-
-
 }

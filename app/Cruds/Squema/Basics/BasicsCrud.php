@@ -12,6 +12,7 @@ use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
 use App\Cruds\Squema\Basics\Inputs\SummaryFactory;
 use App\Cruds\Squema\Basics\Inputs\UrlFactory;
 use App\Cruds\Squema\Basics\Inputs\UserFactory;
+use App\Cruds\Squema\Basics\Inputs\UuidFactory;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 
@@ -23,12 +24,11 @@ final class BasicsCrud implements CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    )
-    {}
+    ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null,) : static
+    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
-        return new static(
+        return new self(
             values: $values,
             errors: $errors,
             model: $model,
@@ -38,6 +38,7 @@ final class BasicsCrud implements CrudInterface
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'name' => NameFactory::make(),
             'label' => LabelFactory::make(),
@@ -68,5 +69,4 @@ final class BasicsCrud implements CrudInterface
             inputs: $inputs,
         );
     }
-
 }

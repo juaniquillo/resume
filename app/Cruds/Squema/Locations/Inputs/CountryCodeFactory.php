@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class CountryCodeFactory
 {
-    const NAME = 'countryCode_locations';
+    const NAME = 'country_code';
 
     const LABEL = 'Country Code';
 

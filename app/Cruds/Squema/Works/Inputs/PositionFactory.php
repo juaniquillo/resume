@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class PositionFactory
 {
-    const NAME = 'position_works';
+    const NAME = 'position';
 
     const LABEL = 'Position';
 

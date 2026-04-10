@@ -15,7 +15,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class SummaryFactory
 {
-    const NAME = 'summary_works';
+    const NAME = 'summary';
 
     const LABEL = 'Summary';
 
@@ -43,6 +43,7 @@ class SummaryFactory
     {
         $input->setRecipe(
             (new InputComponentRecipe)
+                ->setValueAsInputContent(true)
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::TEXTAREA)

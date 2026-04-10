@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class PostalCodeFactory
 {
-    const NAME = 'postalCode_locations';
+    const NAME = 'postal_code';
 
     const LABEL = 'Postal Code';
 

@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+
+            $table->string('title');
+            $table->string('awarder');
+
+            $table->text('summary')->nullable();
+
+            $table
+                ->foreignUlid('user_id')
+                ->index()
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->timestamp('awarded_at');
             $table->timestamps();
         });
     }

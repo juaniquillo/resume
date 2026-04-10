@@ -14,7 +14,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class ImageFactory
 {
-    const NAME = 'image_basics';
+    const NAME = 'image';
 
     const LABEL = 'Image';
 

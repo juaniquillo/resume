@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class CityFactory
 {
-    const NAME = 'city_locations';
+    const NAME = 'city';
 
     const LABEL = 'City';
 

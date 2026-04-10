@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class EmailFactory
 {
-    const NAME = 'email_basics';
+    const NAME = 'email';
 
     const LABEL = 'Email';
 

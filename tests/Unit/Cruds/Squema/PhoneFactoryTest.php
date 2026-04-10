@@ -31,7 +31,4 @@ test('it can be used to create a form input using the input component action', f
         new InputComponentAction
     );
 
-    // dd($crud);
-    // dd($output);
-
 });

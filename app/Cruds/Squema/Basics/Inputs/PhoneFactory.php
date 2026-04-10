@@ -12,7 +12,7 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class PhoneFactory
 {
-    const NAME = 'phone_basics';
+    const NAME = 'phone';
 
     const LABEL = 'Phone';
 

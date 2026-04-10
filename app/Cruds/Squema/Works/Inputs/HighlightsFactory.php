@@ -7,8 +7,7 @@ use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 
 class HighlightsFactory
 {
-    
-    const NAME = 'highlights_works';
+    const NAME = 'highlights';
 
     const LABEL = 'Highlights';
 
@@ -16,8 +15,6 @@ class HighlightsFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
-
         return $input;
     }
-
 }

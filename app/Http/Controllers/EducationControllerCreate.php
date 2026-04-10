@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class VolunteersControllerCreate extends Controller
+class EducationControllerCreate extends Controller
 {
     public function __invoke(Request $request)
     {

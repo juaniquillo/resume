@@ -7,9 +7,11 @@ use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
+use App\Cruds\Squema\Basics\Inputs\UuidFactory;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Juaniquillo\CrudAssistant\InputCollection;
 
 class BasicsFormRequest extends FormRequest
@@ -31,12 +33,13 @@ class BasicsFormRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        $this->crud = BasicsCrud::make();
+        $this->crud = BasicsCrud::build()->make();
 
         $phone = $this->input(PhoneFactory::NAME);
 
         $this->merge([
             PhoneFactory::NAME => RequestUtils::removePhoneSymbols($phone),
+            UuidFactory::NAME => Str::uuid()->toString(),
         ]);
     }
 
