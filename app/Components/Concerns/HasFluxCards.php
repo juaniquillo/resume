@@ -10,7 +10,7 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 trait HasFluxCards
 {
-    public static function makeCards() : BackendComponent
+    public static function makeCards(): BackendComponent
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents(
@@ -23,7 +23,7 @@ trait HasFluxCards
         $cards = [];
 
         foreach (self::cards() as $item) {
-            
+
             $cards[] = ComponentBuilder::make(ComponentEnum::LINK)
                 ->setAttributes([
                     'href' => $item['href'],
@@ -50,7 +50,7 @@ trait HasFluxCards
             );
     }
 
-    public  static function cardContents(array $item): array
+    public static function cardContents(array $item): array
     {
         return [
             self::cardHeading($item),
@@ -58,7 +58,7 @@ trait HasFluxCards
         ];
     }
 
-    public  static function cardHeading(array $item): BackendComponent
+    public static function cardHeading(array $item): BackendComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::HEADING)
             ->setAttribute('class', 'flex items-center gap-1')
@@ -68,14 +68,14 @@ trait HasFluxCards
             ]);
     }
 
-    public  static function cardText(array $item): BackendComponent
+    public static function cardText(array $item): BackendComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::TEXT)
             ->setAttribute('class', 'mt-2')
             ->setContent($item['description'] ?? '');
     }
 
-    public  static function cardIcon(array $item): BackendComponent
+    public static function cardIcon(array $item): BackendComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::ICON)
             ->setAttribute('class', 'text-zinc-400')
@@ -86,5 +86,4 @@ trait HasFluxCards
                 'variant' => 'micro',
             ]);
     }
-
 }

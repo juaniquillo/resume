@@ -6,7 +6,8 @@ use App\Models\Highlight;
 
 trait HasHighlight
 {
-    public function highlights() {
+    public function highlights()
+    {
         return $this->morphMany(Highlight::class, 'highlightable');
     }
 }

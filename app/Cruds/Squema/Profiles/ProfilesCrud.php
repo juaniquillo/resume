@@ -18,10 +18,9 @@ class ProfilesCrud implements CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    )
-    {}
+    ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null,) : static
+    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
         return new static(
             values: $values,

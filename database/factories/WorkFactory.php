@@ -17,7 +17,7 @@ class WorkFactory extends Factory
     {
         $crud = BasicsCrud::build();
 
-        return  $crud->make()->execute(
+        return $crud->make()->execute(
             new LaravelFactoryAction
         )->toArray();
     }

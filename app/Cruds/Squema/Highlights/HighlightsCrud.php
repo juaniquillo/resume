@@ -9,7 +9,7 @@ use App\Cruds\Squema\Highlights\Inputs\HighlightFactory;
 class HighlightsCrud implements CrudInterface
 {
     use IsCrud;
-    
+
     public static function inputsArray(): array
     {
         return [
