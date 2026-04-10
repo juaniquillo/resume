@@ -13,7 +13,6 @@
         "juaniquillo/crud-assistant": "^0.1.0",
         "juaniquillo/input-component-action": "@dev",
         "juaniquillo/laravel-backend-component": "^0.2.0",
-        "juststeveking/resume-php": "*",
         "laravel/fortify": "^1.34",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
