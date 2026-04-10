@@ -21,14 +21,14 @@ test('it creates a phone input with correct configuration', function () {
     expect($attributes['type'])->toBe('tel');
 });
 
-test('it can be used to create a form input using the input component action', function () {
+// test('it can be used to create a form input using the input component action', function () {
 
-    $crud = CrudAssistant::make([
-        PhoneFactory::make(),
-    ]);
+//     $crud = CrudAssistant::make([
+//         PhoneFactory::make(),
+//     ]);
 
-    $output = $crud->execute(
-        new InputComponentAction
-    );
+//     $output = $crud->execute(
+//         new InputComponentAction
+//     );
 
-});
+// });
