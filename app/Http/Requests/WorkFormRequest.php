@@ -15,7 +15,7 @@ use Juaniquillo\CrudAssistant\InputCollection;
 class WorkFormRequest extends FormRequest
 {
     private ?InputCollection $crud = null;
-    
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +24,7 @@ class WorkFormRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation() 
+    public function prepareForValidation()
     {
         $this->crud = WorksCrud::build()->make();
 
@@ -68,5 +68,4 @@ class WorkFormRequest extends FormRequest
             new LaravelValidationLabelsAction
         )->toArray();
     }
-
 }

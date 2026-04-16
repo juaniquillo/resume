@@ -23,17 +23,16 @@ class TableRowsAction extends Action implements ActionInterface
 {
     public function __construct(
         private Model $model,
-        private ThemeManager $themeManager = new DefaultThemeManager(),
+        private ThemeManager $themeManager = new DefaultThemeManager,
         private array $themes = [],
         private array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         private string $component = MainBackendComponent::class,
         private string|BackedEnum $type = ComponentEnum::TD,
-    ) 
-    {
-        $this->output == new DataContainer();
+    ) {
+        $this->output == new DataContainer;
     }
-    
+
     public function getModel(): Model
     {
         return $this->model;
@@ -48,7 +47,7 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
     {
-        $model =  $this->getModel();
+        $model = $this->getModel();
         $output = $this->getOutput();
         $name = $input->getName();
 
@@ -63,7 +62,7 @@ class TableRowsAction extends Action implements ActionInterface
             $name,
             $this->resolveCellComponent($recipe, $cellValue)
         );
-        
+
     }
 
     public function resolveCellComponent(TableRowsRecipe|RecipeInterface $recipe, $value): BackendComponent|CompoundComponent
@@ -81,10 +80,10 @@ class TableRowsAction extends Action implements ActionInterface
         $themes = $recipe->cellThemes ?? $this->themes;
 
         $component = new $componentClass($componentType, $manager);
-        $component ->setThemes($themes)
+        $component->setThemes($themes)
             ->setAttributes($this->attributes)
             ->setContent($value);
-        
+
         return $component;
     }
 
@@ -96,12 +95,10 @@ class TableRowsAction extends Action implements ActionInterface
             return $recipeValue($value);
         }
 
-        if($recipeValue) {
+        if ($recipeValue) {
             return $recipeValue;
         }
 
         return $value;
     }
-
-
 }

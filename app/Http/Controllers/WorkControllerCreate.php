@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\WorkFormRequest;
 use App\Models\User;
-use App\Models\Work;
 
 class WorkControllerCreate extends Controller
 {

@@ -18,9 +18,8 @@ trait HasHtmlTable
 
         $crud = $this->make();
         $cells = [];
-        
 
-        foreach($collection as $model) {
+        foreach ($collection as $model) {
             $output = $crud->execute(
                 new TableRowsAction(
                     model: $model,
@@ -32,11 +31,9 @@ trait HasHtmlTable
         }
 
         $rows = $this->makeTableRows($cells);
-        
+
         $headersLabels = array_keys($cells[0] ?? []);
         $headers = $this->makeTableHeaders($headersLabels);
-
-        
 
     }
 
@@ -50,14 +47,13 @@ trait HasHtmlTable
     public function makeTableHeaders(array $headersLabels): array
     {
         $headers = [];
-        foreach($headersLabels as $label) {
+        foreach ($headersLabels as $label) {
             $headers[] = TableComponentUtil::headers(
                 headers: $label
             );
         }
 
         return $headers;
-        
-    }
 
+    }
 }

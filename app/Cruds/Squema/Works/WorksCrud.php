@@ -17,8 +17,8 @@ use Juaniquillo\BackendComponents\MainBackendComponent;
 
 class WorksCrud implements CrudInterface
 {
-    use IsCrud, 
-        HasHtmlTable;
+    use HasHtmlTable,
+        IsCrud;
 
     public function inputsArray(): array
     {

@@ -12,15 +12,14 @@ use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 
 class TableComponentUtil
 {
-    public  static function headers(
+    public static function headers(
         array $headers,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::TR,
-    ): BackendComponent|CompoundComponent
-    {
+    ): BackendComponent|CompoundComponent {
         return self::resolveComponent(
             contents: $headers,
             themeManager: $themeManager,
@@ -28,19 +27,18 @@ class TableComponentUtil
             component: $component,
             type: $type
         );
-        
+
     }
 
     public static function rows(
-       array $cells,
-       ThemeManager $themeManager = new DefaultThemeManager(),
-       array $themes = [],
-       array $attributes = [],
-       /**  @var class-string<BackendComponent, CompoundComponent> */
-       string $component = MainBackendComponent::class,
-       string|BackedEnum $type = ComponentEnum::TR,
-    ): BackendComponent|CompoundComponent
-    {
+        array $cells,
+        ThemeManager $themeManager = new DefaultThemeManager,
+        array $themes = [],
+        array $attributes = [],
+        /** @var class-string<BackendComponent, CompoundComponent> */
+        string $component = MainBackendComponent::class,
+        string|BackedEnum $type = ComponentEnum::TR,
+    ): BackendComponent|CompoundComponent {
         return self::resolveComponent(
             contents: $cells,
             themeManager: $themeManager,
@@ -51,16 +49,15 @@ class TableComponentUtil
         );
     }
 
-    public  static function table(
+    public static function table(
         array $contents,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $themes = [],
         array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::TABLE,
-    ): BackendComponent|CompoundComponent
-    {
+    ): BackendComponent|CompoundComponent {
         return self::resolveComponent(
             contents: $contents,
             type: $type,
@@ -71,15 +68,14 @@ class TableComponentUtil
         );
     }
 
-    public  static function tHead(
+    public static function tHead(
         array $header,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::THEAD,
-    ): BackendComponent|CompoundComponent
-    {
+    ): BackendComponent|CompoundComponent {
         return self::resolveComponent(
             contents: $header,
             type: $type,
@@ -87,19 +83,18 @@ class TableComponentUtil
             themes: $themes,
             component: $component,
         );
-        
+
     }
 
-    public  static function headCell(
+    public static function headCell(
         string $header,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::TH,
-    ): BackendComponent|CompoundComponent
-    {
-        return  self::resolveComponent(
+    ): BackendComponent|CompoundComponent {
+        return self::resolveComponent(
             contents: [$header],
             type: $type,
             themeManager: $themeManager,
@@ -107,16 +102,15 @@ class TableComponentUtil
             component: $component,
         );
     }
-    
-    public  static function tBody(
+
+    public static function tBody(
         array $rows,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::TBODY,
-    ): BackendComponent|CompoundComponent
-    {
+    ): BackendComponent|CompoundComponent {
         return self::resolveComponent(
             contents: $rows,
             type: $type,
@@ -124,25 +118,23 @@ class TableComponentUtil
             themes: $themes,
             component: $component,
         );
-        
+
     }
-    
-    public  static function resolveComponent(
+
+    public static function resolveComponent(
         array $contents,
         string|BackedEnum $type,
         array $themes = [],
-        ThemeManager $themeManager = new DefaultThemeManager(),
+        ThemeManager $themeManager = new DefaultThemeManager,
         array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent, CompoundComponent> */
         string $component = MainBackendComponent::class,
-    ) : BackendComponent|CompoundComponent
-    {
+    ): BackendComponent|CompoundComponent {
         $component = new $component($type, $themeManager);
-        $component ->setThemes($themes)
+        $component->setThemes($themes)
             ->setAttributes($attributes)
             ->setContents($contents);
-        
+
         return $component;
     }
-
 }
