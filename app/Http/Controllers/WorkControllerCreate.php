@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\WorkFormRequest;
+use App\Models\User;
+use App\Models\Work;
 
 class WorkControllerCreate extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(WorkFormRequest $request)
     {
-        // TODO: Implement saving logic
-        return back();
+        $validated = $request->validated();
+
+        $user = User::find($request->user()->id);
+
+        $user->works()->create($validated);
+
+        return redirect()
+            ->back()->with('success', 'Work created successfully.');
     }
 }

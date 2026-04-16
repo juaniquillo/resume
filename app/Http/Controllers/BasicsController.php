@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cruds\Squema\Basics\BasicsCrud;
-use App\Models\Basic;
 use Illuminate\Http\Request;
 
 class BasicsController extends Controller
@@ -13,7 +12,9 @@ class BasicsController extends Controller
         $values = $request->old();
         $errors = $request->session()->get('errors')?->toArray() ?? [];
 
-        $model = Basic::query()->find(1);
+        $user = $request->user();
+
+        $model = $user?->basics()->first();
 
         $form = BasicsCrud::build(
             values: $values,

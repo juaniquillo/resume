@@ -50,7 +50,7 @@ trait IsCrud
     {
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $this->formAction())
-            ->setThemes($this->formClasses())
+            ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
                     inputs: $inputs,
@@ -98,7 +98,7 @@ trait IsCrud
             );
     }
 
-    public function formClasses(): array
+    public function formThemes(): array
     {
         return [
             'forms' => 'two-column',

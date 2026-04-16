@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Works;
 
+use App\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Works\Inputs\EndsAtFactory;
@@ -10,16 +11,19 @@ use App\Cruds\Squema\Works\Inputs\PositionFactory;
 use App\Cruds\Squema\Works\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Works\Inputs\SummaryFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
+use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 
 class WorksCrud implements CrudInterface
 {
-    use IsCrud;
+    use IsCrud, 
+        HasHtmlTable;
 
     public function inputsArray(): array
     {
         return [
+            'uid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'name' => NameFactory::make(),
             'position' => PositionFactory::make(),

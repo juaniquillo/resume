@@ -12,13 +12,13 @@ class BasicsCreateController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
-
         // upload image
         if ($request->hasFile(ImageFactory::NAME)) {
             $image = $request->file('image');
             $path = $image->store('public/images');
             $validated['image'] = $path;
+        } else {
+            unset($validated['image']);
         }
 
         $basics = Basic::updateOrCreate(
@@ -27,6 +27,7 @@ class BasicsCreateController extends Controller
         );
 
         return redirect()
-            ->back()->with('success', 'Basics information updated successfully.');
+            ->back()
+            ->with('success', 'Basics information updated successfully.');
     }
 }
