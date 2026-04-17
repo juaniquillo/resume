@@ -78,7 +78,7 @@ class TableRowsAction extends Action implements ActionInterface
 
     }
 
-    public function resolveValue(?string $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): ?string
+    public function resolveValue(?string $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): string|BackendComponent|CompoundComponent|null
     {
         /** @var string|Closure(?string $value):(BackendComponent|CompoundComponent)|null $recipeValue */
         $recipeValue = $recipe->value ?? null;
@@ -96,7 +96,7 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function resolveCellComponent(string|BackendComponent|CompoundComponent|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): BackendComponent|CompoundComponent
     {
-        /** @var ?Closure($value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
+        /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
         $callback = $recipe->callback ?? null;
 
         $componentClass = $recipe->component ?? $this->component;

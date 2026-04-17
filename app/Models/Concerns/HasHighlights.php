@@ -4,7 +4,7 @@ namespace App\Models\Concerns;
 
 use App\Models\Highlight;
 
-trait HasHighlight
+trait HasHighlights
 {
     public function highlights()
     {

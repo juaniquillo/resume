@@ -99,7 +99,7 @@ class DashboardNav
         $links = [];
 
         foreach (self::items() as $item) {
-            if ($item['ignore-dashboard']) {
+            if ($item['ignore-dashboard'] ?? null) {
                 continue;
             }
 

@@ -26,7 +26,7 @@ class TableRowsRecipe implements RecipeInterface
         /** @var class-string<BackendComponent|CompoundComponent> */
         public readonly string $component = MainBackendComponent::class,
         public readonly string|BackedEnum $type = ComponentEnum::TD,
-        /** @var ?Closure($value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
+        /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
         public readonly ?Closure $callback = null,
     ) {}
 
