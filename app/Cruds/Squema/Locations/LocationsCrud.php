@@ -12,7 +12,7 @@ use App\Cruds\Squema\Locations\Inputs\PostalCodeFactory;
 use App\Cruds\Squema\Locations\Inputs\RegionFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LocationsCrud implements CrudInterface
+final class LocationsCrud implements CrudInterface
 {
     use IsCrud;
 

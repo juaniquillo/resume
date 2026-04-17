@@ -13,12 +13,13 @@ use App\Cruds\Squema\Works\Inputs\SummaryFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-class WorksCrud implements CrudInterface
+final class WorksCrud implements CrudInterface
 {
-    use IsCrud, 
-        HasHtmlTable;
+    use HasHtmlTable,
+        IsCrud;
 
     public function inputsArray(): array
     {
@@ -53,7 +54,7 @@ class WorksCrud implements CrudInterface
         return route('dashboard.works.edit');
     }
 
-    public function formWithTextareaSpanFull(?array $values = null, ?array $errors = null, ?Model $model = null): MainBackendComponent
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = self::inputsArray();
         $summary = $inputs['summary'] ?? null;

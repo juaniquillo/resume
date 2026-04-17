@@ -10,7 +10,8 @@ use App\Cruds\Squema\Awards\Inputs\SummaryFactory;
 use App\Cruds\Squema\Awards\Inputs\TitleFactory;
 use App\Cruds\Squema\Awards\Inputs\UserFactory;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 final class AwardsCrud implements CrudInterface
 {
@@ -47,9 +48,9 @@ final class AwardsCrud implements CrudInterface
         return route('dashboard.awards.edit');
     }
 
-    public function formWithTextareaSpanFull(?array $inputs = null): MainBackendComponent
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        $inputs = $inputs ?? $this->inputsArray();
+        $inputs = $this->inputsArray();
         $summary = $inputs['summary'] ?? null;
 
         if ($summary) {

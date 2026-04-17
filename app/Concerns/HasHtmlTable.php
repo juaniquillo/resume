@@ -2,62 +2,105 @@
 
 namespace App\Concerns;
 
+use App\Components\ThirdParty\Flux\FluxBackendComponent;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableComponentUtil;
 use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 trait HasHtmlTable
 {
-    public function makeTable(Collection $collection)
+    public function makeTable(Collection $collection): BackendComponent|CompoundComponent|null
     {
         if ($collection->isEmpty()) {
             return null;
         }
 
         $crud = $this->make();
-        $cells = [];
-        
+        $rows = [];
+        $headers = [];
 
-        foreach($collection as $model) {
-            $output = $crud->execute(
-                new TableRowsAction(
-                    model: $model,
-                )
-            );
+        $util = new TableComponentUtil(
+            component: FluxBackendComponent::class
+        );
 
-            $cells[] = $output->toArray();
+        foreach ($collection as $key => $model) {
+
+            $action = $this->tableAction($model);
+            $output = $crud->execute($action);
+
+            $outputArray = $output->toArray();
+
+            if ($key === 0) {
+                $headers = $this->tableHeaders($util, $outputArray);
+            }
+
+            $rows[] = $this->tableRows($util, $outputArray);
 
         }
 
-        $rows = $this->makeTableRows($cells);
-        
-        $headersLabels = array_keys($cells[0] ?? []);
-        $headers = $this->makeTableHeaders($headersLabels);
-
-        
+        return $this->tableComponent($util, $headers, $rows);
 
     }
 
-    public function makeTableRows(array $cells): BackendComponent|CompoundComponent
+    public function tableAction(Model $model)
     {
-        return TableComponentUtil::rows(
-            cells: $cells
+        return new TableRowsAction(
+            model: $model,
+            component: FluxBackendComponent::class,
+            type: FluxComponentEnum::TD,
         );
     }
 
-    public function makeTableHeaders(array $headersLabels): array
+    public function tableRows(TableComponentUtil $util, array $outputArray): BackendComponent|CompoundComponent
     {
-        $headers = [];
-        foreach($headersLabels as $label) {
-            $headers[] = TableComponentUtil::headers(
-                headers: $label
-            );
-        }
+        return $util->rows(
+            cells: $outputArray,
+            type: FluxComponentEnum::TR,
+        );
+    }
 
-        return $headers;
-        
+    public function tableComponent(TableComponentUtil $util, array $headers, array $rows): BackendComponent|CompoundComponent
+    {
+       $tableContents = [
+            $util->tHead(
+                headers: $headers,
+                type: FluxComponentEnum::THEAD
+            ),
+            $util->tBody(
+                rows: $rows,
+                type: FluxComponentEnum::TBODY
+            ),
+        ];
+
+        return $util->table(
+            contents: $tableContents,
+            type: FluxComponentEnum::TABLE
+        );
+    }
+
+    public function tableHeaders(TableComponentUtil $util, $outputArray): array
+    {
+        return array_map(function ($key) use ($util) {
+            return $util->header(
+                header: $key,
+                type: FluxComponentEnum::TH
+            );
+        },
+        array_keys($outputArray));
+    }
+
+    public function tableOptions(TableRowsAction $action): void
+    {
+        $recipe = new TableRowsRecipe(
+            
+        );
+
+        $action->setExtraCell('settings', $recipe);
     }
 
 }

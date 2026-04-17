@@ -27,7 +27,7 @@ class LaravelFactoryAction extends Action implements ActionInterface
 
         $name = $input->getName();
 
-        /** @var LaravelFactoryRecipe $recipe */
+        /** @var ?LaravelFactoryRecipe $recipe */
         $recipe = $input->getRecipe($this->getIdentifier());
         $faker = $this->faker;
 

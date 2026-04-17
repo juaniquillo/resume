@@ -10,8 +10,8 @@ use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
-use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Containers\InputComponentOutput;
@@ -32,7 +32,7 @@ trait IsCrud
         return '';
     }
 
-    public function make(?array $inputs = null): InputCollection
+    public function make(?array $inputs = null): InputCollectionInterface
     {
         return CrudAssistant::make($inputs ?? $this->inputsArray());
     }
@@ -83,7 +83,7 @@ trait IsCrud
         return $inputs->toArray();
     }
 
-    public function spanFullContainer(array $contents): InputCollection
+    public function spanFullContainer(array $contents): InputCollectionInterface
     {
         return CrudAssistant::make($contents)
             ->setName('span_full_container')

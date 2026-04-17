@@ -12,7 +12,8 @@ use App\Cruds\Squema\Volunteers\Inputs\SummaryFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UrlFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UserFactory;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 final class VolunteersCrud implements CrudInterface
 {
@@ -51,9 +52,9 @@ final class VolunteersCrud implements CrudInterface
         return route('dashboard.volunteers.edit');
     }
 
-    public function formWithTextareaSpanFull(?array $inputs = null): MainBackendComponent
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        $inputs = $inputs ?? $this->inputsArray();
+        $inputs = $this->inputsArray();
         $summary = $inputs['summary'] ?? null;
 
         if ($summary) {

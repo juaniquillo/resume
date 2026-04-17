@@ -13,8 +13,6 @@ use Juaniquillo\BackendComponents\Contracts\AttributeBag;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\PathComponent;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
-use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 
 use function Juaniquillo\BackendComponents\backendComponentNamespace;
 use function Juaniquillo\BackendComponents\isBackedEnum;
@@ -27,7 +25,6 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
 
     public function __construct(
         private string|BackedEnum $name,
-        private ThemeManager $themeManager = new DefaultThemeManager
     ) {}
 
     /**

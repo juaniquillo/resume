@@ -4,6 +4,7 @@ namespace App\Cruds\Actions\Presenters;
 
 use App\Support\Helpers;
 use BackedEnum;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -23,17 +24,18 @@ class TableRowsAction extends Action implements ActionInterface
 {
     public function __construct(
         private Model $model,
-        private ThemeManager $themeManager = new DefaultThemeManager(),
+        private ThemeManager $themeManager = new DefaultThemeManager,
         private array $themes = [],
         private array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        /** @var class-string<BackendComponent|CompoundComponent> */
         private string $component = MainBackendComponent::class,
         private string|BackedEnum $type = ComponentEnum::TD,
-    ) 
-    {
-        $this->output == new DataContainer();
+        /** @var array<string, TableRowsRecipe> $extraCells */
+        private array $extraCells = [],
+    ) {
+        $this->output == new DataContainer;
     }
-    
+
     public function getModel(): Model
     {
         return $this->model;
@@ -45,63 +47,86 @@ class TableRowsAction extends Action implements ActionInterface
 
         return $this;
     }
+    public function setExtraCell(string $identifier, TableRowsRecipe $recipe)
+    {
+        $this->extraCells[$identifier] = $recipe;
+
+        return $this;
+    }
 
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
     {
-        $model =  $this->getModel();
+        $model = $this->getModel();
         $output = $this->getOutput();
         $name = $input->getName();
+        $label = $input->getLabel() ?? $input->getName();
 
         $value = $model->{$name} ?? null;
 
         /** @var TableRowsRecipe $recipe */
         $recipe = $input->getRecipe($this->getIdentifier());
 
-        $cellValue = $this->resolveValue($value, $recipe);
+        $resolvedValue = $this->resolveValue($value, $recipe);
 
         $output->set(
-            $name,
-            $this->resolveCellComponent($recipe, $cellValue)
+            $label,
+            $this->resolveCellComponent($resolvedValue, $recipe)
         );
-        
+
+        return $output;
+
     }
 
-    public function resolveCellComponent(TableRowsRecipe|RecipeInterface $recipe, $value): BackendComponent|CompoundComponent
+    public function resolveValue(?string $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): ?string
     {
-        /** @var Closure($value): (BackendComponent|CompoundComponent)|null */
-        $callback = $recipe->cellComponent ?? null;
-
-        if (Helpers::isClosure($callback)) {
-            return $callback($value);
-        }
-
-        $componentClass = $recipe->cellComponent ?? $this->component;
-        $componentType = $recipe->componentType ?? $this->type;
-        $manager = $recipe->themeManager ?? $this->themeManager;
-        $themes = $recipe->cellThemes ?? $this->themes;
-
-        $component = new $componentClass($componentType, $manager);
-        $component ->setThemes($themes)
-            ->setAttributes($this->attributes)
-            ->setContent($value);
-        
-        return $component;
-    }
-
-    public function resolveValue(string $value, TableRowsRecipe|RecipeInterface $recipe)
-    {
+        /** @var string|Closure(?string $value):(BackendComponent|CompoundComponent)|null $recipeValue */
         $recipeValue = $recipe->value ?? null;
 
         if (Helpers::isClosure($recipeValue)) {
             return $recipeValue($value);
         }
 
-        if($recipeValue) {
+        if ($recipeValue) {
             return $recipeValue;
         }
 
         return $value;
     }
 
+    public function resolveCellComponent(string|BackendComponent|CompoundComponent|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): BackendComponent|CompoundComponent
+    {
+        /** @var ?Closure($value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
+        $callback = $recipe->callback ?? null;
+
+        $componentClass = $recipe->component ?? $this->component;
+        $componentType = $recipe->type ?? $this->type;
+        $manager = $recipe->themeManager ?? $this->themeManager;
+        $themes = $recipe->themes ?? $this->themes;
+        $attributes = $recipe->attributes ?? $this->attributes;
+
+
+        $component = new $componentClass($componentType, $manager);
+        $component->setAttributes($attributes)
+            ->setContent($value);
+
+        if ($themes) {
+            $component->setThemes($themes);
+        }
+
+        if (Helpers::isClosure($callback)) {
+            return $callback($value, $component);
+        }
+
+        return $component;
+    }
+    
+    public function cleanup(): static
+    {
+        foreach($this->extraCells as $name => $cell) {
+            
+        }
+
+        return $this;
+    }
 
 }

@@ -9,15 +9,28 @@ class WorkController extends Controller
 {
     public function index(Request $request)
     {
+        $works = $request->user()
+            ->works()
+            ->latest()
+            ->get();
+
         $values = $request->old();
         $errors = $request->session()->get('errors')?->toArray() ?? [];
+        $table = null;
 
-        $form = WorksCrud::build(
+        $crud = WorksCrud::build(
             values: $values,
             errors: $errors,
-        )->formWithTextareaSpanFull();
+        );
+
+        if (! $works->isEmpty()) {
+            $table = $crud->makeTable($works);
+        }
+
+        $form = $crud->formWithTextareaSpanFull();
 
         return view('dashboard.works.index')
-            ->with('form', $form);
+            ->with('form', $form)
+            ->with('table', $table);
     }
 }

@@ -5,4 +5,8 @@
     <div class="max-w-xl mt-6">
         {{ $form }}
     </div>
+
+    <div class="mt-6">
+        {{ $table }}
+    </div>
 </x-layouts::app>

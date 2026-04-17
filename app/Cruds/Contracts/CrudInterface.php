@@ -5,13 +5,13 @@ namespace App\Cruds\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\CrudAssistant\InputCollection;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
 interface CrudInterface
 {
     public function inputsArray(): array;
 
-    public function make(?array $inputs = null): InputCollection;
+    public function make(?array $inputs = null): InputCollectionInterface;
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent;
 

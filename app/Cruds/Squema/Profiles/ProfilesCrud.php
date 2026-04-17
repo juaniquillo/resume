@@ -10,7 +10,7 @@ use App\Cruds\Squema\Profiles\Inputs\UrlFactory;
 use App\Cruds\Squema\Profiles\Inputs\UsernameFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProfilesCrud implements CrudInterface
+final class ProfilesCrud implements CrudInterface
 {
     use IsCrud;
 

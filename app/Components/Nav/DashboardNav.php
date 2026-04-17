@@ -15,9 +15,10 @@ class DashboardNav
      *  array{
      *    name: string,
      *    label: string,
-     *    route: string,
-     *    icon: string,
+     *    route?: string,
+     *    icon?: string,
      *    description?: string,
+     *    ignore-dashboard?: bool,
      *    sub-nav?: array<array{
      *     name: string,
      *     label: string,
@@ -98,7 +99,7 @@ class DashboardNav
         $links = [];
 
         foreach (self::items() as $item) {
-            if ($item['ignore-dashboard'] ?? false) {
+            if ($item['ignore-dashboard']) {
                 continue;
             }
 

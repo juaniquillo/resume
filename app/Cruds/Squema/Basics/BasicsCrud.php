@@ -14,7 +14,8 @@ use App\Cruds\Squema\Basics\Inputs\UrlFactory;
 use App\Cruds\Squema\Basics\Inputs\UserFactory;
 use App\Cruds\Squema\Basics\Inputs\UuidFactory;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 final class BasicsCrud implements CrudInterface
 {
@@ -55,7 +56,7 @@ final class BasicsCrud implements CrudInterface
         return route('dashboard.basics');
     }
 
-    public function formWithTextareaSpanFull(?array $values = null): MainBackendComponent
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = $this->inputsArray();
         $summary = $inputs['summary'] ?? null;

@@ -12,11 +12,11 @@ use App\Support\RequestUtils;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-use Juaniquillo\CrudAssistant\InputCollection;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
 class BasicsFormRequest extends FormRequest
 {
-    private ?InputCollection $crud = null;
+    private ?InputCollectionInterface $crud = null;
 
     /**
      * Determine if the user is authorized to make this request.

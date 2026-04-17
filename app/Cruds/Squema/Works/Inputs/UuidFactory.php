@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\Works\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -20,11 +21,21 @@ class UuidFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
+        self::ignore($input);
+
         self::form($input);
         self::validation($input);
         self::factory($input);
 
         return $input;
+    }
+
+    public static function ignore(InputInterface $input): void
+    {
+        $input->setRecipe(
+            (new TableRowsRecipe)
+                ->ignore()
+        );
     }
 
     public static function validation(InputInterface $input): void

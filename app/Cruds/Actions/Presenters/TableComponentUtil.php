@@ -12,137 +12,129 @@ use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 
 class TableComponentUtil
 {
-    public  static function headers(
-        array $headers,
-        ThemeManager $themeManager = new DefaultThemeManager(),
-        array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
-        string $component = MainBackendComponent::class,
-        string|BackedEnum $type = ComponentEnum::TR,
-    ): BackendComponent|CompoundComponent
-    {
-        return self::resolveComponent(
-            contents: $headers,
-            themeManager: $themeManager,
-            themes: $themes,
-            component: $component,
-            type: $type
-        );
-        
-    }
+    public function __construct(
+        private ThemeManager $themeManager = new DefaultThemeManager,
+        /** @var class-string<BackendComponent|CompoundComponent> */
+        private string $component = MainBackendComponent::class,
+    ) {}
 
-    public static function rows(
-       array $cells,
-       ThemeManager $themeManager = new DefaultThemeManager(),
-       array $themes = [],
-       array $attributes = [],
-       /**  @var class-string<BackendComponent, CompoundComponent> */
-       string $component = MainBackendComponent::class,
-       string|BackedEnum $type = ComponentEnum::TR,
-    ): BackendComponent|CompoundComponent
-    {
-        return self::resolveComponent(
-            contents: $cells,
-            themeManager: $themeManager,
-            themes: $themes,
-            attributes: $attributes,
-            component: $component,
-            type: $type
-        );
-    }
-
-    public  static function table(
-        array $contents,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+    public function header(
+        string $header,
+        string|BackedEnum $type = ComponentEnum::TH,
         array $themes = [],
         array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
-        string $component = MainBackendComponent::class,
-        string|BackedEnum $type = ComponentEnum::TABLE,
-    ): BackendComponent|CompoundComponent
-    {
-        return self::resolveComponent(
-            contents: $contents,
-            type: $type,
-            themeManager: $themeManager,
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
+            contents: [$header],
+            themeManager: $this->themeManager,
             themes: $themes,
             attributes: $attributes,
-            component: $component,
+            component: $this->component,
+            type: $type
         );
+
     }
 
-    public  static function tHead(
-        array $header,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+    public function rows(
+        array $cells,
+        string|BackedEnum $type = ComponentEnum::TR,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
-        string $component = MainBackendComponent::class,
-        string|BackedEnum $type = ComponentEnum::THEAD,
-    ): BackendComponent|CompoundComponent
-    {
-        return self::resolveComponent(
-            contents: $header,
-            type: $type,
-            themeManager: $themeManager,
+        array $attributes = [],
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
+            contents: $cells,
+            themeManager: $this->themeManager,
             themes: $themes,
-            component: $component,
+            attributes: $attributes,
+            component: $this->component,
+            type: $type
         );
-        
     }
 
-    public  static function headCell(
-        string $header,
-        ThemeManager $themeManager = new DefaultThemeManager(),
+    public function table(
+        array $contents,
+        string|BackedEnum $type = ComponentEnum::TABLE,
         array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
-        string $component = MainBackendComponent::class,
+        array $attributes = [],
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
+            contents: $contents,
+            type: $type,
+            themeManager: $this->themeManager,
+            themes: $themes,
+            attributes: $attributes,
+            component: $this->component,
+        );
+    }
+
+    public function tHead(
+        array $headers,
+        string|BackedEnum $type = ComponentEnum::THEAD,
+        array $themes = [],
+        array $attributes = [],
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
+            contents: $headers,
+            type: $type,
+            themeManager: $this->themeManager,
+            themes: $themes,
+            attributes: $attributes,
+            component: $this->component,
+        );
+
+    }
+
+    public function headCell(
+        string $header,
         string|BackedEnum $type = ComponentEnum::TH,
-    ): BackendComponent|CompoundComponent
-    {
-        return  self::resolveComponent(
+        array $themes = [],
+        array $attributes = [],
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
             contents: [$header],
             type: $type,
-            themeManager: $themeManager,
+            themeManager: $this->themeManager,
             themes: $themes,
-            component: $component,
+            attributes: $attributes,
+            component: $this->component,
         );
     }
-    
-    public  static function tBody(
+
+    public function tBody(
         array $rows,
-        ThemeManager $themeManager = new DefaultThemeManager(),
-        array $themes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
-        string $component = MainBackendComponent::class,
         string|BackedEnum $type = ComponentEnum::TBODY,
-    ): BackendComponent|CompoundComponent
-    {
-        return self::resolveComponent(
+        array $themes = [],
+        array $attributes = [],
+    ): BackendComponent|CompoundComponent {
+        return $this->resolveComponent(
             contents: $rows,
             type: $type,
-            themeManager: $themeManager,
+            themeManager: $this->themeManager,
             themes: $themes,
-            component: $component,
+            attributes: $attributes,
+            component: $this->component,
         );
-        
+
     }
-    
-    public  static function resolveComponent(
+
+    public function resolveComponent(
         array $contents,
         string|BackedEnum $type,
         array $themes = [],
-        ThemeManager $themeManager = new DefaultThemeManager(),
         array $attributes = [],
-        /**  @var class-string<BackendComponent, CompoundComponent> */
+        ThemeManager $themeManager = new DefaultThemeManager,
+        /** @var class-string<BackendComponent|CompoundComponent> */
         string $component = MainBackendComponent::class,
-    ) : BackendComponent|CompoundComponent
-    {
-        $component = new $component($type, $themeManager);
-        $component ->setThemes($themes)
-            ->setAttributes($attributes)
+    ): BackendComponent|CompoundComponent {
+        $component = new $component($type, $this->themeManager);
+
+        $component->setAttributes($attributes)
             ->setContents($contents);
-        
+
+        if (! empty($themes)) {
+            $component->setThemes($themes);
+        }
+
         return $component;
     }
-
 }

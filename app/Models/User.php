@@ -46,13 +46,11 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    /** @return HasOne<Basic, User> */
     public function basics(): HasOne
     {
         return $this->hasOne(Basic::class);
     }
 
-    /** @return HasOne<Work, User> */
     public function works(): HasMany
     {
         return $this->hasMany(Work::class);
