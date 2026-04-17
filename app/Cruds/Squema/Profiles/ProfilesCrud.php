@@ -22,7 +22,7 @@ final class ProfilesCrud implements CrudInterface
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
-        return new static(
+        return new self(
             values: $values,
             errors: $errors,
             model: $model,

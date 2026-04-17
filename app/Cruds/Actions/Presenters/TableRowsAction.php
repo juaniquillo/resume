@@ -47,6 +47,7 @@ class TableRowsAction extends Action implements ActionInterface
 
         return $this;
     }
+
     public function setExtraCell(string $identifier, TableRowsRecipe $recipe)
     {
         $this->extraCells[$identifier] = $recipe;
@@ -104,7 +105,6 @@ class TableRowsAction extends Action implements ActionInterface
         $themes = $recipe->themes ?? $this->themes;
         $attributes = $recipe->attributes ?? $this->attributes;
 
-
         $component = new $componentClass($componentType, $manager);
         $component->setAttributes($attributes)
             ->setContent($value);
@@ -119,14 +119,13 @@ class TableRowsAction extends Action implements ActionInterface
 
         return $component;
     }
-    
+
     public function cleanup(): static
     {
-        foreach($this->extraCells as $name => $cell) {
-            
+        foreach ($this->extraCells as $name => $cell) {
+
         }
 
         return $this;
     }
-
 }

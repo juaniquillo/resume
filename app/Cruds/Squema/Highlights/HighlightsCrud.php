@@ -11,13 +11,11 @@ final class HighlightsCrud implements CrudInterface
 {
     use IsCrud;
 
-    
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
     ) {}
-
 
     public function inputsArray(): array
     {

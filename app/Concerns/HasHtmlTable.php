@@ -66,7 +66,7 @@ trait HasHtmlTable
 
     public function tableComponent(TableComponentUtil $util, array $headers, array $rows): BackendComponent|CompoundComponent
     {
-       $tableContents = [
+        $tableContents = [
             $util->tHead(
                 headers: $headers,
                 type: FluxComponentEnum::THEAD
@@ -91,16 +91,13 @@ trait HasHtmlTable
                 type: FluxComponentEnum::TH
             );
         },
-        array_keys($outputArray));
+            array_keys($outputArray));
     }
 
     public function tableOptions(TableRowsAction $action): void
     {
-        $recipe = new TableRowsRecipe(
-            
-        );
+        $recipe = new TableRowsRecipe;
 
         $action->setExtraCell('settings', $recipe);
     }
-
 }

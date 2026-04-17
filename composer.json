@@ -73,7 +73,11 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@lint:check",
+            "@php artisan test"
+        ],
+        "qa": [
+            "@php artisan config:clear --ansi",
+            "@composer lint",
             "@php artisan test"
         ],
         "post-autoload-dump": [
