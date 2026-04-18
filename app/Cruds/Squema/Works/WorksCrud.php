@@ -51,7 +51,7 @@ final class WorksCrud implements CrudInterface
 
     public function formAction(): string
     {
-        return route('dashboard.works.edit');
+        return route('dashboard.works.store');
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent

@@ -4,12 +4,10 @@ namespace App\Cruds\Actions\Presenters;
 
 use BackedEnum;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\BackendComponents\MainBackendComponent;
-use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 use Juaniquillo\CrudAssistant\Concerns\IsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\RecipeInterface;
 
@@ -18,14 +16,14 @@ class TableRowsRecipe implements RecipeInterface
     use IsRecipe;
 
     public function __construct(
-        /** @var string|Closure(?string $value):(BackendComponent|CompoundComponent)|null $value */
+        /** @var string|Closure(?string $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
         public readonly string|Closure|null $value = null,
-        public readonly ThemeManager $themeManager = new DefaultThemeManager,
+        public readonly ?ThemeManager $themeManager = null,
         public readonly array $themes = [],
         public readonly array $attributes = [],
-        /** @var class-string<BackendComponent|CompoundComponent> */
-        public readonly string $component = MainBackendComponent::class,
-        public readonly string|BackedEnum $type = ComponentEnum::TD,
+        /** @var ?class-string<BackendComponent|CompoundComponent> */
+        public readonly ?string $component = null,
+        public readonly string|BackedEnum|null $type = null,
         /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
         public readonly ?Closure $callback = null,
     ) {}

@@ -30,10 +30,10 @@ class TableRowsAction extends Action implements ActionInterface
         /** @var class-string<BackendComponent|CompoundComponent> */
         private string $component = MainBackendComponent::class,
         private string|BackedEnum $type = ComponentEnum::TD,
-        /** @var array<string, TableRowsRecipe> $extraCells */
+        /** @var array<string, TableRowsRecipe|RecipeInterface> $extraCells */
         private array $extraCells = [],
     ) {
-        $this->output == new DataContainer;
+        $this->output = new DataContainer;
     }
 
     public function getModel(): Model
@@ -80,11 +80,11 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function resolveValue(?string $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): string|BackendComponent|CompoundComponent|null
     {
-        /** @var string|Closure(?string $value):(BackendComponent|CompoundComponent)|null $recipeValue */
+        /** @var string|Closure(?string $value, Model $model):(string|BackendComponent|CompoundComponent)|null $recipeValue */
         $recipeValue = $recipe->value ?? null;
 
         if (Helpers::isClosure($recipeValue)) {
-            return $recipeValue($value);
+            return $recipeValue($value, $this->model);
         }
 
         if ($recipeValue) {
@@ -107,7 +107,7 @@ class TableRowsAction extends Action implements ActionInterface
 
         $component = new $componentClass($componentType, $manager);
         $component->setAttributes($attributes)
-            ->setContent($value);
+            ->setContent($value ?? '');
 
         if ($themes) {
             $component->setThemes($themes);
@@ -122,8 +122,11 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function cleanup(): static
     {
-        foreach ($this->extraCells as $name => $cell) {
+        foreach ($this->extraCells as $name => $recipe) {
+            $value = $this->resolveValue($name, $recipe);
+            $component = $this->resolveCellComponent($value, $recipe);
 
+            $this->output->set($name, $component);
         }
 
         return $this;

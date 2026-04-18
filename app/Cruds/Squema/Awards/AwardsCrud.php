@@ -45,7 +45,7 @@ final class AwardsCrud implements CrudInterface
 
     public function formAction(): string
     {
-        return route('dashboard.awards.edit');
+        return route('dashboard.awards.store');
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent

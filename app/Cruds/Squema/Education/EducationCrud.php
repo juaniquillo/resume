@@ -49,6 +49,6 @@ final class EducationCrud implements CrudInterface
 
     public function formAction(): string
     {
-        return route('dashboard.education.edit');
+        return route('dashboard.education.store');
     }
 }

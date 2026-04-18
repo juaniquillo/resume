@@ -8,6 +8,7 @@ enum FluxComponentEnum: string
     case CARD = 'card';
     case HEADING = 'heading';
     case TEXT = 'text';
+    case BUTTON = 'button';
     case ICON = 'icon';
 
     // forms
@@ -15,7 +16,6 @@ enum FluxComponentEnum: string
     case TEXT_INPUT = 'input';
     case TEXT_FILE = 'file';
     case TEXTAREA = 'textarea';
-    case BUTTON = 'button';
 
     // tables
     case TABLE = 'table';

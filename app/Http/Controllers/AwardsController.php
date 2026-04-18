@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AwardsController extends Controller
 {
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $crud = AwardsCrud::build(
             values: $request->old(),
@@ -16,5 +16,11 @@ class AwardsController extends Controller
 
         return view('dashboard.awards.index')
             ->with('form', $crud->formWithTextareaSpanFull());
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: Implement saving logic
+        return back();
     }
 }

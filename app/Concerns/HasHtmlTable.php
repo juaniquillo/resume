@@ -2,6 +2,7 @@
 
 namespace App\Concerns;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableComponentUtil;
@@ -11,10 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 trait HasHtmlTable
 {
-    public function makeTable(Collection $collection): BackendComponent|CompoundComponent|null
+    public function makeTable(Collection|LengthAwarePaginator $collection): BackendComponent|CompoundComponent|null
     {
         if ($collection->isEmpty()) {
             return null;
@@ -30,7 +32,16 @@ trait HasHtmlTable
 
         foreach ($collection as $key => $model) {
 
-            $action = $this->tableAction($model);
+            $action = new TableRowsAction(
+                model: $model,
+                component: FluxBackendComponent::class,
+                type: FluxComponentEnum::TD,
+                // attributes: ['class' => 'align-top'],
+            );
+
+            /** Row actions */
+            $this->tableOptions($action);
+
             $output = $crud->execute($action);
 
             $outputArray = $output->toArray();
@@ -45,15 +56,6 @@ trait HasHtmlTable
 
         return $this->tableComponent($util, $headers, $rows);
 
-    }
-
-    public function tableAction(Model $model)
-    {
-        return new TableRowsAction(
-            model: $model,
-            component: FluxBackendComponent::class,
-            type: FluxComponentEnum::TD,
-        );
     }
 
     public function tableRows(TableComponentUtil $util, array $outputArray): BackendComponent|CompoundComponent
@@ -94,10 +96,22 @@ trait HasHtmlTable
             array_keys($outputArray));
     }
 
+    /**
+     * Runs once after all inputs
+     * are processed
+     */
     public function tableOptions(TableRowsAction $action): void
     {
-        $recipe = new TableRowsRecipe;
+        $recipe = new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    // ->setAttribute('href', )
+                    ->setContent('Edit')
+                    ->setAttribute('size', 'xs');
+            }
+        );
 
-        $action->setExtraCell('settings', $recipe);
+        $action->setExtraCell('Settings', $recipe);
     }
 }

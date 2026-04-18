@@ -2,10 +2,17 @@
 
 namespace App\Cruds\Squema\Works\Inputs;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -26,6 +33,7 @@ class SummaryFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
 
         return $input;
     }
@@ -66,5 +74,44 @@ class SummaryFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function ($value) {
+                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                        ->setContent($value)
+                        ->setTheme('spacing', 'm-top-sm')
+                        ->setTheme('text', 'nl2br');
+
+                    return SummaryFactory::tableModal($modalContent, SummaryFactory::LABEL);
+                }
+            )
+        );
+    }
+
+    public static function tableModal(string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
+    {
+        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+            ->setContents([
+                'button' => FluxComponentBuilder::make('modal.trigger')
+                    ->setAttribute('name', 'flux-modal-confirm')
+                    ->setContent(
+                        FluxComponentBuilder::make('button')
+                            ->setAttribute('variant', $triggerType)
+                            ->setAttribute('size', 'xs')
+                            ->setContent($buttonLabel)
+                    ),
+                'modal' => FluxComponentBuilder::make('modal')
+                    ->setAttribute('name', 'flux-modal-confirm')
+                    // ->setAttribute(':dismissible', 'false')
+                    ->setContents([
+                        FluxComponentBuilder::make('heading')
+                            ->setContent($heading),
+                        $content,
+                    ]),
+            ]);
     }
 }

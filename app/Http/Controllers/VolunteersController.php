@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class VolunteersController extends Controller
 {
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $crud = VolunteersCrud::build(
             values: $request->old(),
@@ -16,5 +16,11 @@ class VolunteersController extends Controller
 
         return view('dashboard.volunteers.index')
             ->with('form', $crud->formWithTextareaSpanFull());
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: Implement saving logic
+        return back();
     }
 }

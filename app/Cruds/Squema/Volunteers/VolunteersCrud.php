@@ -49,7 +49,7 @@ final class VolunteersCrud implements CrudInterface
 
     public function formAction(): string
     {
-        return route('dashboard.volunteers.edit');
+        return route('dashboard.volunteers.store');
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent

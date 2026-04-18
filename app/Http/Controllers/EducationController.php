@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $crud = EducationCrud::build(
             values: $request->old(),
@@ -16,5 +16,11 @@ class EducationController extends Controller
 
         return view('dashboard.education.index')
             ->with('form', $crud->form());
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: Implement saving logic
+        return back();
     }
 }
