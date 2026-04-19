@@ -2,6 +2,11 @@
 
 namespace App\Cruds\Squema\Volunteers;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Concerns\HasHtmlTable;
+use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Volunteers\Inputs\EndsAtFactory;
@@ -11,13 +16,17 @@ use App\Cruds\Squema\Volunteers\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Volunteers\Inputs\SummaryFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UrlFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UserFactory;
+use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class VolunteersCrud implements CrudInterface
 {
-    use IsCrud;
+    use HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],
@@ -66,5 +75,49 @@ final class VolunteersCrud implements CrudInterface
         return $this->form(
             inputs: $inputs,
         );
+    }
+
+    /**
+     * Runs once after all inputs
+     * are processed
+     */
+    private function tableOptions(TableRowsAction $action): void
+    {
+        $recipe = new TableRowsRecipe(
+            value: function ($value, Model $model) {
+
+                /** @var Volunteer $volunteer */
+                $volunteer = $model;
+
+                $contents = [
+                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('href', route('dashboard.volunteers.edit', $volunteer->id))
+                        ->setContent('Edit')
+                        ->setAttribute('size', 'xs')
+                        ->setTheme('cursor', 'pointer'),
+                    ComponentBuilder::make(ComponentEnum::FORM)
+                        ->setAttribute('action', route('dashboard.volunteers.destroy', $volunteer->id))
+                        ->setAttribute('method', 'delete')
+                        ->setContent(
+                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                                ->setAttribute('type', 'submit')
+                                ->setContent('Delete')
+                                ->setAttribute('size', 'xs')
+                                ->setAttribute('variant', 'danger')
+                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this volunteer?')")
+                                ->setTheme('cursor', 'pointer'),
+                        ),
+                ];
+
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setTheme('display', 'flex')
+                    ->setTheme('flex', [
+                        'gap-sm',
+                    ]);
+            }
+        );
+
+        $action->setExtraCell('Settings', $recipe);
     }
 }

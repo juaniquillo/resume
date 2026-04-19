@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasHighlights;
+use App\Models\Concerns\Uuidable;
 use Database\Factories\VolunteerFactory;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,9 +25,11 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $updated_at
  * @property-read Collection<int, Highlight> $highlights
  */
+#[Guarded([])]
 class Volunteer extends Model
 {
     /** @use HasFactory<VolunteerFactory> */
     use HasFactory,
-        HasHighlights;
+        HasHighlights,
+        Uuidable;
 }

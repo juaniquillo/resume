@@ -39,26 +39,36 @@ Route::middleware(['auth', 'verified'])
         Route::post('works/{id}', [WorkController::class, 'update'])->name('dashboard.works.update');
         Route::delete('works/{id}', [WorkController::class, 'destroy'])->name('dashboard.works.destroy');
 
-        Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
+        // Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
 
         /**
          * Volunteers
          */
         Route::get('volunteers', [VolunteersController::class, 'index'])->name('dashboard.volunteers');
         Route::post('volunteers', [VolunteersController::class, 'store'])->name('dashboard.volunteers.store');
-        Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
+        Route::get('volunteers/{id}/edit', [VolunteersController::class, 'edit'])->name('dashboard.volunteers.edit');
+        Route::post('volunteers/{id}', [VolunteersController::class, 'update'])->name('dashboard.volunteers.update');
+        Route::delete('volunteers/{id}', [VolunteersController::class, 'destroy'])->name('dashboard.volunteers.destroy');
+
+        // Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
 
         /**
          * Education
          */
         Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
         Route::post('education', [EducationController::class, 'store'])->name('dashboard.education.store');
+        Route::get('education/{id}/edit', [EducationController::class, 'edit'])->name('dashboard.education.edit');
+        Route::post('education/{id}', [EducationController::class, 'update'])->name('dashboard.education.update');
+        Route::delete('education/{id}', [EducationController::class, 'destroy'])->name('dashboard.education.destroy');
 
         /**
          * Awards
          */
         Route::get('awards', [AwardsController::class, 'index'])->name('dashboard.awards');
         Route::post('awards', [AwardsController::class, 'store'])->name('dashboard.awards.store');
+        Route::get('awards/{id}/edit', [AwardsController::class, 'edit'])->name('dashboard.awards.edit');
+        Route::post('awards/{id}', [AwardsController::class, 'update'])->name('dashboard.awards.update');
+        Route::delete('awards/{id}', [AwardsController::class, 'destroy'])->name('dashboard.awards.destroy');
 
     });
 
