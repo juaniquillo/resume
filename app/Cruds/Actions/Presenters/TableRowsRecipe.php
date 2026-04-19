@@ -16,6 +16,7 @@ class TableRowsRecipe implements RecipeInterface
     use IsRecipe;
 
     public function __construct(
+        public readonly ?string $label = null,
         /** @var string|Closure(?string $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
         public readonly string|Closure|null $value = null,
         public readonly ?ThemeManager $themeManager = null,

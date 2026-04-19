@@ -16,6 +16,7 @@ class DashboardNav
      *    name: string,
      *    label: string,
      *    route?: string,
+     *    active?: array,
      *    icon?: string,
      *    description?: string,
      *    ignore-dashboard?: bool,
@@ -24,6 +25,7 @@ class DashboardNav
      *     label: string,
      *     route: string,
      *     icon: string,
+     *     active?: array,
      *   }>
      *
      *  }
@@ -67,6 +69,7 @@ class DashboardNav
                 'name' => 'works',
                 'label' => 'Work Experience',
                 'route' => 'dashboard.works',
+                'active' => ['dashboard.works.edit'],
                 'icon' => 'briefcase',
                 'description' => 'Add, edit and manage your works.',
             ],

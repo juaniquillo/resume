@@ -7,11 +7,9 @@ use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Cruds\Squema\Basics\Inputs\PhoneFactory;
-use App\Cruds\Squema\Basics\Inputs\UuidFactory;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
 class BasicsFormRequest extends FormRequest
@@ -39,15 +37,10 @@ class BasicsFormRequest extends FormRequest
 
         $this->merge([
             PhoneFactory::NAME => RequestUtils::removePhoneSymbols($phone),
-            UuidFactory::NAME => Str::uuid()->toString(),
         ]);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
+    /** @return array<string, ValidationRule|array<mixed>|string> */
     public function rules(): array
     {
         return $this->crud->execute(

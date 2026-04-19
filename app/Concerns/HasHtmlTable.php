@@ -2,17 +2,14 @@
 
 namespace App\Concerns;
 
-use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableComponentUtil;
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 trait HasHtmlTable
 {
@@ -58,7 +55,7 @@ trait HasHtmlTable
 
     }
 
-    public function tableRows(TableComponentUtil $util, array $outputArray): BackendComponent|CompoundComponent
+    private function tableRows(TableComponentUtil $util, array $outputArray): BackendComponent|CompoundComponent
     {
         return $util->rows(
             cells: $outputArray,
@@ -66,7 +63,7 @@ trait HasHtmlTable
         );
     }
 
-    public function tableComponent(TableComponentUtil $util, array $headers, array $rows): BackendComponent|CompoundComponent
+    private function tableComponent(TableComponentUtil $util, array $headers, array $rows): BackendComponent|CompoundComponent
     {
         $tableContents = [
             $util->tHead(
@@ -85,7 +82,7 @@ trait HasHtmlTable
         );
     }
 
-    public function tableHeaders(TableComponentUtil $util, $outputArray): array
+    private function tableHeaders(TableComponentUtil $util, $outputArray): array
     {
         return array_map(function ($key) use ($util) {
             return $util->header(
@@ -96,22 +93,5 @@ trait HasHtmlTable
             array_keys($outputArray));
     }
 
-    /**
-     * Runs once after all inputs
-     * are processed
-     */
-    public function tableOptions(TableRowsAction $action): void
-    {
-        $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    // ->setAttribute('href', )
-                    ->setContent('Edit')
-                    ->setAttribute('size', 'xs');
-            }
-        );
-
-        $action->setExtraCell('Settings', $recipe);
-    }
+    private function tableOptions(TableRowsAction $action): void {}
 }

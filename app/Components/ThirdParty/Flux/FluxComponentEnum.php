@@ -9,6 +9,7 @@ enum FluxComponentEnum: string
     case HEADING = 'heading';
     case TEXT = 'text';
     case BUTTON = 'button';
+    case BADGE = 'badge';
     case ICON = 'icon';
 
     // forms

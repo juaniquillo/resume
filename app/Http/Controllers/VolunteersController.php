@@ -14,6 +14,8 @@ class VolunteersController extends Controller
             errors: $request->session()->get('errors')?->toArray() ?? [],
         );
 
+        $crud->setFormAction(route('dashboard.volunteers.store'));
+
         return view('dashboard.volunteers.index')
             ->with('form', $crud->formWithTextareaSpanFull());
     }

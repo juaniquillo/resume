@@ -5,6 +5,7 @@ namespace App\Cruds\Actions\Presenters;
 use App\Support\Helpers;
 use BackedEnum;
 use Closure;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -57,15 +58,20 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
     {
-        $model = $this->getModel();
-        $output = $this->getOutput();
-        $name = $input->getName();
-        $label = $input->getLabel() ?? $input->getName();
-
-        $value = $model->{$name} ?? null;
 
         /** @var TableRowsRecipe $recipe */
         $recipe = $input->getRecipe($this->getIdentifier());
+
+        $name = $input->getName();
+
+        if (! $name) {
+            throw new Exception('The input name is required.');
+        }
+
+        $model = $this->getModel();
+        $output = $this->getOutput();
+        $label = $recipe->label ?? $input->getLabel() ?? $name;
+        $value = $model->{$name} ?? null;
 
         $resolvedValue = $this->resolveValue($value, $recipe);
 
@@ -96,6 +102,7 @@ class TableRowsAction extends Action implements ActionInterface
 
     public function resolveCellComponent(string|BackendComponent|CompoundComponent|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): BackendComponent|CompoundComponent
     {
+        $value = $value ?? (string) $value;
         /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
         $callback = $recipe->callback ?? null;
 
@@ -107,7 +114,7 @@ class TableRowsAction extends Action implements ActionInterface
 
         $component = new $componentClass($componentType, $manager);
         $component->setAttributes($attributes)
-            ->setContent($value ?? '');
+            ->setContent($value);
 
         if ($themes) {
             $component->setThemes($themes);

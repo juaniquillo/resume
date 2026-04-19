@@ -5,6 +5,7 @@ namespace App\Cruds\Squema\Basics\Inputs;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
+use Illuminate\Support\Facades\Route;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -29,11 +30,14 @@ class UuidFactory
 
     public static function validation(InputInterface $input): void
     {
-        $input->setRecipe(
-            (new LaravelValidationRulesRecipe([
-                'required',
-            ]))
-        );
+        if (Route::currentRouteName() === 'dashboard.works.store') {
+            $input->setRecipe(
+                (new LaravelValidationRulesRecipe([
+                    'required',
+                ]))
+            );
+        }
+
     }
 
     public static function form(InputInterface $input): void

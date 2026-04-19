@@ -14,6 +14,8 @@ class EducationController extends Controller
             errors: $request->session()->get('errors')?->toArray() ?? [],
         );
 
+        $crud->setFormAction(route('dashboard.education.store'));
+
         return view('dashboard.education.index')
             ->with('form', $crud->form());
     }

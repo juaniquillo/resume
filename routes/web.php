@@ -19,29 +19,47 @@ Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->group(function () {
 
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('basics', BasicsController::class)->name('dashboard.basics');
-    Route::post('basics', BasicsCreateController::class)->name('dashboard.basics.update');
+        /**
+         * Basics
+         */
+        Route::get('basics', BasicsController::class)->name('dashboard.basics');
+        Route::post('basics', BasicsCreateController::class)->name('dashboard.basics.update');
 
-    Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
-    Route::post('works', [WorkController::class, 'store'])->name('dashboard.works.store');
-    Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
+        Route::get('basics/locations', [BasicsLocationController::class, 'index'])->name('dashboard.basics.locations');
+        Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
 
-    Route::get('volunteers', [VolunteersController::class, 'index'])->name('dashboard.volunteers');
-    Route::post('volunteers', [VolunteersController::class, 'store'])->name('dashboard.volunteers.store');
-    Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
+        /**
+         * Works
+         */
+        Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
+        Route::post('works', [WorkController::class, 'store'])->name('dashboard.works.store');
+        Route::get('works/{id}/edit', [WorkController::class, 'edit'])->name('dashboard.works.edit');
+        Route::post('works/{id}', [WorkController::class, 'update'])->name('dashboard.works.update');
+        Route::delete('works/{id}', [WorkController::class, 'destroy'])->name('dashboard.works.destroy');
 
-    Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
-    Route::post('education', [EducationController::class, 'store'])->name('dashboard.education.store');
+        Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
 
-    Route::get('awards', [AwardsController::class, 'index'])->name('dashboard.awards');
-    Route::post('awards', [AwardsController::class, 'store'])->name('dashboard.awards.store');
+        /**
+         * Volunteers
+         */
+        Route::get('volunteers', [VolunteersController::class, 'index'])->name('dashboard.volunteers');
+        Route::post('volunteers', [VolunteersController::class, 'store'])->name('dashboard.volunteers.store');
+        Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
 
-    Route::get('basics/locations', [BasicsLocationController::class, 'index'])->name('dashboard.basics.locations');
+        /**
+         * Education
+         */
+        Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
+        Route::post('education', [EducationController::class, 'store'])->name('dashboard.education.store');
 
-    Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
+        /**
+         * Awards
+         */
+        Route::get('awards', [AwardsController::class, 'index'])->name('dashboard.awards');
+        Route::post('awards', [AwardsController::class, 'store'])->name('dashboard.awards.store');
 
-});
+    });
 
 require __DIR__.'/settings.php';

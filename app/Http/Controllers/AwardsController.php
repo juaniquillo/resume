@@ -14,6 +14,8 @@ class AwardsController extends Controller
             errors: $request->session()->get('errors')?->toArray() ?? [],
         );
 
+        $crud->setFormAction(route('dashboard.awards.store'));
+
         return view('dashboard.awards.index')
             ->with('form', $crud->formWithTextareaSpanFull());
     }

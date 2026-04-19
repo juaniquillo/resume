@@ -2,7 +2,11 @@
 
 namespace App\Cruds\Squema\Works;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Concerns\HasHtmlTable;
+use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Works\Inputs\EndsAtFactory;
@@ -12,9 +16,12 @@ use App\Cruds\Squema\Works\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Works\Inputs\SummaryFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
+use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class WorksCrud implements CrudInterface
 {
@@ -49,11 +56,6 @@ final class WorksCrud implements CrudInterface
         );
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.works.store');
-    }
-
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = self::inputsArray();
@@ -67,5 +69,49 @@ final class WorksCrud implements CrudInterface
         return $this->form(
             inputs: $inputs,
         );
+    }
+
+    /**
+     * Runs once after all inputs
+     * are processed
+     */
+    private function tableOptions(TableRowsAction $action): void
+    {
+        $recipe = new TableRowsRecipe(
+            value: function ($value, Model $model) {
+
+                /** @var Work $work */
+                $work = $model;
+
+                $contents = [
+                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('href', route('dashboard.works.edit', $work->id))
+                        ->setContent('Edit')
+                        ->setAttribute('size', 'xs')
+                        ->setTheme('cursor', 'pointer'),
+                    ComponentBuilder::make(ComponentEnum::FORM)
+                        ->setAttribute('action', route('dashboard.works.destroy', $work->id))
+                        ->setAttribute('method', 'delete')
+                        ->setContent(
+                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                                ->setAttribute('type', 'submit')
+                                ->setContent('Delete')
+                                ->setAttribute('size', 'xs')
+                                ->setAttribute('variant', 'danger')
+                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
+                                ->setTheme('cursor', 'pointer'),
+                        ),
+                ];
+
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setTheme('display', 'flex')
+                    ->setTheme('flex', [
+                        'gap-sm',
+                    ]);
+            }
+        );
+
+        $action->setExtraCell('Settings', $recipe);
     }
 }

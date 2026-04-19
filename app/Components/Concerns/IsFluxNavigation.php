@@ -33,13 +33,13 @@ trait IsFluxNavigation
                     $subItems[] = self::single($subItem);
                 }
 
-                $itemComponent = $group->setContents($subItems);
+                $items[] = $group->setContents($subItems);
 
-            } else {
-                $itemComponent = self::single($item);
+                continue;
+
             }
 
-            $items[] = $itemComponent;
+            $items[] = self::single($item);
         }
 
         // dump($items);
@@ -67,7 +67,9 @@ trait IsFluxNavigation
             ])
             ->setContent($item['label']);
 
-        if (request()->routeIs($item['route'])) {
+        $active = isset($item['active']) ? $item['active'] : [];
+
+        if (request()->routeIs($item['route'], ...$active)) {
             $itemComponent->setAttribute('current', 1);
         }
 

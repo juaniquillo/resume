@@ -9,19 +9,22 @@ use Juaniquillo\BackendComponents\Components\DefaultAttributeBag;
 use Juaniquillo\BackendComponents\Concerns\HasContent;
 use Juaniquillo\BackendComponents\Concerns\HasPath;
 use Juaniquillo\BackendComponents\Concerns\IsBackendComponent;
+use Juaniquillo\BackendComponents\Concerns\IsThemeable;
 use Juaniquillo\BackendComponents\Contracts\AttributeBag;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\PathComponent;
+use Juaniquillo\BackendComponents\Contracts\ThemeComponent;
 
 use function Juaniquillo\BackendComponents\backendComponentNamespace;
 use function Juaniquillo\BackendComponents\isBackedEnum;
 
-final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent
+final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent, ThemeComponent
 {
     use HasContent,
         HasPath,
-        IsBackendComponent;
+        IsBackendComponent,
+        IsThemeable;
 
     public function __construct(
         private string|BackedEnum $name,

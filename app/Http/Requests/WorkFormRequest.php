@@ -5,20 +5,15 @@ namespace App\Http\Requests;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use App\Cruds\Squema\Works\WorksCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
 class WorkFormRequest extends FormRequest
 {
     private ?InputCollectionInterface $crud = null;
 
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -27,17 +22,9 @@ class WorkFormRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->crud = WorksCrud::build()->make();
-
-        $this->merge([
-            UuidFactory::NAME => Str::uuid()->toString(),
-        ]);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
+    /**  @return array<string, ValidationRule|array<mixed>|string> */
     public function rules(): array
     {
         return $this->crud->execute(
@@ -45,11 +32,7 @@ class WorkFormRequest extends FormRequest
         )->toArray();
     }
 
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array<string, string>
-     */
+    /**  @return array<string, string> */
     public function messages()
     {
         return $this->crud->execute(
@@ -57,11 +40,7 @@ class WorkFormRequest extends FormRequest
         )->toArray();
     }
 
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, string>
-     */
+    /** @return array<string, string> */
     public function attributes()
     {
         return $this->crud->execute(

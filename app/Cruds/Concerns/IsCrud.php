@@ -22,14 +22,18 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 trait IsCrud
 {
+    private ?string $formAction = null;
+
     public function inputsArray(): array
     {
         return [];
     }
 
-    public function formAction(): string
+    public function setFormAction(string $action): static
     {
-        return '';
+        $this->formAction = $action;
+
+        return $this;
     }
 
     public function make(?array $inputs = null): InputCollectionInterface
@@ -49,7 +53,7 @@ trait IsCrud
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', $this->formAction())
+            ->setAttribute('action', $this->formAction)
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
