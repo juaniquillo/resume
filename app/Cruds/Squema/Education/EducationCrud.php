@@ -2,8 +2,12 @@
 
 namespace App\Cruds\Squema\Education;
 
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Education\Inputs\AreaFactory;
 use App\Cruds\Squema\Education\Inputs\EndsAtFactory;
 use App\Cruds\Squema\Education\Inputs\InstitutionFactory;
@@ -14,9 +18,11 @@ use App\Cruds\Squema\Education\Inputs\UrlFactory;
 use App\Cruds\Squema\Education\Inputs\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 
-final class EducationCrud implements CrudInterface
+final class EducationCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use IsCrud;
+    use HasHtmlForm,
+        HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],

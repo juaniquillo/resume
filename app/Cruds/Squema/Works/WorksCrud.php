@@ -4,11 +4,14 @@ namespace App\Cruds\Squema\Works;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
-use App\Concerns\HasHtmlTable;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Works\Inputs\EndsAtFactory;
 use App\Cruds\Squema\Works\Inputs\NameFactory;
 use App\Cruds\Squema\Works\Inputs\PositionFactory;
@@ -23,9 +26,10 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
-final class WorksCrud implements CrudInterface
+final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use HasHtmlTable,
+    use HasHtmlForm,
+        HasHtmlTable,
         IsCrud;
 
     public function inputsArray(): array
@@ -75,7 +79,7 @@ final class WorksCrud implements CrudInterface
      * Runs once after all inputs
      * are processed
      */
-    private function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {

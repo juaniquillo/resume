@@ -2,8 +2,12 @@
 
 namespace App\Cruds\Squema\Awards;
 
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Awards\Inputs\AwardedAtFactory;
 use App\Cruds\Squema\Awards\Inputs\AwarderFactory;
 use App\Cruds\Squema\Awards\Inputs\SummaryFactory;
@@ -13,9 +17,11 @@ use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class AwardsCrud implements CrudInterface
+final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use IsCrud;
+    use HasHtmlForm,
+        HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],

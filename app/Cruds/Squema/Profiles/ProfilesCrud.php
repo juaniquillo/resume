@@ -2,17 +2,23 @@
 
 namespace App\Cruds\Squema\Profiles;
 
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Profiles\Inputs\BasicsFactory;
 use App\Cruds\Squema\Profiles\Inputs\NetworkFactory;
 use App\Cruds\Squema\Profiles\Inputs\UrlFactory;
 use App\Cruds\Squema\Profiles\Inputs\UsernameFactory;
 use Illuminate\Database\Eloquent\Model;
 
-final class ProfilesCrud implements CrudInterface
+final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use IsCrud;
+    use HasHtmlForm,
+        HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],

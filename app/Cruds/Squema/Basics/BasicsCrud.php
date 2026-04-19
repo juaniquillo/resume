@@ -2,8 +2,12 @@
 
 namespace App\Cruds\Squema\Basics;
 
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Basics\Inputs\EmailFactory;
 use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Cruds\Squema\Basics\Inputs\LabelFactory;
@@ -17,9 +21,11 @@ use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class BasicsCrud implements CrudInterface
+final class BasicsCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use IsCrud;
+    use HasHtmlForm,
+        HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],

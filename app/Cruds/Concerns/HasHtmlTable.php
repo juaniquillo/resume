@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Concerns;
+namespace App\Cruds\Concerns;
 
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
