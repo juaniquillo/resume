@@ -69,7 +69,7 @@ class DashboardNav
                 'name' => 'works',
                 'label' => 'Work Experience',
                 'route' => 'dashboard.works',
-                'active' => ['dashboard.works.edit'],
+                'active' => ['dashboard.works.edit', 'dashboard.works.highlights', 'dashboard.works.highlights.edit'],
                 'icon' => 'briefcase',
                 'description' => 'Add, edit and manage your works.',
             ],

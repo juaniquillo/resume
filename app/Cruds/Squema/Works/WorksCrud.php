@@ -46,9 +46,9 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     }
 
     public function __construct(
-        protected array $values = [],
-        protected array $errors = [],
-        protected ?Model $model = null,
+        private array $values = [],
+        private array $errors = [],
+        private ?Model $model = null,
     ) {}
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
@@ -75,11 +75,29 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    public function extraCells(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Highlights', new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                /** @var Work $work */
+                $work = $model;
+            
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('href', route('dashboard.works.highlights', [$work->id]))
+                    ->setContent('Highlights')
+                    ->setAttribute('variant', 'primary')
+                    ->setAttribute('color', 'amber')
+                    ->setAttribute('size', 'xs')
+                    ->setTheme('cursor', 'pointer');;
+            },
+        ));
+    }
+
     /**
      * Runs once after all inputs
      * are processed
      */
-    protected function tableOptions(TableRowsAction $action): void
+    private function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {
@@ -88,23 +106,8 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 $work = $model;
 
                 $contents = [
-                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.works.edit', $work->id))
-                        ->setContent('Edit')
-                        ->setAttribute('size', 'xs')
-                        ->setTheme('cursor', 'pointer'),
-                    ComponentBuilder::make(ComponentEnum::FORM)
-                        ->setAttribute('action', route('dashboard.works.destroy', $work->id))
-                        ->setAttribute('method', 'delete')
-                        ->setContent(
-                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                                ->setAttribute('type', 'submit')
-                                ->setContent('Delete')
-                                ->setAttribute('size', 'xs')
-                                ->setAttribute('variant', 'danger')
-                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
-                                ->setTheme('cursor', 'pointer'),
-                        ),
+                    $this->tableEditButton($work),
+                    $this->tableDeleteButton($work),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -118,4 +121,30 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 
         $action->setExtraCell('Settings', $recipe);
     }
+
+    public function tableEditButton(Work $work): BackendComponent|CompoundComponent
+    {
+       return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('href', route('dashboard.works.edit', [$work->id]))
+            ->setContent('Edit')
+            ->setAttribute('size', 'xs')
+            ->setTheme('cursor', 'pointer');
+    }
+
+    public function tableDeleteButton(Work $work): BackendComponent|CompoundComponent
+    {
+        return ComponentBuilder::make(ComponentEnum::FORM)
+            ->setAttribute('action', route('dashboard.works.destroy', [$work->id]))
+            ->setAttribute('method', 'delete')
+            ->setContent(
+                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('type', 'submit')
+                    ->setContent('Delete')
+                    ->setAttribute('size', 'xs')
+                    ->setAttribute('variant', 'danger')
+                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
+                    ->setTheme('cursor', 'pointer'),
+            );
+    }
+
 }
