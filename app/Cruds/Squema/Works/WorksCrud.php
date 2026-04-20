@@ -81,14 +81,14 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
             value: function ($value, Model $model) {
                 /** @var Work $work */
                 $work = $model;
-            
+
                 return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
                     ->setAttribute('href', route('dashboard.works.highlights', [$work->id]))
                     ->setContent('Highlights')
                     ->setAttribute('variant', 'primary')
                     ->setAttribute('color', 'amber')
                     ->setAttribute('size', 'xs')
-                    ->setTheme('cursor', 'pointer');;
+                    ->setTheme('cursor', 'pointer');
             },
         ));
     }
@@ -124,7 +124,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 
     public function tableEditButton(Work $work): BackendComponent|CompoundComponent
     {
-       return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('href', route('dashboard.works.edit', [$work->id]))
             ->setContent('Edit')
             ->setAttribute('size', 'xs')
@@ -146,5 +146,4 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                     ->setTheme('cursor', 'pointer'),
             );
     }
-
 }

@@ -15,7 +15,6 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $updated_at
  * @property-read Model $highlightable
  */
-
 #[Guarded([])]
 class Highlight extends Model
 {

@@ -53,14 +53,13 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         $inputs = self::inputsArray();
         $highlight = $inputs['highlight'] ?? null;
 
-        if($highlight ) {
+        if ($highlight) {
 
             // Textarea input with column span full theme
             $inputs['highlight'] = $this->spanFullContainer([
                 $highlight,
             ]);
         }
-
 
         return $this->form(
             inputs: $inputs,
@@ -120,5 +119,4 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
                     ->setTheme('cursor', 'pointer'),
             );
     }
-
 }

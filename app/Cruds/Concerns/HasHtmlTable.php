@@ -97,7 +97,6 @@ trait HasHtmlTable
     }
 
     public function extraCells(TableRowsAction $action): void {}
-    
+
     private function tableOptions(TableRowsAction $action): void {}
-    
 }

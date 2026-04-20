@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Cruds\Squema\Highlights\HighlightsCrud;
 use App\Http\Requests\HighlightsFormRequest;
+use App\Models\Work;
 use Illuminate\Http\Request;
 
 class WorkHighlightsController extends Controller
 {
-    public function index(Request $request,  int $id)
+    public function index(Request $request, int $id)
     {
+        /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
 
         $crud = HighlightsCrud::build(
@@ -24,7 +26,7 @@ class WorkHighlightsController extends Controller
         $table = null;
         $highlights = $work->highlights()->paginate(10);
 
-        if (!$highlights->isEmpty()) {
+        if (! $highlights->isEmpty()) {
             $table = $crud->makeTable($highlights);
         }
 
@@ -38,6 +40,7 @@ class WorkHighlightsController extends Controller
     {
         $validated = $request->validated();
 
+        /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
         $work->highlights()->create($validated);
 
@@ -45,8 +48,9 @@ class WorkHighlightsController extends Controller
             ->with('success', 'Highlight created successfully.');
     }
 
-    public function edit(Request $request,  int $id, int $highlightId)
+    public function edit(Request $request, int $id, int $highlightId)
     {
+        /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
         $highlight = $work->highlights()->findOrFail($highlightId);
         $values = $request->old();
@@ -70,8 +74,9 @@ class WorkHighlightsController extends Controller
     }
 
     public function update(HighlightsFormRequest $request, int $id, int $highlightId)
-    { 
-        $work = $request->user()->works()->highlights()->findOrFail($id);
+    {
+        /** @var Work $work */
+        $work = $request->user()->works()->findOrFail($id);
         $highlight = $work->highlights()->findOrFail($highlightId);
         $validated = $request->validated();
 
@@ -80,9 +85,10 @@ class WorkHighlightsController extends Controller
         return back()
             ->with('success', 'Highlight updated successfully.');
     }
-    
+
     public function destroy(Request $request, int $id, int $highlightId)
     {
+        /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
         $highlight = $work->highlights()->findOrFail($highlightId);
 
@@ -91,5 +97,4 @@ class WorkHighlightsController extends Controller
         return back()
             ->with('success', 'Highlight deleted successfully.');
     }
-
 }

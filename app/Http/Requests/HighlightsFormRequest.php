@@ -37,7 +37,6 @@ class HighlightsFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationRulesAction)->toArray();
     }
 
-    
     /**  @return array<string, string> */
     public function messages()
     {

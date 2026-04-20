@@ -10,7 +10,6 @@ use Juaniquillo\BackendComponents\MainBackendComponent;
 
 class FormHelpers
 {
-    
     public static function ErrorAlertComponent(ThemeManager $manager): BackendComponent|CompoundComponent
     {
         return (new MainBackendComponent(ComponentEnum::DIV, $manager))

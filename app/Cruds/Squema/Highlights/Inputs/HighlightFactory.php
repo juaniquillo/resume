@@ -22,7 +22,6 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class HighlightFactory
 {
-    
     const NAME = 'highlights';
 
     const LABEL = 'Highlights';
@@ -35,7 +34,6 @@ class HighlightFactory
         self::validation($input);
         self::table($input);
 
-
         return $input;
     }
 
@@ -45,22 +43,21 @@ class HighlightFactory
             (new LaravelValidationRulesRecipe([
                 'required',
                 'min:3',
-                'max:1000'
+                'max:1000',
             ]))
         );
     }
 
-    
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
             (new InputComponentRecipe)
-                ->setInputGroup(new InputErrorGroup())
+                ->setInputGroup(new InputErrorGroup)
                 ->setValueAsInputContent(true)
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::TEXTAREA)
-                        ->setErrorComponent(function($type, $manager){
+                        ->setErrorComponent(function ($type, $manager) {
                             return FormHelpers::ErrorAlertComponent($manager);
                         })
                 )
@@ -81,28 +78,26 @@ class HighlightFactory
                 value: function ($value, Model $model) {
 
                     /** @var Highlight $work */
-                    
                     $work = $model;
                     $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
                         ->setContent($value)
                         ->setTheme('spacing', 'm-top-sm')
                         ->setTheme('text', 'nl2br');
-                        
+
                     return ComponentBuilder::make(ComponentEnum::COLLECTION)
                         ->setContent(Str::limit($value, 60))
                         ->setContent(
                             TableHelpers::tableModal(
-                                id: $work->id, 
-                                content: $modalContent, 
+                                id: $work->id,
+                                content: $modalContent,
                                 heading: HighlightFactory::LABEL,
                                 buttonLabel: 'view',
                                 triggerType: 'ghost',
                             )
                         );
-;
+
                 }
             )
         );
     }
-
 }

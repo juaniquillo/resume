@@ -45,7 +45,6 @@ Route::middleware(['auth', 'verified'])
         Route::post('works/{id}/highlights/{highlightId}', [WorkHighlightsController::class, 'update'])->name('dashboard.works.highlights.update');
         Route::delete('works/{id}/highlights/{highlightId}', [WorkHighlightsController::class, 'destroy'])->name('dashboard.works.highlights.destroy');
 
-
         /**
          * Volunteers
          */
