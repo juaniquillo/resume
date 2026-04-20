@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->group(function () {
 
-        Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::get('/', DashboardController::class)->name('dashboard');
 
         /**
          * Basics

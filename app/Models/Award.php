@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Uuidable;
 use Database\Factories\AwardFactory;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -18,8 +20,9 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  */
+#[Guarded([])]
 class Award extends Model
 {
     /** @use HasFactory<AwardFactory> */
-    use HasFactory;
+    use HasFactory, Uuidable;
 }

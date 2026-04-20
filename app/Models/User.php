@@ -77,4 +77,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Volunteer::class);
     }
+
+    public function education(): HasMany
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    public function awards(): HasMany
+    {
+        return $this->hasMany(Award::class);
+    }
 }

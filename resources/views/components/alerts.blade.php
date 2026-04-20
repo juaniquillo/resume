@@ -1,9 +1,9 @@
 @php
     $success = session('success');
-    $classesSuccess = 'flex bg-cyan-900 text-green-200 px-3 py-3 rounded-md relative';
+    $classesSuccess = 'flex bg-green-100 text-green-800 dark:bg-cyan-900 dark:text-green-200 px-3 py-3 rounded-md relative';
 
     $warning = session('warning');
-    $classesWarning = 'flex bg-orange-100 text-orange-800 px-3 py-3 rounded-md relative';
+    $classesWarning = 'flex bg-yellow-100 text-yellow-700 dark:bg-waring-400 dark:text-red-900 px-3 py-3 rounded-md relative';
 
     $error = session('custom_error');
     $classesError = 'flex bg-red-800 text-red-200 px-3 py-3 rounded-md relative';

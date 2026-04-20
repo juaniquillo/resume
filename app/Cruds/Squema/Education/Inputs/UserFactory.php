@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Education\Inputs;
 
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -19,6 +20,10 @@ class UserFactory
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->ignore()
+        );
+
+        $input->setRecipe(
+            (new TableRowsRecipe)->ignore()
         );
 
         return $input;
