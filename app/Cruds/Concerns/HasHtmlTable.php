@@ -36,6 +36,9 @@ trait HasHtmlTable
                 // attributes: ['class' => 'align-top'],
             );
 
+            /** Extra cells */
+            $this->extraCells($action);
+
             /** Row actions */
             $this->tableOptions($action);
 
@@ -93,5 +96,8 @@ trait HasHtmlTable
             array_keys($outputArray));
     }
 
+    public function extraCells(TableRowsAction $action): void {}
+    
     private function tableOptions(TableRowsAction $action): void {}
+    
 }
