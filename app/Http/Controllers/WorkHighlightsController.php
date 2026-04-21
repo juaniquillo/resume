@@ -17,6 +17,7 @@ class WorkHighlightsController extends Controller
         $crud = HighlightsCrud::build(
             values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
+            baseRoute: 'dashboard.works.highlights',
         );
 
         $crud->setFormAction(
@@ -60,6 +61,7 @@ class WorkHighlightsController extends Controller
             values: $values,
             errors: $errors,
             model: $highlight,
+            baseRoute: 'dashboard.works.highlights',
         );
 
         $crud->setFormAction(

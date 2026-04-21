@@ -96,7 +96,7 @@ trait HasHtmlTable
             array_keys($outputArray));
     }
 
-    public function extraCells(TableRowsAction $action): void {}
+    protected function extraCells(TableRowsAction $action): void {}
 
-    private function tableOptions(TableRowsAction $action): void {}
+    protected function tableOptions(TableRowsAction $action): void {}
 }

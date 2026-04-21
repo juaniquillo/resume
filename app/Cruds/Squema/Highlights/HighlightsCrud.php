@@ -27,18 +27,27 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         IsCrud;
 
     public function __construct(
-        private array $values = [],
-        private array $errors = [],
-        private ?Model $model = null,
+        protected array $values = [],
+        protected array $errors = [],
+        protected ?Model $model = null,
+        protected ?string $baseRoute = null,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
+    public static function build(array $values = [], array $errors = [], ?Model $model = null, ?string $baseRoute = null): static
     {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            baseRoute: $baseRoute,
         );
+    }
+
+    public function setBaseRoute(string $baseRoute): static
+    {
+        $this->baseRoute = $baseRoute;
+
+        return $this;
     }
 
     public function inputsArray(): array
@@ -70,7 +79,7 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
      * Runs once after all inputs
      * are processed
      */
-    private function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {
@@ -98,7 +107,7 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     public function tableEditButton(Highlight $highlight): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.works.highlights.edit', [$highlight->highlightable_id, $highlight->id]))
+            ->setAttribute('href', route($this->baseRoute.'.edit', [$highlight->highlightable_id, $highlight->id]))
             ->setContent('Edit')
             ->setAttribute('size', 'xs')
             ->setTheme('cursor', 'pointer');
@@ -107,7 +116,7 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     public function tableDeleteButton(Highlight $highlight): BackendComponent|CompoundComponent
     {
         return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.works.highlights.destroy', [$highlight->highlightable_id, $highlight->id]))
+            ->setAttribute('action', route($this->baseRoute.'.destroy', [$highlight->highlightable_id, $highlight->id]))
             ->setAttribute('method', 'delete')
             ->setContent(
                 FluxComponentBuilder::make(FluxComponentEnum::BUTTON)

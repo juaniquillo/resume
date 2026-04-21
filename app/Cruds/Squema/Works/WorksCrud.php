@@ -46,9 +46,9 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     }
 
     public function __construct(
-        private array $values = [],
-        private array $errors = [],
-        private ?Model $model = null,
+        protected array $values = [],
+        protected array $errors = [],
+        protected ?Model $model = null,
     ) {}
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
@@ -75,7 +75,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
-    public function extraCells(TableRowsAction $action): void
+    protected function extraCells(TableRowsAction $action): void
     {
         $action->setExtraCell('Highlights', new TableRowsRecipe(
             value: function ($value, Model $model) {
@@ -97,7 +97,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
      * Runs once after all inputs
      * are processed
      */
-    private function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {
