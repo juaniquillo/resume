@@ -8,7 +8,6 @@ use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\VolunteersController;
-use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
@@ -53,8 +52,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('volunteers/{id}/edit', [VolunteersController::class, 'edit'])->name('dashboard.volunteers.edit');
         Route::post('volunteers/{id}', [VolunteersController::class, 'update'])->name('dashboard.volunteers.update');
         Route::delete('volunteers/{id}', [VolunteersController::class, 'destroy'])->name('dashboard.volunteers.destroy');
-
-        // Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
 
         /**
          * Education

@@ -86,17 +86,17 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {
 
-                /** @var Award $work */
-                $work = $model;
+                /** @var Award $award */
+                $award = $model;
 
                 $contents = [
                     FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.awards.edit', $work->id))
+                        ->setAttribute('href', route('dashboard.awards.edit', $award->id))
                         ->setContent('Edit')
                         ->setAttribute('size', 'xs')
                         ->setTheme('cursor', 'pointer'),
                     ComponentBuilder::make(ComponentEnum::FORM)
-                        ->setAttribute('action', route('dashboard.awards.destroy', $work->id))
+                        ->setAttribute('action', route('dashboard.awards.destroy', $award->id))
                         ->setAttribute('method', 'delete')
                         ->setContent(
                             FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
@@ -104,7 +104,7 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
                                 ->setContent('Delete')
                                 ->setAttribute('size', 'xs')
                                 ->setAttribute('variant', 'danger')
-                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
+                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this award?')")
                                 ->setTheme('cursor', 'pointer'),
                         ),
                 ];

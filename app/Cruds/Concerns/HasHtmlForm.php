@@ -41,8 +41,14 @@ trait HasHtmlForm
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
+        $action = $this->formAction;
+
+        if ($action === null) {
+            $action = $this->formAction();
+        }
+
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', $this->formAction)
+            ->setAttribute('action', $action)
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(

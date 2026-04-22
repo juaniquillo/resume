@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Awards\Inputs;
 
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -24,6 +25,10 @@ class UserFactory
 
         $input->setRecipe(
             (new TableRowsRecipe)->ignore()
+        );
+
+        $input->setRecipe(
+            (new LaravelFactoryRecipe)->ignore()
         );
 
         return $input;

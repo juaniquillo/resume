@@ -3,19 +3,19 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Works\WorksCrud;
-use App\Models\Work;
+use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Work>
+ * @extends Factory<Highlight>
  */
-class WorkFactory extends Factory
+class HighlightFactory extends Factory
 {
     /** @return array<string, mixed> */
     public function definition(): array
     {
-        $crud = WorksCrud::build();
+        $crud = HighlightsCrud::build();
 
         return $crud->make()->execute(
             new LaravelFactoryAction

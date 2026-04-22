@@ -32,19 +32,6 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
-    public function inputsArray(): array
-    {
-        return [
-            'uid' => UuidFactory::make(),
-            'user' => UserFactory::make(),
-            'name' => NameFactory::make(),
-            'position' => PositionFactory::make(),
-            'starts_at' => StartsAtFactory::make(),
-            'ends_at' => EndsAtFactory::make(),
-            'summary' => SummaryFactory::make(),
-        ];
-    }
-
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
@@ -58,6 +45,24 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
             errors: $errors,
             model: $model,
         );
+    }
+
+    public function inputsArray(): array
+    {
+        return [
+            'uuid' => UuidFactory::make(),
+            'user' => UserFactory::make(),
+            'name' => NameFactory::make(),
+            'position' => PositionFactory::make(),
+            'starts_at' => StartsAtFactory::make(),
+            'ends_at' => EndsAtFactory::make(),
+            'summary' => SummaryFactory::make(),
+        ];
+    }
+
+    public function formAction(): string
+    {
+        return route('dashboard.works.store');
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
