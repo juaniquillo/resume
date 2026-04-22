@@ -77,7 +77,7 @@ class DashboardNav
                 'name' => 'volunteers',
                 'label' => 'Volunteers',
                 'route' => 'dashboard.volunteers',
-                'active' => ['dashboard.volunteers.edit'],
+                'active' => ['dashboard.volunteers.edit', 'dashboard.volunteers.highlights', 'dashboard.volunteers.highlights.edit'],
                 'icon' => 'user-group',
                 'description' => 'Add, edit and manage your volunteer work.',
             ],

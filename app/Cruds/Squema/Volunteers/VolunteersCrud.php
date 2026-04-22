@@ -81,6 +81,24 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    protected function extraCells(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Highlights', new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                /** @var Volunteer $volunteer */
+                $volunteer = $model;
+
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('href', route('dashboard.volunteers.highlights', [$volunteer->id]))
+                    ->setContent('Highlights')
+                    ->setAttribute('variant', 'primary')
+                    ->setAttribute('color', 'amber')
+                    ->setAttribute('size', 'xs')
+                    ->setTheme('cursor', 'pointer');
+            },
+        ));
+    }
+
     /**
      * Runs once after all inputs
      * are processed

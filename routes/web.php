@@ -8,6 +8,7 @@ use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\VolunteersController;
+use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('volunteers/{id}/edit', [VolunteersController::class, 'edit'])->name('dashboard.volunteers.edit');
         Route::post('volunteers/{id}', [VolunteersController::class, 'update'])->name('dashboard.volunteers.update');
         Route::delete('volunteers/{id}', [VolunteersController::class, 'destroy'])->name('dashboard.volunteers.destroy');
+
+        Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
+        Route::post('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'store'])->name('dashboard.volunteers.highlights.store');
+        Route::get('volunteers/{id}/highlights/{highlightId}/edit', [VolunteersHighlightsController::class, 'edit'])->name('dashboard.volunteers.highlights.edit');
+        Route::post('volunteers/{id}/highlights/{highlightId}', [VolunteersHighlightsController::class, 'update'])->name('dashboard.volunteers.highlights.update');
+        Route::delete('volunteers/{id}/highlights/{highlightId}', [VolunteersHighlightsController::class, 'destroy'])->name('dashboard.volunteers.highlights.destroy');
 
         /**
          * Education
