@@ -34,5 +34,4 @@ enum FluxComponentEnum: string
     case MODAL = 'modal';
     case MODAL_TRIGGER = 'modal.trigger';
 
-
 }
