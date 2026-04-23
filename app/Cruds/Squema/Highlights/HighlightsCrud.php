@@ -128,5 +128,4 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
                     ->setTheme('cursor', 'pointer'),
             );
     }
-
 }

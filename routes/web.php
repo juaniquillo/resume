@@ -34,6 +34,10 @@ Route::middleware(['auth', 'verified'])
         Route::delete('basics/locations/{id}', [BasicsLocationController::class, 'destroy'])->name('dashboard.basics.locations.destroy');
 
         Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
+        Route::post('basics/profiles', [BasicsProfileController::class, 'store'])->name('dashboard.basics.profiles.store');
+        Route::get('basics/profiles/{id}/edit', [BasicsProfileController::class, 'edit'])->name('dashboard.basics.profiles.edit');
+        Route::post('basics/profiles/{id}', [BasicsProfileController::class, 'update'])->name('dashboard.basics.profiles.update');
+        Route::delete('basics/profiles/{id}', [BasicsProfileController::class, 'destroy'])->name('dashboard.basics.profiles.destroy');
 
         /**
          * Works

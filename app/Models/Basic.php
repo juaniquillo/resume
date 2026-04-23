@@ -45,7 +45,7 @@ class Basic extends Model
         return $this->hasMany(Location::class);
     }
 
-    public function profiles() : HasMany
+    public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class);
     }

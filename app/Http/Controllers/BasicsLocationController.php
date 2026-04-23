@@ -6,6 +6,7 @@ use App\Cruds\Squema\Locations\LocationsCrud;
 use App\Http\Requests\LocationsFormRequest;
 use App\Models\Basic;
 use App\Models\Location;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,18 +20,18 @@ class BasicsLocationController extends Controller
     {
         $values = $request->old();
         $errors = $request->session()->get('errors')?->toArray() ?? [];
-        $table = null;
 
+        /** @var User|null $user */
         $user = $request->user();
 
-        /** @var Basic $basics */
+        /** @var Basic|null $basics */
         $basics = $user?->basics()->first();
 
         $form = null;
         $table = null;
         $locations = null;
 
-        if($basics) {
+        if ($basics) {
             $locations = $basics->locations()->paginate(10);
 
             $crud = LocationsCrud::build(
@@ -39,12 +40,11 @@ class BasicsLocationController extends Controller
             );
 
             $crud->setFormAction(route('dashboard.basics.locations.store'));
-            
+
             $form = $crud->form();
             $table = $crud->makeTable($locations);
-            
+
         }
-        
 
         return view('dashboard.basics.locations.index')
             ->with('basics', $basics)
@@ -57,12 +57,13 @@ class BasicsLocationController extends Controller
     {
         $validated = $request->validated();
 
+        /** @var User|null $user */
         $user = $request->user();
 
-        /** @var Basic $basics */
+        /** @var Basic|null $basics */
         $basics = $user?->basics()->first();
 
-        if(!$basics) {
+        if (! $basics) {
             return back()
                 ->with('custom_error', __('basics.errors.basics_not_found'));
         }
@@ -73,19 +74,25 @@ class BasicsLocationController extends Controller
             ->with('success', 'Location created successfully.');
     }
 
+    /**
+     * @return View|string
+     */
     public function edit(Request $request, int $id)
     {
         $values = $request->old();
         $errors = $request->session()->get('errors')?->toArray() ?? [];
 
+        /** @var User|null $user */
         $user = $request->user();
+
+        /** @var Basic|null $basics */
         $basics = $user?->basics()->first();
         $form = null;
 
-        if($basics) {
+        if ($basics) {
             $location = $basics->locations()->findOrFail($id);
             $crud = LocationsCrud::build(
-                values: $values,
+                values: $values ?: $location->toArray(),
                 errors: $errors,
                 model: $location,
             );
@@ -103,13 +110,14 @@ class BasicsLocationController extends Controller
     {
         $validated = $request->validated();
 
+        /** @var User|null $user */
         $user = $request->user();
 
         /** @var Basic $basics */
-        $basics = $user?->basics()->firstOrFail();
+        $basics = $user->basics()->firstOrFail();
 
         /** @var Location $location */
-        $location = $basics->locations()->firstOrFail($id);
+        $location = $basics->locations()->findOrFail($id);
 
         $location->update($validated);
 
@@ -117,14 +125,16 @@ class BasicsLocationController extends Controller
             ->with('success', 'Location updated successfully.');
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, int $id): RedirectResponse
     {
+        /** @var User|null $user */
         $user = $request->user();
 
         /** @var Basic $basics */
-        $basics = $user?->basics()->firstOrFail();
+        $basics = $user->basics()->firstOrFail();
+
         /** @var Location $location */
-        $location = $basics->locations()->firstOrFail();
+        $location = $basics->locations()->findOrFail($id);
 
         $location->delete();
 

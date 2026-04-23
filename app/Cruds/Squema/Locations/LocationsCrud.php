@@ -111,5 +111,4 @@ final class LocationsCrud implements CrudForm, CrudInterface, CrudTable
                     ->setTheme('cursor', 'pointer'),
             );
     }
-
 }

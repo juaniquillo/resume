@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Locations\Inputs;
 
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -22,7 +23,11 @@ class BasicsFactory
         );
 
         $input->setRecipe(
-            (new TableRowsRecipe())->ignore()
+            (new TableRowsRecipe)->ignore()
+        );
+
+        $input->setRecipe(
+            (new LaravelFactoryRecipe)->ignore()
         );
 
         return $input;

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Database\Factories\CertificateFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class certificate extends Model
 {
-    /** @use HasFactory<\Database\Factories\CertificateFactory> */
+    /** @use HasFactory<CertificateFactory> */
     use HasFactory;
 }

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Database\Factories\PublicationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class publication extends Model
 {
-    /** @use HasFactory<\Database\Factories\PublicationFactory> */
+    /** @use HasFactory<PublicationFactory> */
     use HasFactory;
 }

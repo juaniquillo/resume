@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Concerns\Uuidable;
+use Database\Factories\LocationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
-use Database\Factories\LocationsFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
 #[Guarded([])]
 class Location extends Model
 {
-    /** @use HasFactory<LocationsFactory> */
+    /** @use HasFactory<LocationFactory> */
     use HasFactory,
         Uuidable;
 

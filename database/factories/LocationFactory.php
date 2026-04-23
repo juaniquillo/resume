@@ -4,13 +4,13 @@ namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
 use App\Cruds\Squema\Locations\LocationsCrud;
-use App\Models\Locations;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Locations>
+ * @extends Factory<Location>
  */
-class LocationsFactory extends Factory
+class LocationFactory extends Factory
 {
     /**
      * Define the model's default state.
