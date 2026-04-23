@@ -55,12 +55,14 @@ class DashboardNav
                         'name' => 'basics.locations',
                         'label' => 'Locations',
                         'route' => 'dashboard.basics.locations',
+                        'active' => ['dashboard.basics.locations.edit'],
                         'icon' => 'map-pin',
                     ],
                     [
                         'name' => 'basics.profiles',
                         'label' => 'Profiles',
                         'route' => 'dashboard.basics.profiles',
+                        'active' => ['dashboard.basics.profiles.edit'],
                         'icon' => 'user',
                     ],
                 ],
@@ -96,6 +98,14 @@ class DashboardNav
                 'active' => ['dashboard.awards.edit'],
                 'icon' => 'trophy',
                 'description' => 'Add, edit and manage your awards.',
+            ],
+            [
+                'name' => 'certificates',
+                'label' => 'Certificates',
+                'route' => 'dashboard.certificates',
+                'active' => ['dashboard.certificates.edit'],
+                'icon' => 'academic-cap',
+                'description' => 'Add, edit and manage your certificates.',
             ],
         ];
     }

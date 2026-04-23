@@ -5,6 +5,7 @@ use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\BasicsCreateController;
 use App\Http\Controllers\BasicsLocationController;
 use App\Http\Controllers\BasicsProfileController;
+use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\VolunteersController;
@@ -86,6 +87,15 @@ Route::middleware(['auth', 'verified'])
         Route::get('awards/{id}/edit', [AwardsController::class, 'edit'])->name('dashboard.awards.edit');
         Route::post('awards/{id}', [AwardsController::class, 'update'])->name('dashboard.awards.update');
         Route::delete('awards/{id}', [AwardsController::class, 'destroy'])->name('dashboard.awards.destroy');
+
+        /**
+         * Certificates
+         */
+        Route::get('certificates', [CertificatesController::class, 'index'])->name('dashboard.certificates');
+        Route::post('certificates', [CertificatesController::class, 'store'])->name('dashboard.certificates.store');
+        Route::get('certificates/{id}/edit', [CertificatesController::class, 'edit'])->name('dashboard.certificates.edit');
+        Route::post('certificates/{id}', [CertificatesController::class, 'update'])->name('dashboard.certificates.update');
+        Route::delete('certificates/{id}', [CertificatesController::class, 'destroy'])->name('dashboard.certificates.destroy');
 
     });
 

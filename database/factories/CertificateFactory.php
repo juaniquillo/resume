@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\certificate;
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Certificates\CertificatesCrud;
+use App\Models\Certificate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<certificate>
+ * @extends Factory<Certificate>
  */
 class CertificateFactory extends Factory
 {
@@ -17,8 +19,10 @@ class CertificateFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        $crud = CertificatesCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

@@ -30,8 +30,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read string|null $two_factor_secret
  * @property-read string|null $two_factor_recovery_codes
  * @property-read Carbon|null $two_factor_confirmed_at
- * @property-read Basic $basics
- * @property-read Collection<int, Work> $works
+ * @property-read Collection<int, Award> $awards
+ * @property-read Collection<int, Certificate> $certificates
  */
 class User extends Authenticatable
 {
@@ -86,5 +86,10 @@ class User extends Authenticatable
     public function awards(): HasMany
     {
         return $this->hasMany(Award::class);
+    }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(Certificate::class);
     }
 }
