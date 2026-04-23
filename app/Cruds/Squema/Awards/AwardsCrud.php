@@ -56,11 +56,6 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.awards.store');
-    }
-
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = $this->inputsArray();

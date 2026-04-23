@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\SkillLevel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,20 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->id();
 
             $table->uuid('uuid');
 
-            $table
-                ->foreignUlid('basic_id')
-                ->index()
-                ->constrained('basics')
-                ->cascadeOnDelete();
+            $table->string('name');
+            $table->string('level')->default(SkillLevel::BEGINNER->value);
+            $table->json('keywords');
 
-            $table->string('network');
-            $table->string('username');
-            $table->string('url');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('skills');
     }
 };

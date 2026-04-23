@@ -57,11 +57,6 @@ final class BasicsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.basics');
-    }
-
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = $this->inputsArray();

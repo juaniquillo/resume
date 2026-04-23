@@ -60,11 +60,6 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.works.store');
-    }
-
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = self::inputsArray();

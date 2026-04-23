@@ -60,11 +60,6 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.education.store');
-    }
-
     /**
      * Runs once after all inputs
      * are processed

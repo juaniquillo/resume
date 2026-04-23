@@ -45,8 +45,4 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return '';
-    }
 }

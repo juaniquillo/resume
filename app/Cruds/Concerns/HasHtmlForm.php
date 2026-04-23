@@ -43,10 +43,6 @@ trait HasHtmlForm
     {
         $action = $this->formAction;
 
-        if ($action === null) {
-            $action = $this->formAction();
-        }
-
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $action)
             ->setThemes($this->formThemes())

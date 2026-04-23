@@ -129,8 +129,4 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
             );
     }
 
-    public function formAction(): string
-    {
-        return '';
-    }
 }

@@ -28,6 +28,11 @@ Route::middleware(['auth', 'verified'])
         Route::post('basics', BasicsCreateController::class)->name('dashboard.basics.update');
 
         Route::get('basics/locations', [BasicsLocationController::class, 'index'])->name('dashboard.basics.locations');
+        Route::post('basics/locations', [BasicsLocationController::class, 'store'])->name('dashboard.basics.locations.store');
+        Route::get('basics/locations/{id}/edit', [BasicsLocationController::class, 'edit'])->name('dashboard.basics.locations.edit');
+        Route::post('basics/locations/{id}', [BasicsLocationController::class, 'update'])->name('dashboard.basics.locations.update');
+        Route::delete('basics/locations/{id}', [BasicsLocationController::class, 'destroy'])->name('dashboard.basics.locations.destroy');
+
         Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
 
         /**

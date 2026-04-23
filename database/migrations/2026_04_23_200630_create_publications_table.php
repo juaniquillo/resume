@@ -11,20 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('publications', function (Blueprint $table) {
             $table->id();
 
             $table->uuid('uuid');
 
+            $table->string('name');
+            $table->timestamp('date');
+            $table->string('issuer');
+            $table->string('url')->nullable();
+
             $table
-                ->foreignUlid('basic_id')
+                ->foreignUlid('user_id')
                 ->index()
-                ->constrained('basics')
+                ->constrained('users')
                 ->cascadeOnDelete();
 
-            $table->string('network');
-            $table->string('username');
-            $table->string('url');
             $table->timestamps();
         });
     }
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('publications');
     }
 };

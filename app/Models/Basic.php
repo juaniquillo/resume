@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\BasicFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -24,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  * @property-read User $user
+ * @property-read Collection $location
  */
 #[Guarded([])]
 class Basic extends Model
@@ -35,5 +38,15 @@ class Basic extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(Location::class);
+    }
+
+    public function profiles() : HasMany
+    {
+        return $this->hasMany(Profile::class);
     }
 }

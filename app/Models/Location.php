@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Uuidable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Database\Factories\LocationsFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -17,9 +20,17 @@ use Illuminate\Support\Carbon;
  * @property-read string $region
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read Basic $basics
  */
-class Locations extends Model
+#[Guarded([])]
+class Location extends Model
 {
     /** @use HasFactory<LocationsFactory> */
-    use HasFactory;
+    use HasFactory,
+        Uuidable;
+
+    public function basics(): BelongsTo
+    {
+        return $this->belongsTo(Basic::class);
+    }
 }

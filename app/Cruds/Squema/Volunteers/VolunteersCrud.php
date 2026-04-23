@@ -60,11 +60,6 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function formAction(): string
-    {
-        return route('dashboard.volunteers.store');
-    }
-
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         $inputs = $this->inputsArray();
