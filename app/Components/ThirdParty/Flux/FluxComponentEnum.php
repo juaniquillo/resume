@@ -26,4 +26,13 @@ enum FluxComponentEnum: string
     case TR = 'table.row';
     case TD = 'table.cell';
 
+    // nav
+    case NAVLIST_GROUP = 'navlist.group';
+    case SIDEBAR_ITEM = 'sidebar.item';
+
+    // modal
+    case MODAL = 'modal';
+    case MODAL_TRIGGER = 'modal.trigger';
+
+
 }

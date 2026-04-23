@@ -3,6 +3,7 @@
 namespace App\Cruds\Helpers;
 
 use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -14,19 +15,19 @@ class TableHelpers
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([
-                'button' => FluxComponentBuilder::make('modal.trigger')
+                'button' => FluxComponentBuilder::make(FluxComponentEnum::MODAL_TRIGGER)
                     ->setAttribute('name', "flux-modal-confirm-{$id}")
                     ->setContent(
-                        FluxComponentBuilder::make('button')
+                        FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
                             ->setAttribute('variant', $triggerType)
                             ->setAttribute('size', 'xs')
                             ->setContent($buttonLabel)
                     ),
-                'modal' => FluxComponentBuilder::make('modal')
+                'modal' => FluxComponentBuilder::make(FluxComponentEnum::MODAL)
                     ->setAttribute('name', "flux-modal-confirm-{$id}")
                     // ->setAttribute(':dismissible', 'false')
                     ->setContents([
-                        FluxComponentBuilder::make('heading')
+                        FluxComponentBuilder::make(FluxComponentEnum::HEADING)
                             ->setContent($heading),
                         $content,
                     ]),

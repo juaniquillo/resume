@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\publication;
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Publications\PublicationsCrud;
+use App\Models\Publication;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<publication>
+ * @extends Factory<Publication>
  */
 class PublicationFactory extends Factory
 {
@@ -17,8 +19,10 @@ class PublicationFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        $crud = PublicationsCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

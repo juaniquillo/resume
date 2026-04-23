@@ -104,8 +104,16 @@ class DashboardNav
                 'label' => 'Certificates',
                 'route' => 'dashboard.certificates',
                 'active' => ['dashboard.certificates.edit'],
-                'icon' => 'academic-cap',
+                'icon' => 'document-arrow-up',
                 'description' => 'Add, edit and manage your certificates.',
+            ],
+            [
+                'name' => 'publications',
+                'label' => 'Publications',
+                'route' => 'dashboard.publications',
+                'active' => ['dashboard.publications.edit'],
+                'icon' => 'book-open',
+                'description' => 'Add, edit and manage your publications.',
             ],
         ];
     }
