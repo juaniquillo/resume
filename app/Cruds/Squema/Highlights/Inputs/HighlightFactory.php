@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Squema\Highlights\Inputs;
 
-use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -16,6 +15,7 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -77,15 +77,15 @@ class HighlightFactory
                         ])
                 )
                 ->setHookBag(
-                    (new DefaultHookBag())
-                        ->setErrorHook(function(BackendComponent|CompoundComponent $component, InputInterface $input, string|BackedEnum $type, ValueManager $valueManager, ErrorManager $errorManager){
+                    (new DefaultHookBag)
+                        ->setErrorHook(function (BackendComponent|ContentComponent|CompoundComponent $component, InputInterface $input, string|BackedEnum $type, ValueManager $valueManager, ErrorManager $errorManager) {
 
                             /** @var InputComponentRecipe $recipe */
                             $recipe = $input->getRecipe(InputComponentAction::getIdentifier());
                             $error = $errorManager->resolve($input, $recipe);
 
                             // if error
-                            if($error) {
+                            if ($error) {
                                 // prepend error svg icon
                                 $component->prependContent(
                                     FormHelpers::errorIcon(),
