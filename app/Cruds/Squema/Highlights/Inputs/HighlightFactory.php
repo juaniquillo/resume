@@ -2,22 +2,30 @@
 
 namespace App\Cruds\Squema\Highlights\Inputs;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Highlight;
+use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
+use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\InputErrorGroup;
+use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class HighlightFactory
@@ -58,7 +66,7 @@ class HighlightFactory
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::TEXTAREA)
                         ->setErrorComponent(function ($type, $manager) {
-                            return FormHelpers::ErrorAlertComponent($manager);
+                            return FormHelpers::errorAlertComponent($manager);
                         })
                 )
                 ->setAttributeBag(
@@ -67,6 +75,25 @@ class HighlightFactory
                             'label' => self::LABEL,
                             'badge' => 'required',
                         ])
+                )
+                ->setHookBag(
+                    (new DefaultHookBag())
+                        ->setErrorHook(function(BackendComponent|CompoundComponent $component, InputInterface $input, string|BackedEnum $type, ValueManager $valueManager, ErrorManager $errorManager){
+
+                            /** @var InputComponentRecipe $recipe */
+                            $recipe = $input->getRecipe(InputComponentAction::getIdentifier());
+                            $error = $errorManager->resolve($input, $recipe);
+
+                            // if error
+                            if($error) {
+                                // prepend error svg icon
+                                $component->prependContent(
+                                    FormHelpers::errorIcon(),
+                                );
+                            }
+
+                            return $component;
+                        })
                 )
         );
     }
