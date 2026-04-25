@@ -47,6 +47,7 @@ trait HasHtmlForm
 
         return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $action)
+            ->setAttribute('enctype', 'multipart/form-data')
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
