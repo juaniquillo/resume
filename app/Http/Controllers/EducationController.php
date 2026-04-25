@@ -30,7 +30,7 @@ class EducationController extends Controller
         $paginator = $user?->education()->paginate(10);
 
         return view('dashboard.education.index')
-            ->with('form', $crud->form())
+            ->with('form', $crud->formWithInputsSpanFull())
             ->with('table', $crud->makeTable($paginator))
             ->with('paginator', $paginator);
     }
@@ -64,7 +64,7 @@ class EducationController extends Controller
         $crud->setFormAction(route('dashboard.education.update', $id));
 
         return view('dashboard.education.edit')
-            ->with('form', $crud->form());
+            ->with('form', $crud->formWithInputsSpanFull());
     }
 
     public function update(EducationFormRequest $request, string $id): RedirectResponse

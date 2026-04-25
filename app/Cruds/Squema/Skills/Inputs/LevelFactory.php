@@ -2,10 +2,12 @@
 
 namespace App\Cruds\Squema\Skills\Inputs;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Recipes\SelectOptionComponentRecipe;
 use App\Enums\SkillLevel;
 use App\Models\Skill;
 use Faker\Generator;
@@ -18,7 +20,6 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class LevelFactory
@@ -95,14 +96,8 @@ class LevelFactory
 
             $option = new DefaultInput($optionArray['name'], $optionArray['label']);
 
-            $optionRecipe = new InputComponentRecipe(
+            $optionRecipe = new SelectOptionComponentRecipe(
                 inputValue: $optionArray['value'] ?? $optionArray['name'],
-                selectable: true,
-                useParentValue: true,
-                labelAsInputContent: true,
-                disableBag: (new DefaultDisableBag)
-                    ->setDisableWrapper()
-                    ->setDisableDefaultNameAttribute(),
                 componentBag: (new DefaultComponentBag)
                     ->setInputType(FluxComponentEnum::OPTION)
             );
@@ -136,7 +131,23 @@ class LevelFactory
                         return '';
                     }
 
-                    return SkillLevel::tryFrom($value)?->label() ?? $value;
+                    $valueNew = $value;
+                    $color = 'zinc';
+
+                    $enum = SkillLevel::tryFrom($value);
+
+                    if($enum) {
+                        $valueNew = $enum->label();
+                        $color = $enum->labelColor();
+                    }
+                    
+                    return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                        ->setAttributes([
+                            'variant' => 'solid',
+                            'color' => $color,
+                        ])
+                        ->setContent($valueNew);
+                    
                 }
             )
         );

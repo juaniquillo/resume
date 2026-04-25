@@ -47,11 +47,16 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            BasicsFactory::make(),
-            NetworkFactory::make(),
-            UsernameFactory::make(),
-            UrlFactory::make(),
+            'basics' => BasicsFactory::make(),
+            'network' => NetworkFactory::make(),
+            'username' => UsernameFactory::make(),
+            'url' => UrlFactory::make(),
         ];
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs(['url']);
     }
 
     /**

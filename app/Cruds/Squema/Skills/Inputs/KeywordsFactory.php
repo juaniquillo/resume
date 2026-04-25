@@ -69,13 +69,14 @@ class KeywordsFactory
                                 'display' => 'flex',
                                 'flex' => [
                                     'gap-sm',
+                                    'wrap',
                                 ],
                             ]);
                         foreach ($value as $keyword) {
                             $keywords->setContent(
                                 FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                                     ->setAttributes([
-                                        'color' => 'green',
+                                        'color' => 'cyan',
                                     ])
                                     ->setContent($keyword)
                             );

@@ -41,7 +41,7 @@ class BasicsLocationController extends Controller
 
             $crud->setFormAction(route('dashboard.basics.locations.store'));
 
-            $form = $crud->form();
+            $form = $crud->formWithInputsSpanFull();
             $table = $crud->makeTable($locations);
 
         }
@@ -98,7 +98,7 @@ class BasicsLocationController extends Controller
             );
 
             $crud->setFormAction(route('dashboard.basics.locations.update', $id));
-            $form = $crud->form();
+            $form = $crud->formWithInputsSpanFull();
         }
 
         return view('dashboard.basics.locations.edit')

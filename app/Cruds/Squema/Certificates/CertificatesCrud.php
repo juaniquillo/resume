@@ -47,11 +47,16 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            UserFactory::make(),
-            NameFactory::make(),
-            DateFactory::make(),
-            UrlFactory::make(),
+            'user' => UserFactory::make(),
+            'name' => NameFactory::make(),
+            'date' => DateFactory::make(),
+            'url' => UrlFactory::make(),
         ];
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs(['url']);
     }
 
     /**

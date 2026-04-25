@@ -49,13 +49,18 @@ final class LocationsCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            BasicsFactory::make(),
-            AddressFactory::make(),
-            PostalCodeFactory::make(),
-            CityFactory::make(),
-            CountryCodeFactory::make(),
-            RegionFactory::make(),
+            'basics' => BasicsFactory::make(),
+            'address' => AddressFactory::make(),
+            'postal_code' => PostalCodeFactory::make(),
+            'city' => CityFactory::make(),
+            'country_code' => CountryCodeFactory::make(),
+            'region' => RegionFactory::make(),
         ];
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs(['region']);
     }
 
     /**

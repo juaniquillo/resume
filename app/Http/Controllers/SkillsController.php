@@ -32,7 +32,7 @@ class SkillsController extends Controller
         $paginator = $user->skills()->paginate(10);
 
         return view('dashboard.skills.index')
-            ->with('form', $crud->form())
+            ->with('form', $crud->formWithInputsSpanFull())
             ->with('table', $crud->makeTable($paginator))
             ->with('paginator', $paginator);
     }
@@ -68,7 +68,7 @@ class SkillsController extends Controller
         $crud->setFormAction(route('dashboard.skills.update', $id));
 
         return view('dashboard.skills.edit')
-            ->with('form', $crud->form());
+            ->with('form', $crud->formWithInputsSpanFull());
     }
 
     public function update(SkillsFormRequest $request, string $id): RedirectResponse

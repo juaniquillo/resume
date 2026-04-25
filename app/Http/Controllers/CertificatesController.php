@@ -32,7 +32,7 @@ class CertificatesController extends Controller
         $paginator = $user->certificates()->paginate(10);
 
         return view('dashboard.certificates.index')
-            ->with('form', $crud->form())
+            ->with('form', $crud->formWithInputsSpanFull())
             ->with('table', $crud->makeTable($paginator))
             ->with('paginator', $paginator);
     }
@@ -68,7 +68,7 @@ class CertificatesController extends Controller
         $crud->setFormAction(route('dashboard.certificates.update', $id));
 
         return view('dashboard.certificates.edit')
-            ->with('form', $crud->form());
+            ->with('form', $crud->formWithInputsSpanFull());
     }
 
     public function update(CertificatesFormRequest $request, string $id): RedirectResponse

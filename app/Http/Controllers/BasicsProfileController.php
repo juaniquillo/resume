@@ -41,7 +41,7 @@ class BasicsProfileController extends Controller
 
             $crud->setFormAction(route('dashboard.basics.profiles.store'));
 
-            $form = $crud->form();
+            $form = $crud->formWithInputsSpanFull();
             $table = $crud->makeTable($profiles);
         }
 
@@ -97,7 +97,7 @@ class BasicsProfileController extends Controller
             );
 
             $crud->setFormAction(route('dashboard.basics.profiles.update', $id));
-            $form = $crud->form();
+            $form = $crud->formWithInputsSpanFull();
         }
 
         return view('dashboard.basics.profiles.edit')

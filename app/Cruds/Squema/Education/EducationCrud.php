@@ -23,6 +23,8 @@ use App\Cruds\Squema\Education\Inputs\UserFactory;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class EducationCrud implements CrudForm, CrudInterface, CrudTable
@@ -53,11 +55,16 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
             'institution' => InstitutionFactory::make(),
             'starts_at' => StartsAtFactory::make(),
             'ends_at' => EndsAtFactory::make(),
-            'url' => UrlFactory::make(),
             'area' => AreaFactory::make(),
             'study_type' => StudyTypeFactory::make(),
             'score' => ScoreFactory::make(),
+            'url' => UrlFactory::make(),
         ];
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs(['url']);
     }
 
     /**
