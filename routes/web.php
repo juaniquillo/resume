@@ -8,6 +8,7 @@ use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
@@ -116,6 +117,15 @@ Route::middleware(['auth', 'verified'])
         Route::get('skills/{id}/edit', [SkillsController::class, 'edit'])->name('dashboard.skills.edit');
         Route::post('skills/{id}', [SkillsController::class, 'update'])->name('dashboard.skills.update');
         Route::delete('skills/{id}', [SkillsController::class, 'destroy'])->name('dashboard.skills.destroy');
+
+        /**
+         * Languages
+         */
+        Route::get('languages', [LanguagesController::class, 'index'])->name('dashboard.languages');
+        Route::post('languages', [LanguagesController::class, 'store'])->name('dashboard.languages.store');
+        Route::get('languages/{id}/edit', [LanguagesController::class, 'edit'])->name('dashboard.languages.edit');
+        Route::post('languages/{id}', [LanguagesController::class, 'update'])->name('dashboard.languages.update');
+        Route::delete('languages/{id}', [LanguagesController::class, 'destroy'])->name('dashboard.languages.destroy');
 
     });
 

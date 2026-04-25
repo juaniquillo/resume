@@ -123,6 +123,14 @@ class DashboardNav
                 'icon' => 'wrench',
                 'description' => 'Add, edit and manage your skills.',
             ],
+            [
+                'name' => 'languages',
+                'label' => 'Languages',
+                'route' => 'dashboard.languages',
+                'active' => ['dashboard.languages.edit'],
+                'icon' => 'language',
+                'description' => 'Add, edit and manage your language proficiencies.',
+            ],
         ];
     }
 

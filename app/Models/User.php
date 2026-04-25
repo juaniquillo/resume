@@ -104,4 +104,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Skill::class);
     }
+
+    public function languages(): HasMany
+    {
+        return $this->hasMany(Language::class);
+    }
 }

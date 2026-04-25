@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->id();
+
+            $table->uuid('uuid');
+
+            $table
+                ->foreignUlid('user_id')
+                ->index()
+                ->constrained('users')
+                ->cascadeOnDelete();
+            
             $table->timestamps();
         });
     }

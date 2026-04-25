@@ -18,4 +18,14 @@ enum LanguageFluency: string
             self::EXPERT => 'Expert',
         };
     }
+
+    public function labelColor(): string
+    {
+        return match ($this) {
+            self::BEGINNER => 'orange',
+            self::INTERMEDIATE => 'amber',
+            self::ADVANCED => 'green',
+            self::EXPERT => 'blue',
+        };
+    }
 }
