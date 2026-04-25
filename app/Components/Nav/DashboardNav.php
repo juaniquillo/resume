@@ -139,6 +139,14 @@ class DashboardNav
                 'icon' => 'sparkles',
                 'description' => 'Add, edit and manage your interests.',
             ],
+            [
+                'name' => 'references',
+                'label' => 'References',
+                'route' => 'dashboard.references',
+                'active' => ['dashboard.references.edit'],
+                'icon' => 'book-open',
+                'description' => 'Add, edit and manage your references.',
+            ],
         ];
     }
 

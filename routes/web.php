@@ -11,6 +11,7 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\PublicationsController;
+use App\Http\Controllers\ReferencesController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -136,6 +137,15 @@ Route::middleware(['auth', 'verified'])
         Route::get('interests/{id}/edit', [InterestsController::class, 'edit'])->name('dashboard.interests.edit');
         Route::post('interests/{id}', [InterestsController::class, 'update'])->name('dashboard.interests.update');
         Route::delete('interests/{id}', [InterestsController::class, 'destroy'])->name('dashboard.interests.destroy');
+
+        /**
+         * References
+         */
+        Route::get('references', [ReferencesController::class, 'index'])->name('dashboard.references');
+        Route::post('references', [ReferencesController::class, 'store'])->name('dashboard.references.store');
+        Route::get('references/{id}/edit', [ReferencesController::class, 'edit'])->name('dashboard.references.edit');
+        Route::post('references/{id}', [ReferencesController::class, 'update'])->name('dashboard.references.update');
+        Route::delete('references/{id}', [ReferencesController::class, 'destroy'])->name('dashboard.references.destroy');
 
     });
 

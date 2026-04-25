@@ -114,4 +114,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Interest::class);
     }
+
+    public function references(): HasMany
+    {
+        return $this->hasMany(Reference::class);
+    }
 }
