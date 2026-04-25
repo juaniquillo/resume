@@ -136,18 +136,18 @@ class LevelFactory
 
                     $enum = SkillLevel::tryFrom($value);
 
-                    if($enum) {
+                    if ($enum) {
                         $valueNew = $enum->label();
                         $color = $enum->labelColor();
                     }
-                    
+
                     return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                         ->setAttributes([
                             'variant' => 'solid',
                             'color' => $color,
                         ])
                         ->setContent($valueNew);
-                    
+
                 }
             )
         );
