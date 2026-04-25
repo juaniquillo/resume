@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
  * @property-read array|null $keywords
  * @property-read string $user_id
  * @property-read Carbon|null $created_at
- * @property-read Carbon|null $ updated_at
+ * @property-read Carbon|null $updated_at
  * @property-read User $user
  */
 #[Guarded([])]
