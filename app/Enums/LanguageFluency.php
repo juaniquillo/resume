@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SkillLevel: string
+enum LanguageFluency: string
 {
     case BEGINNER = 'beginner';
     case INTERMEDIATE = 'intermediate';

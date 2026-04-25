@@ -17,6 +17,8 @@ enum FluxComponentEnum: string
     case TEXT_INPUT = 'input';
     case TEXT_FILE = 'file';
     case TEXTAREA = 'textarea';
+    case SELECT = 'select';
+    case OPTION = 'select.option';
 
     // tables
     case TABLE = 'table';

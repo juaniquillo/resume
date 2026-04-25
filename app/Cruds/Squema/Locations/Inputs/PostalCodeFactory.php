@@ -44,6 +44,7 @@ class PostalCodeFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'badge' => 'required',
                         ])
                 )
         );

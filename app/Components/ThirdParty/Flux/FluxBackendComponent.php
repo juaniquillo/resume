@@ -33,6 +33,13 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
         private ThemeManager $themeManager = new DefaultThemeManager
     ) {}
 
+    public function setAttribute(string $name, mixed $value): static
+    {
+        $this->attributes[$name] = $value;
+
+        return $this;
+    }
+
     /**
      * Hardcode context
      */

@@ -52,11 +52,11 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
             'user' => UserFactory::make(),
             'institution' => InstitutionFactory::make(),
             'starts_at' => StartsAtFactory::make(),
+            'ends_at' => EndsAtFactory::make(),
             'url' => UrlFactory::make(),
             'area' => AreaFactory::make(),
             'study_type' => StudyTypeFactory::make(),
             'score' => ScoreFactory::make(),
-            'ends_at' => EndsAtFactory::make(),
         ];
     }
 

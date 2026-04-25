@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
+
+            $table->uuid('uuid');
+
+            $table->string('language');
+            $table->string('fluency');
+
+            $table
+                ->foreignUlid('user_id')
+                ->index()
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

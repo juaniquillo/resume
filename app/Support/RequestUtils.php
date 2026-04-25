@@ -8,4 +8,11 @@ class RequestUtils
     {
         return $phone ? str_replace(['-', ' ', '(', ')'], '', $phone) : null;
     }
+
+    public static function commaSeparatedToArray(?string $value): ?array
+    {
+        return is_string($value) && trim($value) !== ''
+            ? array_filter(array_map('trim', explode(',', $value)))
+            : null;
+    }
 }

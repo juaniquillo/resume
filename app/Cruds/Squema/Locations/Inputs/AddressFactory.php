@@ -44,6 +44,7 @@ class AddressFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'badge' => 'required',
                         ])
                 )
         );

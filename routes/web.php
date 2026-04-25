@@ -9,6 +9,7 @@ use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\PublicationsController;
+use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
@@ -106,6 +107,15 @@ Route::middleware(['auth', 'verified'])
         Route::get('publications/{id}/edit', [PublicationsController::class, 'edit'])->name('dashboard.publications.edit');
         Route::post('publications/{id}', [PublicationsController::class, 'update'])->name('dashboard.publications.update');
         Route::delete('publications/{id}', [PublicationsController::class, 'destroy'])->name('dashboard.publications.destroy');
+
+        /**
+         * Skills
+         */
+        Route::get('skills', [SkillsController::class, 'index'])->name('dashboard.skills');
+        Route::post('skills', [SkillsController::class, 'store'])->name('dashboard.skills.store');
+        Route::get('skills/{id}/edit', [SkillsController::class, 'edit'])->name('dashboard.skills.edit');
+        Route::post('skills/{id}', [SkillsController::class, 'update'])->name('dashboard.skills.update');
+        Route::delete('skills/{id}', [SkillsController::class, 'destroy'])->name('dashboard.skills.destroy');
 
     });
 

@@ -115,6 +115,14 @@ class DashboardNav
                 'icon' => 'book-open',
                 'description' => 'Add, edit and manage your publications.',
             ],
+            [
+                'name' => 'skills',
+                'label' => 'Skills',
+                'route' => 'dashboard.skills',
+                'active' => ['dashboard.skills.edit'],
+                'icon' => 'wrench',
+                'description' => 'Add, edit and manage your skills.',
+            ],
         ];
     }
 

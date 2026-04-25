@@ -15,6 +15,8 @@ use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Containers\InputComponentOutput;
 use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
+use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
+use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -60,6 +62,23 @@ trait HasHtmlForm
             );
     }
 
+    public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent
+    {
+        $inputs = self::inputsArray();
+
+        foreach ($fullSpanInputs as $name) {
+            $summary = $inputs[$name] ?? null;
+
+            $inputs[$name] = $this->spanFullContainer([
+                $summary,
+            ]);
+        }
+
+        return $this->form(
+            inputs: $inputs,
+        );
+    }
+
     public function inputs(?array $inputs = null): array
     {
         $action = (new InputComponentAction($this->getValues(), $this->getErrors()))
@@ -68,6 +87,16 @@ trait HasHtmlForm
 
         if ($this->getModel()) {
             $action->setModel($this->getModel());
+        }
+
+        $valueManager = $this->valueManager();
+        if ($valueManager) {
+            $action->setValueManager($valueManager);
+        }
+
+        $errorManager = $this->errorManager();
+        if ($errorManager) {
+            $action->setErrorManager($errorManager);
         }
 
         $output = $this->make($inputs)->execute($action);
@@ -105,5 +134,15 @@ trait HasHtmlForm
         return (new DefaultComponentBag)
             ->setInputType(FluxComponentEnum::TEXT_INPUT)
             ->setInputComponent(FluxBackendComponent::class);
+    }
+
+    public function valueManager(): ?ValueManager
+    {
+        return null;
+    }
+
+    public function errorManager(): ?ErrorManager
+    {
+        return null;
     }
 }

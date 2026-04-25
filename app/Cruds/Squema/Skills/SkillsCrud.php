@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cruds\Squema\Works;
+namespace App\Cruds\Squema\Skills;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
@@ -12,21 +12,20 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Squema\Works\Inputs\EndsAtFactory;
-use App\Cruds\Squema\Works\Inputs\NameFactory;
-use App\Cruds\Squema\Works\Inputs\PositionFactory;
-use App\Cruds\Squema\Works\Inputs\StartsAtFactory;
-use App\Cruds\Squema\Works\Inputs\SummaryFactory;
-use App\Cruds\Squema\Works\Inputs\UserFactory;
-use App\Cruds\Squema\Works\Inputs\UuidFactory;
-use App\Models\Work;
+use App\Cruds\Managers\WithJsonValueManager;
+use App\Cruds\Squema\Skills\Inputs\KeywordsFactory;
+use App\Cruds\Squema\Skills\Inputs\LevelFactory;
+use App\Cruds\Squema\Skills\Inputs\NameFactory;
+use App\Cruds\Squema\Skills\Inputs\UserFactory;
+use App\Models\Skill;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 
-final class WorksCrud implements CrudForm, CrudInterface, CrudTable
+final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
 {
     use HasHtmlForm,
         HasHtmlTable,
@@ -50,37 +49,11 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            'uuid' => UuidFactory::make(),
-            'user' => UserFactory::make(),
-            'name' => NameFactory::make(),
-            'position' => PositionFactory::make(),
-            'starts_at' => StartsAtFactory::make(),
-            'ends_at' => EndsAtFactory::make(),
-            'summary' => SummaryFactory::make(),
+            UserFactory::make(),
+            NameFactory::make(),
+            LevelFactory::make(),
+            KeywordsFactory::make(),
         ];
-    }
-
-    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
-    {
-        return $this->formFullSpanInputs(['summary']);
-    }
-
-    protected function extraCells(TableRowsAction $action): void
-    {
-        $action->setExtraCell('Highlights', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var Work $work */
-                $work = $model;
-
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.works.highlights', [$work->id]))
-                    ->setContent('Highlights')
-                    ->setAttribute('variant', 'primary')
-                    ->setAttribute('color', 'amber')
-                    ->setAttribute('size', 'xs')
-                    ->setTheme('cursor', 'pointer');
-            },
-        ));
     }
 
     /**
@@ -92,12 +65,12 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {
 
-                /** @var Work $work */
-                $work = $model;
+                /** @var Skill $skill */
+                $skill = $model;
 
                 $contents = [
-                    $this->tableEditButton($work),
-                    $this->tableDeleteButton($work),
+                    $this->tableEditButton($skill),
+                    $this->tableDeleteButton($skill),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -112,19 +85,19 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function tableEditButton(Work $work): BackendComponent|CompoundComponent
+    public function tableEditButton(Skill $skill): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.works.edit', [$work->id]))
+            ->setAttribute('href', route('dashboard.skills.edit', [$skill->id]))
             ->setContent('Edit')
             ->setAttribute('size', 'xs')
             ->setTheme('cursor', 'pointer');
     }
 
-    public function tableDeleteButton(Work $work): BackendComponent|CompoundComponent
+    public function tableDeleteButton(Skill $skill): BackendComponent|CompoundComponent
     {
         return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.works.destroy', [$work->id]))
+            ->setAttribute('action', route('dashboard.skills.destroy', [$skill->id]))
             ->setAttribute('method', 'delete')
             ->setContent(
                 FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
@@ -132,8 +105,14 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                     ->setContent('Delete')
                     ->setAttribute('size', 'xs')
                     ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
+                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this skill?')")
                     ->setTheme('cursor', 'pointer'),
             );
+    }
+
+    /** @phpstan-ignore  return.unusedType */
+    public function valueManager(): ?ValueManager
+    {
+        return new WithJsonValueManager;
     }
 }

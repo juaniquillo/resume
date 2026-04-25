@@ -19,7 +19,13 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('level')->default(SkillLevel::BEGINNER->value);
-            $table->json('keywords');
+            $table->json('keywords')->nullable();
+
+            $table
+                ->foreignUlid('user_id')
+                ->index()
+                ->constrained('users')
+                ->cascadeOnDelete();
 
             $table->timestamps();
         });

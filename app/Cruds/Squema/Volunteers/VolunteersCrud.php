@@ -53,27 +53,16 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
             'user' => UserFactory::make(),
             'organization' => OrganizationFactory::make(),
             'position' => PositionFactory::make(),
-            'url' => UrlFactory::make(),
             'starts_at' => StartsAtFactory::make(),
             'ends_at' => EndsAtFactory::make(),
+            'url' => UrlFactory::make(),
             'summary' => SummaryFactory::make(),
         ];
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        $inputs = $this->inputsArray();
-        $summary = $inputs['summary'] ?? null;
-
-        if ($summary) {
-            $inputs['summary'] = $this->spanFullContainer([
-                $summary,
-            ]);
-        }
-
-        return $this->form(
-            inputs: $inputs,
-        );
+        return $this->formFullSpanInputs(['summary']);
     }
 
     protected function extraCells(TableRowsAction $action): void

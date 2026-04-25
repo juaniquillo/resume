@@ -5,6 +5,8 @@ namespace App\Cruds\Contracts;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
+use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 
 interface CrudForm
 {
@@ -17,4 +19,10 @@ interface CrudForm
     public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent;
 
     public function spanFullContainer(array $contents): InputCollectionInterface;
+
+    public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent;
+
+    public function valueManager(): ?ValueManager;
+
+    public function errorManager(): ?ErrorManager;
 }
