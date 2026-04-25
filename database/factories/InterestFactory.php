@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Interest;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,10 @@ class InterestFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->uuid(),
+            'name' => $this->faker->word(),
+            'keywords' => $this->faker->words(3),
+            'user_id' => User::factory(),
         ];
     }
 }

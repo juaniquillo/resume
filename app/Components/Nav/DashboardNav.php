@@ -131,6 +131,14 @@ class DashboardNav
                 'icon' => 'language',
                 'description' => 'Add, edit and manage your language proficiencies.',
             ],
+            [
+                'name' => 'interests',
+                'label' => 'Interests',
+                'route' => 'dashboard.interests',
+                'active' => ['dashboard.interests.edit'],
+                'icon' => 'sparkles',
+                'description' => 'Add, edit and manage your interests.',
+            ],
         ];
     }
 

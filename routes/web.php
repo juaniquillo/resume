@@ -8,6 +8,7 @@ use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\SkillsController;
@@ -126,6 +127,15 @@ Route::middleware(['auth', 'verified'])
         Route::get('languages/{id}/edit', [LanguagesController::class, 'edit'])->name('dashboard.languages.edit');
         Route::post('languages/{id}', [LanguagesController::class, 'update'])->name('dashboard.languages.update');
         Route::delete('languages/{id}', [LanguagesController::class, 'destroy'])->name('dashboard.languages.destroy');
+
+        /**
+         * Interests
+         */
+        Route::get('interests', [InterestsController::class, 'index'])->name('dashboard.interests');
+        Route::post('interests', [InterestsController::class, 'store'])->name('dashboard.interests.store');
+        Route::get('interests/{id}/edit', [InterestsController::class, 'edit'])->name('dashboard.interests.edit');
+        Route::post('interests/{id}', [InterestsController::class, 'update'])->name('dashboard.interests.update');
+        Route::delete('interests/{id}', [InterestsController::class, 'destroy'])->name('dashboard.interests.destroy');
 
     });
 

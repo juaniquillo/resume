@@ -16,12 +16,15 @@ return new class extends Migration
 
             $table->uuid('uuid');
 
+            $table->string('name');
+            $table->json('keywords')->nullable();
+
             $table
                 ->foreignUlid('user_id')
                 ->index()
                 ->constrained('users')
                 ->cascadeOnDelete();
-            
+
             $table->timestamps();
         });
     }

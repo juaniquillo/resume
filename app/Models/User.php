@@ -109,4 +109,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Language::class);
     }
+
+    public function interests(): HasMany
+    {
+        return $this->hasMany(Interest::class);
+    }
 }

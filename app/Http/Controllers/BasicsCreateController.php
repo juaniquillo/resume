@@ -12,11 +12,15 @@ class BasicsCreateController extends Controller
     {
         $validated = $request->validated();
 
+        dd($validated);
+
         // upload image
         if ($request->hasFile(ImageFactory::NAME)) {
-            $image = $request->file('image');
+            $image = $request->file(ImageFactory::NAME);
             $path = $image->store('public/images');
+            dd($path);
             $validated['image'] = $path;
+            /** @TODO Delete old image */
         } else {
             unset($validated['image']);
         }
