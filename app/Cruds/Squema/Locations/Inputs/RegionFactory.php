@@ -31,7 +31,7 @@ class RegionFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
             ]))
         );
     }

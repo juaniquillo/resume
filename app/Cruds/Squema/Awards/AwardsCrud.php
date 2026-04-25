@@ -2,19 +2,33 @@
 
 namespace App\Cruds\Squema\Awards;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Concerns\HasHtmlForm;
+use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Awards\Inputs\AwardedAtFactory;
 use App\Cruds\Squema\Awards\Inputs\AwarderFactory;
 use App\Cruds\Squema\Awards\Inputs\SummaryFactory;
 use App\Cruds\Squema\Awards\Inputs\TitleFactory;
 use App\Cruds\Squema\Awards\Inputs\UserFactory;
+use App\Models\Award;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
-final class AwardsCrud implements CrudInterface
+final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
 {
-    use IsCrud;
+    use HasHtmlForm,
+        HasHtmlTable,
+        IsCrud;
 
     public function __construct(
         protected array $values = [],
@@ -42,14 +56,9 @@ final class AwardsCrud implements CrudInterface
         ];
     }
 
-    public function formAction(): string
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return route('dashboard.awards.edit');
-    }
-
-    public function formWithTextareaSpanFull(?array $inputs = null): MainBackendComponent
-    {
-        $inputs = $inputs ?? $this->inputsArray();
+        $inputs = $this->inputsArray();
         $summary = $inputs['summary'] ?? null;
 
         if ($summary) {
@@ -61,5 +70,49 @@ final class AwardsCrud implements CrudInterface
         return $this->form(
             inputs: $inputs,
         );
+    }
+
+    /**
+     * Runs once after all inputs
+     * are processed
+     */
+    protected function tableOptions(TableRowsAction $action): void
+    {
+        $recipe = new TableRowsRecipe(
+            value: function ($value, Model $model) {
+
+                /** @var Award $award */
+                $award = $model;
+
+                $contents = [
+                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('href', route('dashboard.awards.edit', $award->id))
+                        ->setContent('Edit')
+                        ->setAttribute('size', 'xs')
+                        ->setTheme('cursor', 'pointer'),
+                    ComponentBuilder::make(ComponentEnum::FORM)
+                        ->setAttribute('action', route('dashboard.awards.destroy', $award->id))
+                        ->setAttribute('method', 'delete')
+                        ->setContent(
+                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                                ->setAttribute('type', 'submit')
+                                ->setContent('Delete')
+                                ->setAttribute('size', 'xs')
+                                ->setAttribute('variant', 'danger')
+                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this award?')")
+                                ->setTheme('cursor', 'pointer'),
+                        ),
+                ];
+
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setTheme('display', 'flex')
+                    ->setTheme('flex', [
+                        'gap-sm',
+                    ]);
+            }
+        );
+
+        $action->setExtraCell('Settings', $recipe);
     }
 }

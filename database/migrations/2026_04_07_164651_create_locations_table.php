@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
 
+            $table->uuid('uuid');
+
             $table
                 ->foreignUlid('basic_id')
                 ->index()
@@ -21,10 +23,10 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('address');
-            $table->string('postalCode');
+            $table->string('postal_code');
             $table->string('city');
-            $table->string('countryCode');
-            $table->string('region');
+            $table->string('country_code');
+            $table->string('region')->nullable();
 
             $table->timestamps();
         });

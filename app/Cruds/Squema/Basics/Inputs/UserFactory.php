@@ -2,6 +2,8 @@
 
 namespace App\Cruds\Squema\Basics\Inputs;
 
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -17,8 +19,15 @@ class UserFactory
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         $input->setRecipe(
-            (new InputComponentRecipe)
-                ->ignore()
+            (new InputComponentRecipe)->ignore()
+        );
+
+        $input->setRecipe(
+            (new TableRowsRecipe)->ignore()
+        );
+
+        $input->setRecipe(
+            (new LaravelFactoryRecipe)->ignore()
         );
 
         return $input;
