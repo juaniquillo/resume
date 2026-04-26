@@ -19,8 +19,8 @@ class DashboardNav
      *    active?: array,
      *    icon?: string,
      *    description?: string,
-     *    ignore-dashboard?: bool,
-     *    sub-nav?: array<array{
+     *    ignore_dashboard?: bool,
+     *    sub_nav?: array<array{
      *     name: string,
      *     label: string,
      *     route: string,
@@ -38,13 +38,13 @@ class DashboardNav
                 'label' => 'Dashboard',
                 'route' => 'dashboard',
                 'icon' => 'home',
-                'ignore-dashboard' => true,
+                'ignore_dashboard' => true,
             ],
             [
                 'name' => 'basics',
                 'label' => 'Basics',
                 'description' => 'Update basic info.',
-                'sub-nav' => [
+                'sub_nav' => [
                     [
                         'name' => 'basics',
                         'label' => 'Basic Info',
@@ -155,11 +155,11 @@ class DashboardNav
         $links = [];
 
         foreach (self::items() as $item) {
-            if ($item['ignore-dashboard'] ?? null) {
+            if ($item['ignore_dashboard'] ?? null) {
                 continue;
             }
 
-            $firstSubNav = $item['sub-nav'] ?? false ? $item['sub-nav'][0] : null;
+            $firstSubNav = $item['sub_nav'] ?? false ? $item['sub_nav'][0] : null;
 
             $links[] = [
                 'label' => $item['label'],

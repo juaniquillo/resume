@@ -13,7 +13,7 @@ use Juaniquillo\InputComponentAction\Utilities\Support;
  * 2 - In $recipe inputValue
  * 3 - In $model property
  */
-final class WithJsonValueManager implements ValueManager
+final class ArrayToCommaSeparatedValueManager implements ValueManager
 {
     private array $values = [];
 
@@ -39,18 +39,7 @@ final class WithJsonValueManager implements ValueManager
         $model = $this->model;
 
         $name = $input->getName();
-
-        if (array_key_exists(key: $name, array: $values)) {
-            $value = $values[$name];
-
-            $plainValue = is_array($value) ? trim(implode(', ', $value)) : $value;
-        }
-
         $recipeValue = $recipe->getInputValue();
-        $modelValue = null;
-
-        $modelValueRaw = $model->{$name} ?? null;
-        $modelValue = is_array($modelValueRaw) ? trim(implode(', ', $modelValueRaw)) : $modelValueRaw;
 
         $recipeValueProcessed = null;
 
@@ -60,6 +49,23 @@ final class WithJsonValueManager implements ValueManager
             } else {
                 $recipeValueProcessed = $recipeValue;
             }
+        }
+
+        if (\array_key_exists(key: $name, array: $values)) {
+            $value = $values[$name];
+            // check in case of array
+            $plainValue = \is_array($value) ? \trim(implode(', ', $value)) : $value;
+        }
+
+        $modelValue = null;
+        $modelValueRaw = $model->{$name} ?? null;
+
+        if ($modelValueRaw && \is_object($modelValueRaw)) {
+            if (method_exists($modelValueRaw, '__toString')) {
+                $modelValue = $modelValueRaw->__toString();
+            }
+        } else {
+            $modelValue = \is_array($modelValueRaw) ? \trim(implode(', ', $modelValueRaw)) : $modelValueRaw;
         }
 
         return $recipeValueProcessed ?? $plainValue ?? $modelValue ?? null;

@@ -59,13 +59,6 @@ class ReferencesController extends Controller
         $model = $request->user()->references()->findOrFail($id);
 
         $values = $request->old();
-
-        if (empty($values) && ! empty($model->keywords)) {
-            $values['keywords'] = implode(', ', $model->keywords);
-        } elseif (isset($values['keywords']) && is_array($values['keywords'])) {
-            $values['keywords'] = implode(', ', $values['keywords']);
-        }
-
         $errors = $request->session()->get('errors')?->toArray() ?? [];
 
         $crud = ReferencesCrud::build(

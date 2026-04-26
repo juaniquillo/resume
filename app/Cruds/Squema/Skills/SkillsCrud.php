@@ -12,7 +12,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Managers\WithJsonValueManager;
+use App\Cruds\Managers\ArrayToCommaSeparatedValueManager;
 use App\Cruds\Squema\Skills\Inputs\KeywordsFactory;
 use App\Cruds\Squema\Skills\Inputs\LevelFactory;
 use App\Cruds\Squema\Skills\Inputs\NameFactory;
@@ -118,6 +118,6 @@ final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
     /** @phpstan-ignore  return.unusedType */
     public function valueManager(): ?ValueManager
     {
-        return new WithJsonValueManager;
+        return new ArrayToCommaSeparatedValueManager;
     }
 }

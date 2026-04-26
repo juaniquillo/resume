@@ -25,12 +25,12 @@ trait IsFluxNavigation
 
         foreach (self::items() as $item) {
 
-            if ($item['sub-nav'] ?? false) {
+            if ($item['sub_nav'] ?? false) {
                 $subItems = [];
 
                 $group = self::group($item['label']);
 
-                foreach ($item['sub-nav'] as $subItem) {
+                foreach ($item['sub_nav'] as $subItem) {
                     $subItems[] = self::single($subItem);
                 }
 

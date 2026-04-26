@@ -12,6 +12,7 @@
         "php": "^8.4",
         "juaniquillo/crud-assistant": "^0.1.0",
         "juaniquillo/input-component-action": "dev-main",
+        "juststeveking/resume-php": "^1.0",
         "laravel/fortify": "^1.34",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
