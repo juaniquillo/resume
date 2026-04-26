@@ -10,6 +10,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
 use App\Http\Controllers\SkillsController;
@@ -146,6 +148,21 @@ Route::middleware(['auth', 'verified'])
         Route::get('references/{id}/edit', [ReferencesController::class, 'edit'])->name('dashboard.references.edit');
         Route::post('references/{id}', [ReferencesController::class, 'update'])->name('dashboard.references.update');
         Route::delete('references/{id}', [ReferencesController::class, 'destroy'])->name('dashboard.references.destroy');
+
+        /**
+         * Projects
+         */
+        Route::get('projects', [ProjectController::class, 'index'])->name('dashboard.projects');
+        Route::post('projects', [ProjectController::class, 'store'])->name('dashboard.projects.store');
+        Route::get('projects/{id}/edit', [ProjectController::class, 'edit'])->name('dashboard.projects.edit');
+        Route::post('projects/{id}', [ProjectController::class, 'update'])->name('dashboard.projects.update');
+        Route::delete('projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
+
+        Route::get('projects/{id}/highlights', [ProjectHighlightsController::class, 'index'])->name('dashboard.projects.highlights');
+        Route::post('projects/{id}/highlights', [ProjectHighlightsController::class, 'store'])->name('dashboard.projects.highlights.store');
+        Route::get('projects/{id}/highlights/{highlightId}/edit', [ProjectHighlightsController::class, 'edit'])->name('dashboard.projects.highlights.edit');
+        Route::post('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'update'])->name('dashboard.projects.highlights.update');
+        Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
 
     });
 

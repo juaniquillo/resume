@@ -147,6 +147,14 @@ class DashboardNav
                 'icon' => 'book-open',
                 'description' => 'Add, edit and manage your references.',
             ],
+            [
+                'name' => 'projects',
+                'label' => 'Projects',
+                'route' => 'dashboard.projects',
+                'active' => ['dashboard.projects.edit', 'dashboard.projects.highlights', 'dashboard.projects.highlights.edit'],
+                'icon' => 'folder',
+                'description' => 'Add, edit and manage your projects.',
+            ],
         ];
     }
 

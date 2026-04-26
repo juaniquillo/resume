@@ -13,7 +13,23 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+
+            $table->uuid('uuid');
+
+            $table->string('name');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+            $table->string('url')->nullable();
+            $table->text('description')->nullable();
+
+            $table
+                ->foreignUlid('user_id')
+                ->index()
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->timestamps();
+
         });
     }
 

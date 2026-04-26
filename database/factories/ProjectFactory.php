@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Projects\ProjectsCrud;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,15 +12,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProjectFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        $crud = ProjectsCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }
