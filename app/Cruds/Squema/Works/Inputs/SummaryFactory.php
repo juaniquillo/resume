@@ -2,10 +2,17 @@
 
 namespace App\Cruds\Squema\Works\Inputs;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
+use App\Models\Work;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -26,6 +33,7 @@ class SummaryFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
 
         return $input;
     }
@@ -63,6 +71,32 @@ class SummaryFactory
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
                     $output->{ $input->getName() } = $faker->paragraph;
+                }
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function ($value, Model $model) {
+
+                    if (! $value) {
+                        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                            ->setAttribute('color', 'red')
+                            ->setContent('empty');
+
+                    }
+
+                    /** @var Work $work */
+                    $work = $model;
+                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                        ->setContent($value)
+                        ->setTheme('spacing', 'm-top-sm')
+                        ->setTheme('text', 'nl2br');
+
+                    return TableHelpers::tableModal($work->id, $modalContent, SummaryFactory::LABEL, 'ghost');
                 }
             )
         );

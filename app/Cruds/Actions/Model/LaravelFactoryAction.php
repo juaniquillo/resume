@@ -23,12 +23,17 @@ class LaravelFactoryAction extends Action implements ActionInterface
      */
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
     {
+        /** @var ?LaravelFactoryRecipe $recipe */
+        $recipe = $input->getRecipe($this->getIdentifier());
+
+        if ($recipe?->isIgnored()) {
+            return $this->getOutput();
+        }
+
         $output = $this->getOutput();
 
         $name = $input->getName();
 
-        /** @var LaravelFactoryRecipe $recipe */
-        $recipe = $input->getRecipe($this->getIdentifier());
         $faker = $this->faker;
 
         if ($recipe) {

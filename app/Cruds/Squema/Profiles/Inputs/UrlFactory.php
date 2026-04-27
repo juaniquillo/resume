@@ -46,6 +46,7 @@ class UrlFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'type' => 'url',
+                            'badge' => 'required',
                         ])
                 )
         );

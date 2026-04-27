@@ -2,6 +2,8 @@
 
 namespace App\Cruds\Squema\Profiles\Inputs;
 
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -19,6 +21,14 @@ class BasicsFactory
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->ignore()
+        );
+
+        $input->setRecipe(
+            (new LaravelFactoryRecipe)->ignore()
+        );
+
+        $input->setRecipe(
+            (new TableRowsRecipe)->ignore()
         );
 
         return $input;

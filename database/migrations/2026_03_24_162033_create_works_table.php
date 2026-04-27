@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
 
-            $table->uuid('uid');
+            $table->uuid('uuid');
 
             $table->string('name');
             $table->string('position');

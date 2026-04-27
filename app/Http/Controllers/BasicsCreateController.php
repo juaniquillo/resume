@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Http\Requests\BasicsFormRequest;
 use App\Models\Basic;
+use Illuminate\Support\Facades\Storage;
 
 class BasicsCreateController extends Controller
 {
@@ -12,13 +13,20 @@ class BasicsCreateController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
+        $basics = Basic::where('user_id', $request->user()->id)->first();
 
         // upload image
         if ($request->hasFile(ImageFactory::NAME)) {
-            $image = $request->file('image');
-            $path = $image->store('public/images');
+            $image = $request->file(ImageFactory::NAME);
+
+            if ($basics?->image) {
+                Storage::delete($basics->image);
+            }
+
+            $path = Storage::putFile('basics', $image);
             $validated['image'] = $path;
+        } else {
+            unset($validated['image']);
         }
 
         $basics = Basic::updateOrCreate(
@@ -27,6 +35,7 @@ class BasicsCreateController extends Controller
         );
 
         return redirect()
-            ->back()->with('success', 'Basics information updated successfully.');
+            ->back()
+            ->with('success', 'Basics information updated successfully.');
     }
 }
