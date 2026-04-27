@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Awards;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Awards\Inputs\AwardedAtFactory;
 use App\Cruds\Squema\Awards\Inputs\AwarderFactory;
 use App\Cruds\Squema\Awards\Inputs\SummaryFactory;
@@ -84,24 +83,11 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Award $award */
                 $award = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.awards.edit', $award->id))
-                        ->setContent('Edit')
-                        ->setAttribute('size', 'xs')
-                        ->setTheme('cursor', 'pointer'),
-                    ComponentBuilder::make(ComponentEnum::FORM)
-                        ->setAttribute('action', route('dashboard.awards.destroy', $award->id))
-                        ->setAttribute('method', 'delete')
-                        ->setContent(
-                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                                ->setAttribute('type', 'submit')
-                                ->setContent('Delete')
-                                ->setAttribute('size', 'xs')
-                                ->setAttribute('variant', 'danger')
-                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this award?')")
-                                ->setTheme('cursor', 'pointer'),
-                        ),
+                    $helper->editButton(route('dashboard.awards.edit', [$award->id])),
+                    $helper->deleteButton(route('dashboard.awards.destroy', [$award->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)

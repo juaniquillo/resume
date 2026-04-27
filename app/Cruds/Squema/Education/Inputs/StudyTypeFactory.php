@@ -142,7 +142,6 @@ class StudyTypeFactory
 
                     return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                         ->setAttributes([
-                            'variant' => 'solid',
                             'color' => $color,
                         ])
                         ->setContent($valueNew);

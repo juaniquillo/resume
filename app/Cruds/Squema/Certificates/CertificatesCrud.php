@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Certificates;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Certificates\Inputs\DateFactory;
 use App\Cruds\Squema\Certificates\Inputs\NameFactory;
 use App\Cruds\Squema\Certificates\Inputs\UrlFactory;
@@ -71,9 +70,11 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Certificate $certificate */
                 $certificate = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($certificate),
-                    $this->tableDeleteButton($certificate),
+                    $helper->editButton(route('dashboard.certificates.edit', [$certificate->id])),
+                    $helper->deleteButton(route('dashboard.certificates.destroy', [$certificate->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -88,28 +89,4 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function tableEditButton(Certificate $certificate): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.certificates.edit', [$certificate->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Certificate $certificate): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.certificates.destroy', [$certificate->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this certificate?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
-    }
 }

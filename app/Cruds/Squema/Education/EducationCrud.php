@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Education;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Education\Inputs\AreaFactory;
 use App\Cruds\Squema\Education\Inputs\EndsAtFactory;
 use App\Cruds\Squema\Education\Inputs\InstitutionFactory;
@@ -81,24 +80,11 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Education $education */
                 $education = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.education.edit', $education->id))
-                        ->setContent('Edit')
-                        ->setAttribute('size', 'xs')
-                        ->setTheme('cursor', 'pointer'),
-                    ComponentBuilder::make(ComponentEnum::FORM)
-                        ->setAttribute('action', route('dashboard.education.destroy', $education->id))
-                        ->setAttribute('method', 'delete')
-                        ->setContent(
-                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                                ->setAttribute('type', 'submit')
-                                ->setContent('Delete')
-                                ->setAttribute('size', 'xs')
-                                ->setAttribute('variant', 'danger')
-                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this education entry?')")
-                                ->setTheme('cursor', 'pointer'),
-                        ),
+                    $helper->editButton(route('dashboard.education.edit', [$education->id])),
+                    $helper->deleteButton(route('dashboard.education.destroy', [$education->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)

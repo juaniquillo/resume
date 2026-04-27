@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Works;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Works\Inputs\EndsAtFactory;
 use App\Cruds\Squema\Works\Inputs\NameFactory;
 use App\Cruds\Squema\Works\Inputs\PositionFactory;
@@ -72,13 +71,8 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Work $work */
                 $work = $model;
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.works.highlights', [$work->id]))
-                    ->setContent('Highlights')
-                    ->setAttribute('variant', 'primary')
-                    ->setAttribute('color', 'amber')
-                    ->setAttribute('size', 'xs')
-                    ->setTheme('cursor', 'pointer');
+                return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
+
             },
         ));
     }
@@ -95,9 +89,11 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Work $work */
                 $work = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($work),
-                    $this->tableDeleteButton($work),
+                    $helper->editButton(route('dashboard.works.edit', [$work->id])),
+                    $helper->deleteButton(route('dashboard.works.destroy', [$work->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -112,28 +108,4 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function tableEditButton(Work $work): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.works.edit', [$work->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Work $work): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.works.destroy', [$work->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this work?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
-    }
 }

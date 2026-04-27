@@ -7,13 +7,11 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use App\Models\Project;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -98,31 +96,10 @@ class DescriptionFactory
                         ->setTheme('spacing', 'm-top-sm')
                         ->setTheme('text', 'nl2br');
 
-                    return DescriptionFactory::tableModal($project->id, $modalContent, DescriptionFactory::LABEL);
+                    return TableHelpers::tableModal($project->id, $modalContent, DescriptionFactory::LABEL, 'ghost');
                 }
             )
         );
     }
 
-    public static function tableModal(int $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
-            ->setContents([
-                'button' => FluxComponentBuilder::make('modal.trigger')
-                    ->setAttribute('name', "flux-modal-confirm-project-{$id}")
-                    ->setContent(
-                        FluxComponentBuilder::make('button')
-                            ->setAttribute('variant', $triggerType)
-                            ->setAttribute('size', 'xs')
-                            ->setContent($buttonLabel)
-                    ),
-                'modal' => FluxComponentBuilder::make('modal')
-                    ->setAttribute('name', "flux-modal-confirm-project-{$id}")
-                    ->setContents([
-                        FluxComponentBuilder::make('heading')
-                            ->setContent($heading),
-                        $content,
-                    ]),
-            ]);
-    }
 }

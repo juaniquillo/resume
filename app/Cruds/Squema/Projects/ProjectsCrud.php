@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Projects;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Projects\Inputs\DescriptionFactory;
 use App\Cruds\Squema\Projects\Inputs\EndDateFactory;
 use App\Cruds\Squema\Projects\Inputs\NameFactory;
@@ -72,13 +71,7 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Project $project */
                 $project = $model;
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.projects.highlights', [$project->id]))
-                    ->setContent('Highlights')
-                    ->setAttribute('variant', 'primary')
-                    ->setAttribute('color', 'amber')
-                    ->setAttribute('size', 'xs')
-                    ->setTheme('cursor', 'pointer');
+                return TableHelpers::highlightsButton(route('dashboard.projects.highlights', [$project->id]));
             },
         ));
     }
@@ -95,9 +88,11 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Project $project */
                 $project = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($project),
-                    $this->tableDeleteButton($project),
+                    $helper->editButton(route('dashboard.projects.edit', [$project->id])),
+                    $helper->deleteButton(route('dashboard.projects.destroy', [$project->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -112,28 +107,4 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function tableEditButton(Project $project): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.projects.edit', [$project->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Project $project): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.projects.destroy', [$project->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this project?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
-    }
 }

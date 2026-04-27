@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Interests;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Interests\Inputs\KeywordsFactory;
 use App\Cruds\Squema\Interests\Inputs\NameFactory;
 use App\Cruds\Squema\Interests\Inputs\UserFactory;
@@ -19,8 +18,6 @@ use App\Cruds\Squema\Interests\Inputs\UuidFactory;
 use App\Models\Interest;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class InterestsCrud implements CrudForm, CrudInterface, CrudTable
@@ -66,9 +63,11 @@ final class InterestsCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Interest $interest */
                 $interest = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($interest),
-                    $this->tableDeleteButton($interest),
+                    $helper->editButton(route('dashboard.interests.edit', [$interest->id])),
+                    $helper->deleteButton(route('dashboard.interests.destroy', [$interest->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -83,28 +82,4 @@ final class InterestsCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function tableEditButton(Interest $interest): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.interests.edit', [$interest->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Interest $interest): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.interests.destroy', [$interest->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this interest?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
-    }
 }

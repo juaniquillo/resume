@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Volunteers;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Volunteers\Inputs\EndsAtFactory;
 use App\Cruds\Squema\Volunteers\Inputs\OrganizationFactory;
 use App\Cruds\Squema\Volunteers\Inputs\PositionFactory;
@@ -72,13 +71,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Volunteer $volunteer */
                 $volunteer = $model;
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.volunteers.highlights', [$volunteer->id]))
-                    ->setContent('Highlights')
-                    ->setAttribute('variant', 'primary')
-                    ->setAttribute('color', 'amber')
-                    ->setAttribute('size', 'xs')
-                    ->setTheme('cursor', 'pointer');
+                return TableHelpers::highlightsButton(route('dashboard.volunteers.highlights', [$volunteer->id]));
             },
         ));
     }
@@ -95,24 +88,11 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Volunteer $volunteer */
                 $volunteer = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.volunteers.edit', $volunteer->id))
-                        ->setContent('Edit')
-                        ->setAttribute('size', 'xs')
-                        ->setTheme('cursor', 'pointer'),
-                    ComponentBuilder::make(ComponentEnum::FORM)
-                        ->setAttribute('action', route('dashboard.volunteers.destroy', $volunteer->id))
-                        ->setAttribute('method', 'delete')
-                        ->setContent(
-                            FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                                ->setAttribute('type', 'submit')
-                                ->setContent('Delete')
-                                ->setAttribute('size', 'xs')
-                                ->setAttribute('variant', 'danger')
-                                ->setAttribute('onclick', "return confirm('Are you sure you want to delete this volunteer?')")
-                                ->setTheme('cursor', 'pointer'),
-                        ),
+                    $helper->editButton(route('dashboard.volunteers.edit', [$volunteer->id])),
+                    $helper->deleteButton(route('dashboard.volunteers.destroy', [$volunteer->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)

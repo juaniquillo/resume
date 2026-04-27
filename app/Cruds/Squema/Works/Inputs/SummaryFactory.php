@@ -7,6 +7,7 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use App\Models\Work;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
@@ -98,32 +99,11 @@ class SummaryFactory
                         ->setTheme('spacing', 'm-top-sm')
                         ->setTheme('text', 'nl2br');
 
-                    return SummaryFactory::tableModal($work->id, $modalContent, SummaryFactory::LABEL);
+                    
+                    return TableHelpers::tableModal($work->id, $modalContent, SummaryFactory::LABEL, 'ghost');
                 }
             )
         );
     }
 
-    public static function tableModal(int $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
-            ->setContents([
-                'button' => FluxComponentBuilder::make('modal.trigger')
-                    ->setAttribute('name', "flux-modal-confirm-{$id}")
-                    ->setContent(
-                        FluxComponentBuilder::make('button')
-                            ->setAttribute('variant', $triggerType)
-                            ->setAttribute('size', 'xs')
-                            ->setContent($buttonLabel)
-                    ),
-                'modal' => FluxComponentBuilder::make('modal')
-                    ->setAttribute('name', "flux-modal-confirm-{$id}")
-                    // ->setAttribute(':dismissible', 'false')
-                    ->setContents([
-                        FluxComponentBuilder::make('heading')
-                            ->setContent($heading),
-                        $content,
-                    ]),
-            ]);
-    }
 }
