@@ -16,6 +16,7 @@ use App\Cruds\Squema\Profiles\Inputs\BasicsFactory;
 use App\Cruds\Squema\Profiles\Inputs\NetworkFactory;
 use App\Cruds\Squema\Profiles\Inputs\UrlFactory;
 use App\Cruds\Squema\Profiles\Inputs\UsernameFactory;
+use App\Cruds\Squema\Profiles\Inputs\UuidFactory;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -47,6 +48,7 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'basics' => BasicsFactory::make(),
             'network' => NetworkFactory::make(),
             'username' => UsernameFactory::make(),

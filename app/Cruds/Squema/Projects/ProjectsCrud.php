@@ -106,5 +106,4 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
 
         $action->setExtraCell('Settings', $recipe);
     }
-
 }

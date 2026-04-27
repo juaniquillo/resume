@@ -11,10 +11,7 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Models\Work;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -99,11 +96,9 @@ class SummaryFactory
                         ->setTheme('spacing', 'm-top-sm')
                         ->setTheme('text', 'nl2br');
 
-                    
                     return TableHelpers::tableModal($work->id, $modalContent, SummaryFactory::LABEL, 'ghost');
                 }
             )
         );
     }
-
 }

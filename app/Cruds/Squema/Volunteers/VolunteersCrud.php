@@ -18,6 +18,7 @@ use App\Cruds\Squema\Volunteers\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Volunteers\Inputs\SummaryFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UrlFactory;
 use App\Cruds\Squema\Volunteers\Inputs\UserFactory;
+use App\Cruds\Squema\Volunteers\Inputs\UuidFactory;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -49,6 +50,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'organization' => OrganizationFactory::make(),
             'position' => PositionFactory::make(),

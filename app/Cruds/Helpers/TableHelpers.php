@@ -13,8 +13,9 @@ final class TableHelpers
 {
     public static function make(): static
     {
-        return new static();
+        return new self;
     }
+
     public static function tableModal(int $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
@@ -76,6 +77,6 @@ final class TableHelpers
             ->setAttribute('color', 'amber')
             ->setAttribute('size', 'xs')
             ->setTheme('cursor', 'pointer');
-        
+
     }
 }

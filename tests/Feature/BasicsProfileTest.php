@@ -40,7 +40,7 @@ it('renders the profiles table when records exist', function () {
 
 it('stores a new profile record', function () {
     $data = [
-        'network' => 'Twitter',
+        'network' => 'twitter',
         'username' => 'johndoe',
         'url' => 'https://twitter.com/johndoe',
     ];
@@ -53,7 +53,7 @@ it('stores a new profile record', function () {
 
     $this->assertDatabaseHas('profiles', [
         'basic_id' => $this->basic->id,
-        'network' => 'Twitter',
+        'network' => 'twitter',
         'username' => 'johndoe',
     ]);
 });
@@ -80,13 +80,13 @@ it('renders the edit profile page', function () {
 it('updates an existing profile record', function () {
     $profile = Profile::factory()->create([
         'basic_id' => $this->basic->id,
-        'network' => 'Old Network',
+        'network' => 'github',
     ]);
 
     $data = [
-        'network' => 'New Network',
+        'network' => 'linkedin',
         'username' => 'newuser',
-        'url' => 'https://newnetwork.com/newuser',
+        'url' => 'https://linkedin.com/in/newuser',
     ];
 
     $this->actingAs($this->user)
@@ -97,7 +97,7 @@ it('updates an existing profile record', function () {
 
     $this->assertDatabaseHas('profiles', [
         'id' => $profile->id,
-        'network' => 'New Network',
+        'network' => 'linkedin',
     ]);
 });
 

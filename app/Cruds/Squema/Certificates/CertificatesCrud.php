@@ -15,6 +15,7 @@ use App\Cruds\Squema\Certificates\Inputs\DateFactory;
 use App\Cruds\Squema\Certificates\Inputs\NameFactory;
 use App\Cruds\Squema\Certificates\Inputs\UrlFactory;
 use App\Cruds\Squema\Certificates\Inputs\UserFactory;
+use App\Cruds\Squema\Certificates\Inputs\UuidFactory;
 use App\Models\Certificate;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -46,6 +47,7 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'name' => NameFactory::make(),
             'date' => DateFactory::make(),
@@ -88,5 +90,4 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
 
         $action->setExtraCell('Settings', $recipe);
     }
-
 }

@@ -16,6 +16,7 @@ use App\Cruds\Squema\Awards\Inputs\AwarderFactory;
 use App\Cruds\Squema\Awards\Inputs\SummaryFactory;
 use App\Cruds\Squema\Awards\Inputs\TitleFactory;
 use App\Cruds\Squema\Awards\Inputs\UserFactory;
+use App\Cruds\Squema\Awards\Inputs\UuidFactory;
 use App\Models\Award;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -47,6 +48,7 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'title' => TitleFactory::make(),
             'awarder' => AwarderFactory::make(),
