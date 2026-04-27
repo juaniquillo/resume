@@ -84,9 +84,9 @@ class TableRowsAction extends Action implements ActionInterface
 
     }
 
-    public function resolveValue(string|array|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): string|BackendComponent|CompoundComponent|null
+    public function resolveValue(mixed $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): string|BackendComponent|CompoundComponent|null
     {
-        /** @var string|Closure(string|array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $recipeValue */
+        /** @var string|Closure(mixed $value, Model $model):(string|BackendComponent|CompoundComponent)|null $recipeValue */
         $recipeValue = $recipe->value ?? null;
 
         if (Helpers::isClosure($recipeValue)) {

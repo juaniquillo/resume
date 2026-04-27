@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EducationLevel;
 use App\Models\Education;
 use App\Models\User;
 
@@ -39,7 +40,7 @@ it('stores a new education record', function () {
         'institution' => 'University of Life',
         'url' => 'https://example.edu',
         'area' => 'Software Engineering',
-        'study_type' => 'Bachelor',
+        'study_type' => EducationLevel::BACHELOR_DEGREE->value,
         'score' => '4.0',
         'starts_at' => '2016-01-01',
         'ends_at' => '2020-01-01',
@@ -55,6 +56,7 @@ it('stores a new education record', function () {
         'user_id' => $this->user->id,
         'institution' => 'University of Life',
         'area' => 'Software Engineering',
+        'study_type' => EducationLevel::BACHELOR_DEGREE->value,
     ]);
 });
 
@@ -87,7 +89,7 @@ it('updates an existing education record', function () {
         'institution' => 'New University',
         'url' => 'https://new-example.edu',
         'area' => 'Artificial Intelligence',
-        'study_type' => 'Master',
+        'study_type' => EducationLevel::MASTER_DEGREE->value,
         'score' => '3.9',
         'starts_at' => '2020-01-01',
         'ends_at' => '2022-01-01',
@@ -102,6 +104,7 @@ it('updates an existing education record', function () {
     $this->assertDatabaseHas('education', [
         'id' => $education->id,
         'institution' => 'New University',
+        'study_type' => EducationLevel::MASTER_DEGREE->value,
     ]);
 });
 

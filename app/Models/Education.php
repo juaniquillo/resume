@@ -18,8 +18,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $study_type
  * @property-read string $score
  * @property-read string $user_id
- * @property-read Carbon $starts_at
- * @property-read Carbon $ends_at
+ * @property-read string $starts_at
+ * @property-read string $ends_at
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  */

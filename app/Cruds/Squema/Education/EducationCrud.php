@@ -20,6 +20,7 @@ use App\Cruds\Squema\Education\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Education\Inputs\StudyTypeFactory;
 use App\Cruds\Squema\Education\Inputs\UrlFactory;
 use App\Cruds\Squema\Education\Inputs\UserFactory;
+use App\Cruds\Squema\Education\Inputs\UuidFactory;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -51,6 +52,7 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'institution' => InstitutionFactory::make(),
             'starts_at' => StartsAtFactory::make(),
