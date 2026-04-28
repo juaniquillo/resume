@@ -1,11 +1,15 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/livewire-starter-kit",
+    "name": "juaniquillo/resume",
     "type": "project",
-    "description": "The official Laravel starter kit for Livewire.",
+    "description": "A professional resume management system built with Laravel, Livewire, and CrudAssistant.",
     "keywords": [
+        "resume",
+        "cv",
+        "portfolio",
         "laravel",
-        "framework"
+        "livewire",
+        "crud-assistant"
     ],
     "license": "MIT",
     "require": {
