@@ -3,11 +3,9 @@
 namespace App\Cruds\Squema\Basics;
 
 use App\Cruds\Concerns\HasHtmlForm;
-use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
-use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Squema\Basics\Inputs\EmailFactory;
 use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Cruds\Squema\Basics\Inputs\LabelFactory;
@@ -21,11 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class BasicsCrud implements CrudForm, CrudInterface, CrudTable
+final class BasicsCrud implements CrudForm, CrudInterface
 {
     use HasHtmlForm,
-        HasHtmlTable,
         IsCrud;
+
+    public const NAME = 'basics';
 
     public function __construct(
         protected array $values = [],
@@ -59,16 +58,6 @@ final class BasicsCrud implements CrudForm, CrudInterface, CrudTable
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        $inputs = $this->inputsArray();
-        $summary = $inputs['summary'] ?? null;
-
-        // Textarea input with column span full theme
-        $inputs['summary'] = $this->spanFullContainer([
-            $summary,
-        ]);
-
-        return $this->form(
-            inputs: $inputs,
-        );
+        return $this->formFullSpanInputs(['summary']);
     }
 }

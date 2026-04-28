@@ -63,7 +63,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['summary']);
+        return $this->formFullSpanInputs(['url', 'summary']);
     }
 
     protected function extraCells(TableRowsAction $action): void

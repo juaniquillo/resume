@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,7 +27,8 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  * @property-read User $user
- * @property-read Collection $location
+ * @property-read Location $location
+ * @property-read Collection $profiles
  */
 #[Guarded([])]
 class Basic extends Model
@@ -40,9 +42,9 @@ class Basic extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function locations(): HasMany
+    public function location(): HasOne
     {
-        return $this->hasMany(Location::class);
+        return $this->hasOne(Location::class);
     }
 
     public function profiles(): HasMany

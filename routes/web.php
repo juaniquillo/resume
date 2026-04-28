@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AwardsController;
 use App\Http\Controllers\BasicsController;
-use App\Http\Controllers\BasicsCreateController;
 use App\Http\Controllers\BasicsLocationController;
+use App\Http\Controllers\BasicsLocationUpdateController;
 use App\Http\Controllers\BasicsProfileController;
+use App\Http\Controllers\BasicsUpdateController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\ProjectController;
@@ -21,7 +23,7 @@ use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'index')->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
@@ -33,13 +35,10 @@ Route::middleware(['auth', 'verified'])
          * Basics
          */
         Route::get('basics', BasicsController::class)->name('dashboard.basics');
-        Route::post('basics', BasicsCreateController::class)->name('dashboard.basics.update');
+        Route::post('basics', BasicsUpdateController::class)->name('dashboard.basics.update');
 
-        Route::get('basics/locations', [BasicsLocationController::class, 'index'])->name('dashboard.basics.locations');
-        Route::post('basics/locations', [BasicsLocationController::class, 'store'])->name('dashboard.basics.locations.store');
-        Route::get('basics/locations/{id}/edit', [BasicsLocationController::class, 'edit'])->name('dashboard.basics.locations.edit');
-        Route::post('basics/locations/{id}', [BasicsLocationController::class, 'update'])->name('dashboard.basics.locations.update');
-        Route::delete('basics/locations/{id}', [BasicsLocationController::class, 'destroy'])->name('dashboard.basics.locations.destroy');
+        Route::get('basics/locations', BasicsLocationController::class)->name('dashboard.basics.location');
+        Route::post('basics/locations', BasicsLocationUpdateController::class)->name('dashboard.basics.location.update');
 
         Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
         Route::post('basics/profiles', [BasicsProfileController::class, 'store'])->name('dashboard.basics.profiles.store');

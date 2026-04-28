@@ -19,7 +19,7 @@ class DashboardNav
      *    active?: array,
      *    icon?: string,
      *    description?: string,
-     *    ignore_dashboard?: bool,
+     *    ignore_cards?: bool,
      *    sub_nav?: array<array{
      *     name: string,
      *     label: string,
@@ -38,7 +38,7 @@ class DashboardNav
                 'label' => 'Dashboard',
                 'route' => 'dashboard',
                 'icon' => 'home',
-                'ignore_dashboard' => true,
+                'ignore_cards' => true,
             ],
             [
                 'name' => 'basics',
@@ -52,10 +52,10 @@ class DashboardNav
                         'icon' => 'document-text',
                     ],
                     [
-                        'name' => 'basics.locations',
+                        'name' => 'basics.location',
                         'label' => 'Locations',
-                        'route' => 'dashboard.basics.locations',
-                        'active' => ['dashboard.basics.locations.edit'],
+                        'route' => 'dashboard.basics.location',
+                        'active' => ['dashboard.basics.location.edit'],
                         'icon' => 'map-pin',
                     ],
                     [
@@ -163,7 +163,7 @@ class DashboardNav
         $links = [];
 
         foreach (self::items() as $item) {
-            if ($item['ignore_dashboard'] ?? null) {
+            if ($item['ignore_cards'] ?? null) {
                 continue;
             }
 
