@@ -7,7 +7,7 @@ use App\Http\Requests\BasicsFormRequest;
 use App\Models\Basic;
 use Illuminate\Support\Facades\Storage;
 
-class BasicsCreateController extends Controller
+class BasicsUpdateController extends Controller
 {
     public function __invoke(BasicsFormRequest $request)
     {

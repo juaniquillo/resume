@@ -19,6 +19,11 @@ trait IsFluxNavigation
             );
     }
 
+    public static function items(): array
+    {
+        return [];
+    }
+
     public static function navItems(): array
     {
         $items = [];
@@ -65,6 +70,7 @@ trait IsFluxNavigation
             ->setAttributes([
                 'icon' => $item['icon'],
                 'href' => route($item['route']),
+                'wire:navigate' => '',
             ])
             ->setContent($item['label']);
 

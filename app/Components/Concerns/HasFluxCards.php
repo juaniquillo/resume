@@ -18,6 +18,11 @@ trait HasFluxCards
             );
     }
 
+    public static function cards(): array
+    {
+        return [];
+    }
+
     public static function cardLinks(): array
     {
         $cards = [];
@@ -29,6 +34,7 @@ trait HasFluxCards
                     'href' => $item['href'],
                     'aria-label' => $item['label'],
                     'class' => 'dashboard-card-link',
+                    'wire:navigate' => '',
                 ])
                 ->setContent(
                     self::card($item)

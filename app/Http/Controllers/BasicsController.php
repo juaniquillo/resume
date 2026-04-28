@@ -16,12 +16,13 @@ class BasicsController extends Controller
 
         $model = $user?->basics()->first();
 
-        $form = BasicsCrud::build(
+        $crud = BasicsCrud::build(
             values: $values,
             errors: $errors,
             model: $model
-        )
-            ->formWithTextareaSpanFull();
+        );
+
+        $form = $crud->formWithTextareaSpanFull();
 
         return view('dashboard.basics.index')
             ->with('firstTime', ! $model)

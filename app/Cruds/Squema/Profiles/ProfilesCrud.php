@@ -30,6 +30,8 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'profiles';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],

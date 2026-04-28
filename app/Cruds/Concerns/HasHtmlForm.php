@@ -67,13 +67,13 @@ trait HasHtmlForm
     {
         $inputs = self::inputsArray();
 
-        foreach ($fullSpanInputs as $name) {
-            $summary = $inputs[$name] ?? null;
+        foreach ($fullSpanInputs as $index => $name) {
+            $input = $inputs[$name] ?? null;
 
-            $inputs[$name] = $this->spanFullContainer([
-                $summary,
-            ]);
+            $inputs[$name] = $this->spanFullContainer([$input], $index);
         }
+
+        // dd($inputs);
 
         return $this->form(
             inputs: $inputs,
@@ -108,10 +108,10 @@ trait HasHtmlForm
         return $inputs->toArray();
     }
 
-    public function spanFullContainer(array $contents): InputCollectionInterface
+    public function spanFullContainer(array $contents, int|string $index = 0): InputCollectionInterface
     {
         return CrudAssistant::make($contents)
-            ->setName('span_full_container')
+            ->setName('span_full_container_'.$index)
             ->setRecipe(
                 (new InputComponentRecipe)
                     ->setThemeBag(

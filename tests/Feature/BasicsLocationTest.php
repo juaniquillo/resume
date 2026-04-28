@@ -11,31 +11,17 @@ beforeEach(function () {
     ]);
 });
 
-it('redirects guests to login from locations index', function () {
-    $this->get(route('dashboard.basics.locations'))
+it('redirects guests to login from location index', function () {
+    $this->get(route('dashboard.basics.location'))
         ->assertRedirect(route('login'));
 });
 
-it('renders the locations index page for authenticated users', function () {
+it('renders the location index page for authenticated users', function () {
     $this->actingAs($this->user)
-        ->get(route('dashboard.basics.locations'))
+        ->get(route('dashboard.basics.location'))
         ->assertSuccessful()
-        ->assertViewIs('dashboard.basics.locations.index')
-        ->assertViewHas('form')
-        ->assertViewHas('table', null);
-});
-
-it('renders the locations table when records exist', function () {
-    Location::factory()->count(3)->create([
-        'basic_id' => $this->basic->id,
-    ]);
-
-    $this->actingAs($this->user)
-        ->get(route('dashboard.basics.locations'))
-        ->assertSuccessful()
-        ->assertViewHas('table', function ($table) {
-            return $table !== null;
-        });
+        ->assertViewIs('dashboard.basics.location.index')
+        ->assertViewHas('form');
 });
 
 it('stores a new location record', function () {
@@ -49,7 +35,7 @@ it('stores a new location record', function () {
 
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.locations.store'), array_merge($data, ['_token' => 'test-token']))
+        ->post(route('dashboard.basics.location.update'), array_merge($data, ['_token' => 'test-token']))
         ->assertRedirect()
         ->assertSessionHas('success');
 
@@ -58,25 +44,6 @@ it('stores a new location record', function () {
         'address' => '123 Main St',
         'city' => 'Anytown',
     ]);
-});
-
-it('validates location data', function () {
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.locations.store'), ['_token' => 'test-token'])
-        ->assertSessionHasErrors(['address', 'postal_code', 'city', 'country_code']);
-});
-
-it('renders the edit location page', function () {
-    $location = Location::factory()->create([
-        'basic_id' => $this->basic->id,
-    ]);
-
-    $this->actingAs($this->user)
-        ->get(route('dashboard.basics.locations.edit', $location->id))
-        ->assertSuccessful()
-        ->assertViewIs('dashboard.basics.locations.edit')
-        ->assertViewHas('form');
 });
 
 it('updates an existing location record', function () {
@@ -95,7 +62,7 @@ it('updates an existing location record', function () {
 
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.locations.update', $location->id), array_merge($data, ['_token' => 'test-token']))
+        ->post(route('dashboard.basics.location.update'), array_merge($data, ['_token' => 'test-token']))
         ->assertRedirect()
         ->assertSessionHas('success');
 
@@ -105,18 +72,9 @@ it('updates an existing location record', function () {
     ]);
 });
 
-it('deletes a location record', function () {
-    $location = Location::factory()->create([
-        'basic_id' => $this->basic->id,
-    ]);
-
+it('validates location data', function () {
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
-        ->delete(route('dashboard.basics.locations.destroy', $location->id), ['_token' => 'test-token'])
-        ->assertRedirect()
-        ->assertSessionHas('success');
-
-    $this->assertDatabaseMissing('locations', [
-        'id' => $location->id,
-    ]);
+        ->post(route('dashboard.basics.location.update'), ['_token' => 'test-token'])
+        ->assertSessionHasErrors(['address', 'postal_code', 'city', 'country_code']);
 });
