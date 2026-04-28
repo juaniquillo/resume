@@ -13,29 +13,6 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $basicsModel = Basic::query()->find(1);
-
-        // dd($basics->toArray());
-
-        $markdown = null;
-
-        if ($basicsModel) {
-
-            $resume = ResumeFactory::fromArray([
-                BasicsCrud::NAME => [
-                    ...$basicsModel->toArray(),
-                    ProfilesCrud::NAME => $basicsModel->profiles->toArray(),
-                ],
-            ]);
-
-            $exporter = new MarkdownExporter;
-
-            $markdown = $exporter->export($resume);
-        }
-
-        // dd($resume);
-
-        return view('index')
-            ->with('resume', $markdown);
+        return view('index');
     }
 }

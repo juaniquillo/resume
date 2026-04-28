@@ -30,6 +30,7 @@ The application leverages the `CrudAssistant` package to provide a highly granul
 - **Projects, Publications, & References**: Comprehensive portfolio and citation management.
 
 ### Key Implementation Details
+- **Resume Schema**: Integration with [juststeveking/resume-php](https://github.com/JustSteveKing/resume-php) for standardized resume parsing, validating against the JSON Resume schema, frontend rendering, and export functionality.
 - **Uuidable Records**: All entities use UUIDs via a central trait for secure and consistent identification.
 - **Strict Typing**: Full use of PHP 8.4 type hints, return types, and static analysis (PHPStan Level 9).
 - **Responsive Flux UI**: A polished dashboard experience using Flux components and Tailwind 4.
