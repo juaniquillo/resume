@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Award\UpdateAward;
 use App\Cruds\Squema\Awards\AwardsCrud;
 use App\Http\Requests\AwardsFormRequest;
 use App\Models\Award;
@@ -72,7 +73,7 @@ class AwardsController extends Controller
         /** @var Award $award */
         $award = $user?->awards()->findOrFail($id);
 
-        $award->update($request->validated());
+        (new UpdateAward($request->validated(), $award))->handle();
 
         return back()
             ->with('success', 'Award updated successfully.');

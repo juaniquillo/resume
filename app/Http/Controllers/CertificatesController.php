@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Certificate\UpdateCertificate;
 use App\Cruds\Squema\Certificates\CertificatesCrud;
 use App\Http\Requests\CertificatesFormRequest;
 use App\Models\Certificate;
@@ -79,7 +80,7 @@ class CertificatesController extends Controller
         /** @var Certificate $certificate */
         $certificate = $user->certificates()->findOrFail($id);
 
-        $certificate->update($request->validated());
+        (new UpdateCertificate($request->validated(), $certificate))->handle();
 
         return back()
             ->with('success', 'Certificate updated successfully.');

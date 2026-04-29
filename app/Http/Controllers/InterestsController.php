@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Interest\UpdateInterest;
 use App\Cruds\Squema\Interests\InterestsCrud;
 use App\Http\Requests\InterestFormRequest;
+use App\Models\Interest;
 use Illuminate\Http\Request;
 
 class InterestsController extends Controller
@@ -84,11 +86,10 @@ class InterestsController extends Controller
 
     public function update(InterestFormRequest $request, int $id)
     {
+        /** @var Interest $model */
         $model = $request->user()->interests()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $model->update($validated);
+        (new UpdateInterest($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Interest updated successfully.');

@@ -163,6 +163,9 @@ Route::middleware(['auth', 'verified'])
         Route::post('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'update'])->name('dashboard.projects.highlights.update');
         Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
 
+        /**
+         * Tools
+         */
     });
 
 require __DIR__.'/settings.php';

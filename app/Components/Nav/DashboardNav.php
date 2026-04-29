@@ -43,7 +43,7 @@ class DashboardNav
             [
                 'name' => 'basics',
                 'label' => 'Basics',
-                'description' => 'Update basic info.',
+                'description' => 'Start here. Update basic info.',
                 'sub_nav' => [
                     [
                         'name' => 'basics',

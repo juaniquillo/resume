@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Volunteer\UpdateVolunteer;
 use App\Cruds\Squema\Volunteers\VolunteersCrud;
 use App\Http\Requests\VolunteerFormRequest;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
 
 class VolunteersController extends Controller
@@ -71,11 +73,10 @@ class VolunteersController extends Controller
 
     public function update(VolunteerFormRequest $request, int $id)
     {
+        /** @var Volunteer $model */
         $model = $request->user()->volunteers()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $model->update($validated);
+        (new UpdateVolunteer($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Volunteer entry updated successfully.');
