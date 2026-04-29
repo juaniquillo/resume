@@ -166,7 +166,6 @@ Route::middleware(['auth', 'verified'])
         /**
          * Tools
          */
-
     });
 
 require __DIR__.'/settings.php';
