@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Work\UpdateWork;
 use App\Cruds\Squema\Works\WorksCrud;
 use App\Http\Requests\WorkFormRequest;
+use App\Models\Work;
 use Illuminate\Http\Request;
 
 class WorkController extends Controller
@@ -71,11 +73,10 @@ class WorkController extends Controller
 
     public function update(WorkFormRequest $request, int $id)
     {
+        /** @var Work $model */
         $model = $request->user()->works()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $updated = $model->update($validated);
+        (new UpdateWork($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Work updated successfully.');

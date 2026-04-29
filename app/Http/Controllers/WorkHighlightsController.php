@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Common\UpdateHighlight;
 use App\Cruds\Squema\Highlights\HighlightsCrud;
 use App\Http\Requests\HighlightsFormRequest;
 use App\Models\Work;
@@ -80,9 +81,8 @@ class WorkHighlightsController extends Controller
         /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
         $highlight = $work->highlights()->findOrFail($highlightId);
-        $validated = $request->validated();
 
-        $highlight->update($validated);
+        (new UpdateHighlight($request->validated(), $highlight))->handle();
 
         return back()
             ->with('success', 'Highlight updated successfully.');

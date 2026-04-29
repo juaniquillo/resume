@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Language\UpdateLanguage;
 use App\Cruds\Squema\Languages\LanguagesCrud;
 use App\Http\Requests\LanguageFormRequest;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class LanguagesController extends Controller
@@ -71,11 +73,10 @@ class LanguagesController extends Controller
 
     public function update(LanguageFormRequest $request, int $id)
     {
+        /** @var Language $model */
         $model = $request->user()->languages()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $model->update($validated);
+        (new UpdateLanguage($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Language updated successfully.');

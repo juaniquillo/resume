@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Reference\UpdateReference;
 use App\Cruds\Squema\References\ReferencesCrud;
 use App\Http\Requests\ReferenceFormRequest;
+use App\Models\Reference;
 use Illuminate\Http\Request;
 
 class ReferencesController extends Controller
@@ -77,11 +79,10 @@ class ReferencesController extends Controller
 
     public function update(ReferenceFormRequest $request, int $id)
     {
+        /** @var Reference $model */
         $model = $request->user()->references()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $model->update($validated);
+        (new UpdateReference($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Reference updated successfully.');

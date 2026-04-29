@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Volunteer\CreateHighlight;
 use App\Cruds\Squema\Highlights\HighlightsCrud;
 use App\Http\Requests\HighlightsFormRequest;
 use App\Models\Volunteer;
@@ -39,11 +40,10 @@ class VolunteersHighlightsController extends Controller
 
     public function store(HighlightsFormRequest $request, int $id)
     {
-        $validated = $request->validated();
-
         /** @var Volunteer $volunteer */
         $volunteer = $request->user()->volunteers()->findOrFail($id);
-        $volunteer->highlights()->create($validated);
+
+        (new CreateHighlight($request->validated(), $volunteer))->handle();
 
         return back()
             ->with('success', 'Highlight created successfully.');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Basics\UpdateProfile;
 use App\Cruds\Squema\Profiles\ProfilesCrud;
 use App\Http\Requests\ProfilesFormRequest;
 use App\Models\Basic;
@@ -106,8 +107,6 @@ class BasicsProfileController extends Controller
 
     public function update(ProfilesFormRequest $request, int $id): RedirectResponse
     {
-        $validated = $request->validated();
-
         /** @var User|null $user */
         $user = $request->user();
 
@@ -117,7 +116,7 @@ class BasicsProfileController extends Controller
         /** @var Profile $profile */
         $profile = $basics->profiles()->findOrFail($id);
 
-        $profile->update($validated);
+        (new UpdateProfile($request->validated(), $profile))->handle();
 
         return back()
             ->with('success', 'Profile updated successfully.');
