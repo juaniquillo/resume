@@ -1,6 +1,9 @@
 @php
-    use App\Components\Nav\DashboardNav;
-    $cards = DashboardNav::makeCards();
+use App\Components\Nav\DashboardNav;
+use App\Components\Nav\ToolsNav;
+
+$cards = DashboardNav::makeCards();
+$toolsCards = ToolsNav::makeCards();
 @endphp
 
 <x-layouts::app :title="__('Dashboard')">
@@ -12,6 +15,13 @@
         <div class="flex flex-wrap gap-3">
             {{ $cards }}
         </div>
+
+        <flux:separator class="mt-6" />
+
+        <div class="mt-6 flex flex-wrap gap-3">
+            {{ $toolsCards }}
+        </div>
+
     </div>
         
-</x-layouts::app>
+</x-layouts::app >

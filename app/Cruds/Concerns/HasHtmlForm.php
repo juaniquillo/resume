@@ -38,6 +38,7 @@ trait HasHtmlForm
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
+            ->setTheme('cursor', 'pointer')
             ->setContent($label);
     }
 

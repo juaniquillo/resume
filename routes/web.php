@@ -16,6 +16,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -164,9 +165,14 @@ Route::middleware(['auth', 'verified'])
         Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
 
         /**
+         * Resume Import
+         */
+        Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
+        Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
+
+        /**
          * Tools
          */
-
     });
 
 require __DIR__.'/settings.php';

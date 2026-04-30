@@ -157,27 +157,4 @@ class DashboardNav
             ],
         ];
     }
-
-    public static function cards(): array
-    {
-        $links = [];
-
-        foreach (self::items() as $item) {
-            if ($item['ignore_cards'] ?? null) {
-                continue;
-            }
-
-            $firstSubNav = $item['sub_nav'] ?? false ? $item['sub_nav'][0] : null;
-
-            $links[] = [
-                'label' => $item['label'],
-                'href' => $firstSubNav ? route($firstSubNav['route']) : route($item['route']),
-                'icon' => $firstSubNav ? $firstSubNav['icon'] : $item['icon'],
-                'description' => $item['description'] ?? null,
-            ];
-
-        }
-
-        return $links;
-    }
 }
