@@ -10,6 +10,7 @@ use App\Actions\Resume\Certificate\CreateCertificate;
 use App\Actions\Resume\Education\CreateEducation;
 use App\Actions\Resume\Interest\CreateInterest;
 use App\Actions\Resume\Language\CreateLanguage;
+use App\Actions\Resume\Project\CreateHighlight as CreateProjectHighlight;
 use App\Actions\Resume\Project\CreateProject;
 use App\Actions\Resume\Publication\CreatePublication;
 use App\Actions\Resume\Reference\CreateReference;
@@ -17,6 +18,21 @@ use App\Actions\Resume\Skill\CreateSkill;
 use App\Actions\Resume\Volunteer\CreateVolunteer;
 use App\Actions\Resume\Work\CreateHighlight;
 use App\Actions\Resume\Work\CreateWork;
+use App\Cruds\Actions\General\NameValueAction;
+use App\Cruds\Squema\Awards\AwardsCrud;
+use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Cruds\Squema\Certificates\CertificatesCrud;
+use App\Cruds\Squema\Education\EducationCrud;
+use App\Cruds\Squema\Interests\InterestsCrud;
+use App\Cruds\Squema\Languages\LanguagesCrud;
+use App\Cruds\Squema\Locations\LocationsCrud;
+use App\Cruds\Squema\Profiles\ProfilesCrud;
+use App\Cruds\Squema\Projects\ProjectsCrud;
+use App\Cruds\Squema\Publications\PublicationsCrud;
+use App\Cruds\Squema\References\ReferencesCrud;
+use App\Cruds\Squema\Skills\SkillsCrud;
+use App\Cruds\Squema\Volunteers\VolunteersCrud;
+use App\Cruds\Squema\Works\WorksCrud;
 use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -55,14 +71,9 @@ class ProcessResumeImport implements ShouldQueue
             if (isset($data['basics'])) {
                 $basicsData = $data['basics'];
 
-                $mappedBasics = [
-                    'name' => $basicsData['name'] ?? '',
-                    'label' => $basicsData['label'] ?? '',
-                    'email' => $basicsData['email'] ?? '',
-                    'phone' => $basicsData['phone'] ?? '',
-                    'url' => $basicsData['url'] ?? $basicsData['website'] ?? '',
-                    'summary' => $basicsData['summary'] ?? '',
-                ];
+                $mappedBasics = BasicsCrud::build()->make()
+                    ->execute(new NameValueAction($basicsData))
+                    ->toArray();
 
                 (new UpdateBasics($mappedBasics, $user))->handle();
 
@@ -70,14 +81,21 @@ class ProcessResumeImport implements ShouldQueue
                 $basics = $user->basics()->first();
 
                 if ($basics) {
-
                     if (isset($basicsData['location'])) {
-                        (new UpdateLocation($basicsData['location'], $basics))->handle();
+                        $mappedLocation = LocationsCrud::build()->make()
+                            ->execute(new NameValueAction($basicsData['location']))
+                            ->toArray();
+
+                        (new UpdateLocation($mappedLocation, $basics))->handle();
                     }
 
                     if (isset($basicsData['profiles'])) {
+                        $profileCrud = ProfilesCrud::build()->make();
                         foreach ($basicsData['profiles'] as $profile) {
-                            (new CreateProfile($profile, $basics))->handle();
+                            $mappedProfile = $profileCrud->execute(new NameValueAction($profile))
+                                ->toArray();
+
+                            (new CreateProfile($mappedProfile, $basics))->handle();
                         }
                     }
                 }
@@ -85,14 +103,10 @@ class ProcessResumeImport implements ShouldQueue
 
             // Process Work
             if (isset($data['work'])) {
+                $workCrud = WorksCrud::build()->make();
                 foreach ($data['work'] as $workData) {
-                    $mapped = [
-                        'name' => $workData['name'] ?? $workData['company'] ?? '',
-                        'position' => $workData['position'] ?? '',
-                        'starts_at' => $workData['starts_at'] ?? $workData['startDate'] ?? null,
-                        'ends_at' => $workData['ends_at'] ?? $workData['endDate'] ?? null,
-                        'summary' => $workData['summary'] ?? '',
-                    ];
+                    $mapped = $workCrud->execute(new NameValueAction($workData))
+                        ->toArray();
 
                     $work = (new CreateWork($mapped, $user))->handle();
                     if (isset($workData['highlights'])) {
@@ -105,15 +119,10 @@ class ProcessResumeImport implements ShouldQueue
 
             // Process Volunteer
             if (isset($data['volunteer'])) {
+                $volunteerCrud = VolunteersCrud::build()->make();
                 foreach ($data['volunteer'] as $volunteerData) {
-                    $mapped = [
-                        'organization' => $volunteerData['organization'] ?? '',
-                        'position' => $volunteerData['position'] ?? '',
-                        'url' => $volunteerData['url'] ?? $volunteerData['website'] ?? null,
-                        'starts_at' => $volunteerData['starts_at'] ?? $volunteerData['startDate'] ?? null,
-                        'ends_at' => $volunteerData['ends_at'] ?? $volunteerData['endDate'] ?? null,
-                        'summary' => $volunteerData['summary'] ?? '',
-                    ];
+                    $mapped = $volunteerCrud->execute(new NameValueAction($volunteerData))
+                        ->toArray();
 
                     $volunteer = (new CreateVolunteer($mapped, $user))->handle();
                     if (isset($volunteerData['highlights'])) {
@@ -126,117 +135,103 @@ class ProcessResumeImport implements ShouldQueue
 
             // Process Education
             if (isset($data['education'])) {
+                $educationCrud = EducationCrud::build()->make();
                 foreach ($data['education'] as $eduData) {
-                    $mapped = [
-                        'institution' => $eduData['institution'] ?? '',
-                        'url' => $eduData['url'] ?? $eduData['website'] ?? null,
-                        'area' => $eduData['area'] ?? '',
-                        'study_type' => $eduData['study_type'] ?? $eduData['studyType'] ?? '',
-                        'score' => $eduData['score'] ?? '',
-                        'starts_at' => $eduData['starts_at'] ?? $eduData['startDate'] ?? null,
-                        'ends_at' => $eduData['ends_at'] ?? $eduData['endDate'] ?? null,
-                    ];
+                    $mapped = $educationCrud->execute(new NameValueAction($eduData))
+                        ->toArray();
+
                     (new CreateEducation($mapped, $user))->handle();
                 }
             }
 
             // Process Awards
             if (isset($data['awards'])) {
+                $awardCrud = AwardsCrud::build()->make();
                 foreach ($data['awards'] as $awardData) {
-                    $mapped = [
-                        'title' => $awardData['title'] ?? '',
-                        'awarder' => $awardData['awarder'] ?? '',
-                        'summary' => $awardData['summary'] ?? '',
-                        'awarded_at' => $awardData['awarded_at'] ?? $awardData['date'] ?? null,
-                    ];
+                    $mapped = $awardCrud->execute(new NameValueAction($awardData))
+                        ->toArray();
+
                     (new CreateAward($mapped, $user))->handle();
                 }
             }
 
             // Process Certificates
             if (isset($data['certificates'])) {
+                $certificateCrud = CertificatesCrud::build()->make();
                 foreach ($data['certificates'] as $certData) {
-                    $mapped = [
-                        'name' => $certData['name'] ?? '',
-                        'date' => $certData['date'] ?? null,
-                        'url' => $certData['url'] ?? $certData['website'] ?? null,
-                    ];
+                    $mapped = $certificateCrud->execute(new NameValueAction($certData))
+                        ->toArray();
+
                     (new CreateCertificate($mapped, $user))->handle();
                 }
             }
 
             // Process Publications
             if (isset($data['publications'])) {
+                $publicationCrud = PublicationsCrud::build()->make();
                 foreach ($data['publications'] as $pubData) {
-                    $mapped = [
-                        'name' => $pubData['name'] ?? '',
-                        'date' => $pubData['date'] ?? $pubData['releaseDate'] ?? null,
-                        'issuer' => $pubData['issuer'] ?? $pubData['publisher'] ?? '',
-                        'url' => $pubData['url'] ?? $pubData['website'] ?? null,
-                    ];
+                    $mapped = $publicationCrud->execute(new NameValueAction($pubData))
+                        ->toArray();
+
                     (new CreatePublication($mapped, $user))->handle();
                 }
             }
 
             // Process Skills
             if (isset($data['skills'])) {
+                $skillCrud = SkillsCrud::build()->make();
                 foreach ($data['skills'] as $skillData) {
-                    $mapped = [
-                        'name' => $skillData['name'] ?? '',
-                        'level' => $skillData['level'] ?? '',
-                        'keywords' => isset($skillData['keywords']) ? (is_array($skillData['keywords']) ? implode(', ', $skillData['keywords']) : $skillData['keywords']) : '',
-                    ];
+                    $mapped = $skillCrud->execute(new NameValueAction($skillData))
+                        ->toArray();
+
                     (new CreateSkill($mapped, $user))->handle();
                 }
             }
 
             // Process Languages
             if (isset($data['languages'])) {
+                $languageCrud = LanguagesCrud::build()->make();
                 foreach ($data['languages'] as $langData) {
-                    $mapped = [
-                        'language' => $langData['language'] ?? '',
-                        'fluency' => $langData['fluency'] ?? '',
-                    ];
+                    $mapped = $languageCrud->execute(new NameValueAction($langData))
+                        ->toArray();
+
                     (new CreateLanguage($mapped, $user))->handle();
                 }
             }
 
             // Process Interests
             if (isset($data['interests'])) {
+                $interestCrud = InterestsCrud::build()->make();
                 foreach ($data['interests'] as $interestData) {
-                    $mapped = [
-                        'name' => $interestData['name'] ?? '',
-                        'keywords' => isset($interestData['keywords']) ? (is_array($interestData['keywords']) ? implode(', ', $interestData['keywords']) : $interestData['keywords']) : '',
-                    ];
+                    $mapped = $interestCrud->execute(new NameValueAction($interestData))
+                        ->toArray();
+
                     (new CreateInterest($mapped, $user))->handle();
                 }
             }
 
             // Process References
             if (isset($data['references'])) {
+                $referenceCrud = ReferencesCrud::build()->make();
                 foreach ($data['references'] as $refData) {
-                    $mapped = [
-                        'name' => $refData['name'] ?? '',
-                        'keywords' => $refData['reference'] ?? '', // JSON Resume uses 'reference' for the text
-                    ];
+                    $mapped = $referenceCrud->execute(new NameValueAction($refData))
+                        ->toArray();
+
                     (new CreateReference($mapped, $user))->handle();
                 }
             }
 
             // Process Projects
             if (isset($data['projects'])) {
+                $projectCrud = ProjectsCrud::build()->make();
                 foreach ($data['projects'] as $projectData) {
-                    $mapped = [
-                        'name' => $projectData['name'] ?? '',
-                        'start_date' => $projectData['start_date'] ?? $projectData['startDate'] ?? null,
-                        'end_date' => $projectData['end_date'] ?? $projectData['endDate'] ?? null,
-                        'url' => $projectData['url'] ?? $projectData['website'] ?? null,
-                        'description' => $projectData['description'] ?? '',
-                    ];
+                    $mapped = $projectCrud->execute(new NameValueAction($projectData))
+                        ->toArray();
+
                     $project = (new CreateProject($mapped, $user))->handle();
                     if (isset($projectData['highlights'])) {
                         foreach ($projectData['highlights'] as $highlight) {
-                            (new \App\Actions\Resume\Project\CreateHighlight(['highlight' => is_array($highlight) ? ($highlight['highlight'] ?? '') : $highlight], $project))->handle();
+                            (new CreateProjectHighlight(['highlight' => is_array($highlight) ? ($highlight['highlight'] ?? '') : $highlight], $project))->handle();
                         }
                     }
                 }

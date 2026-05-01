@@ -52,6 +52,7 @@ test('process resume import job correctly imports data', function () {
         'basics' => [
             'name' => 'John Doe',
             'email' => 'john@example.com',
+            'label' => 'Software Engineer',
             'location' => [
                 'city' => 'New York',
                 'country_code' => 'US',

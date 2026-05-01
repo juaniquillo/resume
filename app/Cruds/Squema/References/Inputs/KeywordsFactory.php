@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\References\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Models\Reference;
@@ -28,8 +29,14 @@ class KeywordsFactory
         self::validation($input);
         self::form($input);
         self::table($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(name: ['keywords', 'reference']));
     }
 
     public static function form(InputInterface $input): void

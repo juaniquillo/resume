@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\Languages\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -39,8 +40,14 @@ class FluencyFactory
         self::validation($input);
         self::factory($input);
         self::table($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe);
     }
 
     public static function validation(InputInterface $input): void

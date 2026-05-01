@@ -22,7 +22,11 @@
 
                 <flux:menu.separator />
 
-                {{ $toolsNav }}
+                <flux:navlist.group heading="Tools">
+
+                    {{ $toolsNav }}
+
+                </flux:navlist.group>
 
             </flux:sidebar.nav>
 
