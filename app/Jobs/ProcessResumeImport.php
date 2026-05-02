@@ -7,6 +7,7 @@ use App\Actions\Resume\Basics\CreateProfile;
 use App\Actions\Resume\Basics\UpdateBasics;
 use App\Actions\Resume\Basics\UpdateLocation;
 use App\Actions\Resume\Certificate\CreateCertificate;
+use App\Actions\Resume\Education\CreateCourse;
 use App\Actions\Resume\Education\CreateEducation;
 use App\Actions\Resume\Interest\CreateInterest;
 use App\Actions\Resume\Language\CreateLanguage;
@@ -215,7 +216,13 @@ class ProcessResumeImport implements ShouldQueue
 
             $validated = $this->validate($mapped, $educationRules);
 
-            (new CreateEducation($validated, $user))->handle();
+            $education = (new CreateEducation($validated, $user))->handle();
+
+            if (isset($eduData['courses'])) {
+                foreach ($eduData['courses'] as $course) {
+                    (new CreateCourse(['course' => is_array($course) ? ($course['course'] ?? '') : $course], $education))->handle();
+                }
+            }
         }
     }
 

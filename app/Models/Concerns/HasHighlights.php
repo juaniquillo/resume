@@ -5,7 +5,6 @@ namespace App\Models\Concerns;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-
 trait HasHighlights
 {
     protected static function bootHasHighlights()

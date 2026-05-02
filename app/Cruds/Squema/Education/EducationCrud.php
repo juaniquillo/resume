@@ -35,6 +35,8 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'education';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
@@ -70,7 +72,7 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formFullSpanInputs(['url']);
     }
 
-    protected function extraCells(TableRowsAction $action): void 
+    protected function extraCells(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
             value: function ($value, Model $model) {

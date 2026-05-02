@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Courses;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -26,6 +24,8 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
     use HasHtmlForm,
         HasHtmlTable,
         IsCrud;
+
+    public const NAME = 'courses';
 
     public function __construct(
         protected array $values = [],
@@ -93,5 +93,4 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
 
         $action->setExtraCell('Settings', $recipe);
     }
-
 }

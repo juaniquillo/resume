@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\ProcessResumeImport;
+use App\Models\Education;
 use App\Models\ResumeImport;
 use App\Models\User;
 use App\Models\Work;
@@ -54,6 +55,9 @@ test('it processes a resume json and creates database records', function () {
                 'studyType' => 'bachelor_degree',
                 'startDate' => '2016-09-01',
                 'endDate' => '2020-06-01',
+                'courses' => [
+                    'Database Management Systems',
+                ],
             ],
         ],
     ];
@@ -112,5 +116,12 @@ test('it processes a resume json and creates database records', function () {
     $this->assertDatabaseHas('education', [
         'user_id' => $user->id,
         'institution' => 'University of Technology',
+    ]);
+
+    $education = $user->education()->first();
+    $this->assertDatabaseHas('courses', [
+        'courseable_id' => $education->id,
+        'courseable_type' => Education::class,
+        'course' => 'Database Management Systems',
     ]);
 });

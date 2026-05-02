@@ -62,7 +62,7 @@ final class TableHelpers
                     ->setAttribute('size', 'xs')
                     ->setAttribute('variant', 'danger')
                     ->setAttribute('icon', 'trash')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this project?')")
+                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this record?')")
                     ->setTheme('cursor', 'pointer'),
             );
     }
