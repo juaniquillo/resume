@@ -2,21 +2,20 @@
 
 namespace App\Models\Concerns;
 
-use App\Models\Highlight;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-
-trait HasHighlights
+trait HasCourses
 {
     protected static function bootHasHighlights()
     {
         static::deleting(function ($model) {
-            $model->highlights->each->delete();
+            $model->courses->each->delete();
         });
     }
 
-    public function highlights(): MorphMany
+    public function courses(): MorphMany
     {
-        return $this->morphMany(Highlight::class, 'highlightable');
+        return $this->morphMany(Course::class, 'courseable');
     }
 }

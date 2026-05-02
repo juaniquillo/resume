@@ -2,6 +2,8 @@
 
 namespace App\Cruds\Squema\Education;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -66,6 +68,31 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs(['url']);
+    }
+
+    protected function extraCells(TableRowsAction $action): void 
+    {
+        $recipe = new TableRowsRecipe(
+            value: function ($value, Model $model) {
+
+                /** @var Education $education */
+                $education = $model;
+
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setContent(
+                        FluxComponentBuilder::make('icon.building-library')
+                            ->setAttribute('variant', 'micro')
+                    )
+                    ->setContent('Courses')
+                    ->setTheme('cursor', 'pointer')
+                    ->setAttribute('variant', 'primary')
+                    ->setAttribute('color', 'blue')
+                    ->setAttribute('size', 'xs')
+                    ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
+            }
+        );
+
+        $action->setExtraCell('Courses', $recipe);
     }
 
     /**

@@ -18,7 +18,7 @@ test('it processes a resume json and creates database records', function () {
             'name' => 'John Doe',
             'label' => 'Software Engineer',
             'email' => 'john@example.com',
-            'phone' => '123456789',
+            'phone' => '1234567890',
             'website' => 'https://johndoe.com',
             'summary' => 'A passionate software engineer.',
             'location' => [
@@ -30,7 +30,7 @@ test('it processes a resume json and creates database records', function () {
             ],
             'profiles' => [
                 [
-                    'network' => 'Twitter',
+                    'network' => 'twitter',
                     'username' => 'johndoe',
                     'url' => 'https://twitter.com/johndoe',
                 ],
@@ -51,7 +51,7 @@ test('it processes a resume json and creates database records', function () {
             [
                 'institution' => 'University of Technology',
                 'area' => 'Computer Science',
-                'studyType' => 'Bachelor',
+                'studyType' => 'bachelor_degree',
                 'startDate' => '2016-09-01',
                 'endDate' => '2020-06-01',
             ],
@@ -91,7 +91,7 @@ test('it processes a resume json and creates database records', function () {
 
     $this->assertDatabaseHas('profiles', [
         'basic_id' => $basics->id,
-        'network' => 'Twitter',
+        'network' => 'twitter',
     ]);
 
     // Assert Work

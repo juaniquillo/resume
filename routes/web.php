@@ -9,6 +9,7 @@ use App\Http\Controllers\BasicsUpdateController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EducationCoursesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
@@ -85,6 +86,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('education/{id}/edit', [EducationController::class, 'edit'])->name('dashboard.education.edit');
         Route::post('education/{id}', [EducationController::class, 'update'])->name('dashboard.education.update');
         Route::delete('education/{id}', [EducationController::class, 'destroy'])->name('dashboard.education.destroy');
+
+        Route::get('education/{id}/courses', [EducationCoursesController::class, 'index'])->name('dashboard.education.courses');
+        Route::post('education/{id}/courses', [EducationCoursesController::class, 'store'])->name('dashboard.education.courses.store');
+        Route::get('education/{id}/courses/{courseId}/edit', [EducationCoursesController::class, 'edit'])->name('dashboard.education.courses.edit');
+        Route::post('education/{id}/courses/{courseId}', [EducationCoursesController::class, 'update'])->name('dashboard.education.courses.update');
+        Route::delete('education/{id}/courses/{courseId}', [EducationCoursesController::class, 'destroy'])->name('dashboard.education.courses.destroy');
 
         /**
          * Awards
@@ -165,14 +172,11 @@ Route::middleware(['auth', 'verified'])
         Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
 
         /**
-         * Resume Import
+         * Tools
          */
         Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
         Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
 
-        /**
-         * Tools
-         */
     });
 
 require __DIR__.'/settings.php';

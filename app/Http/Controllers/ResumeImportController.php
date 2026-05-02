@@ -8,6 +8,9 @@ use App\Http\Requests\ResumeImportFormRequest;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Validation\ValidationException;
+use JustSteveKing\Resume\Factories\ResumeFactory;
 
 class ResumeImportController extends Controller
 {
@@ -42,7 +45,18 @@ class ResumeImportController extends Controller
 
     public function store(ResumeImportFormRequest $request)
     {
+        /** @var UploadedFile $file */
         $file = $request->file(JsonFileFactory::NAME);
+
+        try {
+            $json = file_get_contents($file->getRealPath());
+            ResumeFactory::fromJson($json)->validate();
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages([
+                JsonFileFactory::NAME => ['The provided file does not conform to the JSON Resume schema.'],
+            ]);
+        }
+
         $path = $file->store('imports/resumes');
 
         $import = ResumeImport::create([

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasCourses;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\EducationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -22,12 +23,13 @@ use Illuminate\Support\Carbon;
  * @property-read string $ends_at
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Course> $courses
  */
 #[Guarded([])]
 class Education extends Model
 {
     /** @use HasFactory<EducationFactory> */
-    use HasFactory, Uuidable;
+    use HasFactory, HasCourses, Uuidable;
 
     protected $table = 'education';
 }

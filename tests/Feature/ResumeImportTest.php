@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 uses(RefreshDatabase::class);
 
@@ -24,7 +25,25 @@ test('user can upload a resume json file', function () {
     Storage::fake('local');
 
     $user = User::factory()->create();
-    $file = UploadedFile::fake()->create('resume.json', 100, 'application/json');
+    $validData = [
+        'basics' => [
+            'name' => 'John Doe',
+            'label' => 'Programmer',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+            'website' => 'https://johndoe.com',
+            'summary' => 'Summary',
+            'location' => [
+                'address' => 'Street',
+                'postalCode' => '12345',
+                'city' => 'City',
+                'countryCode' => 'US',
+                'region' => 'Region',
+            ],
+            'profiles' => [],
+        ],
+    ];
+    $file = UploadedFile::fake()->createWithContent('resume.json', json_encode($validData));
 
     $response = $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
         'resume_file' => $file,
@@ -44,6 +63,30 @@ test('user can upload a resume json file', function () {
     });
 });
 
+test('user cannot upload a resume with invalid json schema', function () {
+    $this->withoutMiddleware();
+    $this->withoutExceptionHandling();
+    Queue::fake();
+    Storage::fake('local');
+
+    $user = User::factory()->create();
+    $invalidData = ['invalid' => 'data'];
+    $file = UploadedFile::fake()->createWithContent('resume.json', json_encode($invalidData));
+
+    try {
+        $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
+            'resume_file' => $file,
+        ]);
+        $this->fail('ValidationException was not thrown');
+    } catch (ValidationException $e) {
+        expect($e->errors())->toHaveKey('resume_file');
+        expect($e->errors()['resume_file'][0])->toBe('The provided file does not conform to the JSON Resume schema.');
+    }
+
+    $this->assertDatabaseCount('resume_imports', 0);
+    Queue::assertNothingPushed();
+});
+
 test('process resume import job correctly imports data', function () {
     Storage::fake('local');
     $user = User::factory()->create();
@@ -60,7 +103,7 @@ test('process resume import job correctly imports data', function () {
                 'postal_code' => '12345',
             ],
             'profiles' => [
-                ['network' => 'Twitter', 'username' => 'johndoe', 'url' => 'https://twitter.com/johndoe'],
+                ['network' => 'twitter', 'username' => 'johndoe', 'url' => 'https://twitter.com/johndoe'],
             ],
         ],
         'work' => [
@@ -76,7 +119,7 @@ test('process resume import job correctly imports data', function () {
             [
                 'institution' => 'University of Life',
                 'area' => 'Software Engineering',
-                'studyType' => 'Bachelor',
+                'studyType' => 'bachelor_degree',
                 'startDate' => '2016-09-01',
                 'endDate' => '2020-06-01',
             ],
@@ -84,7 +127,7 @@ test('process resume import job correctly imports data', function () {
         'skills' => [
             [
                 'name' => 'PHP',
-                'level' => 'Senior',
+                'level' => 'advanced',
                 'keywords' => ['Laravel', 'Pest'],
             ],
         ],
@@ -142,7 +185,7 @@ test('process resume import job correctly imports data', function () {
 
     $this->assertEquals('University of Life', $education->institution);
     $this->assertEquals('Software Engineering', $education->area);
-    $this->assertEquals('Bachelor', $education->study_type);
+    $this->assertEquals('bachelor_degree', $education->study_type);
 
     // Skills
     $skills = $user->skills();
@@ -151,7 +194,7 @@ test('process resume import job correctly imports data', function () {
     $keywords = $skill->keywords;
 
     $this->assertEquals('PHP', $skill->name);
-    $this->assertEquals('Senior', $skill->level);
-    $this->assertEquals('Laravel, Pest', $keywords);
+    $this->assertEquals('advanced', $skill->level);
+    $this->assertEquals(['Laravel', 'Pest'], $keywords);
 
 });
