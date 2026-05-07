@@ -8,19 +8,20 @@ use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Recipes\SelectOptionComponentRecipe;
 use App\Enums\SkillLevel;
 use App\Models\Skill;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rules\Enum;
-use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class LevelFactory
@@ -29,13 +30,13 @@ class LevelFactory
 
     const LABEL = 'Level';
 
+    const LIST_ID = 'skill_level_data';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
-
-        $input->setSubElements(self::options());
 
         self::validation($input);
         self::factory($input);
@@ -55,7 +56,8 @@ class LevelFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
-                new Enum(SkillLevel::class),
+                'string',
+                'max:255',
             ]))
         );
     }
@@ -64,58 +66,45 @@ class LevelFactory
     {
         $input->setRecipe(
             new InputComponentRecipe(
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::SELECT),
+                inputGroup: new SoleInputGroup,
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([
                         'label' => self::LABEL,
                         'badge' => 'required',
+                        'list' => self::LIST_ID,
                     ]),
+                hookBag: (new DefaultHookBag)
+                    ->setWrapperHook(function (BackendComponent|CompoundComponent $component, InputInterface $input) {
+                        /** @phpstan-ignore-next-line */
+                        $component->setContent(
+                            LevelFactory::dataList()
+                        );
+
+                        return $component;
+                    })
             )
         );
     }
 
-    public static function optionsArray(): array
+    public static function dataList(): BackendComponent|CompoundComponent
     {
-        $skills = [];
+        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+            ->setAttribute('id', self::LIST_ID)
+            ->setContents(self::options());
 
-        $skills[] = [
-            'name' => 'choose',
-            'label' => 'Choose...',
-            'value' => '',
-        ];
-
-        foreach (SkillLevel::cases() as $skill) {
-            $skills[] = [
-                'name' => $skill->value,
-                'label' => $skill->label(),
-            ];
-        }
-
-        return $skills;
+        return $datalist;
     }
 
-    public static function options(): InputCollectionInterface
+    public static function options(): array
     {
         $options = [];
 
-        foreach (self::optionsArray() as $optionArray) {
-
-            $option = new DefaultInput($optionArray['name'], $optionArray['label']);
-
-            $optionRecipe = new SelectOptionComponentRecipe(
-                inputValue: $optionArray['value'] ?? $optionArray['name'],
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::OPTION)
-            );
-
-            $option->setRecipe($optionRecipe);
-
-            $options[] = $option;
+        foreach (SkillLevel::cases() as $level) {
+            $options[] = ComponentBuilder::make(ComponentEnum::OPTION)
+                ->setAttribute('value', $level->value);
         }
 
-        return CrudAssistant::make($options);
-
+        return $options;
     }
 
     public static function factory(InputInterface $input): void
@@ -138,13 +127,11 @@ class LevelFactory
                         return '';
                     }
 
-                    $valueNew = $value;
                     $color = 'zinc';
 
                     $enum = SkillLevel::tryFrom($value);
 
                     if ($enum) {
-                        $valueNew = $enum->label();
                         $color = $enum->labelColor();
                     }
 
@@ -152,7 +139,7 @@ class LevelFactory
                         ->setAttributes([
                             'color' => $color,
                         ])
-                        ->setContent($valueNew);
+                        ->setContent($value);
 
                 }
             )

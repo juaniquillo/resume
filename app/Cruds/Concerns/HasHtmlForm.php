@@ -10,6 +10,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
@@ -24,6 +25,14 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 trait HasHtmlForm
 {
     private ?string $formAction = null;
+
+    /**
+     * @return array<?InputInterface>
+     */
+    public function inputsArray(): array
+    {
+        return [];
+    }
 
     public function setFormAction(string $action): static
     {
@@ -73,8 +82,6 @@ trait HasHtmlForm
 
             $inputs[$name] = $this->spanFullContainer([$input], $index);
         }
-
-        // dd($inputs);
 
         return $this->form(
             inputs: $inputs,

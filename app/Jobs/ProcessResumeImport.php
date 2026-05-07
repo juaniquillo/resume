@@ -41,6 +41,7 @@ use App\Models\User;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,18 +72,20 @@ class ProcessResumeImport implements ShouldQueue
             /** @var User $user */
             $user = $this->import->user;
 
-            $this->processBasics($user, $data);
-            $this->processWork($user, $data);
-            $this->processVolunteer($user, $data);
-            $this->processEducation($user, $data);
-            $this->processAwards($user, $data);
-            $this->processCertificates($user, $data);
-            $this->processPublications($user, $data);
-            $this->processSkills($user, $data);
-            $this->processLanguages($user, $data);
-            $this->processInterests($user, $data);
-            $this->processReferences($user, $data);
-            $this->processProjects($user, $data);
+            DB::transaction(function () use ($user, $data) {
+                $this->processBasics($user, $data);
+                $this->processWork($user, $data);
+                $this->processVolunteer($user, $data);
+                $this->processEducation($user, $data);
+                $this->processAwards($user, $data);
+                $this->processCertificates($user, $data);
+                $this->processPublications($user, $data);
+                $this->processSkills($user, $data);
+                $this->processLanguages($user, $data);
+                $this->processInterests($user, $data);
+                $this->processReferences($user, $data);
+                $this->processProjects($user, $data);
+            });
 
             $this->import->update(['status' => 'completed']);
         } catch (\Exception $e) {

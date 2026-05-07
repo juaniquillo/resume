@@ -27,8 +27,8 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  * @property-read User $user
- * @property-read Location $location
- * @property-read Collection $profiles
+ * @property-read Location|null $location
+ * @property-read Collection<int, Profile> $profiles
  */
 #[Guarded([])]
 class Basic extends Model

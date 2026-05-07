@@ -4,9 +4,13 @@ namespace App\Cruds\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 interface CrudInterface
 {
+    /**
+     * @return array<?InputInterface>
+     */
     public function inputsArray(): array;
 
     public function make(?array $inputs = null): InputCollectionInterface;

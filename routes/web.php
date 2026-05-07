@@ -11,12 +11,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EducationCoursesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
@@ -177,6 +179,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
         Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
 
+        Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
+        Route::post('resume/export', [ResumeExportController::class, 'store'])->name('dashboard.resume.export.store');
+        Route::get('resume/export/{uuid}/download', [ResumeExportController::class, 'download'])->name('dashboard.resume.export.download');
+
     });
+
+Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 
 require __DIR__.'/settings.php';

@@ -22,7 +22,11 @@ it('renders the profiles index page for authenticated users', function () {
         ->assertSuccessful()
         ->assertViewIs('dashboard.basics.profiles.index')
         ->assertViewHas('form')
-        ->assertViewHas('table', null);
+        ->assertViewHas('table', null)
+        ->assertSee('list="network_data"', false)
+        ->assertSee('<datalist id="network_data">', false)
+        ->assertSee('<option value="Twitter">', false)
+        ->assertSee('<option value="Github">', false);
 });
 
 it('renders the profiles table when records exist', function () {
@@ -58,6 +62,26 @@ it('stores a new profile record', function () {
     ]);
 });
 
+it('stores a profile with a custom network', function () {
+    $data = [
+        'network' => 'My Custom Network',
+        'username' => 'customuser',
+        'url' => 'https://custom.com/customuser',
+    ];
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.basics.profiles.store'), array_merge($data, ['_token' => 'test-token']))
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('profiles', [
+        'basic_id' => $this->basic->id,
+        'network' => 'My Custom Network',
+        'username' => 'customuser',
+    ]);
+});
+
 it('validates profile data', function () {
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
@@ -74,7 +98,11 @@ it('renders the edit profile page', function () {
         ->get(route('dashboard.basics.profiles.edit', $profile->id))
         ->assertSuccessful()
         ->assertViewIs('dashboard.basics.profiles.edit')
-        ->assertViewHas('form');
+        ->assertViewHas('form')
+        ->assertSee('list="network_data"', false)
+        ->assertSee('<datalist id="network_data">', false)
+        ->assertSee('<option value="Twitter">', false)
+        ->assertSee('<option value="Github">', false);
 });
 
 it('updates an existing profile record', function () {

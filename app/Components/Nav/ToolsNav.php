@@ -40,6 +40,13 @@ class ToolsNav
                 'icon' => 'arrow-up-tray',
                 'description' => 'Import your resume from a JSON file.',
             ],
+            [
+                'name' => 'resume.export',
+                'label' => 'Resume Export',
+                'route' => 'dashboard.resume.export',
+                'icon' => 'arrow-down-tray',
+                'description' => 'Export your resume to a JSON file.',
+            ],
         ];
     }
 }

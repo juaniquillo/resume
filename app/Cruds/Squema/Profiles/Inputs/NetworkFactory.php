@@ -7,19 +7,20 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Recipes\SelectOptionComponentRecipe;
 use App\Enums\Network;
 use App\Models\Profile;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rules\Enum;
-use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class NetworkFactory
@@ -28,19 +29,23 @@ class NetworkFactory
 
     const LABEL = 'Network';
 
+    const LIST_ID = 'network_data';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
 
-        $input->setSubElements(self::options());
+        // $input->setSubElements(self::options());
 
         self::validation($input);
         self::factory($input);
         self::table($input);
 
+        /** Adds just a div wrapper */
         return $input;
+
     }
 
     public static function validation(InputInterface $input): void
@@ -48,7 +53,8 @@ class NetworkFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
-                new Enum(Network::class),
+                'string',
+                'max:255',
             ]))
         );
     }
@@ -57,58 +63,25 @@ class NetworkFactory
     {
         $input->setRecipe(
             new InputComponentRecipe(
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::SELECT),
+                inputGroup: new SoleInputGroup,
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([
                         'label' => self::LABEL,
                         'badge' => 'required',
+                        'list' => self::LIST_ID,
                     ]),
+                hookBag: (new DefaultHookBag)
+                    ->setWrapperHook(function (BackendComponent|CompoundComponent $component, InputInterface $input) {
+                        /** @phpstan-ignore-next-line */
+                        $component->setContent(
+                            NetworkFactory::dataList()
+                        );
+
+                        return $component;
+                    })
+
             )
         );
-    }
-
-    public static function optionsArray(): array
-    {
-        $options = [];
-
-        $options[] = [
-            'name' => 'choose',
-            'label' => 'Choose...',
-            'value' => '',
-        ];
-
-        foreach (Network::cases() as $network) {
-            $options[] = [
-                'name' => $network->name,
-                'label' => $network->label(),
-                'value' => $network->value,
-            ];
-        }
-
-        return $options;
-    }
-
-    public static function options(): InputCollectionInterface
-    {
-        $options = [];
-
-        foreach (self::optionsArray() as $optionArray) {
-
-            $option = new DefaultInput($optionArray['name'], $optionArray['label']);
-
-            $optionRecipe = new SelectOptionComponentRecipe(
-                inputValue: $optionArray['value'],
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::OPTION)
-            );
-
-            $option->setRecipe($optionRecipe);
-
-            $options[] = $option;
-        }
-
-        return CrudAssistant::make($options);
     }
 
     public static function factory(InputInterface $input): void
@@ -131,13 +104,11 @@ class NetworkFactory
                         return '';
                     }
 
-                    $valueNew = $value;
                     $color = 'zinc';
 
                     $enum = Network::tryFrom($value);
 
                     if ($enum) {
-                        $valueNew = $enum->label();
                         $color = $enum->colors();
                     }
 
@@ -145,9 +116,52 @@ class NetworkFactory
                         ->setAttributes([
                             'color' => $color,
                         ])
-                        ->setContent($valueNew);
+                        ->setContent($value);
                 }
             )
         );
+    }
+
+    public static function optionsArray(): array
+    {
+        $options = [];
+
+        $options[] = [
+            'name' => 'choose',
+            'value' => '',
+        ];
+
+        foreach (Network::cases() as $network) {
+            $options[] = [
+                'name' => $network->name,
+                'value' => $network->value,
+            ];
+        }
+
+        return $options;
+    }
+
+    public static function dataList(): BackendComponent|CompoundComponent
+    {
+        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+            ->setAttribute('id', self::LIST_ID)
+            ->setContents(self::options());
+
+        return $datalist;
+    }
+
+    public static function options(): array
+    {
+        $options = [];
+
+        foreach (self::optionsArray() as $optionArray) {
+
+            $option = ComponentBuilder::make(ComponentEnum::OPTION)
+                ->setAttribute('value', $optionArray['value']);
+
+            $options[] = $option;
+        }
+
+        return $options;
     }
 }

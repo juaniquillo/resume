@@ -20,6 +20,6 @@ final class LaravelValidationRulesRecipe implements RecipeInterface
     protected $action = LaravelValidationRulesAction::class;
 
     public function __construct(
-        public readonly array|Closure|null $rules
+        public readonly array|Closure $rules = []
     ) {}
 }

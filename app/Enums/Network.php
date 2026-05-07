@@ -4,84 +4,41 @@ namespace App\Enums;
 
 enum Network: string
 {
-    case TWITTER = 'twitter';
-    case GITHUB = 'github';
-    case LINKEDIN = 'linkedin';
-    case FACEBOOK = 'facebook';
-    case INSTAGRAM = 'instagram';
-    case YOUTUBE = 'youtube';
-    case TIKTOK = 'tiktok';
-    case STACK_OVERFLOW = 'stackoverflow';
-    case REDDIT = 'reddit';
-    case PERSONAL_WEBSITE = 'personal_website';
-    case OTHER = 'other';
-    case MASTODON = 'mastodon';
-    case BLUESKY = 'bluesky';
-    case DISCORD = 'discord';
-    case WHATSAPP = 'whatsapp';
-    case TELEGRAM = 'telegram';
-    case SNAPCHAT = 'snapchat';
-    case PINTEREST = 'pinterest';
-    case TUMBLR = 'tumblr';
-    case MEDIUM = 'medium';
-    case GITLAB = 'gitlab';
-    case BITBUCKET = 'bitbucket';
-    case DRIBBBLE = 'dribbble';
-    case BEHANCE = 'behance';
-    case FLICKR = 'flickr';
-    case VIMEO = 'vimeo';
-    case QUORA = 'quora';
-    case SLACK = 'slack';
-    case CLUBHOUSE = 'clubhouse';
-    case WHATSAPP_BUSINESS = 'whatsapp_business';
-    case SIGNAL = 'signal';
-    case WECHAT = 'wechat';
-    case LINE = 'line';
-    case VIBER = 'viber';
-    case SKYPE = 'skype';
+    case TWITTER = 'Twitter';
+    case GITHUB = 'Github';
+    case LINKEDIN = 'Linkedin';
+    case FACEBOOK = 'Facebook';
+    case INSTAGRAM = 'Instagram';
+    case YOUTUBE = 'Youtube';
+    case TIKTOK = 'Tiktok';
+    case STACK_OVERFLOW = 'Stackoverflow';
+    case REDDIT = 'Reddit';
+    case PERSONAL_WEBSITE = 'Personal website';
+    case MASTODON = 'Mastodon';
+    case BLUESKY = 'Bluesky';
+    case DISCORD = 'Discord';
+    case WHATSAPP = 'Whatsapp';
+    case TELEGRAM = 'Telegram';
+    case SNAPCHAT = 'Snapchat';
+    case PINTEREST = 'Pinterest';
+    case TUMBLR = 'Tumblr';
+    case MEDIUM = 'Medium';
+    case GITLAB = 'Gitlab';
+    case BITBUCKET = 'Bitbucket';
+    case DRIBBBLE = 'Dribbble';
+    case BEHANCE = 'Behance';
+    case FLICKR = 'Flickr';
+    case VIMEO = 'Vimeo';
+    case QUORA = 'Quora';
+    case SLACK = 'Slack';
+    case CLUBHOUSE = 'Clubhouse';
+    case WHATSAPP_BUSINESS = 'Whatsapp business';
+    case SIGNAL = 'Signal';
+    case WECHAT = 'Wechat';
+    case LINE = 'Line';
+    case VIBER = 'Viber';
+    case SKYPE = 'Skype';
     case STARFLEET_DATABASE = 'Starfleet Database';
-
-    public function label(): string
-    {
-        return match ($this) {
-            self::TWITTER => 'Twitter',
-            self::GITHUB => 'GitHub',
-            self::LINKEDIN => 'LinkedIn',
-            self::FACEBOOK => 'Facebook',
-            self::INSTAGRAM => 'Instagram',
-            self::YOUTUBE => 'YouTube',
-            self::TIKTOK => 'TikTok',
-            self::STACK_OVERFLOW => 'Stack Overflow',
-            self::REDDIT => 'Reddit',
-            self::PERSONAL_WEBSITE => 'Personal Website',
-            self::OTHER => 'Other',
-            self::MASTODON => 'Mastodon',
-            self::BLUESKY => 'Bluesky',
-            self::DISCORD => 'Discord',
-            self::WHATSAPP => 'WhatsApp',
-            self::TELEGRAM => 'Telegram',
-            self::SNAPCHAT => 'Snapchat',
-            self::PINTEREST => 'Pinterest',
-            self::TUMBLR => 'Tumblr',
-            self::MEDIUM => 'Medium',
-            self::GITLAB => 'GitLab',
-            self::BITBUCKET => 'Bitbucket',
-            self::DRIBBBLE => 'Dribbble',
-            self::BEHANCE => 'Behance',
-            self::FLICKR => 'Flickr',
-            self::VIMEO => 'Vimeo',
-            self::QUORA => 'Quora',
-            self::SLACK => 'Slack',
-            self::CLUBHOUSE => 'Clubhouse',
-            self::WHATSAPP_BUSINESS => 'WhatsApp Business',
-            self::SIGNAL => 'Signal',
-            self::WECHAT => 'WeChat',
-            self::LINE => 'Line',
-            self::VIBER => 'Viber',
-            self::SKYPE => 'Skype',
-            self::STARFLEET_DATABASE => 'Starfleet Database',
-        };
-    }
 
     public function colors(): string
     {
@@ -120,7 +77,6 @@ enum Network: string
             self::VIBER => 'purple',
             self::SKYPE => 'blue',
             self::STARFLEET_DATABASE => 'cyan',
-            default => 'zinc',
         };
     }
 }

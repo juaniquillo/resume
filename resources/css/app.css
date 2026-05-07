@@ -77,3 +77,5 @@ select:focus[data-flux-control] {
 .dashboard-card {
     @apply h-full flex flex-col hover:bg-zinc-50 dark:hover:bg-zinc-700;
 }
+
+[x-cloak] { display: none !important; }
