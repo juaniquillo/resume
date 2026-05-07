@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Education\UpdateEducation;
 use App\Cruds\Squema\Education\EducationCrud;
 use App\Http\Requests\EducationFormRequest;
 use App\Models\Education;
@@ -74,7 +75,7 @@ class EducationController extends Controller
         /** @var Education $education */
         $education = $user?->education()->findOrFail($id);
 
-        $education->update($request->validated());
+        (new UpdateEducation($request->validated(), $education))->handle();
 
         return back()
             ->with('success', 'Education updated successfully.');

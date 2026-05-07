@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Project\UpdateProject;
 use App\Cruds\Squema\Projects\ProjectsCrud;
 use App\Http\Requests\ProjectsFormRequest;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -71,11 +73,10 @@ class ProjectController extends Controller
 
     public function update(ProjectsFormRequest $request, int $id)
     {
+        /** @var Project $model */
         $model = $request->user()->projects()->findOrFail($id);
 
-        $validated = $request->validated();
-
-        $model->update($validated);
+        (new UpdateProject($request->validated(), $model))->handle();
 
         return redirect()
             ->back()->with('success', 'Project updated successfully.');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Basics\UpdateLocation;
 use App\Http\Requests\LocationsFormRequest;
 use App\Models\Basic;
 use App\Models\User;
@@ -11,8 +12,6 @@ class BasicsLocationUpdateController extends Controller
 {
     public function __invoke(LocationsFormRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-
         /** @var User|null $user */
         $user = $request->user();
 
@@ -24,10 +23,7 @@ class BasicsLocationUpdateController extends Controller
                 ->with('custom_error', __('basics.errors.basics_not_found'));
         }
 
-        $basics->location()->updateOrCreate(
-            ['basic_id' => $basics->id],
-            $validated
-        );
+        (new UpdateLocation($request->validated(), $basics))->handle();
 
         return back()
             ->with('success', 'Location created successfully.');

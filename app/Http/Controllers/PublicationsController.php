@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Publication\UpdatePublication;
 use App\Cruds\Squema\Publications\PublicationsCrud;
 use App\Http\Requests\PublicationsFormRequest;
 use App\Models\Publication;
@@ -79,7 +80,7 @@ class PublicationsController extends Controller
         /** @var Publication $publication */
         $publication = $user->publications()->findOrFail($id);
 
-        $publication->update($request->validated());
+        (new UpdatePublication($request->validated(), $publication))->handle();
 
         return back()
             ->with('success', 'Publication updated successfully.');

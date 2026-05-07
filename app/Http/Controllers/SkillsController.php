@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Skill\UpdateSkill;
 use App\Cruds\Squema\Skills\SkillsCrud;
 use App\Http\Requests\SkillsFormRequest;
 use App\Models\Skill;
@@ -79,7 +80,7 @@ class SkillsController extends Controller
         /** @var Skill $skill */
         $skill = $user->skills()->findOrFail($id);
 
-        $skill->update($request->validated());
+        (new UpdateSkill($request->validated(), $skill))->handle();
 
         return back()
             ->with('success', 'Skill updated successfully.');

@@ -16,12 +16,13 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'slug'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 /**
  * @property-read int $id
  * @property-read string $name
  * @property-read string $email
+ * @property-read string $slug
  * @property-read Carbon|null $email_verified_at
  * @property-read string $password
  * @property-read string|null $remember_token
