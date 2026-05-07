@@ -23,10 +23,26 @@ class BuildResumeArray
         /** @var Basic|null $basics */
         $basics = $this->user->basics()->with(['location', 'profiles'])->first();
 
-        $data = [];
+        $data = [
+            'basics' => [
+                'name' => $this->user->name,
+                'email' => $this->user->email,
+            ],
+            'work' => [],
+            'volunteer' => [],
+            'education' => [],
+            'awards' => [],
+            'certificates' => [],
+            'publications' => [],
+            'skills' => [],
+            'languages' => [],
+            'interests' => [],
+            'references' => [],
+            'projects' => [],
+        ];
 
         if ($basics) {
-            $data['basics'] = $basics->toArray();
+            $data['basics'] = array_merge($data['basics'], $basics->toArray());
 
             if ($basics->image) {
                 $data['basics']['image'] = route('image.serve', $basics->uuid);

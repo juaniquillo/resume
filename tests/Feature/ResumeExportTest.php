@@ -102,3 +102,37 @@ test('it cannot download another users export', function () {
         ->get(route('dashboard.resume.export.download', $export->uuid))
         ->assertNotFound();
 });
+
+test('the background job handles cases with no data correctly', function () {
+    Storage::fake('local');
+
+    // User exists but has NO basics, work, etc.
+    $export = ResumeExport::create([
+        'user_id' => $this->user->id,
+        'status' => 'pending',
+    ]);
+
+    $job = new ProcessResumeExport($export);
+    $job->handle();
+
+    $export->refresh();
+    expect($export->status)->toBe('completed');
+    expect($export->file_path)->not->toBeNull();
+
+    Storage::disk('local')->assertExists($export->file_path);
+
+    $json = Storage::disk('local')->get($export->file_path);
+    $data = json_decode($json, true);
+
+    // It should contain fallback basics
+    expect($data)->toBeArray();
+    expect($data)->toHaveKey('basics');
+    expect($data['basics']['name'])->toBe($this->user->name);
+    expect($data['basics']['email'])->toBe($this->user->email);
+
+    // Some libraries might remove empty arrays during serialization,
+    // but the basics must at least be there.
+    if (isset($data['work'])) {
+        expect($data['work'])->toBeEmpty();
+    }
+});

@@ -8,7 +8,7 @@ $toolsCards = ToolsNav::makeCards();
 
 <x-layouts::app :title="__('Dashboard')">
     
-    <div class="max-w-4xl mt-6">
+    <div class="max-w-4xl">
         <flux:heading size="xl" level="1">{{ __("Resume builder") }}</flux:heading>
         
         <div class="mt-6 flex flex-wrap gap-3">
