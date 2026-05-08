@@ -1,5 +1,6 @@
 <?php
 
+use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Jobs\ProcessResumeExport;
 use App\Models\Basic;
 use App\Models\ResumeExport;
@@ -116,23 +117,7 @@ test('the background job handles cases with no data correctly', function () {
     $job->handle();
 
     $export->refresh();
-    expect($export->status)->toBe('completed');
-    expect($export->file_path)->not->toBeNull();
-
-    Storage::disk('local')->assertExists($export->file_path);
-
-    $json = Storage::disk('local')->get($export->file_path);
-    $data = json_decode($json, true);
-
-    // It should contain fallback basics
-    expect($data)->toBeArray();
-    expect($data)->toHaveKey('basics');
-    expect($data['basics']['name'])->toBe($this->user->name);
-    expect($data['basics']['email'])->toBe($this->user->email);
-
-    // Some libraries might remove empty arrays during serialization,
-    // but the basics must at least be there.
-    if (isset($data['work'])) {
-        expect($data['work'])->toBeEmpty();
-    }
+    expect($export->status)->toBe('failed');
+    expect($export->file_path)->toBeNull();
+    expect($export->error)->toBe(BasicsCrud::MISSING_BASICS_ERROR);
 });

@@ -99,6 +99,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
-            ->setContent('Start New JSON Export');
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__('Start New JSON Export'));
     }
 }

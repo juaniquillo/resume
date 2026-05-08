@@ -37,8 +37,6 @@ class NetworkFactory
 
         self::form($input);
 
-        // $input->setSubElements(self::options());
-
         self::validation($input);
         self::factory($input);
         self::table($input);

@@ -66,7 +66,7 @@ composer qa
 ```
 This command clears the config cache and runs:
 - **Laravel Pint**: Code style enforcement.
-- **PHPStan**: Static analysis (Level 9).
+- **PHPStan**: Static analysis (Level 5 for now).
 - **Pest**: Parallel feature and unit testing.
 
 ### Individual Commands

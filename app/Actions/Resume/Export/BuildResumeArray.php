@@ -2,6 +2,9 @@
 
 namespace App\Actions\Resume\Export;
 
+use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Cruds\Squema\Basics\Inputs\EmailFactory;
+use App\Cruds\Squema\Basics\Inputs\NameFactory;
 use App\Models\Basic;
 use App\Models\Education;
 use App\Models\Interest;
@@ -10,6 +13,7 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\Volunteer;
 use App\Models\Work;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class BuildResumeArray
@@ -23,11 +27,12 @@ class BuildResumeArray
         /** @var Basic|null $basics */
         $basics = $this->user->basics()->with(['location', 'profiles'])->first();
 
+        if (! $basics || (! $basics->{NameFactory::NAME} || ! $basics->{EmailFactory::NAME})) {
+            throw new Exception(BasicsCrud::MISSING_BASICS_ERROR);
+        }
+
         $data = [
-            'basics' => [
-                'name' => $this->user->name,
-                'email' => $this->user->email,
-            ],
+            'basics' => [],
             'work' => [],
             'volunteer' => [],
             'education' => [],
@@ -41,19 +46,17 @@ class BuildResumeArray
             'projects' => [],
         ];
 
-        if ($basics) {
-            $data['basics'] = array_merge($data['basics'], $basics->toArray());
+        $data['basics'] = array_merge($data['basics'], $basics->toArray());
 
-            if ($basics->image) {
-                $data['basics']['image'] = route('image.serve', $basics->uuid);
-            }
+        if ($basics->image) {
+            $data['basics']['image'] = route('image.serve', $basics->uuid);
+        }
 
-            if ($basics->location) {
-                $data['basics']['location'] = $basics->location->toArray();
-            }
-            if ($basics->profiles->isNotEmpty()) {
-                $data['basics']['profiles'] = $basics->profiles->toArray();
-            }
+        if ($basics->location) {
+            $data['basics']['location'] = $basics->location->toArray();
+        }
+        if ($basics->profiles->isNotEmpty()) {
+            $data['basics']['profiles'] = $basics->profiles->toArray();
         }
 
         $data['work'] = $this->user->works()->with('highlights')->get()->map(function (Model $work) {
