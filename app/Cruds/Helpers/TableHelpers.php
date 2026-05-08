@@ -79,4 +79,12 @@ final class TableHelpers
             ->setTheme('cursor', 'pointer');
 
     }
+
+    public static function errorTooltip(string $error, string|BackendComponent|CompoundComponent $trigger, string $position = 'top'): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::TOOLTIP)
+            ->setAttribute('content', $error)
+            ->setAttribute('position', $position)
+            ->setContent($trigger);
+    }
 }

@@ -19,11 +19,6 @@ class InterestsController extends Controller
 
         $values = $request->old();
 
-        // Convert keywords array to comma-separated string for the form
-        if (isset($values['keywords']) && is_array($values['keywords'])) {
-            $values['keywords'] = implode(', ', $values['keywords']);
-        }
-
         $errors = $request->session()->get('errors')?->toArray() ?? [];
         $table = null;
 

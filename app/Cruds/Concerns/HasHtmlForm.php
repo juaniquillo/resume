@@ -26,6 +26,8 @@ trait HasHtmlForm
 {
     private ?string $formAction = null;
 
+    private string $formMethod = 'POST';
+
     /**
      * @return array<?InputInterface>
      */
@@ -37,6 +39,13 @@ trait HasHtmlForm
     public function setFormAction(string $action): static
     {
         $this->formAction = $action;
+
+        return $this;
+    }
+
+    public function setFormMethod(string $method): static
+    {
+        $this->formMethod = strtoupper($method);
 
         return $this;
     }
@@ -54,23 +63,26 @@ trait HasHtmlForm
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         $action = $this->formAction;
-
-        return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
+        $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $action)
+            ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
                     inputs: $inputs,
                 )
-            )
-            ->setContent(
-                LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                    ->setTheme('forms', 'column-span-full')
-                    ->setContent(
-                        $this->saveButton()
-                    )
             );
+
+        $form->setContent(
+            LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                ->setTheme('forms', 'column-span-full')
+                ->setContent(
+                    $this->saveButton()
+                )
+        );
+
+        return $form;
     }
 
     public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent

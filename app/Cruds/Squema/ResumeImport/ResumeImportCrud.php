@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\ResumeImport;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
@@ -11,10 +12,10 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
@@ -61,12 +62,18 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     default => 'zinc',
                 };
 
-                return ComponentBuilder::make(FluxComponentEnum::BADGE)
+                $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                     ->setAttributes([
                         'color' => $color,
                         'inset' => 'top bottom',
                     ])
                     ->setContent(ucfirst($import->status));
+
+                if ($import->status === 'failed' && $import->error) {
+                    return TableHelpers::errorTooltip($import->error, $badge);
+                }
+
+                return $badge;
             }
         ));
 
@@ -74,6 +81,26 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
             value: function ($value, Model $model) {
                 /** @var ResumeImport $model */
                 return $model->created_at->diffForHumans();
+            }
+        ));
+
+        $action->setExtraCell('Actions', new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                /** @var ResumeImport $import */
+                $import = $model;
+
+                if ($import->status === 'failed' && $import->error) {
+                    $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('size', 'xs')
+                        ->setAttribute('variant', 'danger')
+                        ->setAttribute('icon', 'information-circle')
+                        ->setTheme('cursor', 'help')
+                        ->setContent('Error Info');
+
+                    return TableHelpers::errorTooltip($import->error, $button, 'left');
+                }
+
+                return '';
             }
         ));
     }

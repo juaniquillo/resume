@@ -6,7 +6,6 @@ use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use App\Jobs\ProcessResumeExport;
 use App\Models\ResumeExport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ResumeExportController extends Controller
 {
@@ -51,22 +50,5 @@ class ResumeExportController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Resume export started successfully. It will be processed in the background.');
-    }
-
-    public function download(Request $request, string $uuid)
-    {
-        $export = ResumeExport::where('user_id', $request->user()->id)
-            ->where('uuid', $uuid)
-            ->firstOrFail();
-
-        if ($export->status !== 'completed' || ! $export->file_path) {
-            return redirect()->back()->with('error', 'The export is not ready for download.');
-        }
-
-        if (! Storage::exists($export->file_path)) {
-            return redirect()->back()->with('error', 'The exported file was not found.');
-        }
-
-        return Storage::download($export->file_path);
     }
 }

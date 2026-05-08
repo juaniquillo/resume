@@ -19,6 +19,7 @@ use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
 use App\Http\Controllers\ResumeExportController;
+use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
@@ -181,7 +182,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
         Route::post('resume/export', [ResumeExportController::class, 'store'])->name('dashboard.resume.export.store');
-        Route::get('resume/export/{uuid}/download', [ResumeExportController::class, 'download'])->name('dashboard.resume.export.download');
+
+        Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
 
     });
 

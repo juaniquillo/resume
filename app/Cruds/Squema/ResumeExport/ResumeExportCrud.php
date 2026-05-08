@@ -12,10 +12,13 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -59,12 +62,18 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     default => 'zinc',
                 };
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                     ->setAttributes([
                         'color' => $color,
                         'inset' => 'top bottom',
                     ])
                     ->setContent(ucfirst($export->status));
+
+                if ($export->status === 'failed' && $export->error) {
+                    return TableHelpers::errorTooltip($export->error, $badge);
+                }
+
+                return $badge;
             }
         ));
 
@@ -80,16 +89,36 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var ResumeExport $export */
                 $export = $model;
 
-                if ($export->status !== 'completed') {
+                $contents = [];
+
+                if ($export->status === 'completed') {
+                    $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('href', route('dashboard.resume.export.download', [$export->uuid]))
+                        ->setContent('Download')
+                        ->setAttribute('size', 'xs')
+                        ->setAttribute('variant', 'primary')
+                        ->setTheme('cursor', 'pointer');
+                }
+
+                if ($export->status === 'failed' && $export->error) {
+                    $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('size', 'xs')
+                        ->setAttribute('variant', 'danger')
+                        ->setAttribute('icon', 'information-circle')
+                        ->setTheme('cursor', 'help')
+                        ->setContent('Error Info');
+
+                    $contents[] = TableHelpers::errorTooltip($export->error, $button, 'left');
+                }
+
+                if (empty($contents)) {
                     return '';
                 }
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.resume.export.download', [$export->uuid]))
-                    ->setContent('Download')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'primary')
-                    ->setTheme('cursor', 'pointer');
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setTheme('display', 'flex')
+                    ->setTheme('flex', ['gap-sm']);
             }
         ));
     }
