@@ -16,7 +16,7 @@ final class TableHelpers
         return new self;
     }
 
-    public static function tableModal(int $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
+    public static function tableModal(int|string $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([

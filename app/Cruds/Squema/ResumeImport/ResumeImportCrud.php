@@ -16,8 +16,11 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -69,10 +72,6 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     ])
                     ->setContent(ucfirst($import->status));
 
-                if ($import->status === 'failed' && $import->error) {
-                    return TableHelpers::errorTooltip($import->error, $badge);
-                }
-
                 return $badge;
             }
         ));
@@ -90,14 +89,18 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                 $import = $model;
 
                 if ($import->status === 'failed' && $import->error) {
-                    $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('size', 'xs')
-                        ->setAttribute('variant', 'danger')
-                        ->setAttribute('icon', 'information-circle')
-                        ->setTheme('cursor', 'help')
-                        ->setContent('Error Info');
+                    
 
-                    return TableHelpers::errorTooltip($import->error, $button, 'left');
+                    return TableHelpers::tableModal(
+                        id: "error-modal-{$import->id}",
+                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                            ->setContent($import->error)
+                            ->setTheme('spacing', 'p-top-sm')
+                            ->setTheme('text', 'nl2br'),
+                        heading: 'Import Error Details',
+                        triggerType: 'danger',
+                        buttonLabel: 'Error Info'
+                    );
                 }
 
                 return '';
