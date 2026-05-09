@@ -15,7 +15,7 @@ A professional resume management system built with the latest Laravel ecosystem.
 ## 🏗️ Architecture & Features
 
 ### CrudAssistant Framework
-The application leverages the `CrudAssistant` package to provide a highly granular and type-safe approach to CRUD operations. Each resume section (Works, Education, Skills, etc.) is defined by a **Schema** that separates concerns:
+The application leverages the [CrudAssistant](https://github.com/juaniquillo/crud-assistant) package to provide a highly granular and type-safe approach to CRUD operations. Each resume section (Works, Education, Skills, etc.) is defined by a **Schema** that separates concerns:
 - **Input Factories**: Define validation, form attributes (Flux components), and factory recipes for each field.
 - **Value Managers**: Handle complex data transformations (e.g., JSON fields to comma-separated strings).
 - **Table Presenters**: Customize how data is rendered in dashboard tables using Flux components.
