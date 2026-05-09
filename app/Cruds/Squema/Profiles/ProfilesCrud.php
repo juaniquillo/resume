@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\Profiles;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Profiles\Inputs\BasicsFactory;
 use App\Cruds\Squema\Profiles\Inputs\NetworkFactory;
 use App\Cruds\Squema\Profiles\Inputs\UrlFactory;
@@ -75,9 +74,11 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Profile $profile */
                 $profile = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($profile),
-                    $this->tableDeleteButton($profile),
+                    $helper->editButton(route('dashboard.basics.profiles.edit', [$profile->id])),
+                    $helper->deleteButton(route('dashboard.basics.profiles.destroy', [$profile->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -90,30 +91,5 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    public function tableEditButton(Profile $profile): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.basics.profiles.edit', [$profile->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Profile $profile): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.basics.profiles.destroy', [$profile->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this profile?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
     }
 }

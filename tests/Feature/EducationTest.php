@@ -19,7 +19,10 @@ it('renders the education index page for authenticated users', function () {
         ->assertSuccessful()
         ->assertViewIs('dashboard.education.index')
         ->assertViewHas('form')
-        ->assertViewHas('table', null);
+        ->assertViewHas('table', null)
+        ->assertSee('list="study_type_data"', false)
+        ->assertSee('<datalist id="study_type_data">', false)
+        ->assertSee('<option value="Bachelor degree">', false);
 });
 
 it('renders the education table when records exist', function () {
@@ -60,6 +63,27 @@ it('stores a new education record', function () {
     ]);
 });
 
+it('stores an education record with a custom study type', function () {
+    $data = [
+        'institution' => 'Self Taught',
+        'url' => 'https://youtube.com',
+        'area' => 'Web Development',
+        'study_type' => 'Self-paced course',
+        'starts_at' => '2021-01-01',
+    ];
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.education.store'), array_merge($data, ['_token' => 'test-token']))
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('education', [
+        'user_id' => $this->user->id,
+        'study_type' => 'Self-paced course',
+    ]);
+});
+
 it('validates education data', function () {
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
@@ -76,7 +100,10 @@ it('renders the edit education page', function () {
         ->get(route('dashboard.education.edit', $education->id))
         ->assertSuccessful()
         ->assertViewIs('dashboard.education.edit')
-        ->assertViewHas('form');
+        ->assertViewHas('form')
+        ->assertSee('list="study_type_data"', false)
+        ->assertSee('<datalist id="study_type_data">', false)
+        ->assertSee('<option value="Bachelor degree">', false);
 });
 
 it('updates an existing education record', function () {

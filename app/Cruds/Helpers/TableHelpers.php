@@ -62,7 +62,7 @@ final class TableHelpers
                     ->setAttribute('size', 'xs')
                     ->setAttribute('variant', 'danger')
                     ->setAttribute('icon', 'trash')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this project?')")
+                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this record?')")
                     ->setTheme('cursor', 'pointer'),
             );
     }
@@ -78,5 +78,13 @@ final class TableHelpers
             ->setAttribute('size', 'xs')
             ->setTheme('cursor', 'pointer');
 
+    }
+
+    public static function errorTooltip(string $error, string|BackendComponent|CompoundComponent $trigger, string $position = 'top'): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::TOOLTIP)
+            ->setAttribute('content', $error)
+            ->setAttribute('position', $position)
+            ->setContent($trigger);
     }
 }

@@ -4,22 +4,24 @@ namespace App\Cruds\Squema\Education\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Recipes\SelectOptionComponentRecipe;
 use App\Enums\EducationLevel;
 use App\Models\Education;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rules\Enum;
-use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class StudyTypeFactory
@@ -28,19 +30,25 @@ class StudyTypeFactory
 
     const LABEL = 'Study Type';
 
+    const LIST_ID = 'study_type_data';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
 
-        $input->setSubElements(self::options());
-
         self::validation($input);
         self::factory($input);
         self::table($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(name: ['study_type', 'studyType'], default: ''));
     }
 
     public static function validation(InputInterface $input): void
@@ -48,7 +56,8 @@ class StudyTypeFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
-                new Enum(EducationLevel::class),
+                'string',
+                'max:255',
             ]))
         );
     }
@@ -57,57 +66,45 @@ class StudyTypeFactory
     {
         $input->setRecipe(
             new InputComponentRecipe(
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::SELECT),
+                inputGroup: new SoleInputGroup,
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([
                         'label' => self::LABEL,
                         'badge' => 'required',
+                        'list' => self::LIST_ID,
                     ]),
+                hookBag: (new DefaultHookBag)
+                    ->setWrapperHook(function (BackendComponent|CompoundComponent $component, InputInterface $input) {
+                        /** @phpstan-ignore-next-line */
+                        $component->setContent(
+                            StudyTypeFactory::dataList()
+                        );
+
+                        return $component;
+                    })
             )
         );
     }
 
-    public static function optionsArray(): array
+    public static function dataList(): BackendComponent|CompoundComponent
     {
-        $levels = [];
+        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+            ->setAttribute('id', self::LIST_ID)
+            ->setContents(self::options());
 
-        $levels[] = [
-            'name' => 'choose',
-            'label' => 'Choose...',
-            'value' => '',
-        ];
-
-        foreach (EducationLevel::cases() as $level) {
-            $levels[] = [
-                'name' => $level->value,
-                'label' => $level->label(),
-            ];
-        }
-
-        return $levels;
+        return $datalist;
     }
 
-    public static function options(): InputCollectionInterface
+    public static function options(): array
     {
         $options = [];
 
-        foreach (self::optionsArray() as $optionArray) {
-
-            $option = new DefaultInput($optionArray['name'], $optionArray['label']);
-
-            $optionRecipe = new SelectOptionComponentRecipe(
-                inputValue: $optionArray['value'] ?? $optionArray['name'],
-                componentBag: (new DefaultComponentBag)
-                    ->setInputType(FluxComponentEnum::OPTION)
-            );
-
-            $option->setRecipe($optionRecipe);
-
-            $options[] = $option;
+        foreach (EducationLevel::cases() as $level) {
+            $options[] = ComponentBuilder::make(ComponentEnum::OPTION)
+                ->setAttribute('value', $level->value);
         }
 
-        return CrudAssistant::make($options);
+        return $options;
     }
 
     public static function factory(InputInterface $input): void
@@ -130,13 +127,11 @@ class StudyTypeFactory
                         return '';
                     }
 
-                    $valueNew = $value;
                     $color = 'zinc';
 
                     $enum = EducationLevel::tryFrom($value);
 
                     if ($enum) {
-                        $valueNew = $enum->label();
                         $color = $enum->colors();
                     }
 
@@ -144,7 +139,7 @@ class StudyTypeFactory
                         ->setAttributes([
                             'color' => $color,
                         ])
-                        ->setContent($valueNew);
+                        ->setContent($value);
                 }
             )
         );

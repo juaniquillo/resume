@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\Awards\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
@@ -26,8 +27,14 @@ class SummaryFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe);
     }
 
     public static function validation(InputInterface $input): void

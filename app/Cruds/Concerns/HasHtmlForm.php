@@ -10,6 +10,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
@@ -25,9 +26,26 @@ trait HasHtmlForm
 {
     private ?string $formAction = null;
 
+    private string $formMethod = 'POST';
+
+    /**
+     * @return array<?InputInterface>
+     */
+    public function inputsArray(): array
+    {
+        return [];
+    }
+
     public function setFormAction(string $action): static
     {
         $this->formAction = $action;
+
+        return $this;
+    }
+
+    public function setFormMethod(string $method): static
+    {
+        $this->formMethod = strtoupper($method);
 
         return $this;
     }
@@ -38,29 +56,33 @@ trait HasHtmlForm
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
+            ->setTheme('cursor', 'pointer')
             ->setContent($label);
     }
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         $action = $this->formAction;
-
-        return LocalThemeComponentBuilder::make(ComponentEnum::FORM)
+        $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $action)
+            ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
                     inputs: $inputs,
                 )
-            )
-            ->setContent(
-                LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                    ->setTheme('forms', 'column-span-full')
-                    ->setContent(
-                        $this->saveButton()
-                    )
             );
+
+        $form->setContent(
+            LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                ->setTheme('forms', 'column-span-full')
+                ->setContent(
+                    $this->saveButton()
+                )
+        );
+
+        return $form;
     }
 
     public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent
@@ -72,8 +94,6 @@ trait HasHtmlForm
 
             $inputs[$name] = $this->spanFullContainer([$input], $index);
         }
-
-        // dd($inputs);
 
         return $this->form(
             inputs: $inputs,

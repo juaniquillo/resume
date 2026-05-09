@@ -26,6 +26,8 @@ final class BasicsCrud implements CrudForm, CrudInterface
 
     public const NAME = 'basics';
 
+    public const MISSING_BASICS_ERROR = 'Basic information is required for exporting the resume.';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],

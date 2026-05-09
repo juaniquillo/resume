@@ -84,7 +84,7 @@ public function store(Request $request): RedirectResponse
 
     Post::create($validated);
 
-    return redirect()->route('posts.index');
+    return redirect()->route('posts');
 }
 ```
 
@@ -94,6 +94,6 @@ public function store(StorePostRequest $request): RedirectResponse
 {
     Post::create($request->validated());
 
-    return redirect()->route('posts.index');
+    return redirect()->route('posts');
 }
 ```

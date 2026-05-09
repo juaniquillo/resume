@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Certificates\Inputs;
 
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
@@ -24,8 +25,14 @@ class NameFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(default: ''));
     }
 
     public static function validation(InputInterface $input): void

@@ -63,7 +63,7 @@ class DashboardNav
                         'label' => 'Profiles',
                         'route' => 'dashboard.basics.profiles',
                         'active' => ['dashboard.basics.profiles.edit'],
-                        'icon' => 'user',
+                        'icon' => 'at-symbol',
                     ],
                 ],
             ],
@@ -87,7 +87,7 @@ class DashboardNav
                 'name' => 'education',
                 'label' => 'Education',
                 'route' => 'dashboard.education',
-                'active' => ['dashboard.education.edit'],
+                'active' => ['dashboard.education.edit', 'dashboard.education.courses', 'dashboard.education.courses.edit'],
                 'icon' => 'academic-cap',
                 'description' => 'Add, edit and manage your education.',
             ],
@@ -144,7 +144,7 @@ class DashboardNav
                 'label' => 'References',
                 'route' => 'dashboard.references',
                 'active' => ['dashboard.references.edit'],
-                'icon' => 'book-open',
+                'icon' => 'bookmark',
                 'description' => 'Add, edit and manage your references.',
             ],
             [
@@ -156,28 +156,5 @@ class DashboardNav
                 'description' => 'Add, edit and manage your projects.',
             ],
         ];
-    }
-
-    public static function cards(): array
-    {
-        $links = [];
-
-        foreach (self::items() as $item) {
-            if ($item['ignore_cards'] ?? null) {
-                continue;
-            }
-
-            $firstSubNav = $item['sub_nav'] ?? false ? $item['sub_nav'][0] : null;
-
-            $links[] = [
-                'label' => $item['label'],
-                'href' => $firstSubNav ? route($firstSubNav['route']) : route($item['route']),
-                'icon' => $firstSubNav ? $firstSubNav['icon'] : $item['icon'],
-                'description' => $item['description'] ?? null,
-            ];
-
-        }
-
-        return $links;
     }
 }

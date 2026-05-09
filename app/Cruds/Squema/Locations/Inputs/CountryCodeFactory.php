@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Locations\Inputs;
 
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -23,8 +24,14 @@ class CountryCodeFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::import($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(name: ['country_code', 'countryCode']));
     }
 
     public static function validation(InputInterface $input): void

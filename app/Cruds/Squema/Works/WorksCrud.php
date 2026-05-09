@@ -24,6 +24,7 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -46,6 +47,9 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    /**
+     * @return array<?InputInterface>
+     */
     public function inputsArray(): array
     {
         return [

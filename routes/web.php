@@ -9,13 +9,18 @@ use App\Http\Controllers\BasicsUpdateController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EducationCoursesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeExportController;
+use App\Http\Controllers\ResumeExportDownloadController;
+use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -84,6 +89,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('education/{id}/edit', [EducationController::class, 'edit'])->name('dashboard.education.edit');
         Route::post('education/{id}', [EducationController::class, 'update'])->name('dashboard.education.update');
         Route::delete('education/{id}', [EducationController::class, 'destroy'])->name('dashboard.education.destroy');
+
+        Route::get('education/{id}/courses', [EducationCoursesController::class, 'index'])->name('dashboard.education.courses');
+        Route::post('education/{id}/courses', [EducationCoursesController::class, 'store'])->name('dashboard.education.courses.store');
+        Route::get('education/{id}/courses/{courseId}/edit', [EducationCoursesController::class, 'edit'])->name('dashboard.education.courses.edit');
+        Route::post('education/{id}/courses/{courseId}', [EducationCoursesController::class, 'update'])->name('dashboard.education.courses.update');
+        Route::delete('education/{id}/courses/{courseId}', [EducationCoursesController::class, 'destroy'])->name('dashboard.education.courses.destroy');
 
         /**
          * Awards
@@ -166,6 +177,16 @@ Route::middleware(['auth', 'verified'])
         /**
          * Tools
          */
+        Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
+        Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
+
+        Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
+        Route::post('resume/export', [ResumeExportController::class, 'store'])->name('dashboard.resume.export.store');
+
+        Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
+
     });
+
+Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 
 require __DIR__.'/settings.php';

@@ -31,9 +31,14 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
 
         $name = $input->getName();
 
-        /** @var LaravelValidationRulesRecipe $recipe */
+        /** @var LaravelValidationRulesRecipe|null $recipe */
         $recipe = $input->getRecipe(self::getIdentifier());
-        $rules = $recipe->rules ?? null;
+
+        if (! $recipe) {
+            return $output;
+        }
+
+        $rules = $recipe->rules;
 
         if ($rules) {
 
