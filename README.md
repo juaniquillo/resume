@@ -1,5 +1,9 @@
 # Resume Manager
 
+[![Lint](https://github.com/juaniquillo/resume/actions/workflows/lint.yml/badge.svg)](https://github.com/juaniquillo/resume/actions/workflows/lint.yml) 
+[![PHPStan](https://github.com/juaniquillo/resume/actions/workflows/phpstan.yml/badge.svg)](https://github.com/juaniquillo/resume/actions/workflows/phpstan.yml) 
+[![Tests](https://github.com/juaniquillo/resume/actions/workflows/tests.yml/badge.svg?event=pull_request)](https://github.com/juaniquillo/resume/actions/workflows/tests.yml)
+
 A professional resume management system built with the latest Laravel ecosystem. This application allows users to manage every aspect of their professional profile—from basic contact information to complex work histories and skill sets—following the JSON Resume schema patterns.
 
 ## 🚀 Tech Stack
@@ -74,6 +78,6 @@ This command clears the config cache and runs:
 - **Analysis**: `composer phpstan`
 - **Testing**: `php artisan test --compact`
 
-## 📄 License
+## 🤝 Contributing
 
-This project is open-sourced software licensed under the [MIT license](LICENSE).
+We love contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
