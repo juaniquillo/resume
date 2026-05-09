@@ -34,6 +34,7 @@ test('it rolls back all changes if a part of the import fails', function () {
     $import = ResumeImport::create([
         'user_id' => $user->id,
         'file_path' => $filePath,
+        'file_name' => 'resume_failure.json',
         'status' => 'pending',
     ]);
 

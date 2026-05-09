@@ -13,8 +13,8 @@ use Illuminate\Support\Carbon;
 /**
  * @property-read int $id
  * @property-read string $basic_id
- * @property-read string $address
- * @property-read string $postalCode
+ * @property-read string|null $address
+ * @property-read string|null $postalCode
  * @property-read string $city
  * @property-read string $countryCode
  * @property-read string $region

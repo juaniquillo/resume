@@ -62,6 +62,7 @@ class ResumeImportController extends Controller
         $import = ResumeImport::create([
             'user_id' => $request->user()->id,
             'file_path' => $path,
+            'file_name' => $file->getClientOriginalName(),
             'status' => 'pending',
         ]);
 

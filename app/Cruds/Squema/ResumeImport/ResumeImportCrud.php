@@ -16,7 +16,6 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -52,6 +51,21 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function tableOptions(TableRowsAction $action): void
     {
+        $action->setExtraCell('Resume JSON File', new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                /** @var ResumeImport $import */
+                $import = $model;
+
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
+                    ->setContent($import->file_name)
+                    ->setAttribute('variant', 'ghost')
+                    ->setAttribute('size', 'sm')
+                    ->setAttribute('icon', 'document-arrow-down')
+                    ->setTheme('cursor', 'pointer');
+            }
+        ));
+
         $action->setExtraCell('Status', new TableRowsRecipe(
             value: function ($value, Model $model) {
                 /** @var ResumeImport $import */
@@ -89,7 +103,6 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                 $import = $model;
 
                 if ($import->status === 'failed' && $import->error) {
-                    
 
                     return TableHelpers::tableModal(
                         id: "error-modal-{$import->id}",

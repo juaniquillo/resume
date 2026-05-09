@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('uuid');
 
             $table->string('name');
-            $table->json('keywords')->nullable();
+            $table->text('reference')->nullable();
 
             $table
                 ->foreignUlid('user_id')

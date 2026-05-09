@@ -19,11 +19,6 @@ class ReferencesController extends Controller
 
         $values = $request->old();
 
-        // Convert keywords array to comma-separated string for the form
-        if (isset($values['keywords']) && is_array($values['keywords'])) {
-            $values['keywords'] = implode(', ', $values['keywords']);
-        }
-
         $errors = $request->session()->get('errors')?->toArray() ?? [];
         $table = null;
 
@@ -34,7 +29,7 @@ class ReferencesController extends Controller
 
         $crud->setFormAction(route('dashboard.references.store'));
 
-        $form = $crud->form();
+        $form = $crud->formWithTextareaSpanFull();
 
         if (! $references->isEmpty()) {
             $table = $crud->makeTable($references);
@@ -71,7 +66,7 @@ class ReferencesController extends Controller
 
         $crud->setFormAction(route('dashboard.references.update', $id));
 
-        $form = $crud->form();
+        $form = $crud->formWithTextareaSpanFull();
 
         return view('dashboard.references.edit')
             ->with('form', $form);

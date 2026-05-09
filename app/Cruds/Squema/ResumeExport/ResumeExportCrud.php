@@ -16,6 +16,7 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -69,10 +70,6 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     ])
                     ->setContent(ucfirst($export->status));
 
-                if ($export->status === 'failed' && $export->error) {
-                    return TableHelpers::errorTooltip($export->error, $badge);
-                }
-
                 return $badge;
             }
         ));
@@ -101,14 +98,16 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                 }
 
                 if ($export->status === 'failed' && $export->error) {
-                    $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('size', 'xs')
-                        ->setAttribute('variant', 'danger')
-                        ->setAttribute('icon', 'information-circle')
-                        ->setTheme('cursor', 'help')
-                        ->setContent('Error Info');
-
-                    $contents[] = TableHelpers::errorTooltip($export->error, $button, 'left');
+                    $contents[] = TableHelpers::tableModal(
+                        id: "error-modal-{$export->id}",
+                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                            ->setContent($export->error)
+                            ->setTheme('spacing', 'p-top-sm')
+                            ->setTheme('text', 'nl2br'),
+                        heading: 'Export Error Details',
+                        triggerType: 'danger',
+                        buttonLabel: 'Error Info'
+                    );
                 }
 
                 if (empty($contents)) {

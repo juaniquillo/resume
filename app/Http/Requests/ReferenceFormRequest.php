@@ -25,12 +25,6 @@ class ReferenceFormRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->crud = ReferencesCrud::build()->make();
-
-        if ($this->has('keywords') && is_string($this->keywords)) {
-            $this->merge([
-                'keywords' => array_filter(array_map('trim', explode(',', $this->keywords))),
-            ]);
-        }
     }
 
     /**

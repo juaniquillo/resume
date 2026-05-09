@@ -22,8 +22,8 @@ return new class extends Migration
                 ->constrained('basics')
                 ->cascadeOnDelete();
 
-            $table->string('address');
-            $table->string('postal_code');
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
             $table->string('city');
             $table->string('country_code');
             $table->string('region')->nullable();

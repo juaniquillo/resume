@@ -52,6 +52,7 @@ test('user can upload a resume json file', function () {
     $response->assertRedirect();
     $this->assertDatabaseHas('resume_imports', [
         'user_id' => $user->id,
+        'file_name' => 'resume.json',
         'status' => 'pending',
     ]);
 
@@ -139,6 +140,7 @@ test('process resume import job correctly imports data', function () {
     $import = ResumeImport::create([
         'user_id' => $user->id,
         'file_path' => $filePath,
+        'file_name' => 'sample.json',
         'status' => 'pending',
     ]);
 

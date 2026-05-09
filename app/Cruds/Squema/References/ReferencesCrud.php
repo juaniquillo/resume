@@ -12,9 +12,8 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Managers\ArrayToCommaSeparatedValueManager;
-use App\Cruds\Squema\References\Inputs\KeywordsFactory;
 use App\Cruds\Squema\References\Inputs\NameFactory;
+use App\Cruds\Squema\References\Inputs\ReferenceFactory;
 use App\Cruds\Squema\References\Inputs\UserFactory;
 use App\Cruds\Squema\References\Inputs\UuidFactory;
 use App\Models\Reference;
@@ -23,7 +22,6 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 
 final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -52,7 +50,7 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'name' => NameFactory::make(),
-            'keywords' => KeywordsFactory::make(),
+            'reference' => ReferenceFactory::make(),
         ];
     }
 
@@ -110,9 +108,8 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
             );
     }
 
-    /** @phpstan-ignore  return.unusedType */
-    public function valueManager(): ?ValueManager
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return new ArrayToCommaSeparatedValueManager;
+        return $this->formFullSpanInputs(['reference']);
     }
 }

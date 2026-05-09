@@ -38,7 +38,7 @@ class AddressFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
             ]))
         );
     }
@@ -51,7 +51,6 @@ class AddressFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'badge' => 'required',
                         ])
                 )
         );

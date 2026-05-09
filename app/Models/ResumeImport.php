@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $user_id
  * @property string $file_path
+ * @property string $file_name
  * @property string $status
  * @property string|null $error
  * @property Carbon $created_at
@@ -21,6 +22,7 @@ class ResumeImport extends Model
     protected $fillable = [
         'user_id',
         'file_path',
+        'file_name',
         'status',
         'error',
     ];
