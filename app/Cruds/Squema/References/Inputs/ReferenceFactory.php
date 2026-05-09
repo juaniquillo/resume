@@ -5,7 +5,13 @@ namespace App\Cruds\Squema\References\Inputs;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
+use App\Models\Reference;
+use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -25,6 +31,7 @@ class ReferenceFactory
 
         self::validation($input);
         self::form($input);
+        self::table($input);
         self::factory($input);
         self::import($input);
 
@@ -62,6 +69,32 @@ class ReferenceFactory
                     'nullable',
                     'string',
                 ]
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (?string $value, Model $model) {
+                    /** @var Reference $reference */
+                    $reference = $model;
+
+                    if (! $value) {
+                        return '—';
+                    }
+
+                    return TableHelpers::tableModal(
+                        id: $reference->id,
+                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                            ->setContent($value)
+                            ->setTheme('spacing', 'm-top-sm')
+                            ->setTheme('text', 'nl2br'),
+                        heading: 'Reference Text',
+                        buttonLabel: 'View Reference'
+                    );
+                }
             )
         );
     }
