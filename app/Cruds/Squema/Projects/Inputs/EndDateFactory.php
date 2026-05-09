@@ -39,7 +39,7 @@ class EndDateFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
                 'date',
             ]))
         );
@@ -53,7 +53,6 @@ class EndDateFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'badge' => 'required',
                             'type' => 'month',
                         ])
                 )

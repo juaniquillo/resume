@@ -60,7 +60,7 @@ it('validates project data', function () {
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
         ->post(route('dashboard.projects.store'), ['_token' => 'test-token'])
-        ->assertSessionHasErrors(['name', 'start_date', 'end_date']);
+        ->assertSessionHasErrors(['name', 'start_date']);
 });
 
 it('renders the edit project page', function () {
