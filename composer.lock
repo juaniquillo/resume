@@ -63,23 +63,22 @@
         },
         {
             "name": "brick/math",
-            "version": "0.14.8",
+            "version": "0.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "63422359a44b7f06cae63c3b429b59e8efcc0629"
+                "reference": "a62af7ab2e3cee9f9bf4cf77a5d1e6ba408a44ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/63422359a44b7f06cae63c3b429b59e8efcc0629",
-                "reference": "63422359a44b7f06cae63c3b429b59e8efcc0629",
+                "url": "https://api.github.com/repos/brick/math/zipball/a62af7ab2e3cee9f9bf4cf77a5d1e6ba408a44ee",
+                "reference": "a62af7ab2e3cee9f9bf4cf77a5d1e6ba408a44ee",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.2"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "^2.2",
                 "phpstan/phpstan": "2.1.22",
                 "phpunit/phpunit": "^11.5"
             },
@@ -111,7 +110,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.14.8"
+                "source": "https://github.com/brick/math/tree/0.17.0"
             },
             "funding": [
                 {
@@ -119,7 +118,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-10T14:33:43+00:00"
+            "time": "2026-03-17T12:54:54+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1265,17 +1264,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/input-component-action.git",
-                "reference": "3b297f35c8d29d62078bc1f85fbda057fb83b889"
+                "reference": "0d8b86297e8c75f52012357b3a1564aa2dfca7ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/3b297f35c8d29d62078bc1f85fbda057fb83b889",
-                "reference": "3b297f35c8d29d62078bc1f85fbda057fb83b889",
+                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/0d8b86297e8c75f52012357b3a1564aa2dfca7ad",
+                "reference": "0d8b86297e8c75f52012357b3a1564aa2dfca7ad",
                 "shasum": ""
             },
             "require": {
                 "juaniquillo/crud-assistant": "^0.1.0",
-                "juaniquillo/laravel-backend-component": "^0.4.0",
+                "juaniquillo/laravel-backend-component": "@dev",
                 "spatie/laravel-package-tools": "^1.92"
             },
             "require-dev": {
@@ -1314,20 +1313,20 @@
                 "issues": "https://github.com/juaniquillo/input-component-action/issues",
                 "source": "https://github.com/juaniquillo/input-component-action/tree/main"
             },
-            "time": "2026-05-07T20:32:56+00:00"
+            "time": "2026-05-10T17:05:46+00:00"
         },
         {
             "name": "juaniquillo/laravel-backend-component",
-            "version": "v0.4.0",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/laravel-backend-component.git",
-                "reference": "d7a180fe266d3c8a949d5ec7dbbf99017a286905"
+                "reference": "52493b8bd13714cc7da3cf252de8f48c1250d5a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/d7a180fe266d3c8a949d5ec7dbbf99017a286905",
-                "reference": "d7a180fe266d3c8a949d5ec7dbbf99017a286905",
+                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/52493b8bd13714cc7da3cf252de8f48c1250d5a7",
+                "reference": "52493b8bd13714cc7da3cf252de8f48c1250d5a7",
                 "shasum": ""
             },
             "require": {
@@ -1378,7 +1377,7 @@
                 "laravel-backend-component"
             ],
             "support": {
-                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.4.0"
+                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.5.0"
             },
             "funding": [
                 {
@@ -1386,7 +1385,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-07T17:17:53+00:00"
+            "time": "2026-05-10T16:58:10+00:00"
         },
         {
             "name": "juststeveking/resume-php",
@@ -4490,20 +4489,20 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.9.2",
+            "version": "4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "8429c78ca35a09f27565311b98101e2826affde0"
+                "reference": "1a1f98b037d664d9093a620cfa85305c7e50b244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/8429c78ca35a09f27565311b98101e2826affde0",
-                "reference": "8429c78ca35a09f27565311b98101e2826affde0",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/1a1f98b037d664d9093a620cfa85305c7e50b244",
+                "reference": "1a1f98b037d664d9093a620cfa85305c7e50b244",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.8.16 || ^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14",
+                "brick/math": ">=0.8.16 <=0.17",
                 "php": "^8.0",
                 "ramsey/collection": "^1.2 || ^2.0"
             },
@@ -4536,6 +4535,7 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {
@@ -4562,9 +4562,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.9.2"
+                "source": "https://github.com/ramsey/uuid/tree/4.x"
             },
-            "time": "2025-12-14T04:43:48+00:00"
+            "time": "2026-04-27T22:11:13+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
