@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\References\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
@@ -34,19 +35,27 @@ class ReferenceFactory
         self::table($input);
         self::factory($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
 
     public static function import(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['reference', 'keywords']));
+        $input->setRecipe(new NameValueRecipe);
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
-            (new InputComponentRecipe)
+            (new InputComponentRecipe(valueAsInputContent: true))
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::TEXTAREA)
@@ -85,8 +94,10 @@ class ReferenceFactory
                         return '—';
                     }
 
+                    $id = $reference->id;
+
                     return TableHelpers::tableModal(
-                        id: $reference->id,
+                        id: "reference_{$id}",
                         content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
                             ->setContent($value)
                             ->setTheme('spacing', 'm-top-sm')

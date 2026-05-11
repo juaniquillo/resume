@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Locations\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -17,6 +18,8 @@ class PostalCodeFactory
 
     const LABEL = 'Postal Code';
 
+    const JSON_KEY = 'postalCode';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
@@ -25,13 +28,14 @@ class PostalCodeFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
 
     public static function import(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['postal_code', 'postalCode']));
+        $input->setRecipe(new NameValueRecipe(name: [self::NAME, self::JSON_KEY]));
     }
 
     public static function validation(InputInterface $input): void
@@ -65,5 +69,12 @@ class PostalCodeFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::JSON_KEY
+        ));
     }
 }

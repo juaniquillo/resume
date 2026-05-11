@@ -16,6 +16,7 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -102,9 +103,10 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var ResumeImport $import */
                 $import = $model;
 
-                if ($import->status === 'failed' && $import->error) {
+                $contents = [];
 
-                    return TableHelpers::tableModal(
+                if ($import->status === 'failed' && $import->error) {
+                    $contents[] = TableHelpers::tableModal(
                         id: "error-modal-{$import->id}",
                         content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
                             ->setContent($import->error)
@@ -116,7 +118,14 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                return '';
+                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setThemes([
+                        'display' => 'flex',
+                        'flex' => ['gap-sm'],
+                    ]);
             }
         ));
     }

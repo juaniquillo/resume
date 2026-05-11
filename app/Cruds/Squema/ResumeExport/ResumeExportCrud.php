@@ -110,14 +110,14 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                if (empty($contents)) {
-                    return '';
-                }
+                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.export.destroy', $export->id));
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
                     ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', ['gap-sm']);
+                    ->setThemes([
+                        'display' => 'flex',
+                        'flex' => ['gap-sm'],
+                    ]);
             }
         ));
     }

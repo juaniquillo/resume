@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Languages\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -26,6 +27,7 @@ class LanguageFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -69,5 +71,12 @@ class LanguageFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 }

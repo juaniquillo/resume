@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\Skills\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -30,6 +31,7 @@ class KeywordsFactory
         self::form($input);
         self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -39,7 +41,15 @@ class KeywordsFactory
         $input->setRecipe(new NameValueRecipe(
             callback: fn (array $values) => isset($values['keywords'])
                 ? (is_array($values['keywords']) ? implode(', ', $values['keywords']) : $values['keywords'])
-                : null
+                : null,
+        ));
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME,
+            callback: fn ($value) => is_string($value) ? array_map('trim', explode(',', $value)) : $value
         ));
     }
 

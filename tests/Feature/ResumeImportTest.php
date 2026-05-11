@@ -200,3 +200,58 @@ test('process resume import job correctly imports data', function () {
     $this->assertEquals(['Laravel', 'Pest'], $keywords);
 
 });
+
+test('user can delete their resume import', function () {
+    $this->withoutMiddleware();
+    Storage::fake('local');
+    $user = User::factory()->create();
+    $filePath = 'imports/resumes/test.json';
+    Storage::disk('local')->put($filePath, 'content');
+
+    $import = ResumeImport::create([
+        'user_id' => $user->id,
+        'file_path' => $filePath,
+        'file_name' => 'test.json',
+        'status' => 'completed',
+    ]);
+
+    $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));
+
+    $response->assertRedirect();
+    $this->assertDatabaseMissing('resume_imports', ['id' => $import->id]);
+    Storage::disk('local')->assertMissing($filePath);
+});
+
+test('user cannot delete another users resume import', function () {
+    $this->withoutMiddleware();
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $import = ResumeImport::create([
+        'user_id' => $otherUser->id,
+        'file_path' => 'path/to/file.json',
+        'file_name' => 'file.json',
+        'status' => 'completed',
+    ]);
+
+    $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));
+
+    $response->assertStatus(404);
+    $this->assertDatabaseHas('resume_imports', ['id' => $import->id]);
+});
+
+test('user cannot have more than 5 resume imports', function () {
+    $this->withoutMiddleware();
+    $user = User::factory()->create();
+    ResumeImport::factory()->count(5)->create(['user_id' => $user->id]);
+
+    $file = UploadedFile::fake()->create('new_resume.json', 100);
+
+    $response = $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
+        'resume_file' => $file,
+    ]);
+
+    $response->assertRedirect();
+    $response->assertSessionHas('error', 'You can only have up to 5 resume imports. Please delete an old one first.');
+    $this->assertDatabaseCount('resume_imports', 5);
+});

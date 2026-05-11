@@ -5,7 +5,7 @@
     $warning = session('warning');
     $classesWarning = 'flex bg-yellow-100 text-yellow-700 dark:bg-waring-400 dark:text-red-900 px-3 py-3 rounded-md relative';
 
-    $error = session('custom_error');
+    $error = session('custom_error') ?? session('error');
     $classesError = 'flex bg-red-800 text-red-200 px-3 py-3 rounded-md relative';
 
 @endphp

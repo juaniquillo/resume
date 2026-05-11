@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\Education\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
@@ -30,6 +31,8 @@ class StudyTypeFactory
 
     const LABEL = 'Study Type';
 
+    const JSON_KEY = 'studyType';
+
     const LIST_ID = 'study_type_data';
 
     public static function make(): InputInterface
@@ -42,13 +45,14 @@ class StudyTypeFactory
         self::factory($input);
         self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
 
     public static function import(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['study_type', 'studyType'], default: ''));
+        $input->setRecipe(new NameValueRecipe(name: [self::NAME, self::JSON_KEY], default: ''));
     }
 
     public static function validation(InputInterface $input): void
@@ -143,5 +147,12 @@ class StudyTypeFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::JSON_KEY
+        ));
     }
 }

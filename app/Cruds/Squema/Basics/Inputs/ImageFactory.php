@@ -3,8 +3,11 @@
 namespace App\Cruds\Squema\Basics\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
+use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Models\Basic;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -18,6 +21,8 @@ class ImageFactory
 
     const LABEL = 'Image';
 
+    const JSON_KEY = 'image';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
@@ -25,8 +30,25 @@ class ImageFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::import($input);
+        self::export($input);
 
         return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(
+            name: [self::NAME, self::JSON_KEY],
+        ));
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::JSON_KEY,
+            callback: fn ($value, Basic $model) => $value ? route('image.serve', $model->uuid) : null
+        ));
     }
 
     public static function validation(InputInterface $input): void

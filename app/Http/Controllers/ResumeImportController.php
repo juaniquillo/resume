@@ -9,6 +9,7 @@ use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use JustSteveKing\Resume\Factories\ResumeFactory;
 
@@ -45,6 +46,12 @@ class ResumeImportController extends Controller
 
     public function store(ResumeImportFormRequest $request)
     {
+        if ($request->user()->resumeImports()->count() >= 5) {
+            return redirect()
+                ->back()
+                ->with('error', 'You can only have up to 5 resume imports. Please delete an old one first.');
+        }
+
         /** @var UploadedFile $file */
         $file = $request->file(JsonFileFactory::NAME);
 
@@ -71,5 +78,20 @@ class ResumeImportController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Resume import started successfully. It will be processed in the background.');
+    }
+
+    public function destroy(Request $request, int $id)
+    {
+        $import = ResumeImport::where('user_id', $request->user()->id)->findOrFail($id);
+
+        if ($import->file_path) {
+            Storage::delete($import->file_path);
+        }
+
+        $import->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Resume import deleted successfully.');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Cruds\Squema\Projects\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
@@ -36,6 +37,7 @@ class DescriptionFactory
         self::factory($input);
         self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -107,5 +109,12 @@ class DescriptionFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 }
