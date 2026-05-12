@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Squema\References;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\References\Inputs\NameFactory;
 use App\Cruds\Squema\References\Inputs\ReferenceFactory;
 use App\Cruds\Squema\References\Inputs\UserFactory;
@@ -66,9 +65,11 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Reference $reference */
                 $reference = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($reference),
-                    $this->tableDeleteButton($reference),
+                    $helper->editButton(route('dashboard.references.edit', [$reference->id])),
+                    $helper->deleteButton(route('dashboard.references.destroy', [$reference->id])),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -81,31 +82,6 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    public function tableEditButton(Reference $reference): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.references.edit', [$reference->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
-    }
-
-    public function tableDeleteButton(Reference $reference): BackendComponent|CompoundComponent
-    {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route('dashboard.references.destroy', [$reference->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this reference?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent

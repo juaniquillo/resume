@@ -8,6 +8,7 @@ enum LanguageFluency: string
     case INTERMEDIATE = 'Intermediate';
     case ADVANCED = 'Advanced';
     case EXPERT = 'Expert';
+    case NATIVE = 'Native';
 
     public function labelColor(): string
     {
@@ -16,6 +17,7 @@ enum LanguageFluency: string
             self::INTERMEDIATE => 'amber',
             self::ADVANCED => 'green',
             self::EXPERT => 'blue',
+            self::NATIVE => 'purple',
         };
     }
 }

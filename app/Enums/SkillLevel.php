@@ -8,6 +8,7 @@ enum SkillLevel: string
     case INTERMEDIATE = 'Intermediate';
     case ADVANCED = 'Advanced';
     case EXPERT = 'Expert';
+    case SENIOR = 'Senior';
 
     public function labelColor(): string
     {
@@ -15,7 +16,7 @@ enum SkillLevel: string
             self::BEGINNER => 'orange',
             self::INTERMEDIATE => 'amber',
             self::ADVANCED => 'green',
-            self::EXPERT => 'blue',
+            self::SENIOR, self::EXPERT => 'blue',
         };
     }
 }

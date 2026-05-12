@@ -22,7 +22,7 @@ enum EducationLevel: string
             self::VOCATIONAL => 'yellow',
             self::ASSOCIATE_DEGREE => 'lime',
             self::BACHELOR_DEGREE => 'green',
-            self::MASTER_DEGREE => 'emerald',
+            self::MASTER_DEGREE => 'blue',
             self::DOCTORATE => 'cyan',
         };
     }

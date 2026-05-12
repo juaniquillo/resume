@@ -16,6 +16,7 @@ use App\Cruds\Squema\Skills\Inputs\KeywordsFactory;
 use App\Cruds\Squema\Skills\Inputs\LevelFactory;
 use App\Cruds\Squema\Skills\Inputs\NameFactory;
 use App\Cruds\Squema\Skills\Inputs\UserFactory;
+use App\Cruds\Squema\Skills\Inputs\UuidFactory;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -49,6 +50,7 @@ final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
     {
         return [
             'user' => UserFactory::make(),
+            'uuid' => UuidFactory::make(),
             'name' => NameFactory::make(),
             'level' => LevelFactory::make(),
             'keywords' => KeywordsFactory::make(),

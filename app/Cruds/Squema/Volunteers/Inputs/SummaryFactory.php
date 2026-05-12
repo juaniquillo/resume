@@ -11,6 +11,7 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Volunteer;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -87,11 +88,14 @@ class SummaryFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                value: function($value, Volunteer $model) {
+                value: function (string|array|null $value, Model $model) {
                     $value = $value ?? 'N/A';
 
+                    /** @var Volunteer $volunteer */
+                    $volunteer = $model;
+
                     return TableHelpers::tableModal(
-                        id: "summary-{$model->id}",
+                        id: "summary-{$volunteer->id}",
                         triggerType: 'ghost',
                         heading: self::LABEL,
                         content: ComponentBuilder::make(ComponentEnum::DIV)

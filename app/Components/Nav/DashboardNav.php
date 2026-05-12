@@ -53,7 +53,7 @@ class DashboardNav
                     ],
                     [
                         'name' => 'basics.location',
-                        'label' => 'Locations',
+                        'label' => 'Location',
                         'route' => 'dashboard.basics.location',
                         'active' => ['dashboard.basics.location.edit'],
                         'icon' => 'map-pin',

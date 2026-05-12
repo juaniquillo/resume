@@ -5,6 +5,7 @@ namespace App\Cruds\Helpers;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -86,5 +87,34 @@ final class TableHelpers
             ->setAttribute('content', $error)
             ->setAttribute('position', $position)
             ->setContent($trigger);
+    }
+
+    public static function tableLink(?string $link, ?string $label = null, string $target = '_blank'): BackendComponent|CompoundComponent|null
+    {
+        if (! $link) {
+            return null;
+        }
+
+        return FluxComponentBuilder::make(FluxComponentEnum::LINK)
+            ->setAttributes([
+                'href' => $link,
+                'target' => $target,
+            ])
+            ->setContent($label ?? $link);
+    }
+
+    public static function nl2br(string $value)
+    {
+        return LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+            ->setContent($value)
+            ->setTheme('text', 'nl2br');
+    }
+
+    public static function emptyValue(string $label = 'N/A'): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+            ->setAttribute('variant', 'light')
+            ->setContent('N/A');
+
     }
 }

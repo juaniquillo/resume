@@ -41,7 +41,6 @@ class NetworkFactory
         self::factory($input);
         self::table($input);
 
-        /** Adds just a div wrapper */
         return $input;
 
     }

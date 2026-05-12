@@ -33,17 +33,16 @@ class ModelToExportAction extends Action implements ActionInterface
         $recipe = $input->getRecipe(ModelToExportAction::class);
         $inputName = $input->getName();
 
-        if (! $recipe) {
-            return $output;
-        }
-
+        $exportKey = $inputName;
         $value = $this->model->{$inputName};
 
-        if ($recipe->callback) {
-            $value = ($recipe->callback)($value, $this->model);
-        }
+        if ($recipe) {
+            if ($recipe->callback) {
+                $value = ($recipe->callback)($value, $this->model);
+            }
 
-        $exportKey = $recipe->key ?? $inputName;
+            $exportKey = $recipe->key ?? $inputName;
+        }
 
         $output->set($exportKey, $value);
 
