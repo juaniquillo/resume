@@ -18,6 +18,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
@@ -30,6 +31,8 @@ use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('resume/{user:slug}', ResumeController::class)->name('resume');
 
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')

@@ -1,0 +1,34 @@
+<?php
+
+return [
+    'container' => 'container mx-auto max-w-4xl p-8',
+    'image' => 'w-32 h-32 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6',
+    'name' => 'text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-2',
+    'label' => 'text-2xl font-medium text-sky-600 dark:text-sky-400 mb-6',
+    
+    'contact-container' => 'flex flex-wrap gap-4 mb-8 text-md font-medium',
+    'links' => 'flex items-center text-gray-600 underline font-bold dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors',
+    'contact-item' => 'flex items-center text-gray-600 font-bold',
+    
+    'section' => 'mb-12',
+    'section-title' => 'text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-6 uppercase tracking-wider',
+    
+    'item-container' => 'mb-8 last:mb-0',
+    'item-title' => 'text-xl font-bold text-gray-900 dark:text-white',
+    'item-details' => 'text-gray-600 dark:text-gray-400 mb-3 italic font-medium',
+    
+    'summary' => 'whitespace-pre-wrap text-lg leading-relaxed text-gray-700 dark:text-gray-300',
+    
+    'list' => 'list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 mt-2',
+    
+    // Spacing utility fallbacks if needed
+    'p-md' => 'p-8',
+    'm-bottom-lg' => 'mb-12',
+    'm-bottom-md' => 'mb-8',
+    'm-bottom-sm' => 'mb-4',
+    'm-bottom-xs' => 'mb-2',
+    'm-right-sm' => 'mr-4',
+    'm-top-sm' => 'mt-4',
+];
+
+// <span class="font-bold text-sky-600"></span>

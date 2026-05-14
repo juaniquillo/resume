@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3a4e221704719a00bd7cba8f5e6267c",
+    "content-hash": "dc97705f1eb70a1a664224f61ab71651",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1317,16 +1317,16 @@
         },
         {
             "name": "juaniquillo/laravel-backend-component",
-            "version": "v0.5.0",
+            "version": "v0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/laravel-backend-component.git",
-                "reference": "52493b8bd13714cc7da3cf252de8f48c1250d5a7"
+                "reference": "fe7d9fd9f191e350c94b830914f85c59e972ac64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/52493b8bd13714cc7da3cf252de8f48c1250d5a7",
-                "reference": "52493b8bd13714cc7da3cf252de8f48c1250d5a7",
+                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/fe7d9fd9f191e350c94b830914f85c59e972ac64",
+                "reference": "fe7d9fd9f191e350c94b830914f85c59e972ac64",
                 "shasum": ""
             },
             "require": {
@@ -1377,7 +1377,7 @@
                 "laravel-backend-component"
             ],
             "support": {
-                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.5.0"
+                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.5.4"
             },
             "funding": [
                 {
@@ -1385,7 +1385,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-10T16:58:10+00:00"
+            "time": "2026-05-13T16:22:40+00:00"
         },
         {
             "name": "juststeveking/resume-php",

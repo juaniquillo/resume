@@ -32,6 +32,7 @@
                 Resume Manager
             </div>
             <div class="flex space-x-4 items-center"> {{-- Added items-center for vertical alignment --}}
+                <a href="{{ route('resume', ['user' => 'juaniquillo']) }}" class="hover:text-gray-300">Resume</a>
                 <a href="#features" class="hover:text-gray-300">Features</a>
                 {{-- Assuming a login/register link might be relevant for a landing page --}}
                 @if (Route::has('login'))
@@ -62,7 +63,7 @@
                 Manage your resume sections with ease, from experience to education, and export in industry-standard formats.
             </p>
             <a href="{{ route('login') }}" class="bg-emerald-700 hover:bg-emerald-800 border border-emerald-800 shadow-xl text-white text-shadow-2xs font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
-                Login
+                @auth Dashboard @else Login @endauth
             </a>
         </div>
     </header>
