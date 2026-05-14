@@ -2,24 +2,24 @@
 
 return [
     'container' => 'container mx-auto max-w-4xl p-8',
-    'image' => 'w-32 h-32 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6',
-    'name' => 'text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-2',
-    'label' => 'text-2xl font-medium text-sky-600 dark:text-sky-400 mb-6',
+    'image' => 'w-32 h-32 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6 dark:border-sky-500',
+    'name' => 'text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',
+    'label' => 'text-2xl font-medium text-sky-600 mb-6 dark:text-sky-400',
     
     'contact-container' => 'flex flex-wrap gap-4 mb-8 text-md font-medium',
-    'links' => 'flex items-center text-gray-600 underline font-bold dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors',
-    'contact-item' => 'flex items-center text-gray-600 font-bold',
+    'links' => 'flex items-center text-gray-600 underline font-bold transition-colors dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400',
+    'contact-item' => 'flex items-center text-gray-600 font-bold dark:text-gray-400',
     
     'section' => 'mb-12',
-    'section-title' => 'text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-6 uppercase tracking-wider',
+    'section-title' => 'text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-6 uppercase tracking-wider dark:text-white dark:border-sky-500',
     
     'item-container' => 'mb-8 last:mb-0',
     'item-title' => 'text-xl font-bold text-gray-900 dark:text-white',
-    'item-details' => 'text-gray-600 dark:text-gray-400 mb-3 italic font-medium',
+    'item-details' => 'text-gray-600 mb-3 italic font-medium dark:text-gray-400',
     
     'summary' => 'whitespace-pre-wrap text-lg leading-relaxed text-gray-700 dark:text-gray-300',
     
-    'list' => 'list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 mt-2',
+    'list' => 'list-disc list-inside space-y-1 text-gray-700 mt-2 dark:text-gray-300',
     
     // Spacing utility fallbacks if needed
     'p-md' => 'p-8',
@@ -30,5 +30,3 @@ return [
     'm-right-sm' => 'mr-4',
     'm-top-sm' => 'mt-4',
 ];
-
-// <span class="font-bold text-sky-600"></span>
