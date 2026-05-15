@@ -14,7 +14,7 @@ class ResumeController extends Controller
 
         return view('pages.resume', [
             'user' => $user,
-            'resumeComponent' => $presenter->present(),
+            'resumeComponent' => $presenter->presentCached(),
         ]);
     }
 }

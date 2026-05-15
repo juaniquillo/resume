@@ -192,6 +192,11 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
 
+        /**
+         * Options
+         */
+        
+
     });
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');

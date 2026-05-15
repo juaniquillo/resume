@@ -13,8 +13,10 @@ use App\Models\Volunteer;
 use App\Models\Work;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Themes\DefaultPresenterTheme;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -27,7 +29,7 @@ final class ResumePresenter
         private ?PresenterTheme $theme = new DefaultPresenterTheme,
     ) {}
 
-    public function present(): BackendComponent|CompoundComponent
+    public function present(): BackendComponent|CompoundComponent|Htmlable
     {
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->containerThemes())
@@ -41,6 +43,21 @@ final class ResumePresenter
                 'languages' => $this->presentLanguages(),
                 'projects' => $this->presentProjects(),
             ]));
+    }
+
+    public function presentCached(): string
+    {
+        $key = $this->getCacheKey();
+
+        return Cache::rememberForever($key, fn () => (string) $this->present()->toHtml());
+    }
+
+    private function getCacheKey(): string
+    {
+        $version = Cache::get("resume:{$this->user->id}:v", 1);
+        $themeHash = md5(get_class($this->theme));
+
+        return "resume:{$this->user->id}:v{$version}:{$themeHash}";
     }
 
     private function presentBasics(): BackendComponent|CompoundComponent|null

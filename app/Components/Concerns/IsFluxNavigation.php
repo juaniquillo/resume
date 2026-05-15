@@ -9,6 +9,9 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
+/**
+ * @method static array items()
+ */
 trait IsFluxNavigation
 {
     public static function makeNav(): BackendComponent

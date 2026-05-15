@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasHighlights;
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -29,6 +30,7 @@ class Project extends Model
     /** @use HasFactory<ProjectFactory> */
     use HasFactory,
         HasHighlights,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo

@@ -8,7 +8,7 @@
 
     <div class="container mx-auto">
         <main>
-            {{ $resumeComponent }}
+            {!! $resumeComponent !!}
         </main>
 
         <x-slot:footer>

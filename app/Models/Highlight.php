@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -18,8 +20,18 @@ use Illuminate\Support\Carbon;
 #[Guarded([])]
 class Highlight extends Model
 {
+    use HasFactory, InvalidatesResumeCache;
+
     public function highlightable()
     {
         return $this->morphTo();
+    }
+
+    public function resolveResumeUserId(): ?int
+    {
+        /** @var mixed $parent */
+        $parent = $this->highlightable;
+
+        return (int) ($parent?->user_id ?? null);
     }
 }

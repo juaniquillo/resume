@@ -8,6 +8,9 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
+/**
+ * @method static array items()
+ */
 trait HasFluxCards
 {
     public static function makeCards(): BackendComponent

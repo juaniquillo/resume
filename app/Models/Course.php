@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -18,8 +20,18 @@ use Illuminate\Support\Carbon;
 #[Guarded([])]
 class Course extends Model
 {
+    use HasFactory, InvalidatesResumeCache;
+
     public function courseable()
     {
         return $this->morphTo();
+    }
+
+    public function resolveResumeUserId(): ?int
+    {
+        /** @var mixed $parent */
+        $parent = $this->courseable;
+
+        return (int) ($parent?->user_id ?? null);
     }
 }

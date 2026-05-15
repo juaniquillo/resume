@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasHighlights;
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\VolunteerFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -32,6 +33,7 @@ class Volunteer extends Model
     /** @use HasFactory<VolunteerFactory> */
     use HasFactory,
         HasHighlights,
+        InvalidatesResumeCache,
         Uuidable;
 
     protected function casts(): array

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasCourses;
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\EducationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -31,7 +32,7 @@ use Illuminate\Support\Carbon;
 class Education extends Model
 {
     /** @use HasFactory<EducationFactory> */
-    use HasCourses, HasFactory, Uuidable;
+    use HasCourses, HasFactory, InvalidatesResumeCache, Uuidable;
 
     protected $table = 'education';
 

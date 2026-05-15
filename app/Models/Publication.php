@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\PublicationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -27,6 +28,7 @@ class Publication extends Model
 {
     /** @use HasFactory<PublicationFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo

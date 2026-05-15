@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\AwardFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -24,5 +25,5 @@ use Illuminate\Support\Carbon;
 class Award extends Model
 {
     /** @use HasFactory<AwardFactory> */
-    use HasFactory, Uuidable;
+    use HasFactory, InvalidatesResumeCache, Uuidable;
 }

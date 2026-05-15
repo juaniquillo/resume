@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\CertificateFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -26,6 +27,7 @@ class Certificate extends Model
 {
     /** @use HasFactory<CertificateFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo

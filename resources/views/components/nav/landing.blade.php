@@ -4,7 +4,6 @@
             Resume Manager<span class="text-sky-600">.</span>
         </div>
         <div class="flex space-x-6 items-center">
-            <a href="{{ route('resume', ['user' => 'juaniquillo']) }}" class="text-sm font-bold hover:text-sky-600 transition-colors">Resume</a>
             <a href="#features" class="text-sm font-bold hover:text-sky-600 transition-colors hidden md:block">Features</a>
             
             @if (Route::has('login'))

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\SkillFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -26,6 +27,7 @@ class Skill extends Model
 {
     /** @use HasFactory<SkillFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     /**

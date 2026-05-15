@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ReferenceFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -25,6 +26,7 @@ class Reference extends Model
 {
     /** @use HasFactory<ReferenceFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo
