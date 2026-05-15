@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read string $name
- * @property-read string $date
+ * @property-read Carbon $date
  * @property-read string|null $url
  * @property-read string $user_id
  * @property-read Carbon|null $created_at
@@ -29,6 +29,13 @@ class Certificate extends Model
     use HasFactory,
         InvalidatesResumeCache,
         Uuidable;
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function user(): BelongsTo
     {

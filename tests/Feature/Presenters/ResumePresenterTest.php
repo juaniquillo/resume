@@ -1,9 +1,15 @@
 <?php
 
+use App\Models\Award;
 use App\Models\Basic;
+use App\Models\Certificate;
+use App\Models\Course;
 use App\Models\Education;
+use App\Models\Interest;
 use App\Models\Language;
 use App\Models\Project;
+use App\Models\Publication;
+use App\Models\Reference;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -38,12 +44,39 @@ test('it can present a resume for a user', function () {
     ]);
 
     // Create education
-    Education::factory()->for($user)->create([
+    $education = Education::factory()->for($user)->create([
         'institution' => 'University of Tech',
         'area' => 'Computer Science',
         'study_type' => 'Bachelor',
         'starts_at' => now()->subYears(5),
         'ends_at' => now()->subYear(),
+    ]);
+
+    // Create course
+    Course::factory()->create([
+        'courseable_type' => Education::class,
+        'courseable_id' => $education->id,
+        'course' => 'Advanced PHP',
+    ]);
+
+    // Create award
+    Award::factory()->for($user)->create([
+        'title' => 'Best Developer',
+        'awarder' => 'Tech Academy',
+        'awarded_at' => now()->subMonths(6),
+    ]);
+
+    // Create certificate
+    Certificate::factory()->for($user)->create([
+        'name' => 'Laravel Certified',
+        'date' => now()->subMonths(3),
+    ]);
+
+    // Create publication
+    Publication::factory()->for($user)->create([
+        'name' => 'How to build a resume',
+        'issuer' => 'Dev Blog',
+        'date' => now()->subMonth(),
     ]);
 
     // Create skill
@@ -55,6 +88,18 @@ test('it can present a resume for a user', function () {
     Language::factory()->for($user)->create([
         'language' => 'English',
         'fluency' => 'Native',
+    ]);
+
+    // Create interest
+    Interest::factory()->for($user)->create([
+        'name' => 'Gaming',
+        'keywords' => ['RPG', 'FPS'],
+    ]);
+
+    // Create reference
+    Reference::factory()->for($user)->create([
+        'name' => 'Jane Smith',
+        'reference' => 'He is a great developer.',
     ]);
 
     // Create project
@@ -82,6 +127,12 @@ test('it can present a resume for a user', function () {
     expect($html)->toContain('Resume Project');
     expect($html)->toContain('Volunteer Developer');
     expect($html)->toContain('Open Source Foundation');
+    expect($html)->toContain('Advanced PHP');
+    expect($html)->toContain('Best Developer');
+    expect($html)->toContain('Laravel Certified');
+    expect($html)->toContain('How to build a resume');
+    expect($html)->toContain('Gaming');
+    expect($html)->toContain('Jane Smith');
 });
 
 test('it handles missing data gracefully', function () {

@@ -2,11 +2,17 @@
 
 namespace App\Presenters;
 
+use App\Models\Award;
 use App\Models\Basic;
+use App\Models\Certificate;
+use App\Models\Course;
 use App\Models\Education;
 use App\Models\Highlight;
+use App\Models\Interest;
 use App\Models\Language;
 use App\Models\Project;
+use App\Models\Publication;
+use App\Models\Reference;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -39,8 +45,13 @@ final class ResumePresenter
                 'work' => $this->presentWork(),
                 'volunteers' => $this->presentVolunteers(),
                 'education' => $this->presentEducation(),
+                'awards' => $this->presentAwards(),
+                'certificates' => $this->presentCertificates(),
+                'publications' => $this->presentPublications(),
                 'skills' => $this->presentSkills(),
                 'languages' => $this->presentLanguages(),
+                'interests' => $this->presentInterests(),
+                'references' => $this->presentReferences(),
                 'projects' => $this->presentProjects(),
             ]));
     }
@@ -181,7 +192,7 @@ final class ResumePresenter
                                 $work->starts_at->format('M Y'),
                                 $work->ends_at
                                     ? $work->ends_at->format('M Y')
-                                    : 'Present'
+                                    : __('Present')
                             )),
                     ]),
                 'summary' => $work->summary
@@ -282,7 +293,7 @@ final class ResumePresenter
     {
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->itemContainerThemes())
-            ->setContents([
+            ->setContents(array_filter([
                 'institution' => $this->compose(ComponentEnum::H3)
                     ->setThemes($this->theme->itemTitleThemes())
                     ->setContent($edu->institution),
@@ -299,7 +310,135 @@ final class ResumePresenter
                                     : 'Present'
                             )),
                     ])),
-            ]);
+                'courses' => $edu->courses->isNotEmpty()
+                    ? $this->compose(ComponentEnum::UL)
+                        ->setThemes($this->theme->listThemes())
+                        ->setContents(
+                            $edu->courses->map(function (Model $c) {
+                                /** @var Course $c */
+                                return $this->compose(ComponentEnum::LI)->setContent($c->course);
+                            })->toArray()
+                        )
+                    : null,
+            ]));
+    }
+
+    private function presentAwards(): ?BackendComponent
+    {
+        /** @var Collection<int, Award> $awards */
+        $awards = $this->user->awards()->orderByDesc('awarded_at')->get();
+
+        if ($awards->isEmpty()) {
+            return null;
+        }
+
+        $items = $awards->map(function (Award $award) {
+            return $this->compose(ComponentEnum::DIV)
+                ->setThemes($this->theme->itemContainerThemes())
+                ->setContents(array_filter([
+                    'title' => $this->compose(ComponentEnum::H3)
+                        ->setThemes($this->theme->itemTitleThemes())
+                        ->setContent($award->title),
+                    'details' => $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->itemDetailsThemes())
+                        ->setContents([
+                            'awarder' => $this->compose(ComponentEnum::SPAN)->setContent($award->awarder),
+                            'date' => $this->compose(ComponentEnum::SPAN)
+                                ->setContent($award->awarded_at->format('M Y')),
+                        ]),
+                    'summary' => $award->summary
+                        ? $this->compose(ComponentEnum::PARAGRAPH)
+                            ->setThemes($this->theme->summaryThemes())
+                            ->setContent($award->summary)
+                        : null,
+                ]));
+        })->toArray();
+
+        return $this->section('Awards',
+            $this->compose(ComponentEnum::DIV)
+                ->setContents($items)
+        );
+    }
+
+    private function presentCertificates(): ?BackendComponent
+    {
+        /** @var Collection<int, Certificate> $certificates */
+        $certificates = $this->user->certificates()->orderByDesc('date')->get();
+
+        if ($certificates->isEmpty()) {
+            return null;
+        }
+
+        $items = $certificates->map(function (Certificate $cert) {
+            return $this->compose(ComponentEnum::DIV)
+                ->setThemes($this->theme->itemContainerThemes())
+                ->setContents([
+                    'name' => $cert->url
+                        ? $this->compose(ComponentEnum::LINK)
+                            ->setAttribute('href', $cert->url)
+                            ->setAttribute('target', '_blank')
+                            ->setContent(
+                                $this->compose(ComponentEnum::H3)
+                                    ->setThemes($this->theme->itemTitleThemes())
+                                    ->setContent($cert->name)
+                            )
+                        : $this->compose(ComponentEnum::H3)
+                            ->setThemes($this->theme->itemTitleThemes())
+                            ->setContent($cert->name),
+                    'details' => $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->itemDetailsThemes())
+                        ->setContents([
+                            'date' => $this->compose(ComponentEnum::SPAN)
+                                ->setContent($cert->date->format('M Y')),
+                        ]),
+                ]);
+        })->toArray();
+
+        return $this->section('Certificates',
+            $this->compose(ComponentEnum::DIV)
+                ->setContents($items)
+        );
+    }
+
+    private function presentPublications(): ?BackendComponent
+    {
+        /** @var Collection<int, Publication> $publications */
+        $publications = $this->user->publications()->orderByDesc('date')->get();
+
+        if ($publications->isEmpty()) {
+            return null;
+        }
+
+        $items = $publications->map(function (Publication $pub) {
+            return $this->compose(ComponentEnum::DIV)
+                ->setThemes($this->theme->itemContainerThemes())
+                ->setContents([
+                    'name' => $pub->url
+                        ? $this->compose(ComponentEnum::LINK)
+                            ->setAttribute('href', $pub->url)
+                            ->setAttribute('target', '_blank')
+                            ->setContent(
+                                $this->compose(ComponentEnum::H3)
+                                    ->setThemes($this->theme->itemTitleThemes())
+                                    ->setContent($pub->name)
+                            )
+                        : $this->compose(ComponentEnum::H3)
+                            ->setThemes($this->theme->itemTitleThemes())
+                            ->setContent($pub->name),
+                    'details' => $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->itemDetailsThemes())
+                        ->setContents([
+                            'issuer' => $this->compose(ComponentEnum::SPAN)->setContent($pub->issuer),
+                            'date' => $this->compose(ComponentEnum::SPAN)
+                                ->setContent($pub->date->format('M Y')),
+                        ]),
+                ]);
+        })->toArray();
+
+        return $this->section('Publications',
+            $this->compose(ComponentEnum::DIV)
+                ->setContents($items)
+        );
     }
 
     private function presentSkills(): BackendComponent|CompoundComponent|null
@@ -344,6 +483,65 @@ final class ResumePresenter
                                     ->setThemes($this->theme->contactItemThemes())
                                     ->setContent($lang->fluency),
                             ]);
+                    })->toArray()
+                )
+        );
+    }
+
+    private function presentInterests(): ?BackendComponent
+    {
+        /** @var Collection<int, Interest> $interests */
+        $interests = $this->user->interests()->get();
+
+        if ($interests->isEmpty()) {
+            return null;
+        }
+
+        return $this->section('Interests',
+            $this->compose(ComponentEnum::DIV)
+                ->setContents(
+                    $interests->map(function (Interest $interest) {
+                        return $this->compose(ComponentEnum::DIV)
+                            ->setThemes($this->theme->itemContainerThemes())
+                            ->setContents(array_filter([
+                                'name' => $this->compose(ComponentEnum::H3)
+                                    ->setThemes($this->theme->itemTitleThemes())
+                                    ->setContent($interest->name),
+                                'keywords' => $interest->keywords
+                                    ? $this->compose(ComponentEnum::SPAN)
+                                        ->setContent(implode(', ', $interest->keywords))
+                                    : null,
+                            ]));
+                    })->toArray()
+                )
+        );
+    }
+
+    private function presentReferences(): ?BackendComponent
+    {
+        /** @var Collection<int, Reference> $references */
+        $references = $this->user->references()->get();
+
+        if ($references->isEmpty()) {
+            return null;
+        }
+
+        return $this->section('References',
+            $this->compose(ComponentEnum::DIV)
+                ->setContents(
+                    $references->map(function (Reference $ref) {
+                        return $this->compose(ComponentEnum::DIV)
+                            ->setThemes($this->theme->itemContainerThemes())
+                            ->setContents(array_filter([
+                                'name' => $this->compose(ComponentEnum::H3)
+                                    ->setThemes($this->theme->itemTitleThemes())
+                                    ->setContent($ref->name),
+                                'reference' => $ref->reference
+                                    ? $this->compose(ComponentEnum::PARAGRAPH)
+                                        ->setThemes($this->theme->summaryThemes())
+                                        ->setContent($ref->reference)
+                                    : null,
+                            ]));
                     })->toArray()
                 )
         );
