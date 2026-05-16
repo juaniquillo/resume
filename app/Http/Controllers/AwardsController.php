@@ -55,7 +55,7 @@ class AwardsController extends Controller
         $award = $user?->awards()->findOrFail($id);
 
         $crud = AwardsCrud::build(
-            values: $request->old() ?: $award->toArray(),
+            values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
             model: $award,
         );

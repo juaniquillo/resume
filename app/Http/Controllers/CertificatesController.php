@@ -61,7 +61,7 @@ class CertificatesController extends Controller
         $certificate = $user->certificates()->findOrFail($id);
 
         $crud = CertificatesCrud::build(
-            values: $request->old() ?: $certificate->toArray(),
+            values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
             model: $certificate,
         );

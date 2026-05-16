@@ -22,6 +22,8 @@ use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
+use function Laravel\Prompts\table;
+
 class SummaryFactory
 {
     const NAME = 'summary';
@@ -92,10 +94,7 @@ class SummaryFactory
                 value: function ($value, Model $model) {
 
                     if (! $value) {
-                        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
-                            ->setAttribute('color', 'red')
-                            ->setContent('empty');
-
+                        return tableHelpers::emptyValue();
                     }
 
                     /** @var Work $work */

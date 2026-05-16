@@ -4,11 +4,14 @@ namespace App\Cruds\Helpers;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use Carbon\CarbonImmutable;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 final class TableHelpers
 {
@@ -116,5 +119,16 @@ final class TableHelpers
             ->setAttribute('variant', 'light')
             ->setContent('N/A');
 
+    }
+
+    public static function formatDateOutput(?InputInterface $input): TableRowsRecipe
+    {
+        $recipe = new TableRowsRecipe(
+            value: fn (CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
+        );
+
+        $input->setRecipe($recipe );
+
+        return $recipe;
     }
 }
