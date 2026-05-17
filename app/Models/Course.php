@@ -32,6 +32,6 @@ class Course extends Model
         /** @var mixed $parent */
         $parent = $this->courseable;
 
-        return (int) ($parent?->user_id ?? null);
+        return (int) ($parent->user_id ?? null);
     }
 }

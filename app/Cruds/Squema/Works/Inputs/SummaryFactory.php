@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Squema\Works\Inputs;
 
-use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
@@ -21,8 +20,6 @@ use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
-
-use function Laravel\Prompts\table;
 
 class SummaryFactory
 {
@@ -94,7 +91,7 @@ class SummaryFactory
                 value: function ($value, Model $model) {
 
                     if (! $value) {
-                        return tableHelpers::emptyValue();
+                        return TableHelpers::emptyValue();
                     }
 
                     /** @var Work $work */

@@ -8,8 +8,8 @@ use App\Models\Location;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Work;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 
 uses(RefreshDatabase::class);
 

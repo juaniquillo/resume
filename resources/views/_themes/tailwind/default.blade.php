@@ -2,16 +2,31 @@
 
 return [
     'container' => 'container mx-auto max-w-4xl p-8',
+    'basics-container' => 'mb-12',
     'image' => 'w-32 h-32 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6 dark:border-sky-500',
     'name' => 'text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',
     'label' => 'text-2xl font-medium text-sky-600 mb-6 dark:text-sky-400',
     
-    'contact-container' => 'flex flex-wrap gap-4 mb-8 text-md font-medium',
+    'contact-container' => 'flex flex-wrap gap-4 text-md font-medium',
     'links' => 'flex items-center text-gray-600 underline font-bold transition-colors dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400',
     'contact-item' => 'flex items-center text-gray-600 font-bold dark:text-gray-400',
+    'icon' => 'size-4 inline-block shrink-0',
     
     'section' => 'mb-12',
     'section-title' => 'text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-6 uppercase tracking-wider dark:text-white dark:border-sky-500',
+    
+    'summary-container' => '',
+    'work-container' => '',
+    'volunteers-container' => '',
+    'education-container' => '',
+    'awards-container' => '',
+    'certificates-container' => '',
+    'publications-container' => '',
+    'skills-container' => '',
+    'languages-container' => 'flex flex-wrap gap-5',
+    'interests-container' => '',
+    'references-container' => '',
+    'projects-container' => '',
     
     'item-container' => 'mb-8 last:mb-0',
     'item-title' => 'text-xl font-bold text-gray-900 dark:text-white',
@@ -20,6 +35,11 @@ return [
     'summary' => 'whitespace-pre-wrap text-lg leading-relaxed text-gray-700 dark:text-gray-300',
     
     'list' => 'list-disc list-inside space-y-1 text-gray-700 mt-2 dark:text-gray-300',
+    'list-item' => '',
+    
+    'badge' => 'inline-block px-2 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-md bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50',
+    'date' => 'text-gray-500 font-normal dark:text-gray-500',
+    'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',
     
     // Spacing utility fallbacks if needed
     'p-md' => 'p-8',

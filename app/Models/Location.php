@@ -38,6 +38,6 @@ class Location extends Model
 
     public function resolveResumeUserId(): ?int
     {
-        return (int) ($this->basic?->user_id ?? null);
+        return (int) ($this->basic->user_id ?? null);
     }
 }

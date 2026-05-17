@@ -12,6 +12,71 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function basicsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function summaryContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function workContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function volunteersContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function educationContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function awardsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function certificatesContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function publicationsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function skillsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function languagesContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function interestsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function referencesContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function projectsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function nameThemes(): array;
 
     /**
@@ -73,4 +138,54 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function linkThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function iconThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function listItemThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function badgeThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function dateThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function subTitleThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function emailThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function phoneThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function urlThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function locationThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function profileThemes(): array;
 }

@@ -121,14 +121,13 @@ final class TableHelpers
 
     }
 
-    public static function formatDateOutput(?InputInterface $input): TableRowsRecipe
+    public static function formatDateOutput(?InputInterface $input): void
     {
         $recipe = new TableRowsRecipe(
             value: fn (CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
         );
 
-        $input->setRecipe($recipe );
+        $input->setRecipe($recipe);
 
-        return $recipe;
     }
 }

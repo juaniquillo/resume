@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Network;
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ProfileFactory;
@@ -29,6 +30,13 @@ class Profile extends Model
         InvalidatesResumeCache,
         Uuidable;
 
+    protected function casts(): array
+    {
+        return [
+            'network' => Network::class,
+        ];
+    }
+
     public function basic(): BelongsTo
     {
         return $this->belongsTo(Basic::class);
@@ -36,6 +44,6 @@ class Profile extends Model
 
     public function resolveResumeUserId(): ?int
     {
-        return (int) ($this->basic?->user_id ?? null);
+        return (int) ($this->basic->user_id ?? null);
     }
 }

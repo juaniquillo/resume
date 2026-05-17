@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Network;
 use App\Models\Award;
 use App\Models\Basic;
 use App\Models\Certificate;
@@ -7,6 +8,7 @@ use App\Models\Course;
 use App\Models\Education;
 use App\Models\Interest;
 use App\Models\Language;
+use App\Models\Profile;
 use App\Models\Project;
 use App\Models\Publication;
 use App\Models\Reference;
@@ -22,10 +24,18 @@ test('it can present a resume for a user', function () {
     $user = User::factory()->create();
 
     // Create basics
-    Basic::factory()->for($user)->create([
+    $basic = Basic::factory()->for($user)->create([
         'name' => 'John Doe',
         'label' => 'Software Engineer',
         'summary' => "I am a software engineer.\nLine 2 of summary.",
+    ]);
+
+    // Create profile
+    Profile::factory()->create([
+        'basic_id' => $basic->id,
+        'network' => Network::GITHUB,
+        'username' => 'johndoe_git',
+        'url' => 'https://github.com/johndoe_git',
     ]);
 
     // Create work
@@ -133,6 +143,8 @@ test('it can present a resume for a user', function () {
     expect($html)->toContain('How to build a resume');
     expect($html)->toContain('Gaming');
     expect($html)->toContain('Jane Smith');
+    expect($html)->toContain('Github');
+    expect($html)->toContain('https://github.com/johndoe_git');
 });
 
 test('it handles missing data gracefully', function () {
@@ -160,6 +172,71 @@ test('it can use a custom theme', function () {
         public function containerThemes(): array
         {
             return ['spacing' => 'p-xs'];
+        }
+
+        public function basicsContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function summaryContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function workContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function volunteersContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function educationContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function awardsContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function certificatesContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function publicationsContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function skillsContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function languagesContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function interestsContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function referencesContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function projectsContainerThemes(): array
+        {
+            return [];
         }
 
         public function nameThemes(): array
@@ -223,6 +300,56 @@ test('it can use a custom theme', function () {
         }
 
         public function linkThemes(): array
+        {
+            return [];
+        }
+
+        public function iconThemes(): array
+        {
+            return [];
+        }
+
+        public function listItemThemes(): array
+        {
+            return [];
+        }
+
+        public function badgeThemes(): array
+        {
+            return [];
+        }
+
+        public function dateThemes(): array
+        {
+            return [];
+        }
+
+        public function subTitleThemes(): array
+        {
+            return [];
+        }
+
+        public function emailThemes(): array
+        {
+            return [];
+        }
+
+        public function phoneThemes(): array
+        {
+            return [];
+        }
+
+        public function urlThemes(): array
+        {
+            return [];
+        }
+
+        public function locationThemes(): array
+        {
+            return [];
+        }
+
+        public function profileThemes(): array
         {
             return [];
         }

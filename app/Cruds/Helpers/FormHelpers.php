@@ -39,7 +39,7 @@ class FormHelpers
 
     public static function dateFormatOutput(): Closure
     {
-       return function(InputInterface $input, array $values, ?object $model) {
+        return function (InputInterface $input, array $values, ?object $model) {
             $name = $input->getName();
 
             /** @var ?Work $work */
@@ -48,6 +48,7 @@ class FormHelpers
             if ($model && isset($work->{$name})) {
                 /** @var CarbonImmutable $startsAt */
                 $startsAt = $work->{$name};
+
                 return DateHelpers::formatDateOutput($startsAt);
             }
 

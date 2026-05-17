@@ -13,6 +13,73 @@ final class TailwindPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function basicsContainerThemes(): array
+    {
+        return [
+            'spacing' => 'm-bottom-md',
+        ];
+    }
+
+    public function summaryContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function workContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function volunteersContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function educationContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function awardsContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function certificatesContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function publicationsContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function skillsContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function languagesContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function interestsContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function referencesContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function projectsContainerThemes(): array
+    {
+        return [];
+    }
+
     public function nameThemes(): array
     {
         return [];
@@ -92,5 +159,67 @@ final class TailwindPresenterTheme implements PresenterTheme
     public function linkThemes(): array
     {
         return [];
+    }
+
+    public function iconThemes(): array
+    {
+        return [
+            'size' => 'size-4',
+        ];
+    }
+
+    public function listItemThemes(): array
+    {
+        return [];
+    }
+
+    public function badgeThemes(): array
+    {
+        return [];
+    }
+
+    public function dateThemes(): array
+    {
+        return [];
+    }
+
+    public function subTitleThemes(): array
+    {
+        return [];
+    }
+
+    public function emailThemes(): array
+    {
+        return [
+            'spacing' => 'm-right-sm',
+        ];
+    }
+
+    public function phoneThemes(): array
+    {
+        return [
+            'spacing' => 'm-right-sm',
+        ];
+    }
+
+    public function urlThemes(): array
+    {
+        return [
+            'spacing' => 'm-right-sm',
+        ];
+    }
+
+    public function locationThemes(): array
+    {
+        return [
+            'spacing' => 'm-right-sm',
+        ];
+    }
+
+    public function profileThemes(): array
+    {
+        return [
+            'spacing' => 'm-right-sm',
+        ];
     }
 }

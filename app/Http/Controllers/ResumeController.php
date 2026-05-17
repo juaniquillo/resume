@@ -12,6 +12,10 @@ class ResumeController extends Controller
     {
         $presenter = new ResumePresenter($user);
 
+        if (config('app.debug')) {
+            $presenter->clearCache();
+        }
+
         return view('pages.resume', [
             'user' => $user,
             'resumeComponent' => $presenter->presentCached(),

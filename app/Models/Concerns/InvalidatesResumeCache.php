@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 
 /**
  * @property-read string $user_id
+ *
  * @method static void created(\Closure $callback)
  * @method static void updated(\Closure $callback)
  * @method static void deleted(\Closure $callback)

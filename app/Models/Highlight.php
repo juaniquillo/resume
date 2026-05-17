@@ -32,6 +32,6 @@ class Highlight extends Model
         /** @var mixed $parent */
         $parent = $this->highlightable;
 
-        return (int) ($parent?->user_id ?? null);
+        return (int) ($parent->user_id ?? null);
     }
 }

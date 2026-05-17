@@ -195,8 +195,6 @@ Route::middleware(['auth', 'verified'])
         /**
          * Options
          */
-        
-
     });
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');
