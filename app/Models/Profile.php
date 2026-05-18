@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
+use Database\Factories\ProfileFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

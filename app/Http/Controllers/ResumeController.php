@@ -12,7 +12,7 @@ class ResumeController extends Controller
     {
         $presenter = new ResumePresenter($user);
 
-        if (config('app.debug')) {
+        if (config('cache.resume.disable_cache')) {
             $presenter->clearCache();
         }
 
