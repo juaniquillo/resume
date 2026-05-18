@@ -20,6 +20,6 @@
         "pest-testing",
         "tailwindcss-development",
         "blaze-optimize",
-        "backend-component-development"
+        "backend-component"
     ]
 }
