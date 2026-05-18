@@ -128,7 +128,7 @@ final class BasicsPresenter
         foreach ($basics->profiles as $profile) {
             $network = $profile->network;
             $enum = Network::tryFrom($network);
-            $icon = $enum ? $enum->icon() : 'question-mark-circle';
+            $icon = $enum ? $enum->icon() : 'globe-alt';
 
             $profiles["profile_{$profile->id}"] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->profileThemes())
