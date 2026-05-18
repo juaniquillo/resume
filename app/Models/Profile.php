@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\Network;
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
-use Database\Factories\ProfileFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,13 +27,6 @@ class Profile extends Model
     use HasFactory,
         InvalidatesResumeCache,
         Uuidable;
-
-    protected function casts(): array
-    {
-        return [
-            'network' => Network::class,
-        ];
-    }
 
     public function basic(): BelongsTo
     {

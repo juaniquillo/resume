@@ -126,8 +126,9 @@ final class BasicsPresenter
         $profiles = [];
         /** @var Profile $profile */
         foreach ($basics->profiles as $profile) {
-            /** @var Network $network */
             $network = $profile->network;
+            $enum = Network::tryFrom($network);
+            $icon = $enum ? $enum->icon() : 'question-mark-circle';
 
             $profiles["profile_{$profile->id}"] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->profileThemes())
@@ -137,12 +138,12 @@ final class BasicsPresenter
                         ->setAttribute('href', $profile->url)
                         ->setAttribute('target', '_blank')
                         ->setContents([
-                            'icon' => FluxComponentBuilder::make("icon.{$network->icon()}")
+                            'icon' => FluxComponentBuilder::make("icon.{$icon}")
                                 ->setThemeManager((new LocalThemeManager))
                                 ->setThemes($this->theme->iconThemes())
                                 ->setAttribute('variant', 'outline'),
                             'username' => $this->compose(ComponentEnum::SPAN)
-                                ->setContent($network->value),
+                                ->setContent($network),
                         ])
                 );
         }
