@@ -1,6 +1,7 @@
 <x-layouts.guest
     :title="($user->name ?? 'User') . ' - Resume'"
-    :assets="['resources/css/resume.css']"
+    :assets="['resources/css/resume.css', 'resources/js/resume.js']"
+    :theme="$theme"
 >
     <x-slot:nav>
         <x-nav.resume />

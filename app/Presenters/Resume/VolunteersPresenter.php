@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Highlight;
-use App\Models\User;
 use App\Models\Volunteer;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
@@ -18,20 +17,17 @@ final class VolunteersPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $volunteers,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Volunteer> $volunteers */
-        $volunteers = $this->user->volunteers()->with('highlights')->orderByDesc('starts_at')->get();
-
-        if ($volunteers->isEmpty()) {
+        if ($this->volunteers->isEmpty()) {
             return null;
         }
 
-        $items = $volunteers->map(function (Volunteer $volunteer) {
+        $items = $this->volunteers->map(function (Volunteer $volunteer) {
             return $this->presentVolunteerEntry($volunteer);
         })->toArray();
 

@@ -9,5 +9,5 @@
 - ✅ Add courses to the education section.
 - ✅ Create resume options CRUD decides what sections are shown and the order of the sections. Maybe more options later.
 - ✅ Make a reusable JavaScript component of the Light/Dark mode toggle from the landing page to reuse in the resume page.
-- ☐ Decouple the model query (ex. $this->user->basics()->first()) to a dedicated class that returns all sections to avoid query repetitions.
-- ☐ Google fonts / external font links should be managed either by the theme presenter of a font manager.
+- ✅ Decouple the model query (ex. $this->user->basics()->first()) to a dedicated class that returns all sections to avoid query repetitions.
+- ✅ Google fonts / external font links should be managed either by the theme presenter of a font manager.

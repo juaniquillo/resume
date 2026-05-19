@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Publication;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,20 +15,17 @@ final class PublicationsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $publications,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Publication> $publications */
-        $publications = $this->user->publications()->orderByDesc('date')->get();
-
-        if ($publications->isEmpty()) {
+        if ($this->publications->isEmpty()) {
             return null;
         }
 
-        $items = $publications->map(function (Publication $pub) {
+        $items = $this->publications->map(function (Publication $pub) {
             return $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->itemContainerThemes())
                 ->setContents([

@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Interest;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,16 +15,13 @@ final class InterestsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $interests,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Interest> $interests */
-        $interests = $this->user->interests()->get();
-
-        if ($interests->isEmpty()) {
+        if ($this->interests->isEmpty()) {
             return null;
         }
 
@@ -33,7 +29,7 @@ final class InterestsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->interestsContainerThemes())
                 ->setContents(
-                    $interests->map(function (Interest $interest) {
+                    $this->interests->map(function (Interest $interest) {
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents(array_filter([

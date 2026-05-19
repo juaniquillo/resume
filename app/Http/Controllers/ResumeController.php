@@ -10,7 +10,8 @@ class ResumeController extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
-        $presenter = new ResumePresenter($user);
+        $theme = new \App\Presenters\Themes\DefaultPresenterTheme();
+        $presenter = new ResumePresenter($user, $theme);
 
         if (config('cache.resume.disable_cache')) {
             $presenter->clearCache();
@@ -18,6 +19,7 @@ class ResumeController extends Controller
 
         return view('pages.resume', [
             'user' => $user,
+            'theme' => $theme,
             'resumeComponent' => $presenter->presentCached(),
         ]);
     }

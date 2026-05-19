@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Skill;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,16 +15,13 @@ final class SkillsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $skills,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Skill> $skills */
-        $skills = $this->user->skills()->get();
-
-        if ($skills->isEmpty()) {
+        if ($this->skills->isEmpty()) {
             return null;
         }
 
@@ -33,7 +29,7 @@ final class SkillsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->skillsContainerThemes())
                 ->setContents(
-                    $skills->map(function (Skill $skill) {
+                    $this->skills->map(function (Skill $skill) {
                         return $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->badgeThemes())
                             ->setContent($skill->name);

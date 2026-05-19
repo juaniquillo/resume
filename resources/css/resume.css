@@ -7,4 +7,6 @@
 
 @source '../../vendor/juaniquillo/laravel-backend-component/resources/views*.blade.php'; 
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 

@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Reference;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,16 +15,13 @@ final class ReferencesPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $references,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Reference> $references */
-        $references = $this->user->references()->get();
-
-        if ($references->isEmpty()) {
+        if ($this->references->isEmpty()) {
             return null;
         }
 
@@ -33,7 +29,7 @@ final class ReferencesPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->referencesContainerThemes())
                 ->setContents(
-                    $references->map(function (Reference $ref) {
+                    $this->references->map(function (Reference $ref) {
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents(array_filter([

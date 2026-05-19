@@ -4,7 +4,6 @@ namespace App\Presenters\Resume;
 
 use App\Models\Course;
 use App\Models\Education;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,20 +17,17 @@ final class EducationPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $education,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Education> $education */
-        $education = $this->user->education()->orderByDesc('starts_at')->get();
-
-        if ($education->isEmpty()) {
+        if ($this->education->isEmpty()) {
             return null;
         }
 
-        $items = $education->map(function (Education $edu) {
+        $items = $this->education->map(function (Education $edu) {
             return $this->presentEducationEntry($edu);
         })->toArray();
 

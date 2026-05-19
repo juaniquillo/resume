@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Language;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,16 +15,13 @@ final class LanguagesPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $languages,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Language> $languages */
-        $languages = $this->user->languages()->get();
-
-        if ($languages->isEmpty()) {
+        if ($this->languages->isEmpty()) {
             return null;
         }
 
@@ -33,7 +29,7 @@ final class LanguagesPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->languagesContainerThemes())
                 ->setContents(
-                    $languages->map(function (Language $lang) {
+                    $this->languages->map(function (Language $lang) {
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents([

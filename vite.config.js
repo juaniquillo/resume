@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/css/resume.css', 
                 'resources/css/landing.css', 
                 'resources/js/landing.js',
+                'resources/js/resume.js',
             ],
             refresh: true,
         }),

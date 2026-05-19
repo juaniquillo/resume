@@ -188,4 +188,11 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function profileThemes(): array;
+
+    /**
+     * @return array<int, string>
+     */
+    public function fontUrls(): array;
+
+    public function fontFamily(): string;
 }

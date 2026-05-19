@@ -6,7 +6,6 @@ use App\Components\Builders\FluxComponentBuilder;
 use App\Enums\Network;
 use App\Models\Basic;
 use App\Models\Profile;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -19,16 +18,13 @@ final class BasicsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private ?Basic $basics,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Basic|null $basics */
-        $basics = $this->user->basics()->with(['location', 'profiles'])->first();
-
-        if (! $basics) {
+        if (! $this->basics) {
             return null;
         }
 
@@ -37,24 +33,24 @@ final class BasicsPresenter
             ->setContents([
                 'image' => $this->compose(ComponentEnum::SPAN)
                     ->setContent(
-                        $basics->image
+                        $this->basics->image
                         ? $this->compose(ComponentEnum::IMG)
                             ->setThemes($this->theme->imageThemes())
                             ->setAttributes([
-                                'src' => route('image.serve', $basics->uuid),
-                                'alt' => $basics->name,
+                                'src' => route('image.serve', $this->basics->uuid),
+                                'alt' => $this->basics->name,
                             ])
                         : null,
                     ),
                 'name' => $this->compose(ComponentEnum::H1)
                     ->setThemes($this->theme->nameThemes())
-                    ->setContent($basics->name),
+                    ->setContent($this->basics->name),
                 'label' => $this->compose(ComponentEnum::H2)
                     ->setThemes($this->theme->labelThemes())
-                    ->setContent($basics->label),
+                    ->setContent($this->basics->label),
                 'contact' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->contactContainerThemes())
-                    ->setContents($this->basicsContactItems($basics)),
+                    ->setContents($this->basicsContactItems($this->basics)),
             ]);
     }
 

@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Award;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,20 +15,17 @@ final class AwardsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $awards,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Award> $awards */
-        $awards = $this->user->awards()->orderByDesc('awarded_at')->get();
-
-        if ($awards->isEmpty()) {
+        if ($this->awards->isEmpty()) {
             return null;
         }
 
-        $items = $awards->map(function (Award $award) {
+        $items = $this->awards->map(function (Award $award) {
             return $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->itemContainerThemes())
                 ->setContents(array_filter([

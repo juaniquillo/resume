@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Certificate;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,20 +15,17 @@ final class CertificatesPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $certificates,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Certificate> $certificates */
-        $certificates = $this->user->certificates()->orderByDesc('date')->get();
-
-        if ($certificates->isEmpty()) {
+        if ($this->certificates->isEmpty()) {
             return null;
         }
 
-        $items = $certificates->map(function (Certificate $cert) {
+        $items = $this->certificates->map(function (Certificate $cert) {
             return $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->itemContainerThemes())
                 ->setContents([

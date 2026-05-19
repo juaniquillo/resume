@@ -14,6 +14,7 @@ use App\Presenters\Resume\LanguagesPresenter;
 use App\Presenters\Resume\ProjectsPresenter;
 use App\Presenters\Resume\PublicationsPresenter;
 use App\Presenters\Resume\ReferencesPresenter;
+use App\Presenters\Resume\ResumeDataLoader;
 use App\Presenters\Resume\SkillsPresenter;
 use App\Presenters\Resume\SummaryPresenter;
 use App\Presenters\Resume\VolunteersPresenter;
@@ -37,21 +38,22 @@ final class ResumePresenter
     public function present(): BackendComponent|CompoundComponent|Htmlable
     {
         $settings = $this->user->sectionVisibility?->settings ?? [];
+        $data = (new ResumeDataLoader)->load($this->user);
 
         $sections = [
-            'basics' => (new BasicsPresenter($this->user, $this->theme))->present(),
-            'summary' => (! ($settings['summary'] ?? false)) ? (new SummaryPresenter($this->user, $this->theme))->present() : null,
-            'work' => (! ($settings['work'] ?? false)) ? (new WorkPresenter($this->user, $this->theme))->present() : null,
-            'volunteers' => (! ($settings['volunteers'] ?? false)) ? (new VolunteersPresenter($this->user, $this->theme))->present() : null,
-            'education' => (! ($settings['education'] ?? false)) ? (new EducationPresenter($this->user, $this->theme))->present() : null,
-            'awards' => (! ($settings['awards'] ?? false)) ? (new AwardsPresenter($this->user, $this->theme))->present() : null,
-            'certificates' => (! ($settings['certificates'] ?? false)) ? (new CertificatesPresenter($this->user, $this->theme))->present() : null,
-            'publications' => (! ($settings['publications'] ?? false)) ? (new PublicationsPresenter($this->user, $this->theme))->present() : null,
-            'skills' => (! ($settings['skills'] ?? false)) ? (new SkillsPresenter($this->user, $this->theme))->present() : null,
-            'languages' => (! ($settings['languages'] ?? false)) ? (new LanguagesPresenter($this->user, $this->theme))->present() : null,
-            'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($this->user, $this->theme))->present() : null,
-            'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($this->user, $this->theme))->present() : null,
-            'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($this->user, $this->theme))->present() : null,
+            'basics' => (new BasicsPresenter($data->basics, $this->theme))->present(),
+            'summary' => (! ($settings['summary'] ?? false)) ? (new SummaryPresenter($data->basics, $this->theme))->present() : null,
+            'work' => (! ($settings['work'] ?? false)) ? (new WorkPresenter($data->works, $this->theme))->present() : null,
+            'volunteers' => (! ($settings['volunteers'] ?? false)) ? (new VolunteersPresenter($data->volunteers, $this->theme))->present() : null,
+            'education' => (! ($settings['education'] ?? false)) ? (new EducationPresenter($data->education, $this->theme))->present() : null,
+            'awards' => (! ($settings['awards'] ?? false)) ? (new AwardsPresenter($data->awards, $this->theme))->present() : null,
+            'certificates' => (! ($settings['certificates'] ?? false)) ? (new CertificatesPresenter($data->certificates, $this->theme))->present() : null,
+            'publications' => (! ($settings['publications'] ?? false)) ? (new PublicationsPresenter($data->publications, $this->theme))->present() : null,
+            'skills' => (! ($settings['skills'] ?? false)) ? (new SkillsPresenter($data->skills, $this->theme))->present() : null,
+            'languages' => (! ($settings['languages'] ?? false)) ? (new LanguagesPresenter($data->languages, $this->theme))->present() : null,
+            'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($data->interests, $this->theme))->present() : null,
+            'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($data->references, $this->theme))->present() : null,
+            'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($data->projects, $this->theme))->present() : null,
         ];
 
         return $this->compose(ComponentEnum::DIV)

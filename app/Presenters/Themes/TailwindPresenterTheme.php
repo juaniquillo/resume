@@ -222,4 +222,16 @@ final class TailwindPresenterTheme implements PresenterTheme
             'spacing' => 'm-right-sm',
         ];
     }
+
+    public function fontUrls(): array
+    {
+        return [
+            'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap',
+        ];
+    }
+
+    public function fontFamily(): string
+    {
+        return "'Space Mono', monospace";
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Highlight;
-use App\Models\User;
 use App\Models\Work;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
@@ -18,20 +17,17 @@ final class WorkPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $works,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Work> $works */
-        $works = $this->user->works()->with('highlights')->orderByDesc('starts_at')->get();
-
-        if ($works->isEmpty()) {
+        if ($this->works->isEmpty()) {
             return null;
         }
 
-        $items = $works->map(function (Work $work) {
+        $items = $this->works->map(function (Work $work) {
             return $this->presentWorkEntry($work);
         })->toArray();
 

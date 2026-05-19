@@ -4,7 +4,6 @@ namespace App\Presenters\Resume;
 
 use App\Models\Highlight;
 use App\Models\Project;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,16 +17,13 @@ final class ProjectsPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private Collection $projects,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Collection<int, Project> $projects */
-        $projects = $this->user->projects()->with('highlights')->get();
-
-        if ($projects->isEmpty()) {
+        if ($this->projects->isEmpty()) {
             return null;
         }
 
@@ -35,7 +31,7 @@ final class ProjectsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->projectsContainerThemes())
                 ->setContents(
-                    $projects->map(function (Project $project) {
+                    $this->projects->map(function (Project $project) {
                         return $this->presentProjectEntry($project);
                     })->toArray()
                 )

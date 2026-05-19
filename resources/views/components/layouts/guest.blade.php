@@ -3,6 +3,7 @@
     'assets' => ['resources/css/app.css'],
     'nav' => null,
     'footer' => null,
+    'theme' => null,
 ])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
@@ -14,23 +15,20 @@
     {{-- Vite Assets --}}
     @vite($assets)
 
-    {{-- Dark Mode Initializer --}}
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-
-    {{-- Google Fonts: Space Mono --}}
+    {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    @if ($theme)
+        @foreach ($theme->fontUrls() as $url)
+            <link href="{{ $url }}" rel="stylesheet">
+        @endforeach
+    @else
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    @endif
 
     <style>
         body {
-            font-family: 'Space Mono', monospace;
+            font-family: {!! $theme ? $theme->fontFamily() : "'Space Mono', monospace" !!};
         }
     </style>
 </head>

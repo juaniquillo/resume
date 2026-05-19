@@ -3,7 +3,6 @@
 namespace App\Presenters\Resume;
 
 use App\Models\Basic;
-use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -15,16 +14,13 @@ final class SummaryPresenter
     use CanComposeResumeComponents;
 
     public function __construct(
-        private User $user,
+        private ?Basic $basics,
         private PresenterTheme $theme,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
     {
-        /** @var Basic|null $basics */
-        $basics = $this->user->basics()->first();
-
-        if (! $basics || ! $basics->summary) {
+        if (! $this->basics || ! $this->basics->summary) {
             return null;
         }
 
@@ -34,7 +30,7 @@ final class SummaryPresenter
                 ->setContents([
                     'paragraph' => $this->compose(ComponentEnum::PARAGRAPH)
                         ->setThemes($this->theme->summaryThemes())
-                        ->setContent($basics->summary),
+                        ->setContent($this->basics->summary),
                 ])
         );
     }
