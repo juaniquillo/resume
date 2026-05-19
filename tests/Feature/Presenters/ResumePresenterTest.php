@@ -363,3 +363,36 @@ test('it can use a custom theme', function () {
     // 'm-bottom-xs' is defined in spacing.blade.php as 'mb-1'
     expect($html)->toContain('mb-1');
 });
+
+test('it respects section visibility settings', function () {
+    $user = User::factory()->create();
+    Basic::factory()->for($user)->create([
+        'name' => 'John Doe',
+        'summary' => 'My summary',
+    ]);
+    Work::factory()->for($user)->create([
+        'name' => 'Company Inc',
+    ]);
+
+    // Initially everything is visible
+    $presenter = new ResumePresenter($user);
+    $html = (string) $presenter->present()->toHtml();
+    expect($html)->toContain('My summary');
+    expect($html)->toContain('Company Inc');
+
+    // Hide summary and work
+    $user->sectionVisibility()->create([
+        'settings' => [
+            'summary' => true, // true = disabled
+            'work' => true,
+        ],
+    ]);
+
+    $user->refresh();
+    $presenter = new ResumePresenter($user);
+    $html = (string) $presenter->present()->toHtml();
+
+    expect($html)->not->toContain('My summary');
+    expect($html)->not->toContain('Company Inc');
+    expect($html)->toContain('John Doe'); // Basics always visible
+});

@@ -34,10 +34,17 @@ class ResumeOptionNav
         return [
             [
                 'name' => 'resume.slug',
-                'label' => 'Update Resume Slug',
+                'label' => 'Update Link',
                 'route' => 'dashboard.resume.slug',
                 'icon' => 'link',
                 'description' => 'Update your resume slug.',
+            ],
+            [
+                'name' => 'resume.visibility',
+                'label' => 'Section Visibility',
+                'route' => 'dashboard.resume.visibility',
+                'icon' => 'eye',
+                'description' => 'Enable or disable resume sections.',
             ],
         ];
     }

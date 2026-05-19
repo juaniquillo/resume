@@ -36,23 +36,27 @@ final class ResumePresenter
 
     public function present(): BackendComponent|CompoundComponent|Htmlable
     {
+        $settings = $this->user->sectionVisibility?->settings ?? [];
+
+        $sections = [
+            'basics' => (new BasicsPresenter($this->user, $this->theme))->present(),
+            'summary' => (! ($settings['summary'] ?? false)) ? (new SummaryPresenter($this->user, $this->theme))->present() : null,
+            'work' => (! ($settings['work'] ?? false)) ? (new WorkPresenter($this->user, $this->theme))->present() : null,
+            'volunteers' => (! ($settings['volunteers'] ?? false)) ? (new VolunteersPresenter($this->user, $this->theme))->present() : null,
+            'education' => (! ($settings['education'] ?? false)) ? (new EducationPresenter($this->user, $this->theme))->present() : null,
+            'awards' => (! ($settings['awards'] ?? false)) ? (new AwardsPresenter($this->user, $this->theme))->present() : null,
+            'certificates' => (! ($settings['certificates'] ?? false)) ? (new CertificatesPresenter($this->user, $this->theme))->present() : null,
+            'publications' => (! ($settings['publications'] ?? false)) ? (new PublicationsPresenter($this->user, $this->theme))->present() : null,
+            'skills' => (! ($settings['skills'] ?? false)) ? (new SkillsPresenter($this->user, $this->theme))->present() : null,
+            'languages' => (! ($settings['languages'] ?? false)) ? (new LanguagesPresenter($this->user, $this->theme))->present() : null,
+            'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($this->user, $this->theme))->present() : null,
+            'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($this->user, $this->theme))->present() : null,
+            'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($this->user, $this->theme))->present() : null,
+        ];
+
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->containerThemes())
-            ->setContents(array_filter([
-                'basics' => (new BasicsPresenter($this->user, $this->theme))->present(),
-                'summary' => (new SummaryPresenter($this->user, $this->theme))->present(),
-                'work' => (new WorkPresenter($this->user, $this->theme))->present(),
-                'volunteers' => (new VolunteersPresenter($this->user, $this->theme))->present(),
-                'education' => (new EducationPresenter($this->user, $this->theme))->present(),
-                'awards' => (new AwardsPresenter($this->user, $this->theme))->present(),
-                'certificates' => (new CertificatesPresenter($this->user, $this->theme))->present(),
-                'publications' => (new PublicationsPresenter($this->user, $this->theme))->present(),
-                'skills' => (new SkillsPresenter($this->user, $this->theme))->present(),
-                'languages' => (new LanguagesPresenter($this->user, $this->theme))->present(),
-                'interests' => (new InterestsPresenter($this->user, $this->theme))->present(),
-                'references' => (new ReferencesPresenter($this->user, $this->theme))->present(),
-                'projects' => (new ProjectsPresenter($this->user, $this->theme))->present(),
-            ]));
+            ->setContents(array_filter($sections));
     }
 
     public function presentCached(): string

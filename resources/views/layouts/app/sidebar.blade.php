@@ -1,8 +1,10 @@
 @php
     use App\Components\Nav\DashboardNav;
+    use App\Components\Nav\ResumeOptionNav;
     use App\Components\Nav\ToolsNav; 
     $navItems = DashboardNav::makeNav();
     $toolsNav = ToolsNav::makeNav();
+    $optionsNav = ResumeOptionNav::makeNav();
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
@@ -25,6 +27,14 @@
                 <flux:navlist.group heading="Tools">
 
                     {{ $toolsNav }}
+
+                </flux:navlist.group>
+
+                <flux:menu.separator />
+
+                <flux:navlist.group heading="Options">
+
+                    {{ $optionsNav }}
 
                 </flux:navlist.group>
 

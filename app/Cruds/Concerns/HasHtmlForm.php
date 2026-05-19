@@ -62,27 +62,7 @@ trait HasHtmlForm
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
-        $action = $this->formAction;
-        $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', $action)
-            ->setAttribute('method', $this->formMethod)
-            ->setAttribute('enctype', 'multipart/form-data')
-            ->setThemes($this->formThemes())
-            ->setContents(
-                $this->inputs(
-                    inputs: $inputs,
-                )
-            );
-
-        $form->setContent(
-            LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                ->setTheme('forms', 'column-span-full')
-                ->setContent(
-                    $this->saveButton()
-                )
-        );
-
-        return $form;
+        return $this->composeForm($inputs);
     }
 
     public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent
@@ -165,5 +145,30 @@ trait HasHtmlForm
     public function errorManager(): ?ErrorManager
     {
         return null;
+    }
+
+    private function composeForm(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        $action = $this->formAction;
+        $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
+            ->setAttribute('action', $action)
+            ->setAttribute('method', $this->formMethod)
+            ->setAttribute('enctype', 'multipart/form-data')
+            ->setThemes($this->formThemes())
+            ->setContents(
+                $this->inputs(
+                    inputs: $inputs,
+                )
+            );
+
+        $form->setContent(
+            LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                ->setTheme('forms', 'column-span-full')
+                ->setContent(
+                    $this->saveButton()
+                )
+        );
+
+        return $form;
     }
 }

@@ -1,6 +1,6 @@
 <x-layouts.guest
     title="Resume Manager"
-    :assets="['resources/css/landing.css', 'resources/js/landing.js']"
+    :assets="['resources/css/landing.css']"
 >
     <x-slot:nav>
         <x-nav.landing />

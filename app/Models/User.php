@@ -136,4 +136,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ResumeExport::class);
     }
+
+    public function sectionVisibility(): HasOne
+    {
+        return $this->hasOne(SectionVisibility::class);
+    }
 }
