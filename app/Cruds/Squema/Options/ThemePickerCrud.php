@@ -24,11 +24,7 @@ final class ThemePickerCrud implements CrudForm, CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    ) {
-        if (! $model && empty($values)) {
-            $this->values[ThemeSelectFactory::NAME] = ResumeTheme::DEFAULT->value;
-        }
-    }
+    ) {}
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {

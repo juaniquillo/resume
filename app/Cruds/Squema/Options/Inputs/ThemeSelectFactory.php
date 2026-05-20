@@ -49,13 +49,7 @@ class ThemeSelectFactory
 
     public static function optionsArray(): array
     {
-        $options = [
-            [
-                'name' => 'choose',
-                'label' => 'Choose...',
-                'value' => '',
-            ],
-        ];
+        $options = [];
 
         foreach (ResumeTheme::cases() as $key => $value) {
             $options[] = [
