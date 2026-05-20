@@ -24,6 +24,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
+use Override;
 
 final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -93,8 +94,8 @@ final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    /** @phpstan-ignore  return.unusedType */
-    public function valueManager(): ?ValueManager
+    #[Override]
+    public function valueManager(): ValueManager
     {
         return new ArrayToCommaSeparatedValueManager;
     }

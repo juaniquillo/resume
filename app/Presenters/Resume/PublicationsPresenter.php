@@ -6,6 +6,7 @@ use App\Models\Publication;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -25,7 +26,10 @@ final class PublicationsPresenter
             return null;
         }
 
-        $items = $this->publications->map(function (Publication $pub) {
+        $items = $this->publications->map(function (Model $model) {
+            /** @var Publication $pub */
+            $pub = $model;
+
             return $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->itemContainerThemes())
                 ->setContents([

@@ -27,7 +27,10 @@ final class EducationPresenter
             return null;
         }
 
-        $items = $this->education->map(function (Education $edu) {
+        $items = $this->education->map(function (Model $model) {
+            /** @var Education $edu */
+            $edu = $model;
+
             return $this->presentEducationEntry($edu);
         })->toArray();
 
@@ -38,8 +41,11 @@ final class EducationPresenter
         );
     }
 
-    private function presentEducationEntry(Education $edu): BackendComponent|CompoundComponent
+    private function presentEducationEntry(Model $model): BackendComponent|CompoundComponent
     {
+        /** @var Education $edu */
+        $edu = $model;
+
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->itemContainerThemes())
             ->setContents(array_filter([

@@ -6,6 +6,7 @@ use App\Models\Skill;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -29,7 +30,10 @@ final class SkillsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->skillsContainerThemes())
                 ->setContents(
-                    $this->skills->map(function (Skill $skill) {
+                    $this->skills->map(function (Model $model) {
+                        /** @var Skill $skill */
+                        $skill = $model;
+
                         return $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->badgeThemes())
                             ->setContent($skill->name);

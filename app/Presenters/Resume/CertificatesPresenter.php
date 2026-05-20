@@ -6,6 +6,7 @@ use App\Models\Certificate;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -25,7 +26,10 @@ final class CertificatesPresenter
             return null;
         }
 
-        $items = $this->certificates->map(function (Certificate $cert) {
+        $items = $this->certificates->map(function (Model $model) {
+            /** @var Certificate $cert */
+            $cert = $model;
+
             return $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->itemContainerThemes())
                 ->setContents([

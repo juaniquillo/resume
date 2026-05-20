@@ -6,6 +6,7 @@ use App\Models\Reference;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -29,7 +30,10 @@ final class ReferencesPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->referencesContainerThemes())
                 ->setContents(
-                    $this->references->map(function (Reference $ref) {
+                    $this->references->map(function (Model $model) {
+                        /** @var Reference $ref */
+                        $ref = $model;
+
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents(array_filter([

@@ -37,7 +37,8 @@ final class ResumePresenter
 
     public function present(): BackendComponent|CompoundComponent|Htmlable
     {
-        $settings = $this->user->sectionVisibility?->settings ?? [];
+        /** @var array<string, bool> $settings */
+        $settings = (array) ($this->user->sectionVisibility->settings ?? []);
         $data = (new ResumeDataLoader)->load($this->user);
 
         $sections = [

@@ -46,6 +46,13 @@ class ResumeOptionNav
                 'icon' => 'eye',
                 'description' => 'Enable or disable resume sections.',
             ],
+            [
+                'name' => 'resume.theme',
+                'label' => 'Choose Theme',
+                'route' => 'dashboard.resume.theme',
+                'icon' => 'swatch',
+                'description' => 'Change your resume layout theme.',
+            ],
         ];
     }
 }

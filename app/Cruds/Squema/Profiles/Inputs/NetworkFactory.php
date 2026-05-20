@@ -68,8 +68,7 @@ class NetworkFactory
                         'list' => self::LIST_ID,
                     ]),
                 hookBag: (new DefaultHookBag)
-                    ->setWrapperHook(function (BackendComponent|CompoundComponent $component, InputInterface $input) {
-                        /** @phpstan-ignore-next-line */
+                    ->setWrapperHook(function (CompoundComponent $component, InputInterface $input) {
                         $component->setContent(
                             NetworkFactory::dataList()
                         );

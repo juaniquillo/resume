@@ -27,7 +27,10 @@ final class WorkPresenter
             return null;
         }
 
-        $items = $this->works->map(function (Work $work) {
+        $items = $this->works->map(function (Model $model) {
+            /** @var Work $work */
+            $work = $model;
+
             return $this->presentWorkEntry($work);
         })->toArray();
 

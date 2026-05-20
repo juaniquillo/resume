@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -29,7 +30,10 @@ final class LanguagesPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->languagesContainerThemes())
                 ->setContents(
-                    $this->languages->map(function (Language $lang) {
+                    $this->languages->map(function (Model $model) {
+                        /** @var Language $lang */
+                        $lang = $model;
+
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents([

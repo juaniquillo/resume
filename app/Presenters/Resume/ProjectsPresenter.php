@@ -31,7 +31,10 @@ final class ProjectsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->projectsContainerThemes())
                 ->setContents(
-                    $this->projects->map(function (Project $project) {
+                    $this->projects->map(function (Model $model) {
+                        /** @var Project $project */
+                        $project = $model;
+
                         return $this->presentProjectEntry($project);
                     })->toArray()
                 )

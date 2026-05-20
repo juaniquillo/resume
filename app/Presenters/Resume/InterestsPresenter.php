@@ -6,6 +6,7 @@ use App\Models\Interest;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -29,7 +30,10 @@ final class InterestsPresenter
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->interestsContainerThemes())
                 ->setContents(
-                    $this->interests->map(function (Interest $interest) {
+                    $this->interests->map(function (Model $model) {
+                        /** @var Interest $interest */
+                        $interest = $model;
+
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents(array_filter([

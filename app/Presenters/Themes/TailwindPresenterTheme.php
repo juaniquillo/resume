@@ -8,16 +8,12 @@ final class TailwindPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return [
-            'spacing' => 'p-md',
-        ];
+        return [];
     }
 
     public function basicsContainerThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-md',
-        ];
+        return [];
     }
 
     public function summaryContainerThemes(): array
@@ -92,30 +88,22 @@ final class TailwindPresenterTheme implements PresenterTheme
 
     public function sectionThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-lg',
-        ];
+        return [];
     }
 
     public function sectionTitleThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-sm',
-        ];
+        return [];
     }
 
     public function itemTitleThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-xs',
-        ];
+        return [];
     }
 
     public function itemContainerThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-md',
-        ];
+        return [];
     }
 
     public function itemDetailsThemes(): array
@@ -130,30 +118,22 @@ final class TailwindPresenterTheme implements PresenterTheme
 
     public function contactContainerThemes(): array
     {
-        return [
-            'spacing' => ['m-top-sm', 'm-bottom-sm'],
-        ];
+        return [];
     }
 
     public function contactItemThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function listThemes(): array
     {
-        return [
-            'spacing' => 'm-top-sm',
-        ];
+        return [];
     }
 
     public function imageThemes(): array
     {
-        return [
-            'spacing' => 'm-bottom-sm',
-        ];
+        return [];
     }
 
     public function linkThemes(): array
@@ -163,9 +143,7 @@ final class TailwindPresenterTheme implements PresenterTheme
 
     public function iconThemes(): array
     {
-        return [
-            'size' => 'size-4',
-        ];
+        return [];
     }
 
     public function listItemThemes(): array
@@ -190,37 +168,27 @@ final class TailwindPresenterTheme implements PresenterTheme
 
     public function emailThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function phoneThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function urlThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function locationThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function profileThemes(): array
     {
-        return [
-            'spacing' => 'm-right-sm',
-        ];
+        return [];
     }
 
     public function fontUrls(): array

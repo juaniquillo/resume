@@ -6,21 +6,18 @@ use App\Models\Concerns\InvalidatesResumeCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SectionVisibility extends Model
+/**
+ * @property-read int $id
+ * @property-read string $theme
+ */
+class Theme extends Model
 {
     use InvalidatesResumeCache;
 
     protected $fillable = [
         'user_id',
-        'settings',
+        'theme',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'settings' => 'array',
-        ];
-    }
 
     public function user(): BelongsTo
     {

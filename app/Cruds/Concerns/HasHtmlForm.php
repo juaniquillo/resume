@@ -20,6 +20,8 @@ use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
+use Juaniquillo\InputComponentAction\Managers\DefaultErrorManager;
+use Juaniquillo\InputComponentAction\Managers\DefaultValueManager;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 trait HasHtmlForm
@@ -90,15 +92,8 @@ trait HasHtmlForm
             $action->setModel($this->getModel());
         }
 
-        $valueManager = $this->valueManager();
-        if ($valueManager) {
-            $action->setValueManager($valueManager);
-        }
-
-        $errorManager = $this->errorManager();
-        if ($errorManager) {
-            $action->setErrorManager($errorManager);
-        }
+        $action->setValueManager($this->valueManager());
+        $action->setErrorManager($this->errorManager());
 
         $output = $this->make($inputs)->execute($action);
 
@@ -137,14 +132,14 @@ trait HasHtmlForm
             ->setInputComponent(FluxBackendComponent::class);
     }
 
-    public function valueManager(): ?ValueManager
+    public function valueManager(): ValueManager
     {
-        return null;
+        return new DefaultValueManager;
     }
 
-    public function errorManager(): ?ErrorManager
+    public function errorManager(): ErrorManager
     {
-        return null;
+        return new DefaultErrorManager;
     }
 
     private function composeForm(?array $inputs = null): BackendComponent|CompoundComponent

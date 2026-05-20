@@ -61,8 +61,10 @@ trait IsFluxNavigation
         return FluxComponentBuilder::make(FluxComponentEnum::NAVLIST_GROUP)
             ->setAttributes([
                 'heading' => $title,
-                'expandable' => 'expandable',
                 'class' => 'grid',
+                'expandable' => 'expandable',
+                // falsy string
+                'expanded' => '0',
             ]);
 
     }

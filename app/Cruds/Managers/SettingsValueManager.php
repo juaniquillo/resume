@@ -42,9 +42,11 @@ class SettingsValueManager implements ValueManager
         $recipeValue = $recipe->getInputValue();
         $modelValue = null;
 
-        $settings = $this->model->settings ?? [];
+        $settings = $this->model->settings ?? null;
 
-        $modelValue = $settings[$name] ?? false;
+        if ($settings && is_array($settings)) {
+            $modelValue = $settings[$name] ?? null;
+        }
 
         if (! $ignoreRecipeValue) {
             if (Support::isClosure($recipeValue)) {

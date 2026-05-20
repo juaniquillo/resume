@@ -27,7 +27,10 @@ final class VolunteersPresenter
             return null;
         }
 
-        $items = $this->volunteers->map(function (Volunteer $volunteer) {
+        $items = $this->volunteers->map(function (Model $model) {
+            /** @var Volunteer $volunteer */
+            $volunteer = $model;
+
             return $this->presentVolunteerEntry($volunteer);
         })->toArray();
 
