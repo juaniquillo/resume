@@ -16,16 +16,14 @@
     @vite($assets)
 
     <script>
-    
-    const htmlElement = document.documentElement;
+        const htmlElement = document.documentElement;
 
-    // Initialize theme immediately to prevent FOUC
-    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        htmlElement.classList.add('dark');
-    } else {
-        htmlElement.classList.remove('dark');
-    }
-    
+        // Initialize theme immediately to prevent FOUC
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
     </script>
 
     {{-- Fonts --}}

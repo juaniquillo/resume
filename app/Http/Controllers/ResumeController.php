@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Presenters\ResumePresenter;
-use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
-        $theme = ThemeFactory::forUser($user);
-        $presenter = new ResumePresenter($user, $theme);
+        $presenter = new ResumePresenter($user);
 
         if (config('cache.resume.disable_cache')) {
             $presenter->clearCache();
@@ -20,7 +18,7 @@ class ResumeController extends Controller
 
         return view('pages.resume', [
             'user' => $user,
-            'theme' => $theme,
+            'theme' => $presenter->getTheme(),
             'resumeComponent' => $presenter->presentCached(),
         ]);
     }

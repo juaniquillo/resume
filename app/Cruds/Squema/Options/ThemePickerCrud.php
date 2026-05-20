@@ -7,7 +7,6 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
-use App\Enums\ResumeTheme;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 

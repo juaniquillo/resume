@@ -19,7 +19,7 @@ use App\Presenters\Resume\SkillsPresenter;
 use App\Presenters\Resume\SummaryPresenter;
 use App\Presenters\Resume\VolunteersPresenter;
 use App\Presenters\Resume\WorkPresenter;
-use App\Presenters\Themes\DefaultPresenterTheme;
+use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Cache;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -30,10 +30,14 @@ final class ResumePresenter
 {
     use CanComposeResumeComponents;
 
+    private PresenterTheme $theme;
+
     public function __construct(
         private User $user,
-        private ?PresenterTheme $theme = new DefaultPresenterTheme,
-    ) {}
+        ?PresenterTheme $theme = null,
+    ) {
+        $this->theme = $theme ?? ThemeFactory::forUser($this->user);
+    }
 
     public function present(): BackendComponent|CompoundComponent|Htmlable
     {
@@ -60,6 +64,11 @@ final class ResumePresenter
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->containerThemes())
             ->setContents(array_filter($sections));
+    }
+
+    public function getTheme(): PresenterTheme
+    {
+        return $this->theme;
     }
 
     public function presentCached(): string
