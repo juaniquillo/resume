@@ -14,6 +14,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
+        "barryvdh/laravel-dompdf": "^3.1",
         "juaniquillo/crud-assistant": "^0.1.0",
         "juaniquillo/input-component-action": "dev-main",
         "juaniquillo/laravel-backend-component": "^0.5.4",
@@ -23,7 +24,9 @@
         "laravel/tinker": "^3.0.2",
         "livewire/blaze": "^1.0.12",
         "livewire/flux": "^2.14.1",
-        "livewire/livewire": "^4.3"
+        "livewire/livewire": "^4.3",
+        "spatie/browsershot": "^5.3",
+        "spatie/laravel-pdf": "^2.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24.1",

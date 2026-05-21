@@ -9,7 +9,9 @@
     "mcp": true,
     "nightwatch": false,
     "packages": [
-        "livewire/blaze"
+        "juaniquillo/laravel-backend-component",
+        "livewire/blaze",
+        "spatie/laravel-pdf"
     ],
     "sail": false,
     "skills": [
@@ -19,7 +21,8 @@
         "livewire-development",
         "pest-testing",
         "tailwindcss-development",
+        "backend-component",
         "blaze-optimize",
-        "backend-component"
+        "laravel-pdf"
     ]
 }

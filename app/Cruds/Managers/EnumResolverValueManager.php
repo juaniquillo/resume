@@ -2,19 +2,14 @@
 
 namespace App\Cruds\Managers;
 
+use BackedEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\InputComponentAction\Contracts\InputComponentRecipeInterface;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Utilities\Support;
 use Stringable;
 
-/**
- * Priorities:
- * 1 - In $values array
- * 2 - In $recipe inputValue
- * 3 - In $model property
- */
-final class ArrayToCommaSeparatedValueManager implements ValueManager
+class EnumResolverValueManager implements ValueManager
 {
     private array $values = [];
 
@@ -45,9 +40,7 @@ final class ArrayToCommaSeparatedValueManager implements ValueManager
         $recipeValueProcessed = null;
 
         if (\array_key_exists(key: $name, array: $values)) {
-            $value = $values[$name];
-            // check in case of array
-            $plainValue = \is_array($value) ? \trim(implode(', ', $value)) : $value;
+            return $values[$name];
         }
 
         if (! $ignoreRecipeValue) {
@@ -59,16 +52,18 @@ final class ArrayToCommaSeparatedValueManager implements ValueManager
         }
 
         $modelValue = null;
+
+        /** @var BackedEnum|Stringable|array|string|null $modelValueRaw */
         $modelValueRaw = $model->{$name} ?? null;
 
-        if ($modelValueRaw && \is_object($modelValueRaw)) {
-            if (method_exists($modelValueRaw, '__toString')) {
-                $modelValue = $modelValueRaw->__toString();
-            }
+        if ($modelValueRaw instanceof BackedEnum) {
+            $modelValue = $modelValueRaw->value;
+        } elseif ($modelValueRaw instanceof Stringable) {
+            $modelValue = $modelValueRaw->__toString();
         } else {
             $modelValue = \is_array($modelValueRaw) ? \trim(implode(', ', $modelValueRaw)) : $modelValueRaw;
         }
 
-        return $recipeValueProcessed ?? $plainValue ?? $modelValue ?? null;
+        return $recipeValueProcessed ?? $modelValue ?? null;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Http\Requests\Resume\ResumeExportFormRequest;
 use App\Jobs\ProcessResumeExport;
 use App\Models\ResumeExport;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class ResumeExportController extends Controller
             ->with('paginator', $exports);
     }
 
-    public function store(Request $request)
+    public function store(ResumeExportFormRequest $request)
     {
         if ($request->user()->resumeExports()->count() >= 5) {
             return redirect()
@@ -50,6 +51,7 @@ class ResumeExportController extends Controller
         $export = ResumeExport::create([
             'user_id' => $request->user()->id,
             'status' => 'pending',
+            'type' => $request->validated('type'),
         ]);
 
         ProcessResumeExport::dispatch($export);

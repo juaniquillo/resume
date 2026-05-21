@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ResumeExportType;
 use App\Models\Concerns\Uuidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,11 @@ class ResumeExport extends Model
         'file_path',
         'status',
         'error',
+        'type',
+    ];
+
+    protected $casts = [
+        'type' => ResumeExportType::class,
     ];
 
     /**

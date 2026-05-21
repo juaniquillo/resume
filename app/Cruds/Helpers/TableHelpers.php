@@ -71,6 +71,15 @@ final class TableHelpers
             );
     }
 
+    public static function badge(string $content, string $color): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+            ->setAttributes([
+                'color' => $color,
+            ])
+            ->setContent($content);
+    }
+
     public static function highlightsButton(string $route): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
