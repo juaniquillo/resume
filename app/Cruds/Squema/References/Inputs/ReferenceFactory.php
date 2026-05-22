@@ -87,7 +87,7 @@ class ReferenceFactory
         $input->setRecipe(
             new TableRowsRecipe(
                 value: function (?string $value, Model $model) {
-                    
+
                     if ($value === null) {
                         return TableHelpers::emptyValue();
                     }
