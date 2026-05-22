@@ -6,6 +6,7 @@ use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -28,6 +29,7 @@ class StartDateFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
         self::import($input);
         self::export($input);
 
@@ -73,6 +75,11 @@ class StartDateFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        TableHelpers::formatDateOutput($input);
     }
 
     public static function export(InputInterface $input): void
