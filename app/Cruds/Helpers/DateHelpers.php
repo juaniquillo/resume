@@ -8,12 +8,12 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 class DateHelpers
 {
-    public static function formatDateOutput(?CarbonImmutable $carbon): string|BackendComponent|CompoundComponent|null
+    public static function formatDateOutput(?CarbonImmutable $carbon): string|BackendComponent|CompoundComponent
     {
-        if (!$carbon) {
+        if (! $carbon) {
             return TableHelpers::emptyValue();
         }
 
-        return $carbon?->format('Y-m');
+        return $carbon->format('Y-m');
     }
 }

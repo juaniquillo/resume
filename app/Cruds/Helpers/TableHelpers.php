@@ -101,7 +101,7 @@ final class TableHelpers
             ->setContent($trigger);
     }
 
-    public static function tableLink(?string $link, ?string $label = null, string $target = '_blank'): BackendComponent|CompoundComponent|null
+    public static function tableLink(?string $link, ?string $label = null, string $target = '_blank'): BackendComponent|CompoundComponent
     {
         if (! $link) {
             return TableHelpers::emptyValue();
