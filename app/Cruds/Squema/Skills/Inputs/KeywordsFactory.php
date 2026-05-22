@@ -8,6 +8,7 @@ use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -108,11 +109,7 @@ class KeywordsFactory
                     }
 
                     if (! $value) {
-                        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
-                            ->setAttributes([
-                                'color' => 'red',
-                            ])
-                            ->setContent('no keywords');
+                        return TableHelpers::emptyValue();
                     }
 
                     return $value;
