@@ -104,7 +104,7 @@ final class TableHelpers
     public static function tableLink(?string $link, ?string $label = null, string $target = '_blank'): BackendComponent|CompoundComponent|null
     {
         if (! $link) {
-            return null;
+            return TableHelpers::emptyValue();
         }
 
         return FluxComponentBuilder::make(FluxComponentEnum::LINK)
@@ -133,7 +133,7 @@ final class TableHelpers
     public static function formatDateOutput(?InputInterface $input): void
     {
         $recipe = new TableRowsRecipe(
-            value: fn (CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
+            value: fn (?CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
         );
 
         $input->setRecipe($recipe);

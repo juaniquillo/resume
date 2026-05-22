@@ -32,7 +32,7 @@ class InstitutionFactory
         self::factory($input);
         self::import($input);
         self::export($input);
-        self::table($input);
+        // self::table($input);
 
         return $input;
     }

@@ -5,8 +5,12 @@ namespace App\Cruds\Squema\Certificates\Inputs;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
+use App\Models\Certificate;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -30,6 +34,7 @@ class UrlFactory
         self::factory($input);
         self::import($input);
         self::export($input);
+        self::table($input);
 
         return $input;
     }
@@ -73,7 +78,17 @@ class UrlFactory
             )
         );
     }
-
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (mixed $value, Model|Certificate $model) {
+                    return TableHelpers::tableLink($value, __('Visit link'));
+                },
+            )
+        );
+    }
+    
     public static function export(InputInterface $input): void
     {
         $input->setRecipe(new ModelToExportRecipe(
