@@ -19,7 +19,7 @@ use App\Presenters\Resume\SkillsPresenter;
 use App\Presenters\Resume\SummaryPresenter;
 use App\Presenters\Resume\VolunteersPresenter;
 use App\Presenters\Resume\WorkPresenter;
-use App\Presenters\Themes\ThemeFactory;
+use App\Presenters\Themes\DefaultPresenterTheme;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Cache;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -30,14 +30,10 @@ final class ResumePresenter
 {
     use CanComposeResumeComponents;
 
-    private PresenterTheme $theme;
-
     public function __construct(
         private User $user,
-        ?PresenterTheme $theme = null,
-    ) {
-        $this->theme = $theme ?? ThemeFactory::forUser($this->user);
-    }
+        private ?PresenterTheme $theme = new DefaultPresenterTheme,
+    ) {}
 
     public function present(): BackendComponent|CompoundComponent|Htmlable
     {
@@ -78,7 +74,7 @@ final class ResumePresenter
         return Cache::rememberForever($key, fn () => (string) $this->present()->toHtml());
     }
 
-    private function getCacheKey(): string
+    public function getCacheKey(): string
     {
         $version = Cache::get("resume:{$this->user->id}:v", 1);
         $themeHash = md5(get_class($this->theme));

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Enums\ResumeExportType;
 use App\Http\Requests\Resume\ResumeExportFormRequest;
-use App\Jobs\ProcessResumeExport;
+use App\Jobs\ProcessJsonExport;
+use App\Jobs\ProcessPdfExport;
 use App\Models\ResumeExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -54,7 +56,10 @@ class ResumeExportController extends Controller
             'type' => $request->validated('type'),
         ]);
 
-        ProcessResumeExport::dispatch($export);
+        match ($export->type) {
+            ResumeExportType::JSON => ProcessJsonExport::dispatch($export),
+            ResumeExportType::PDF => ProcessPdfExport::dispatch($export),
+        };
 
         return redirect()
             ->back()

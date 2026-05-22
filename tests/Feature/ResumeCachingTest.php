@@ -11,7 +11,7 @@ test('resume is cached after first hit', function () {
     $user = User::factory()->create();
     Basic::factory()->for($user)->create();
 
-    $cacheKey = "resume:{$user->id}:v1:".md5(DefaultPresenterTheme::class);
+    $cacheKey = "resume:{$user->id}:v2:".md5(DefaultPresenterTheme::class);
 
     expect(Cache::has($cacheKey))->toBeFalse();
 
@@ -44,30 +44,30 @@ test('subsequent hits use cache and avoid redundant queries', function () {
 test('updating a model invalidates the cache by incrementing version', function () {
     $user = User::factory()->create();
 
-    // Creating Basic triggers invalidation #1
+    // Creating Basic triggers invalidation #1 (after GeneralOption #0)
     Basic::factory()->for($user)->create();
 
     // Creating Work triggers invalidation #2
     $work = Work::factory()->for($user)->create();
 
-    // Version should be 2
-    expect((int) Cache::get("resume:{$user->id}:v"))->toBe(2);
+    // Version should be 3 (GeneralOption + Basic + Work)
+    expect((int) Cache::get("resume:{$user->id}:v"))->toBe(3);
 
-    // Warm up cache (uses v2)
+    // Warm up cache (uses v3)
     $this->get(route('resume', $user->slug))->assertSuccessful();
 
-    $v2Key = "resume:{$user->id}:v2:".md5(DefaultPresenterTheme::class);
-    expect(Cache::has($v2Key))->toBeTrue();
+    $v3Key = "resume:{$user->id}:v3:".md5(DefaultPresenterTheme::class);
+    expect(Cache::has($v3Key))->toBeTrue();
 
     // Update work entry triggers invalidation #3
     $work->update(['position' => 'Updated Position']);
 
-    // Version should be 3
-    expect((int) Cache::get("resume:{$user->id}:v"))->toBe(3);
+    // Version should be 4
+    expect((int) Cache::get("resume:{$user->id}:v"))->toBe(4);
 
-    // Third hit should use v3 key
-    $v3Key = "resume:{$user->id}:v3:".md5(DefaultPresenterTheme::class);
+    // Third hit should use v4 key
+    $v4Key = "resume:{$user->id}:v4:".md5(DefaultPresenterTheme::class);
     $this->get(route('resume', $user->slug))->assertSuccessful();
 
-    expect(Cache::has($v3Key))->toBeTrue();
+    expect(Cache::has($v4Key))->toBeTrue();
 });

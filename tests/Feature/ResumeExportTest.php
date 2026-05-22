@@ -2,7 +2,8 @@
 
 use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Enums\ResumeExportType;
-use App\Jobs\ProcessResumeExport;
+use App\Jobs\ProcessJsonExport;
+use App\Jobs\ProcessPdfExport;
 use App\Models\Basic;
 use App\Models\Interest;
 use App\Models\Reference;
@@ -13,6 +14,8 @@ use App\Models\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\PdfBuilder;
 
 uses(RefreshDatabase::class);
 
@@ -46,7 +49,7 @@ test('it can initiate a resume export', function () {
         'status' => 'pending',
     ]);
 
-    Queue::assertPushed(ProcessResumeExport::class);
+    Queue::assertPushed(ProcessJsonExport::class);
 });
 
 test('the background job generates a valid json file', function () {
@@ -62,7 +65,7 @@ test('the background job generates a valid json file', function () {
         'type' => ResumeExportType::JSON->value,
     ]);
 
-    $job = new ProcessResumeExport($export);
+    $job = new ProcessJsonExport($export);
     $job->handle();
 
     $export->refresh();
@@ -194,6 +197,54 @@ test('it cannot download another users export', function () {
         ->assertNotFound();
 });
 
+test('it can initiate a pdf resume export', function () {
+    Queue::fake();
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.resume.export.store'), [
+            '_token' => 'test-token',
+            'type' => ResumeExportType::PDF->value,
+        ])
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('resume_exports', [
+        'user_id' => $this->user->id,
+        'status' => 'pending',
+        'type' => ResumeExportType::PDF->value,
+    ]);
+
+    Queue::assertPushed(ProcessPdfExport::class);
+});
+
+test('the background job generates a pdf file', function () {
+    Storage::fake('local');
+    Pdf::fake();
+
+    // Seed some data
+    Basic::factory()->create(['user_id' => $this->user->id]);
+
+    $export = ResumeExport::create([
+        'user_id' => $this->user->id,
+        'status' => 'pending',
+        'type' => ResumeExportType::PDF->value,
+    ]);
+
+    $job = new ProcessPdfExport($export);
+    $job->handle();
+
+    $export->refresh();
+    expect($export->status)->toBe('completed');
+    expect($export->file_path)->not->toBeNull();
+    expect($export->file_path)->toEndWith('.pdf');
+
+    Pdf::assertSaved(function (PdfBuilder $pdf, string $path) use ($export) {
+        return $path === $export->file_path
+            && ! str_contains($pdf->html, '{"name":"div"');
+    });
+});
+
 test('the background job handles cases with no data correctly', function () {
     Storage::fake('local');
 
@@ -204,7 +255,7 @@ test('the background job handles cases with no data correctly', function () {
         'type' => ResumeExportType::JSON->value,
     ]);
 
-    $job = new ProcessResumeExport($export);
+    $job = new ProcessJsonExport($export);
     $job->handle();
 
     $export->refresh();

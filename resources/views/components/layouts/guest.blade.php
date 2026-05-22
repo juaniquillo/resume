@@ -4,9 +4,10 @@
     'nav' => null,
     'footer' => null,
     'theme' => null,
+    'isPdf' => false,
 ])
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth @if($isPdf) light @endif">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +16,7 @@
     {{-- Vite Assets --}}
     @vite($assets)
 
+    @if(! $isPdf)
     <script>
         const htmlElement = document.documentElement;
 
@@ -25,6 +27,7 @@
             htmlElement.classList.remove('dark');
         }
     </script>
+    @endif
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,6 +44,12 @@
         body {
             font-family: {!! $theme ? $theme->fontFamily() : "'Space Mono', monospace" !!};
         }
+
+        @if($isPdf)
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+        @endif
     </style>
 </head>
 <body class="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">

@@ -2,14 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Actions\Resume\Export\BuildResumeArray;
 use App\Models\ResumeExport;
+use App\Presenters\ResumePresenter;
+use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Storage;
-use JustSteveKing\Resume\Factories\ResumeFactory;
+use Spatie\LaravelPdf\Facades\Pdf;
 
-class ProcessResumeExport implements ShouldQueue
+class ProcessPdfExport implements ShouldQueue
 {
     use Queueable;
 
@@ -29,16 +29,22 @@ class ProcessResumeExport implements ShouldQueue
 
         try {
             $user = $this->export->user;
-            $resume = (new BuildResumeArray($user))->handle();
+            $theme = ThemeFactory::forUser($user);
+            $presenter = new ResumePresenter($user, $theme);
 
-            ResumeFactory::fromArray($resume)->validate();
+            $html = view('pages.resume', [
+                'user' => $user,
+                'theme' => $presenter->getTheme(),
+                'resumeComponent' => $presenter->present()->toHtml(),
+                'isPdf' => true,
+            ])->render();
 
-            $json = json_encode($resume, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
-            $filename = "resume-export-{$this->export->id}-".now()->timestamp.'.json';
+            $filename = "resume-export-{$this->export->id}-".now()->timestamp.'.pdf';
             $path = "exports/resumes/{$filename}";
 
-            Storage::put($path, $json);
+            Pdf::html($html)
+                ->disk(config('filesystems.default'))
+                ->save($path);
 
             $this->export->update([
                 'status' => 'completed',

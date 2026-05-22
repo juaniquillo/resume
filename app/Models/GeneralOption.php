@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class GeneralOption extends Model
 {
     use InvalidatesResumeCache;
-    
+
     protected $fillable = [
         'user_id',
         'slug',
