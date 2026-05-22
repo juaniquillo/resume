@@ -3,7 +3,7 @@
 namespace App\Presenters\Themes;
 
 use App\Enums\ResumeTheme;
-use App\Models\Theme;
+use App\Models\GeneralOption;
 use App\Models\User;
 use App\Presenters\Contracts\PresenterTheme;
 
@@ -11,14 +11,14 @@ class ThemeFactory
 {
     public static function forUser(User $user): PresenterTheme
     {
-        /** @var ?Theme $themeModel */
-        $themeModel = $user->theme()->first();
+        /** @var ?GeneralOption $options */
+        $options = $user->generalOptions()->first();
 
-        if (! $themeModel || ! $themeModel->theme) {
+        if (! $options || ! $options->theme) {
             return self::make(ResumeTheme::DEFAULT->value);
         }
 
-        return self::make($themeModel->theme);
+        return self::make($options->theme);
     }
 
     public static function make(string $theme): PresenterTheme

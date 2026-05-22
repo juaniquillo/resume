@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ResumeExportType;
 use App\Models\ResumeExport;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,6 +25,7 @@ class ResumeExportFactory extends Factory
             'user_id' => User::factory(),
             'file_path' => $this->faker->filePath(),
             'status' => 'completed',
+            'type' => ResumeExportType::JSON->value,
         ];
     }
 }

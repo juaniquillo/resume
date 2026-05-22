@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Options;
+namespace App\Http\Requests\Resume;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Options\ThemePickerCrud;
+use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
-class ResumeThemeFormRequest extends FormRequest
+class ResumeExportFormRequest extends FormRequest
 {
     private ?InputCollectionInterface $crud = null;
 
@@ -18,7 +18,7 @@ class ResumeThemeFormRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $this->crud = ThemePickerCrud::build()->make();
+        $this->crud = ResumeExportCrud::build()->make();
     }
 
     public function rules(): array

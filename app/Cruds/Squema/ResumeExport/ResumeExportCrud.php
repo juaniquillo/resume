@@ -13,6 +13,7 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Squema\ResumeExport\Inputs\ExportTypeSelectFactory;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -44,12 +45,14 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function inputsArray(): array
     {
-        // No specific inputs needed for starting a JSON export
-        return [];
+        return [
+            'type' => ExportTypeSelectFactory::make(),
+        ];
     }
 
     public function tableOptions(TableRowsAction $action): void
     {
+
         $action->setExtraCell('Status', new TableRowsRecipe(
             value: function ($value, Model $model) {
                 /** @var ResumeExport $export */
@@ -124,10 +127,21 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function formWithButtonOnly(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('type', 'submit')
-            ->setAttribute('variant', 'primary')
-            ->setTheme('cursor', 'pointer')
-            ->setContent(__('Start New JSON Export'));
+        $components = $this->inputs();
+        $divWithButton = ComponentBuilder::make(ComponentEnum::DIV)
+            ->setContent(
+                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('type', 'submit')
+                    ->setAttribute('variant', 'primary')
+                    ->setTheme('cursor', 'pointer')
+                    ->setContent(__('Start New Export'))
+            )
+            ->setThemes([
+                'margin' => 'top-sm',
+            ]);
+
+        return ComponentBuilder::make(ComponentEnum::DIV)
+            ->setContents($components)
+            ->setContent($divWithButton);
     }
 }

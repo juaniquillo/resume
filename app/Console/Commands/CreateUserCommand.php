@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\GeneralOption;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -55,7 +56,7 @@ class CreateUserCommand extends Command
             default: Str::slug($name),
             required: true,
             validate: fn (string $value) => match (true) {
-                User::where('slug', $value)->exists() => 'This slug is already taken.',
+                GeneralOption::where('slug', $value)->exists() => 'This slug is already taken.',
                 default => null,
             }
         );
@@ -73,11 +74,14 @@ class CreateUserCommand extends Command
         $user = User::create([
             'name' => $name,
             'email' => $email,
-            'slug' => $slug,
             'password' => Hash::make($password),
         ]);
 
-        info("User {$user->name} ({$user->email}) created successfully with slug: {$user->slug}");
+        $user->generalOptions()->create([
+            'slug' => $slug,
+        ]);
+
+        info("User {$user->name} ({$user->email}) created successfully with slug: {$slug}");
 
         return self::SUCCESS;
     }

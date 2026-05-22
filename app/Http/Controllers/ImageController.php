@@ -19,6 +19,8 @@ class ImageController extends Controller
             abort(404);
         }
 
-        return Storage::response($basics->image);
+        return Storage::response($basics->image, null, [
+            'Cache-Control' => 'public, max-age=31536000',
+        ]);
     }
 }

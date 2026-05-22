@@ -20,7 +20,7 @@ class ResumeController extends Controller
 
         return view('pages.resume', [
             'user' => $user,
-            'theme' => $theme,
+            'theme' => $presenter->getTheme(),
             'resumeComponent' => $presenter->presentCached(),
         ]);
     }

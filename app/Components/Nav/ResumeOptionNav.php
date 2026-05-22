@@ -33,11 +33,11 @@ class ResumeOptionNav
     {
         return [
             [
-                'name' => 'resume.slug',
-                'label' => 'Update Link',
-                'route' => 'dashboard.resume.slug',
-                'icon' => 'link',
-                'description' => 'Update your resume slug.',
+                'name' => 'resume.general',
+                'label' => 'General Options',
+                'route' => 'dashboard.resume.general',
+                'icon' => 'cog-6-tooth',
+                'description' => 'Update your resume slug and theme.',
             ],
             [
                 'name' => 'resume.visibility',
@@ -45,13 +45,6 @@ class ResumeOptionNav
                 'route' => 'dashboard.resume.visibility',
                 'icon' => 'eye',
                 'description' => 'Enable or disable resume sections.',
-            ],
-            [
-                'name' => 'resume.theme',
-                'label' => 'Choose Theme',
-                'route' => 'dashboard.resume.theme',
-                'icon' => 'swatch',
-                'description' => 'Change your resume layout theme.',
             ],
         ];
     }

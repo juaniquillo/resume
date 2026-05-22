@@ -62,6 +62,11 @@ final class ResumePresenter
             ->setContents(array_filter($sections));
     }
 
+    public function getTheme(): PresenterTheme
+    {
+        return $this->theme;
+    }
+
     public function presentCached(): string
     {
         $key = $this->getCacheKey();
@@ -69,7 +74,7 @@ final class ResumePresenter
         return Cache::rememberForever($key, fn () => (string) $this->present()->toHtml());
     }
 
-    private function getCacheKey(): string
+    public function getCacheKey(): string
     {
         $version = Cache::get("resume:{$this->user->id}:v", 1);
         $themeHash = md5(get_class($this->theme));

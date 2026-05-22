@@ -33,7 +33,6 @@ trait HasHtmlTable
                 model: $model,
                 component: FluxBackendComponent::class,
                 type: FluxComponentEnum::TD,
-                // attributes: ['class' => 'align-top'],
             );
 
             /** Extra cells */

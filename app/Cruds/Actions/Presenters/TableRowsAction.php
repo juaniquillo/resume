@@ -93,6 +93,10 @@ class TableRowsAction extends Action implements ActionInterface
             return $recipeValue($value, $this->model);
         }
 
+        if ($value instanceof BackedEnum) {
+            return $value->value;
+        }
+
         if ($recipeValue) {
             return $recipeValue;
         }

@@ -7,15 +7,17 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
+use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
-final class UserSlugCrud implements CrudForm, CrudInterface
+final class GeneralOptionsCrud implements CrudForm, CrudInterface
 {
     use HasHtmlForm,
         IsCrud;
 
-    public const NAME = 'user_slug';
+    public const NAME = 'general_options';
 
     public function __construct(
         protected array $values = [],
@@ -32,13 +34,15 @@ final class UserSlugCrud implements CrudForm, CrudInterface
         );
     }
 
+    #[Override]
     public function inputsArray(): array
     {
-        /** @var User|null $model */
-        $model = $this->model;
+        /** @var User|null $user */
+        $user = $this->model;
 
         return [
-            'slug' => SlugFactory::make($model?->id),
+            SlugFactory::NAME => SlugFactory::make($user?->id),
+            ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
         ];
     }
 
