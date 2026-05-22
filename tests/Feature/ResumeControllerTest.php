@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('public resume route is accessible by slug', function () {
-    $user = User::factory()->create(['slug' => 'test-slug']);
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['slug' => 'test-slug']);
     Basic::factory()->create(['user_id' => $user->id, 'name' => 'Test User']);
 
     $response = $this->get(route('resume', ['user' => 'test-slug']));

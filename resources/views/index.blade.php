@@ -19,9 +19,11 @@
                 <a href="{{ route('login') }}" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-10 rounded-2xl shadow-lg shadow-sky-600/20 transition duration-300 text-lg">
                     @auth Go to Dashboard @else Start Building @endauth
                 </a>
-                <a href="{{ route('resume', ['user' => 'juaniquillo']) }}" class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-bold py-4 px-10 rounded-2xl transition duration-300 text-lg">
-                    View Demo
-                </a>
+                @if ($demo)
+                    <a href="{{ route('resume', ['user' => $demo]) }}" class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-bold py-4 px-10 rounded-2xl transition duration-300 text-lg">
+                        View Demo
+                    </a>
+                @endif
             </div>
         </div>
     </header>

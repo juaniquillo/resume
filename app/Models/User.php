@@ -16,13 +16,12 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-#[Fillable(['name', 'email', 'password', 'slug'])]
+#[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 /**
  * @property-read int $id
  * @property-read string $name
  * @property-read string $email
- * @property-read string $slug
  * @property-read Carbon|null $email_verified_at
  * @property-read string $password
  * @property-read string|null $remember_token
@@ -36,11 +35,40 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Publication> $publications
  * @property-read Collection<int, Skill> $skills
  * @property-read Collection<int, Project> $projects
+ * @property-read GeneralOption|null $generalOptions
  */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function getRouteKey(): mixed
+    {
+        /** @var GeneralOption|null $options */
+        $options = $this->generalOptions;
+
+        return $options?->slug;
+    }
+
+    public function getSlugAttribute(): ?string
+    {
+        /** @var GeneralOption|null $options */
+        $options = $this->generalOptions;
+
+        return $options?->slug;
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->whereHas('generalOptions', function ($query) use ($value) {
+            $query->where('slug', $value);
+        })->first();
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -142,8 +170,8 @@ class User extends Authenticatable
         return $this->hasOne(SectionVisibility::class);
     }
 
-    public function theme(): HasOne
+    public function generalOptions(): HasOne
     {
-        return $this->hasOne(Theme::class);
+        return $this->hasOne(GeneralOption::class);
     }
 }

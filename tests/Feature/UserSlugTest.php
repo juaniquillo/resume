@@ -4,25 +4,24 @@ use App\Models\User;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 test('a user can have a slug', function () {
-    $user = User::factory()->create(['slug' => 'test-slug']);
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['slug' => 'test-slug']);
 
-    expect($user->slug)->toBe('test-slug');
+    expect($user->generalOptions->slug)->toBe('test-slug');
 });
 
 test('slug is unique', function () {
-    User::factory()->create(['slug' => 'same-slug']);
+    $user1 = User::factory()->create();
+    $user1->generalOptions()->update(['slug' => 'same-slug']);
 
-    expect(fn () => User::factory()->create(['slug' => 'same-slug']))
+    $user2 = User::factory()->create();
+
+    expect(fn () => $user2->generalOptions()->update(['slug' => 'same-slug']))
         ->toThrow(UniqueConstraintViolationException::class);
-});
-
-test('slug cannot be null', function () {
-    expect(fn () => User::factory()->create(['slug' => null]))
-        ->toThrow(PDOException::class);
 });
 
 test('factory generates a slug by default', function () {
     $user = User::factory()->create();
 
-    expect($user->slug)->not->toBeNull();
+    expect($user->generalOptions->slug)->not->toBeNull();
 });

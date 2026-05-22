@@ -3,7 +3,7 @@
 namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Models\User;
+use App\Models\GeneralOption;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -35,8 +35,8 @@ class SlugFactory
                 'alpha_dash:ascii',
                 'max:255',
                 $userId === null
-                    ? Rule::unique(User::class)
-                    : Rule::unique(User::class)->ignore($userId),
+                    ? Rule::unique(GeneralOption::class)
+                    : Rule::unique(GeneralOption::class)->ignore($userId, 'user_id'),
             ]))
         );
     }

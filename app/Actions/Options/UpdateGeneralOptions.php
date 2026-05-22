@@ -4,18 +4,21 @@ namespace App\Actions\Options;
 
 use App\Models\User;
 
-class UpdateUserTheme
+class UpdateGeneralOptions
 {
     public function __construct(
         private User $user,
-        private string $theme
+        private array $data
     ) {}
 
     public function handle(): void
     {
-        $this->user->theme()->updateOrCreate(
+        $this->user->generalOptions()->updateOrCreate(
             ['user_id' => $this->user->id],
-            ['theme' => $this->theme]
+            [
+                'slug' => $this->data['slug'],
+                'theme' => $this->data['theme'],
+            ]
         );
     }
 }

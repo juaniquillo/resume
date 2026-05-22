@@ -14,10 +14,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
-use App\Http\Controllers\Options\ResumeSlugController;
-use App\Http\Controllers\Options\ResumeSlugUpdateController;
-use App\Http\Controllers\Options\ResumeThemeController;
-use App\Http\Controllers\Options\ResumeThemeUpdateController;
+use App\Http\Controllers\Options\GeneralOptionsController;
+use App\Http\Controllers\Options\GeneralOptionsUpdateController;
 use App\Http\Controllers\Options\SectionVisibilityController;
 use App\Http\Controllers\Options\SectionVisibilityUpdateController;
 use App\Http\Controllers\ProjectController;
@@ -201,14 +199,11 @@ Route::middleware(['auth', 'verified'])
         /**
          * Options
          */
-        Route::get('options/slug', ResumeSlugController::class)->name('dashboard.resume.slug');
-        Route::post('options/slug', ResumeSlugUpdateController::class)->name('dashboard.resume.slug.update');
+        Route::get('options/general', GeneralOptionsController::class)->name('dashboard.resume.general');
+        Route::post('options/general', GeneralOptionsUpdateController::class)->name('dashboard.resume.general.update');
 
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
         Route::post('options/visibility', SectionVisibilityUpdateController::class)->name('dashboard.resume.visibility.update');
-
-        Route::get('options/theme', ResumeThemeController::class)->name('dashboard.resume.theme');
-        Route::post('options/theme', ResumeThemeUpdateController::class)->name('dashboard.resume.theme.update');
     });
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');

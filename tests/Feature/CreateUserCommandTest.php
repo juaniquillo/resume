@@ -23,10 +23,13 @@ test('command flow logic creates a user', function () {
     $user = User::create([
         'name' => $name,
         'email' => $email,
-        'slug' => $slug,
         'password' => bcrypt($password),
     ]);
 
-    expect($user->slug)->toBe($slug);
+    $user->generalOptions()->create([
+        'slug' => $slug,
+    ]);
+
+    expect($user->generalOptions->slug)->toBe($slug);
     expect($user->name)->toBe($name);
 });

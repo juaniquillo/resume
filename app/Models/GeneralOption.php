@@ -7,25 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property-read int $id
+ * @property-read int $user_id
+ * @property-read string $slug
  * @property-read string $theme
  */
-class Theme extends Model
+class GeneralOption extends Model
 {
     use InvalidatesResumeCache;
-
+    
     protected $fillable = [
         'user_id',
+        'slug',
         'theme',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    protected function resolveResumeUserId(): ?int
-    {
-        return (int) $this->user_id;
     }
 }

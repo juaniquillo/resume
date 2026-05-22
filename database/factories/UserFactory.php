@@ -27,7 +27,6 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'slug' => fake()->unique()->slug(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -35,6 +34,17 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            if (! $user->generalOptions()->exists()) {
+                $user->generalOptions()->create([
+                    'slug' => fake()->unique()->slug(),
+                ]);
+            }
+        });
     }
 
     /**

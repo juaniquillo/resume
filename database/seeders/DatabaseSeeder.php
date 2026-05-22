@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ResumeTheme;
+use App\Models\GeneralOption;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Victor',
             'email' => 'victor.h.sanchez.nv@gmail.com',
-            'slug' => 'juaniquillo',
             'password' => bcrypt('123456'),
+        ]);
+
+        GeneralOption::where('user_id', $user->id)->first()->update([
+            'slug' => 'juaniquillo',
+            'theme' => ResumeTheme::DEFAULT->value,
         ]);
     }
 }

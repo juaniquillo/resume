@@ -1,6 +1,7 @@
 <?php
 
 use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Enums\ResumeExportType;
 use App\Jobs\ProcessResumeExport;
 use App\Models\Basic;
 use App\Models\Interest;
@@ -33,7 +34,10 @@ test('it can initiate a resume export', function () {
 
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.resume.export.store'), ['_token' => 'test-token'])
+        ->post(route('dashboard.resume.export.store'), [
+            '_token' => 'test-token',
+            'type' => ResumeExportType::JSON->value,
+        ])
         ->assertRedirect()
         ->assertSessionHas('success');
 
@@ -55,6 +59,7 @@ test('the background job generates a valid json file', function () {
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
         'status' => 'pending',
+        'type' => ResumeExportType::JSON->value,
     ]);
 
     $job = new ProcessResumeExport($export);
@@ -150,7 +155,9 @@ test('user cannot have more than 5 resume exports', function () {
     // Create basics so it doesn't fail on missing basics
     Basic::factory()->create(['user_id' => $user->id]);
 
-    $response = $this->actingAs($user)->post(route('dashboard.resume.export.store'));
+    $response = $this->actingAs($user)->post(route('dashboard.resume.export.store'), [
+        'type' => ResumeExportType::JSON->value,
+    ]);
 
     $response->assertRedirect();
     $response->assertSessionHas('error', 'You can only have up to 5 resume exports. Please delete an old one first.');
@@ -166,6 +173,7 @@ test('it can download a completed export', function () {
         'user_id' => $this->user->id,
         'status' => 'completed',
         'file_path' => $filePath,
+        'type' => ResumeExportType::JSON->value,
     ]);
 
     $this->actingAs($this->user)
@@ -193,6 +201,7 @@ test('the background job handles cases with no data correctly', function () {
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
         'status' => 'pending',
+        'type' => ResumeExportType::JSON->value,
     ]);
 
     $job = new ProcessResumeExport($export);
