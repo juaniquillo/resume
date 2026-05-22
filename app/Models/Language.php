@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\LanguageFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -25,6 +26,7 @@ class Language extends Model
 {
     /** @use HasFactory<LanguageFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo

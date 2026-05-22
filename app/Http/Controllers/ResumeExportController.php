@@ -6,6 +6,7 @@ use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use App\Jobs\ProcessResumeExport;
 use App\Models\ResumeExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ResumeExportController extends Controller
 {
@@ -40,6 +41,12 @@ class ResumeExportController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->user()->resumeExports()->count() >= 5) {
+            return redirect()
+                ->back()
+                ->with('error', 'You can only have up to 5 resume exports. Please delete an old one first.');
+        }
+
         $export = ResumeExport::create([
             'user_id' => $request->user()->id,
             'status' => 'pending',
@@ -50,5 +57,20 @@ class ResumeExportController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Resume export started successfully. It will be processed in the background.');
+    }
+
+    public function destroy(Request $request, int $id)
+    {
+        $export = ResumeExport::where('user_id', $request->user()->id)->findOrFail($id);
+
+        if ($export->file_path) {
+            Storage::delete($export->file_path);
+        }
+
+        $export->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Resume export deleted successfully.');
     }
 }

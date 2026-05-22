@@ -76,5 +76,5 @@ it('validates location data', function () {
     $this->actingAs($this->user)
         ->withSession(['_token' => 'test-token'])
         ->post(route('dashboard.basics.location.update'), ['_token' => 'test-token'])
-        ->assertSessionHasErrors(['address', 'postal_code', 'city', 'country_code']);
+        ->assertSessionHasErrors(['city', 'country_code']);
 });

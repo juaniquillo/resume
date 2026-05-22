@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\InterestFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -25,6 +26,7 @@ class Interest extends Model
 {
     /** @use HasFactory<InterestFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
     protected function casts(): array

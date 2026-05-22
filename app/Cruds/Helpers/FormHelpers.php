@@ -3,11 +3,15 @@
 namespace App\Cruds\Helpers;
 
 use App\Components\Builders\FluxComponentBuilder;
+use App\Models\Work;
+use Carbon\CarbonImmutable;
+use Closure;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 class FormHelpers
 {
@@ -31,5 +35,24 @@ class FormHelpers
                 'class' => 'size-4',
             ])
             ->setTheme('display', 'inline-block');
+    }
+
+    public static function dateFormatOutput(): Closure
+    {
+        return function (InputInterface $input, array $values, ?object $model) {
+            $name = $input->getName();
+
+            /** @var ?Work $work */
+            $work = $model;
+
+            if ($model && isset($work->{$name})) {
+                /** @var CarbonImmutable $startsAt */
+                $startsAt = $work->{$name};
+
+                return DateHelpers::formatDateOutput($startsAt);
+            }
+
+            return null;
+        };
     }
 }

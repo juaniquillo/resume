@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Locations\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -25,6 +26,7 @@ class AddressFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -38,7 +40,7 @@ class AddressFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
             ]))
         );
     }
@@ -51,7 +53,6 @@ class AddressFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'badge' => 'required',
                         ])
                 )
         );
@@ -66,5 +67,12 @@ class AddressFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 }

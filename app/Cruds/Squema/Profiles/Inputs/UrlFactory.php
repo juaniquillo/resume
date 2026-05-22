@@ -3,7 +3,11 @@
 namespace App\Cruds\Squema\Profiles\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
+use App\Models\Profile;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -23,6 +27,7 @@ class UrlFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
 
         return $input;
     }
@@ -59,6 +64,17 @@ class UrlFactory
                 callback: function (InputInterface $input, DataContainer $output, $faker) {
                     $output->{ $input->getName() } = $faker->url();
                 }
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (mixed $value, Model|Profile $model) {
+                    return TableHelpers::tableLink($value, __('Visit link'));
+                },
             )
         );
     }

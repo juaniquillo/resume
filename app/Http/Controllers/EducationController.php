@@ -57,7 +57,7 @@ class EducationController extends Controller
         $education = $user?->education()->findOrFail($id);
 
         $crud = EducationCrud::build(
-            values: $request->old() ?: $education->toArray(),
+            values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
             model: $education,
         );

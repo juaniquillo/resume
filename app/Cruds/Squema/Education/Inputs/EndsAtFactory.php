@@ -2,9 +2,12 @@
 
 namespace App\Cruds\Squema\Education\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\FormHelpers;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -18,6 +21,8 @@ class EndsAtFactory
 
     const LABEL = 'Ends At';
 
+    const JSON_KEY = 'endDate';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
@@ -25,14 +30,25 @@ class EndsAtFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
 
-    public static function import(InputInterface $input): void
+    public static function form(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['ends_at', 'endDate']));
+        $input->setRecipe(
+            new InputComponentRecipe(
+                inputValue: FormHelpers::dateFormatOutput(),
+                attributeBag: (new DefaultAttributeBag)
+                    ->setInputAttributes([
+                        'label' => self::LABEL,
+                        'type' => 'month',
+                    ])
+            )
+        );
     }
 
     public static function validation(InputInterface $input): void
@@ -46,20 +62,6 @@ class EndsAtFactory
         );
     }
 
-    public static function form(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new InputComponentRecipe)
-                ->setAttributeBag(
-                    (new DefaultAttributeBag)
-                        ->setInputAttributes([
-                            'label' => self::LABEL,
-                            'type' => 'month',
-                        ])
-                )
-        );
-    }
-
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
@@ -69,5 +71,22 @@ class EndsAtFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        TableHelpers::formatDateOutput($input);
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe(name: [self::NAME, self::JSON_KEY]));
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::JSON_KEY
+        ));
     }
 }

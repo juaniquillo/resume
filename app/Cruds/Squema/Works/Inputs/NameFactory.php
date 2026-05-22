@@ -18,6 +18,8 @@ class NameFactory
 
     const LABEL = 'Name';
 
+    const JSON_KEY = 'company';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
@@ -32,7 +34,7 @@ class NameFactory
 
     public static function import(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['name', 'company']));
+        $input->setRecipe(new NameValueRecipe(name: [self::NAME, self::JSON_KEY]));
     }
 
     public static function validation(InputInterface $input): void

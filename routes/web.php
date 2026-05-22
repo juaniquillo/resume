@@ -14,13 +14,21 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
+use App\Http\Controllers\Options\ResumeSlugController;
+use App\Http\Controllers\Options\ResumeSlugUpdateController;
+use App\Http\Controllers\Options\ResumeThemeController;
+use App\Http\Controllers\Options\ResumeThemeUpdateController;
+use App\Http\Controllers\Options\SectionVisibilityController;
+use App\Http\Controllers\Options\SectionVisibilityUpdateController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
+use App\Http\Controllers\ResumeImportDownloadController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -29,6 +37,8 @@ use App\Http\Controllers\WorkHighlightsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('resume/{user:slug}', ResumeController::class)->name('resume');
 
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
@@ -179,12 +189,26 @@ Route::middleware(['auth', 'verified'])
          */
         Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
         Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
+        Route::delete('resume/import/{id}', [ResumeImportController::class, 'destroy'])->name('dashboard.resume.import.destroy');
+        Route::get('resume/import/{id}/download', ResumeImportDownloadController::class)->name('dashboard.resume.import.download');
 
         Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
         Route::post('resume/export', [ResumeExportController::class, 'store'])->name('dashboard.resume.export.store');
+        Route::delete('resume/export/{id}', [ResumeExportController::class, 'destroy'])->name('dashboard.resume.export.destroy');
 
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
 
+        /**
+         * Options
+         */
+        Route::get('options/slug', ResumeSlugController::class)->name('dashboard.resume.slug');
+        Route::post('options/slug', ResumeSlugUpdateController::class)->name('dashboard.resume.slug.update');
+
+        Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
+        Route::post('options/visibility', SectionVisibilityUpdateController::class)->name('dashboard.resume.visibility.update');
+
+        Route::get('options/theme', ResumeThemeController::class)->name('dashboard.resume.theme');
+        Route::post('options/theme', ResumeThemeUpdateController::class)->name('dashboard.resume.theme.update');
     });
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');

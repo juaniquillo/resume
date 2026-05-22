@@ -21,7 +21,7 @@ class ReferenceFactory extends Factory
         return [
             'uuid' => $this->faker->uuid(),
             'name' => $this->faker->name(),
-            'keywords' => $this->faker->words(3),
+            'reference' => $this->faker->paragraph(),
             'user_id' => User::factory(),
         ];
     }

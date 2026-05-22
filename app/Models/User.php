@@ -126,4 +126,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class);
     }
+
+    public function resumeImports(): HasMany
+    {
+        return $this->hasMany(ResumeImport::class);
+    }
+
+    public function resumeExports(): HasMany
+    {
+        return $this->hasMany(ResumeExport::class);
+    }
+
+    public function sectionVisibility(): HasOne
+    {
+        return $this->hasOne(SectionVisibility::class);
+    }
+
+    public function theme(): HasOne
+    {
+        return $this->hasOne(Theme::class);
+    }
 }

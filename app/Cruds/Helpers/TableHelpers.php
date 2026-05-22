@@ -4,10 +4,14 @@ namespace App\Cruds\Helpers;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use Carbon\CarbonImmutable;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 final class TableHelpers
 {
@@ -16,7 +20,7 @@ final class TableHelpers
         return new self;
     }
 
-    public static function tableModal(int $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
+    public static function tableModal(int|string $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([
@@ -86,5 +90,44 @@ final class TableHelpers
             ->setAttribute('content', $error)
             ->setAttribute('position', $position)
             ->setContent($trigger);
+    }
+
+    public static function tableLink(?string $link, ?string $label = null, string $target = '_blank'): BackendComponent|CompoundComponent|null
+    {
+        if (! $link) {
+            return null;
+        }
+
+        return FluxComponentBuilder::make(FluxComponentEnum::LINK)
+            ->setAttributes([
+                'href' => $link,
+                'target' => $target,
+            ])
+            ->setContent($label ?? $link);
+    }
+
+    public static function nl2br(string $value)
+    {
+        return LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+            ->setContent($value)
+            ->setTheme('text', 'nl2br');
+    }
+
+    public static function emptyValue(string $label = 'N/A'): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+            ->setAttribute('variant', 'light')
+            ->setContent('N/A');
+
+    }
+
+    public static function formatDateOutput(?InputInterface $input): void
+    {
+        $recipe = new TableRowsRecipe(
+            value: fn (CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
+        );
+
+        $input->setRecipe($recipe);
+
     }
 }

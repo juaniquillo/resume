@@ -29,9 +29,10 @@ class ProcessResumeExport implements ShouldQueue
 
         try {
             $user = $this->export->user;
-            $data = (new BuildResumeArray($user))->handle();
+            $resume = (new BuildResumeArray($user))->handle();
 
-            $resume = ResumeFactory::fromArray($data);
+            ResumeFactory::fromArray($resume)->validate();
+
             $json = json_encode($resume, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
             $filename = "resume-export-{$this->export->id}-".now()->timestamp.'.json';

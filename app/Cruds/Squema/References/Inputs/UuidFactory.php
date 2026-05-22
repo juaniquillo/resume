@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\References\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -18,36 +19,14 @@ class UuidFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
-        self::form($input);
-        self::validation($input);
-        self::factory($input);
-        self::table($input);
+        $input->setRecipe((new InputComponentRecipe)->ignore());
+
+        $input->setRecipe((new LaravelFactoryRecipe)->ignore());
+
+        $input->setRecipe((new TableRowsRecipe)->ignore());
+
+        $input->setRecipe((new ModelToExportRecipe)->ignore());
 
         return $input;
-    }
-
-    public static function table(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new TableRowsRecipe)
-                ->ignore()
-        );
-    }
-
-    public static function validation(InputInterface $input): void {}
-
-    public static function form(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new InputComponentRecipe)
-                ->ignore()
-        );
-    }
-
-    public static function factory(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new LaravelFactoryRecipe)->ignore()
-        );
     }
 }

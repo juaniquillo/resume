@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Squema\Locations\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -25,6 +26,7 @@ class CityFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -66,5 +68,12 @@ class CityFactory
                 }
             )
         );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 }

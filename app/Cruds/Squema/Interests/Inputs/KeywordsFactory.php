@@ -4,14 +4,18 @@ namespace App\Cruds\Squema\Interests\Inputs;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Models\Interest;
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -26,10 +30,12 @@ class KeywordsFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
-        self::validation($input);
         self::form($input);
+        self::validation($input);
+        self::factory($input);
         self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
@@ -39,7 +45,15 @@ class KeywordsFactory
         $input->setRecipe(new NameValueRecipe(
             callback: fn (array $values) => isset($values['keywords'])
                 ? (is_array($values['keywords']) ? implode(', ', $values['keywords']) : $values['keywords'])
-                : null
+                : null,
+        ));
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME,
+            callback: fn ($value) => is_string($value) ? array_map('trim', explode(',', $value)) : $value
         ));
     }
 
@@ -65,6 +79,17 @@ class KeywordsFactory
                     'nullable',
                     'array',
                 ]
+            )
+        );
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{ $input->getName() } = $faker->words(3);
+                }
             )
         );
     }

@@ -2,9 +2,12 @@
 
 namespace App\Cruds\Squema\Volunteers\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\FormHelpers;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -18,6 +21,8 @@ class StartsAtFactory
 
     const LABEL = 'Starts At';
 
+    const JSON_KEY = 'startDate';
+
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
@@ -25,14 +30,16 @@ class StartsAtFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
         self::import($input);
+        self::export($input);
 
         return $input;
     }
 
     public static function import(InputInterface $input): void
     {
-        $input->setRecipe(new NameValueRecipe(name: ['starts_at', 'startDate']));
+        $input->setRecipe(new NameValueRecipe(name: [self::NAME, self::JSON_KEY]));
     }
 
     public static function validation(InputInterface $input): void
@@ -48,15 +55,15 @@ class StartsAtFactory
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
-            (new InputComponentRecipe)
-                ->setAttributeBag(
-                    (new DefaultAttributeBag)
-                        ->setInputAttributes([
-                            'label' => self::LABEL,
-                            'badge' => 'required',
-                            'type' => 'month',
-                        ])
-                )
+            new InputComponentRecipe(
+                inputValue: FormHelpers::dateFormatOutput(),
+                attributeBag: (new DefaultAttributeBag)
+                    ->setInputAttributes([
+                        'label' => self::LABEL,
+                        'badge' => 'required',
+                        'type' => 'month',
+                    ])
+            )
         );
     }
 
@@ -69,5 +76,17 @@ class StartsAtFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        TableHelpers::formatDateOutput($input);
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::JSON_KEY
+        ));
     }
 }

@@ -79,4 +79,22 @@ enum Network: string
             self::STARFLEET_DATABASE => 'cyan',
         };
     }
+
+    public function icon(): string
+    {
+        return match ($this) {
+            self::GITHUB, self::GITLAB, self::BITBUCKET => 'code-bracket',
+            self::TWITTER, self::LINKEDIN, self::FACEBOOK, self::INSTAGRAM, self::TIKTOK, self::REDDIT, self::MASTODON, self::BLUESKY => 'users',
+            self::YOUTUBE, self::VIMEO => 'play',
+            self::STACK_OVERFLOW, self::QUORA => 'question-mark-circle',
+            self::PERSONAL_WEBSITE => 'globe-alt',
+            self::DISCORD, self::WHATSAPP, self::WHATSAPP_BUSINESS, self::TELEGRAM, self::SLACK, self::SIGNAL, self::WECHAT, self::LINE, self::VIBER, self::SKYPE => 'chat-bubble-left-right',
+            self::SNAPCHAT => 'camera',
+            self::PINTEREST => 'bookmark',
+            self::TUMBLR, self::MEDIUM => 'document-text',
+            self::DRIBBBLE, self::BEHANCE, self::FLICKR => 'photo',
+            self::CLUBHOUSE => 'microphone',
+            self::STARFLEET_DATABASE => 'command-line',
+        };
+    }
 }

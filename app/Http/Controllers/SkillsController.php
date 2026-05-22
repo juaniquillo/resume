@@ -61,7 +61,7 @@ class SkillsController extends Controller
         $skill = $user->skills()->findOrFail($id);
 
         $crud = SkillsCrud::build(
-            values: $request->old() ?: $skill->toArray(),
+            values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
             model: $skill,
         );

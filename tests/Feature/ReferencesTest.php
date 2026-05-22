@@ -37,7 +37,7 @@ it('renders the references table when records exist', function () {
 it('stores a new reference record', function () {
     $data = [
         'name' => 'Jane Smith',
-        'keywords' => 'mentor, colleague, manager',
+        'reference' => 'This is a test reference text.',
     ];
 
     $this->actingAs($this->user)
@@ -49,10 +49,8 @@ it('stores a new reference record', function () {
     $this->assertDatabaseHas('references', [
         'user_id' => $this->user->id,
         'name' => 'Jane Smith',
+        'reference' => 'This is a test reference text.',
     ]);
-
-    $reference = Reference::where('name', 'Jane Smith')->first();
-    expect($reference->keywords)->toBe(['mentor', 'colleague', 'manager']);
 });
 
 it('validates reference data', function () {
@@ -82,7 +80,7 @@ it('updates an existing reference record', function () {
 
     $data = [
         'name' => 'New Name',
-        'keywords' => 'updated, info',
+        'reference' => 'Updated reference text.',
     ];
 
     $this->actingAs($this->user)
@@ -94,10 +92,8 @@ it('updates an existing reference record', function () {
     $this->assertDatabaseHas('references', [
         'id' => $reference->id,
         'name' => 'New Name',
+        'reference' => 'Updated reference text.',
     ]);
-
-    $updatedReference = Reference::find($reference->id);
-    expect($updatedReference->keywords)->toBe(['updated', 'info']);
 });
 
 it('deletes a reference record', function () {

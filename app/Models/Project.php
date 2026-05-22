@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasHighlights;
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -16,7 +17,7 @@ use Illuminate\Support\Carbon;
  * @property-read string $uuid
  * @property-read string $name
  * @property-read Carbon $start_date
- * @property-read Carbon $end_date
+ * @property-read Carbon|null $end_date
  * @property-read string|null $url
  * @property-read string|null $description
  * @property-read string $user_id
@@ -29,10 +30,19 @@ class Project extends Model
     /** @use HasFactory<ProjectFactory> */
     use HasFactory,
         HasHighlights,
+        InvalidatesResumeCache,
         Uuidable;
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'datetime',
+            'end_date' => 'datetime',
+        ];
     }
 }

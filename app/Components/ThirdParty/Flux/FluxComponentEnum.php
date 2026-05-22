@@ -20,6 +20,10 @@ enum FluxComponentEnum: string
     case TEXTAREA = 'textarea';
     case SELECT = 'select';
     case OPTION = 'select.option';
+    case SWITCH = 'switch';
+    case CHECKBOX = 'checkbox';
+    case CHECKBOX_GROUP = 'checkbox.group';
+    case RADIO = 'radio';
 
     // tables
     case TABLE = 'table';

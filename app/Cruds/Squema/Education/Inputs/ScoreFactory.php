@@ -2,9 +2,12 @@
 
 namespace App\Cruds\Squema\Education\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -26,6 +29,8 @@ class ScoreFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+        self::table($input);
+        self::export($input);
 
         return $input;
     }
@@ -66,5 +71,23 @@ class ScoreFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (mixed $value) {
+                    return $value ?? TableHelpers::emptyValue();
+                },
+            )
+        );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Cruds\Squema\Publications\Inputs;
 
+use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
-use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
@@ -20,40 +19,14 @@ class UuidFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
-        self::form($input);
-        self::validation($input);
-        self::factory($input);
-        self::table($input);
+        $input->setRecipe((new InputComponentRecipe)->ignore());
+
+        $input->setRecipe((new LaravelFactoryRecipe)->ignore());
+
+        $input->setRecipe((new TableRowsRecipe)->ignore());
+
+        $input->setRecipe((new ModelToExportRecipe)->ignore());
 
         return $input;
-    }
-
-    public static function table(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new TableRowsRecipe)
-                ->ignore()
-        );
-    }
-
-    public static function validation(InputInterface $input): void {}
-
-    public static function form(InputInterface $input): void
-    {
-        $input->setRecipe(
-            (new InputComponentRecipe)
-                ->ignore()
-        );
-    }
-
-    public static function factory(InputInterface $input): void
-    {
-        $input->setRecipe(
-            new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->uuid();
-                }
-            )
-        );
     }
 }

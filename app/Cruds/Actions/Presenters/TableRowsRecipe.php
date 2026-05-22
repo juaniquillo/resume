@@ -10,6 +10,7 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\CrudAssistant\Concerns\IsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\RecipeInterface;
+use Stringable;
 
 class TableRowsRecipe implements RecipeInterface
 {
@@ -17,7 +18,7 @@ class TableRowsRecipe implements RecipeInterface
 
     public function __construct(
         public readonly ?string $label = null,
-        /** @var string|Closure(string|array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
+        /** @var string|Closure(Stringable||array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
         public readonly string|Closure|null $value = null,
         public readonly ?ThemeManager $themeManager = null,
         public readonly array $themes = [],

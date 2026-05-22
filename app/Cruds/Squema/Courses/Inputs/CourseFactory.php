@@ -30,13 +30,13 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class CourseFactory
 {
-    const NAME = 'courses';
+    const NAME = 'course';
 
-    const LABEL = 'Courses';
+    const LABEL = 'Course name';
 
     public static function make(): InputInterface
     {
-        $input = new DefaultInput('course', 'Course');
+        $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
         self::validation($input);

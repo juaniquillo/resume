@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ReferenceFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -14,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read string $name
- * @property-read array|null $keywords
+ * @property-read string|null $reference
  * @property-read string $user_id
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
@@ -25,14 +26,8 @@ class Reference extends Model
 {
     /** @use HasFactory<ReferenceFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
-
-    protected function casts(): array
-    {
-        return [
-            'keywords' => 'array',
-        ];
-    }
 
     public function user(): BelongsTo
     {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\LocationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -13,24 +14,30 @@ use Illuminate\Support\Carbon;
 /**
  * @property-read int $id
  * @property-read string $basic_id
- * @property-read string $address
- * @property-read string $postalCode
+ * @property-read string|null $address
+ * @property-read string|null $postalCode
  * @property-read string $city
  * @property-read string $countryCode
  * @property-read string $region
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
- * @property-read Basic $basics
+ * @property-read Basic $basic
  */
 #[Guarded([])]
 class Location extends Model
 {
     /** @use HasFactory<LocationFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
 
-    public function basics(): BelongsTo
+    public function basic(): BelongsTo
     {
         return $this->belongsTo(Basic::class);
+    }
+
+    public function resolveResumeUserId(): ?int
+    {
+        return (int) ($this->basic->user_id ?? null);
     }
 }

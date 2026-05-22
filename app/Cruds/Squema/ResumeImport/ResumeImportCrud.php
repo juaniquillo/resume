@@ -16,8 +16,11 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -49,6 +52,21 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function tableOptions(TableRowsAction $action): void
     {
+        $action->setExtraCell('Resume JSON File', new TableRowsRecipe(
+            value: function ($value, Model $model) {
+                /** @var ResumeImport $import */
+                $import = $model;
+
+                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
+                    ->setContent($import->file_name)
+                    ->setAttribute('variant', 'ghost')
+                    ->setAttribute('size', 'sm')
+                    ->setAttribute('icon', 'document-arrow-down')
+                    ->setTheme('cursor', 'pointer');
+            }
+        ));
+
         $action->setExtraCell('Status', new TableRowsRecipe(
             value: function ($value, Model $model) {
                 /** @var ResumeImport $import */
@@ -69,10 +87,6 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     ])
                     ->setContent(ucfirst($import->status));
 
-                if ($import->status === 'failed' && $import->error) {
-                    return TableHelpers::errorTooltip($import->error, $badge);
-                }
-
                 return $badge;
             }
         ));
@@ -89,18 +103,29 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var ResumeImport $import */
                 $import = $model;
 
-                if ($import->status === 'failed' && $import->error) {
-                    $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('size', 'xs')
-                        ->setAttribute('variant', 'danger')
-                        ->setAttribute('icon', 'information-circle')
-                        ->setTheme('cursor', 'help')
-                        ->setContent('Error Info');
+                $contents = [];
 
-                    return TableHelpers::errorTooltip($import->error, $button, 'left');
+                if ($import->status === 'failed' && $import->error) {
+                    $contents[] = TableHelpers::tableModal(
+                        id: "error-modal-{$import->id}",
+                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                            ->setContent($import->error)
+                            ->setTheme('spacing', 'p-top-sm')
+                            ->setTheme('text', 'nl2br'),
+                        heading: 'Import Error Details',
+                        triggerType: 'danger',
+                        buttonLabel: 'Error Info'
+                    );
                 }
 
-                return '';
+                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+
+                return ComponentBuilder::make(ComponentEnum::DIV)
+                    ->setContents($contents)
+                    ->setThemes([
+                        'display' => 'flex',
+                        'flex' => ['gap-sm'],
+                    ]);
             }
         ));
     }

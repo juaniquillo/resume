@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\PublicationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -14,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read string $name
- * @property-read string $date
+ * @property-read Carbon $date
  * @property-read string $issuer
  * @property-read string|null $url
  * @property-read string $user_id
@@ -27,7 +28,15 @@ class Publication extends Model
 {
     /** @use HasFactory<PublicationFactory> */
     use HasFactory,
+        InvalidatesResumeCache,
         Uuidable;
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function user(): BelongsTo
     {

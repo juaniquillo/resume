@@ -68,6 +68,7 @@ test('it processes a resume json and creates database records', function () {
     $import = ResumeImport::create([
         'user_id' => $user->id,
         'file_path' => $filePath,
+        'file_name' => 'resume.json',
         'status' => 'pending',
     ]);
 

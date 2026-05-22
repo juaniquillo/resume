@@ -371,10 +371,6 @@ class ProcessResumeImport implements ShouldQueue
             $mapped = $referenceInputs->execute(new NameValueAction($refData))
                 ->toArray();
 
-            if (isset($mapped['keywords'])) {
-                $mapped['keywords'] = RequestUtils::commaSeparatedToArray($mapped['keywords']);
-            }
-
             $validated = $this->validate($mapped, $referenceRules);
 
             (new CreateReference($validated, $user))->handle();

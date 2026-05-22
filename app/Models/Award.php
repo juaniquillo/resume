@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\AwardFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -24,5 +26,17 @@ use Illuminate\Support\Carbon;
 class Award extends Model
 {
     /** @use HasFactory<AwardFactory> */
-    use HasFactory, Uuidable;
+    use HasFactory, InvalidatesResumeCache, Uuidable;
+
+    protected function casts(): array
+    {
+        return [
+            'awarded_at' => 'date',
+        ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

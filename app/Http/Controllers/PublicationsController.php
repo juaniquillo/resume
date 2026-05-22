@@ -61,7 +61,7 @@ class PublicationsController extends Controller
         $publication = $user->publications()->findOrFail($id);
 
         $crud = PublicationsCrud::build(
-            values: $request->old() ?: $publication->toArray(),
+            values: $request->old(),
             errors: $request->session()->get('errors')?->toArray() ?? [],
             model: $publication,
         );

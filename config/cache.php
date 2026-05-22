@@ -4,6 +4,10 @@ use Illuminate\Support\Str;
 
 return [
 
+    'resume' => [
+        'disable_cache' => env('RESUME_DISABLE_CACHE', false),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Default Cache Store
