@@ -77,7 +77,7 @@ trait HasHtmlForm
             $inputs[$name] = $this->spanFullContainer([$input], $index);
         }
 
-        return $this->form(
+        return $this->composeForm(
             inputs: $inputs,
         );
     }
