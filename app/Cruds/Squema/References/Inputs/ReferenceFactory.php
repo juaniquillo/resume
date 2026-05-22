@@ -11,7 +11,7 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Reference;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -87,24 +87,19 @@ class ReferenceFactory
         $input->setRecipe(
             new TableRowsRecipe(
                 value: function (?string $value, Model $model) {
+                    
+                    if ($value === null) {
+                        return TableHelpers::emptyValue();
+                    }
+
                     /** @var Reference $reference */
                     $reference = $model;
 
-                    if (! $value) {
-                        return '—';
-                    }
+                    $content = ComponentBuilder::make(ComponentEnum::DIV)
+                        ->setContent($value)
+                        ->setTheme('margin', 'top-sm');
 
-                    $id = $reference->id;
-
-                    return TableHelpers::tableModal(
-                        id: "reference_{$id}",
-                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
-                            ->setContent($value)
-                            ->setTheme('spacing', 'm-top-sm')
-                            ->setTheme('text', 'nl2br'),
-                        heading: 'Reference Text',
-                        buttonLabel: 'View Reference'
-                    );
+                    return TableHelpers::tableModal($reference->id, $content, 'Reference', 'ghost');
                 }
             )
         );
