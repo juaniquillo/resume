@@ -78,7 +78,7 @@ class UrlFactory
             )
         );
     }
-    
+
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(

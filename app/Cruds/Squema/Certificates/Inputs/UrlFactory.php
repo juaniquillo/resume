@@ -78,6 +78,7 @@ class UrlFactory
             )
         );
     }
+
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
@@ -88,7 +89,7 @@ class UrlFactory
             )
         );
     }
-    
+
     public static function export(InputInterface $input): void
     {
         $input->setRecipe(new ModelToExportRecipe(
