@@ -7,6 +7,7 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ResumeExportType;
+use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
@@ -19,6 +20,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Stringable;
 
 use function Juaniquillo\BackendComponents\isBackedEnum;
 
@@ -77,15 +79,21 @@ class ExportTypeSelectFactory
         $input->setRecipe(
             new TableRowsRecipe(
                 label: 'Type',
-                /** @var ResumeExportType|string|null */
-                value: function (ResumeExportType|string|null $value, Model $model) {
+                value: function (Stringable|BackedEnum|string|array|null $value, Model $model) {
 
                     if ($value === null) {
                         return TableHelpers::emptyValue();
                     }
 
                     if (isBackedEnum($value)) {
-                        return TableHelpers::badge($value->label(), $value->color());
+                        /** @var ResumeExportType $enum */
+                        $enum = $value;
+
+                        return TableHelpers::badge($enum->label(), $enum->color());
+                    }
+
+                    if (is_array($value)) {
+                        return implode(', ', $value);
                     }
 
                     return $value;

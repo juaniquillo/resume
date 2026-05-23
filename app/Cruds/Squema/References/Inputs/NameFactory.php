@@ -5,13 +5,18 @@ namespace App\Cruds\Squema\References\Inputs;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Stringable;
 
 class NameFactory
 {
@@ -26,6 +31,7 @@ class NameFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
         self::import($input);
         self::export($input);
 
@@ -68,6 +74,17 @@ class NameFactory
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
                     $output->{ $input->getName() } = $faker->name;
+                }
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (Stringable|string|array|null $value): string|BackendComponent|CompoundComponent {
+                    return TableHelpers::nl2br($value);
                 }
             )
         );

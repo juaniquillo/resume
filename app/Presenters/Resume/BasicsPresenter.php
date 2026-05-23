@@ -28,20 +28,20 @@ final class BasicsPresenter
             return null;
         }
 
+        $image = $this->basics->image ?? null;
+
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
-            ->setContents([
-                'image' => $this->compose(ComponentEnum::SPAN)
+            ->setContents(array_filter([
+                'image' => $image ? $this->compose(ComponentEnum::SPAN)
                     ->setContent(
-                        $this->basics->image
-                        ? $this->compose(ComponentEnum::IMG)
+                        $this->compose(ComponentEnum::IMG)
                             ->setThemes($this->theme->imageThemes())
                             ->setAttributes([
                                 'src' => route('image.serve', $this->basics->uuid),
                                 'alt' => $this->basics->name,
                             ])
-                        : null,
-                    ),
+                    ) : null,
                 'name' => $this->compose(ComponentEnum::H1)
                     ->setThemes($this->theme->nameThemes())
                     ->setContent($this->basics->name),
@@ -51,7 +51,7 @@ final class BasicsPresenter
                 'contact' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->contactContainerThemes())
                     ->setContents($this->basicsContactItems($this->basics)),
-            ]);
+            ]));
     }
 
     /**

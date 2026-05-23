@@ -19,7 +19,7 @@ class TableRowsRecipe implements RecipeInterface
 
     public function __construct(
         public readonly ?string $label = null,
-        /** @var string|Closure(Stringable||array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
+        /** @var string|Closure(Stringable|BackedEnum|string|array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
         public readonly string|Closure|null $value = null,
         public readonly ?ThemeManager $themeManager = null,
         public readonly array $themes = [],

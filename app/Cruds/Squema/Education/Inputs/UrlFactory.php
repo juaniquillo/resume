@@ -33,8 +33,8 @@ class UrlFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
-        self::export($input);
         self::table($input);
+        self::export($input);
 
         return $input;
     }

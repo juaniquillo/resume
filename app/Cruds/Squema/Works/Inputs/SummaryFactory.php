@@ -12,8 +12,6 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Models\Work;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -90,18 +88,10 @@ class SummaryFactory
             new TableRowsRecipe(
                 value: function ($value, Model $model) {
 
-                    if (! $value) {
-                        return TableHelpers::emptyValue();
-                    }
-
                     /** @var Work $work */
                     $work = $model;
-                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                        ->setContent($value)
-                        ->setTheme('spacing', 'm-top-sm')
-                        ->setTheme('text', 'nl2br');
 
-                    return TableHelpers::tableModal($work->id, $modalContent, SummaryFactory::LABEL, 'ghost');
+                    return TableHelpers::summaryModal($value, $work->id, self::LABEL);
                 }
             )
         );

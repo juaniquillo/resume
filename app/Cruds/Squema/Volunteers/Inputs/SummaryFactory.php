@@ -12,8 +12,6 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Models\Volunteer;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -89,19 +87,11 @@ class SummaryFactory
         $input->setRecipe(
             new TableRowsRecipe(
                 value: function (string|array|null $value, Model $model) {
-                    $value = $value ?? 'N/A';
 
                     /** @var Volunteer $volunteer */
                     $volunteer = $model;
 
-                    return TableHelpers::tableModal(
-                        id: "summary-{$volunteer->id}",
-                        triggerType: 'ghost',
-                        heading: self::LABEL,
-                        content: ComponentBuilder::make(ComponentEnum::DIV)
-                            ->setContent($value)
-                            ->setTheme('margin', 'top-sm')
-                    );
+                    return TableHelpers::summaryModal($value, $volunteer->id, self::LABEL);
                 }
             )
         );
