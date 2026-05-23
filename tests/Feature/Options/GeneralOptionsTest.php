@@ -87,3 +87,21 @@ test('slug must follow alpha-dash format', function () {
     expect($errors)->toHaveKey('slug');
     expect($user->fresh()->generalOptions->slug)->toBe('old-slug');
 });
+
+test('authenticated user can update draft mode', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['is_draft' => false]);
+
+    $this->withoutMiddleware()
+        ->actingAs($user)
+        ->post(route('dashboard.resume.general.update'), [
+            'slug' => 'test-slug',
+            'theme' => ResumeTheme::DEFAULT->value,
+            'is_draft' => '1',
+        ])
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $options = $user->fresh()->generalOptions;
+    expect((string) $options->is_draft)->toBe('1');
+});

@@ -23,3 +23,15 @@ test('resume route returns 404 for non-existent slug', function () {
 
     $response->assertStatus(404);
 });
+
+test('resume is unavailable for public when draft', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['slug' => 'draft-slug', 'is_draft' => true]);
+    Basic::factory()->create(['user_id' => $user->id, 'name' => 'Draft User']);
+
+    $response = $this->get(route('resume', ['user' => 'draft-slug']));
+
+    $response->assertStatus(403);
+    $response->assertViewIs('pages.resume-draft');
+    $response->assertSee('Resume Unavailable');
+});

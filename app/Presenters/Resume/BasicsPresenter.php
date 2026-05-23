@@ -29,6 +29,7 @@ final class BasicsPresenter
         }
 
         $image = $this->basics->image ?? null;
+        $imageUrl = $image ? route('image.serve', $this->basics->uuid) . '?v=' . ($this->basics->updated_at?->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
@@ -38,7 +39,7 @@ final class BasicsPresenter
                         $this->compose(ComponentEnum::IMG)
                             ->setThemes($this->theme->imageThemes())
                             ->setAttributes([
-                                'src' => route('image.serve', $this->basics->uuid),
+                                'src' => $imageUrl,
                                 'alt' => $this->basics->name,
                             ])
                     ) : null,
@@ -161,8 +162,8 @@ final class BasicsPresenter
                             'style' => sprintf(
                                 '--brand-color: #%s; background-color: var(--brand-color); mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
                                 $enum ? $enum->hex() : '000000',
-                                asset("images/networks/" . ($enum ? $enum->slug() : 'globe-alt') . ".svg"),
-                                asset("images/networks/" . ($enum ? $enum->slug() : 'globe-alt') . ".svg")
+                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg'),
+                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg')
                             ),
                             'title' => $network,
                         ]),

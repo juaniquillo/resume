@@ -41,6 +41,16 @@
                 </flux:tooltip>
             </flux:navbar>
 
+            <flux:modal.trigger name="resume-preview">
+                <flux:button variant="primary" icon="eye">
+                    {{ __('Preview') }}
+                </flux:button>
+            </flux:modal.trigger>
+
+            <flux:modal name="resume-preview" variant="flyout" class="w-full max-w-6xl">
+                <livewire:resume-preview />
+            </flux:modal>
+
             <x-desktop-user-menu />
         </flux:header>
 

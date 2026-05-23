@@ -9,7 +9,6 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
-use App\Models\GeneralOption;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
@@ -44,5 +43,4 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             IsDraftFactory::NAME => IsDraftFactory::make(),
         ];
     }
-
 }

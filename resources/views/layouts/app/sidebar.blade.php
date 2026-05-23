@@ -15,8 +15,17 @@
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                
+                <flux:modal.trigger name="resume-preview">
+                    <flux:button variant="primary" icon="eye" size="sm" class="ml-auto" />
+                </flux:modal.trigger>
+
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
+            
+            <flux:modal name="resume-preview" variant="flyout" class="w-full max-w-6xl">
+                <livewire:resume-preview />
+            </flux:modal>
 
             <flux:sidebar.nav>
                 

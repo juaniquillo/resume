@@ -17,9 +17,9 @@
             </div>
 
             <div class="pt-4">
-                <flux:button href="{{ route('home') }}" variant="primary">
+                <a href="{{ route('home') }}" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-10 rounded-2xl shadow-lg shadow-sky-600/20 transition duration-300 text-lg">
                     Return Home
-                </flux:button>
+                </a>
             </div>
         </div>
     </div>
