@@ -23,9 +23,10 @@
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
             
-            <flux:modal name="resume-preview" variant="flyout" class="w-full max-w-6xl">
-                <livewire:resume-preview />
+            <flux:modal name="resume-preview" variant="flyout" class="w-full h-full p-0!">
+                <iframe src="{{ route('dashboard.resume.preview') }}" class="w-full h-full border-0"></iframe>
             </flux:modal>
+
 
             <flux:sidebar.nav>
                 

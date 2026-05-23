@@ -1,24 +1,28 @@
 @props([
-    'isPdf' => false,
+    'minimalView' => false,
+    'showThemeToggle' => false,
 ])
 <x-layouts.guest
     :title="($user->name ?? 'User') . ' - Resume'"
     :assets="['resources/css/resume.css', 'resources/js/resume.js']"
     :theme="$theme"
-    :is-pdf="$isPdf"
+    :is-pdf="$minimalView"
 >
-    @if(! $isPdf)
+    @if(! $minimalView)
         <x-slot:nav>
             <x-nav.resume />
         </x-slot:nav>
     @endif
 
     <div class="container mx-auto">
+        @if($showThemeToggle)
+            @include('partials.theme-toggle-standalone')
+        @endif
         <main>
             {!! $resumeComponent !!}
         </main>
 
-        @if(! $isPdf)
+        @if(! $minimalView)
             <x-slot:footer>
                 <x-footer :user="$user" />
             </x-slot:footer>

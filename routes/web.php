@@ -27,6 +27,7 @@ use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
+use App\Http\Controllers\ResumePreviewController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -195,6 +196,7 @@ Route::middleware(['auth', 'verified'])
         Route::delete('resume/export/{id}', [ResumeExportController::class, 'destroy'])->name('dashboard.resume.export.destroy');
 
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
+        Route::get('resume/preview', ResumePreviewController::class)->name('dashboard.resume.preview');
 
         /**
          * Options

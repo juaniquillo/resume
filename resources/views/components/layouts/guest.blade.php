@@ -4,10 +4,10 @@
     'nav' => null,
     'footer' => null,
     'theme' => null,
-    'isPdf' => false,
+    'minimalView' => false,
 ])
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth @if($isPdf) light @endif">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth @if($minimalView) light @endif">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
     {{-- Vite Assets --}}
     @vite($assets)
 
-    @if(! $isPdf)
+    @if(! $minimalView)
     <script>
         const htmlElement = document.documentElement;
 
@@ -45,7 +45,7 @@
             font-family: {!! $theme ? $theme->fontFamily() : "'Space Mono', monospace" !!};
         }
 
-        @if($isPdf)
+        @if($minimalView)
         html {
             -webkit-print-color-adjust: exact;
         }

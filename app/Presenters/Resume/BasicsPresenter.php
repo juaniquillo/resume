@@ -29,7 +29,7 @@ final class BasicsPresenter
         }
 
         $image = $this->basics->image ?? null;
-        $imageUrl = $image ? route('image.serve', $this->basics->uuid) . '?v=' . ($this->basics->updated_at?->timestamp ?? now()->timestamp) : null;
+        $imageUrl = $image ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
