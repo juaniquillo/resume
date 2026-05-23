@@ -87,7 +87,7 @@ class SummaryFactory
         $input->setRecipe(
             new TableRowsRecipe(
                 value: function (string|array|null $value, Model $model) {
-                    
+
                     /** @var Volunteer $volunteer */
                     $volunteer = $model;
 

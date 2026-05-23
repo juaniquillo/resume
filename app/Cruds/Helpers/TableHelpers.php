@@ -59,6 +59,7 @@ final class TableHelpers
         if (is_array($value)) {
             $value = implode(', ', $value);
         }
+
         return TableHelpers::tableModal(
             id: "summary-{$id}",
             triggerType: 'ghost',
