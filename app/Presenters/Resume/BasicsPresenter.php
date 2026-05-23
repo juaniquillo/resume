@@ -35,6 +35,7 @@ final class BasicsPresenter
             ->setThemes($this->theme->basicsContainerThemes())
             ->setContents(array_filter([
                 'image' => $image ? $this->compose(ComponentEnum::SPAN)
+                    ->setThemes($this->theme->imageContainerThemes())
                     ->setContent(
                         $this->compose(ComponentEnum::IMG)
                             ->setThemes($this->theme->imageThemes())

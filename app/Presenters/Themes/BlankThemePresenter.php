@@ -4,7 +4,7 @@ namespace App\Presenters\Themes;
 
 use App\Presenters\Contracts\PresenterTheme;
 
-final class TailwindPresenterTheme implements PresenterTheme
+final class BlankThemePresenter implements PresenterTheme
 {
     public function containerThemes(): array
     {
@@ -127,6 +127,11 @@ final class TailwindPresenterTheme implements PresenterTheme
     }
 
     public function listThemes(): array
+    {
+        return [];
+    }
+
+    public function imageContainerThemes(): array
     {
         return [];
     }

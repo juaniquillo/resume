@@ -132,6 +132,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function imageContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function imageThemes(): array;
 
     /**

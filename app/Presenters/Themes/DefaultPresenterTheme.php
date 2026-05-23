@@ -181,6 +181,11 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function imageContainerThemes(): array
+    {
+        return [];
+    }
+
     public function imageThemes(): array
     {
         return [
