@@ -6,8 +6,14 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\TableHelpers;
+use App\Models\Award;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -28,6 +34,7 @@ class SummaryFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
         self::import($input);
         self::export($input);
 
@@ -76,7 +83,22 @@ class SummaryFactory
             )
         );
     }
+    
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (string|array|null $value, Model $model) {
+                    
+                    /** @var Award $award */
+                    $award = $model;
 
+                    return TableHelpers::summaryModal($value, $award->id, self::LABEL);
+                }
+            )
+        );
+    }
+    
     public static function export(InputInterface $input): void
     {
         $input->setRecipe(new ModelToExportRecipe(

@@ -5,6 +5,7 @@ namespace App\Cruds\Helpers;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use BackedEnum;
 use Carbon\CarbonImmutable;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
@@ -12,6 +13,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Stringable;
 
 final class TableHelpers
 {
@@ -42,6 +44,29 @@ final class TableHelpers
                         $content,
                     ]),
             ]);
+    }
+
+    public static function summaryModal(Stringable|BackedEnum|string|array|null $value, int $id, string $label): BackendComponent|CompoundComponent
+    {
+        if ($value === null) {
+            return TableHelpers::emptyValue();
+        }
+
+        if ($value instanceof BackedEnum) {
+            $value = $value->value;
+        }
+
+        if (is_array($value)) {
+            $value = implode(', ', $value);
+        }
+        return TableHelpers::tableModal(
+            id: "summary-{$id}",
+            triggerType: 'ghost',
+            heading: $label,
+            content: ComponentBuilder::make(ComponentEnum::DIV)
+                ->setContent($value)
+                ->setTheme('margin', 'top-sm')
+        );
     }
 
     public static function editButton(string $route): BackendComponent|CompoundComponent
