@@ -216,6 +216,13 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function socialBadgeThemes(): array
+    {
+        return [
+            'default' => 'social-badge',
+        ];
+    }
+
     public function dateThemes(): array
     {
         return [

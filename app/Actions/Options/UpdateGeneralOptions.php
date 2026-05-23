@@ -18,6 +18,7 @@ class UpdateGeneralOptions
             [
                 'slug' => $this->data['slug'],
                 'theme' => $this->data['theme'],
+                'is_draft' => $this->data['is_draft'] ?? false,
             ]
         );
     }

@@ -16,6 +16,7 @@ use App\Cruds\Squema\Works\Inputs\NameFactory;
 use App\Cruds\Squema\Works\Inputs\PositionFactory;
 use App\Cruds\Squema\Works\Inputs\StartsAtFactory;
 use App\Cruds\Squema\Works\Inputs\SummaryFactory;
+use App\Cruds\Squema\Works\Inputs\UrlFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use App\Models\Work;
@@ -56,6 +57,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'name' => NameFactory::make(),
+            'url' => UrlFactory::make(),
             'position' => PositionFactory::make(),
             'starts_at' => StartsAtFactory::make(),
             'ends_at' => EndsAtFactory::make(),

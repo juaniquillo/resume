@@ -34,9 +34,31 @@ final class SkillsPresenter
                         /** @var Skill $skill */
                         $skill = $model;
 
-                        return $this->compose(ComponentEnum::SPAN)
+                        $keywords = array_map(fn ($kw) => $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->badgeThemes())
-                            ->setContent($skill->name);
+                            ->setContent($kw), $skill->keywords ?? []);
+
+                        return $this->compose(ComponentEnum::DIV)
+                            ->setThemes($this->theme->itemContainerThemes())
+                            ->setContents(array_filter([
+                                'header' => $this->compose(ComponentEnum::DIV)
+                                    ->setThemes($this->theme->itemDetailsThemes())
+                                    ->setContents(array_filter([
+                                        'name' => $this->compose(ComponentEnum::H3)
+                                            ->setThemes($this->theme->itemTitleThemes())
+                                            ->setContent($skill->name),
+                                        'level' => $skill->level
+                                            ? $this->compose(ComponentEnum::SPAN)
+                                                ->setThemes($this->theme->badgeThemes())
+                                                ->setContent($skill->level)
+                                            : null,
+                                    ])),
+                                'keywords' => ! empty($keywords)
+                                    ? $this->compose(ComponentEnum::DIV)
+                                        ->setThemes($this->theme->contactContainerThemes()) // Use contact container for flex-wrap badges
+                                        ->setContents($keywords)
+                                    : null,
+                            ]));
                     })->toArray()
                 )
         );

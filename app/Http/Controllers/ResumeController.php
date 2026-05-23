@@ -11,6 +11,14 @@ class ResumeController extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
+        $options = $user->generalOptions;
+
+        if ($options?->is_draft) {
+            return response()->view('pages.resume-draft', [
+                'user' => $user,
+            ], 403);
+        }
+
         $theme = ThemeFactory::forUser($user);
         $presenter = new ResumePresenter($user, $theme);
 

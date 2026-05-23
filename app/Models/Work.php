@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property-read string $uuid
  * @property-read string $name
  * @property-read string $position
+ * @property-read string|null $url
  * @property-read string $summary
  * @property-read string $user_id
  * @property-read Carbon $starts_at

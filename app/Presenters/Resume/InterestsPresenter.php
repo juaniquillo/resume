@@ -34,16 +34,20 @@ final class InterestsPresenter
                         /** @var Interest $interest */
                         $interest = $model;
 
+                        $keywords = array_map(fn ($kw) => $this->compose(ComponentEnum::SPAN)
+                            ->setThemes($this->theme->badgeThemes())
+                            ->setContent($kw), $interest->keywords ?? []);
+
                         return $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->itemContainerThemes())
                             ->setContents(array_filter([
                                 'name' => $this->compose(ComponentEnum::H3)
                                     ->setThemes($this->theme->itemTitleThemes())
                                     ->setContent($interest->name),
-                                'keywords' => $interest->keywords
-                                    ? $this->compose(ComponentEnum::SPAN)
-                                        ->setThemes($this->theme->badgeThemes())
-                                        ->setContent(implode(', ', $interest->keywords))
+                                'keywords' => ! empty($keywords)
+                                    ? $this->compose(ComponentEnum::DIV)
+                                        ->setThemes($this->theme->contactContainerThemes())
+                                        ->setContents($keywords)
                                     : null,
                             ]));
                     })->toArray()

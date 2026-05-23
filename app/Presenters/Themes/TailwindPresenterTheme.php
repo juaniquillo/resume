@@ -156,6 +156,11 @@ final class TailwindPresenterTheme implements PresenterTheme
         return [];
     }
 
+    public function socialBadgeThemes(): array
+    {
+        return [];
+    }
+
     public function dateThemes(): array
     {
         return [];

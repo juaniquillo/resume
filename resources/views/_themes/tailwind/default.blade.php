@@ -10,7 +10,7 @@ return [
     'contact-container' => 'flex flex-wrap gap-4 text-md font-medium',
     'links' => 'flex items-center text-gray-600 underline font-bold transition-colors dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400',
     'contact-item' => 'flex items-center text-gray-600 font-bold dark:text-gray-400',
-    'icon' => 'size-4 inline-block shrink-0',
+    'icon' => 'size-4 inline-block shrink-0 object-contain aspect-square group-hover:bg-white!',
     
     'section' => 'mb-12',
     'section-title' => 'text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-6 uppercase tracking-wider dark:text-white dark:border-sky-500',
@@ -38,6 +38,7 @@ return [
     'list-item' => '',
     
     'badge' => 'inline-block px-2 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-md bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50',
+    'social-badge' => 'group inline-flex items-center gap-2 px-3 py-1 text-sm font-bold rounded-xl bg-gray-100 text-gray-700 border-2 border-gray-200 transition-all duration-300 hover:bg-sky-600 hover:text-white hover:border-sky-700 hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-sky-500 dark:hover:text-white dark:hover:border-sky-400',
     'date' => 'text-gray-500 font-normal dark:text-gray-500',
     'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',
     

@@ -52,9 +52,19 @@ final class WorkPresenter
                 'details' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->itemDetailsThemes())
                     ->setContents([
-                        'name' => $this->compose(ComponentEnum::SPAN)
-                            ->setThemes($this->theme->subTitleThemes())
-                            ->setContent($work->name),
+                        'name' => $work->url
+                            ? $this->compose(ComponentEnum::LINK)
+                                ->setAttribute('href', $work->url)
+                                ->setAttribute('target', '_blank')
+                                ->setThemes($this->theme->linkThemes())
+                                ->setContent(
+                                    $this->compose(ComponentEnum::SPAN)
+                                        ->setThemes($this->theme->subTitleThemes())
+                                        ->setContent($work->name)
+                                )
+                            : $this->compose(ComponentEnum::SPAN)
+                                ->setThemes($this->theme->subTitleThemes())
+                                ->setContent($work->name),
                         'dates' => $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->dateThemes())
                             ->setContent(sprintf('%s - %s',

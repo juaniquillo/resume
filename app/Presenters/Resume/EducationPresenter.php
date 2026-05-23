@@ -49,9 +49,19 @@ final class EducationPresenter
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->itemContainerThemes())
             ->setContents(array_filter([
-                'institution' => $this->compose(ComponentEnum::H3)
-                    ->setThemes($this->theme->itemTitleThemes())
-                    ->setContent($edu->institution),
+                'institution' => $edu->url
+                    ? $this->compose(ComponentEnum::LINK)
+                        ->setAttribute('href', $edu->url)
+                        ->setAttribute('target', '_blank')
+                        ->setThemes($this->theme->linkThemes())
+                        ->setContent(
+                            $this->compose(ComponentEnum::H3)
+                                ->setThemes($this->theme->itemTitleThemes())
+                                ->setContent($edu->institution)
+                        )
+                    : $this->compose(ComponentEnum::H3)
+                        ->setThemes($this->theme->itemTitleThemes())
+                        ->setContent($edu->institution),
                 'details' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->itemDetailsThemes())
                     ->setContents(array_filter([
@@ -62,6 +72,11 @@ final class EducationPresenter
                             ? $this->compose(ComponentEnum::SPAN)
                                 ->setThemes($this->theme->badgeThemes())
                                 ->setContent($edu->study_type)
+                            : null,
+                        'score' => $edu->score
+                            ? $this->compose(ComponentEnum::SPAN)
+                                ->setThemes($this->theme->badgeThemes())
+                                ->setContent($edu->score)
                             : null,
                         'dates' => $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->dateThemes())

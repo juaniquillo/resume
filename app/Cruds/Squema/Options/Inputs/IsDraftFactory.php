@@ -2,19 +2,19 @@
 
 namespace App\Cruds\Squema\Options\Inputs;
 
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Models\GeneralOption;
-use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class SlugFactory
+class IsDraftFactory
 {
-    public const NAME = 'slug';
+    public const NAME = 'is_draft';
 
-    public const LABEL = 'Resume Slug';
+    public const LABEL = 'Draft Mode';
 
     public static function make(): InputInterface
     {
@@ -30,11 +30,8 @@ class SlugFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
-                'string',
-                'alpha_dash:ascii',
-                'max:255',
-                Rule::unique(GeneralOption::class)->ignore(request()->user()->id, 'user_id'),
+                'sometimes',
+                'boolean',
             ]))
         );
     }
@@ -42,14 +39,20 @@ class SlugFactory
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
-            (new InputComponentRecipe)
+            (new InputComponentRecipe(
+                checkable: true,
+            ))
+                ->setComponentBag(
+                    (new DefaultComponentBag)
+                        ->setInputType(FluxComponentEnum::SWITCH)
+                )
                 ->setAttributeBag(
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'badge' => 'required',
-                            'icon' => 'link',
-                            'placeholder' => 'E.g. john-doe',
+                            'description' => 'Hide your resume from the public while you are working on it.',
+                            'name' => $input->getName(),
+                            'value' => 1,
                         ])
                 )
         );
