@@ -7,16 +7,10 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
-use App\Models\Highlight;
 use BackedEnum;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -102,27 +96,12 @@ class HighlightFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                value: function ($value, Model $model) {
+                value: function ($value) {
+                    if ($value === null) {
+                        return TableHelpers::emptyValue();
+                    }
 
-                    /** @var Highlight $work */
-                    $work = $model;
-                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
-                        ->setContent($value)
-                        ->setTheme('spacing', 'm-top-sm')
-                        ->setTheme('text', 'nl2br');
-
-                    return ComponentBuilder::make(ComponentEnum::COLLECTION)
-                        ->setContent(Str::limit($value, 60))
-                        ->setContent(
-                            TableHelpers::tableModal(
-                                id: $work->id,
-                                content: $modalContent,
-                                heading: HighlightFactory::LABEL,
-                                buttonLabel: 'view',
-                                triggerType: 'ghost',
-                            )
-                        );
-
+                    return TableHelpers::nl2br($value);
                 }
             )
         );
