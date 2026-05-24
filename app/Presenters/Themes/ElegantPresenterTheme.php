@@ -8,197 +8,197 @@ final class ElegantPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return ['elegant' => 'elegant-container'];
+        return ['elegant' => 'container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-basics'];
+        return ['elegant' => 'basics-container'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return ['elegant' => 'elegant-summary'];
+        return ['elegant' => 'summary-container'];
     }
 
     public function workContainerThemes(): array
     {
-        return ['elegant' => 'elegant-work'];
+        return ['elegant' => 'work-container'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return ['elegant' => 'elegant-volunteers'];
+        return ['elegant' => 'volunteers-container'];
     }
 
     public function educationContainerThemes(): array
     {
-        return ['elegant' => 'elegant-education'];
+        return ['elegant' => 'education-container'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-awards'];
+        return ['elegant' => 'awards-container'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-certificates'];
+        return ['elegant' => 'certificates-container'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-publications'];
+        return ['elegant' => 'publications-container'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-skills'];
+        return ['elegant' => 'skills-container'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-languages'];
+        return ['elegant' => 'languages-container'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-interests'];
+        return ['elegant' => 'interests-container'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-references'];
+        return ['elegant' => 'references-container'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-projects'];
+        return ['elegant' => 'projects-container'];
     }
 
     public function nameThemes(): array
     {
-        return ['elegant' => 'elegant-name'];
+        return ['elegant' => 'name'];
     }
 
     public function labelThemes(): array
     {
-        return ['elegant' => 'elegant-label'];
+        return ['elegant' => 'label'];
     }
 
     public function sectionThemes(): array
     {
-        return ['elegant' => 'elegant-section'];
+        return ['elegant' => 'section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return ['elegant' => 'elegant-section-title'];
+        return ['elegant' => 'section-title'];
     }
 
     public function itemTitleThemes(): array
     {
-        return ['elegant' => 'elegant-item-title'];
+        return ['elegant' => 'item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return ['elegant' => 'elegant-item-container'];
+        return ['elegant' => 'item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return ['elegant' => 'elegant-item-details'];
+        return ['elegant' => 'item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return ['elegant' => 'elegant-summary-text'];
+        return ['elegant' => 'summary'];
     }
 
     public function contactContainerThemes(): array
     {
-        return ['elegant' => 'elegant-contact-container'];
+        return ['elegant' => 'contact-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function listThemes(): array
     {
-        return ['elegant' => 'elegant-list'];
+        return ['elegant' => 'list'];
     }
 
     public function imageContainerThemes(): array
     {
-        return ['elegant' => 'elegant-image-container'];
+        return ['elegant' => 'image-container'];
     }
 
     public function imageThemes(): array
     {
-        return ['elegant' => 'elegant-image'];
+        return ['elegant' => 'image'];
     }
 
     public function linkThemes(): array
     {
-        return ['elegant' => 'elegant-links'];
+        return ['elegant' => 'links'];
     }
 
     public function iconThemes(): array
     {
-        return ['elegant' => 'elegant-icon'];
+        return ['elegant' => 'icon'];
     }
 
     public function listItemThemes(): array
     {
-        return ['elegant' => 'elegant-list'];
+        return ['elegant' => 'list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return ['elegant' => 'elegant-badge'];
+        return ['elegant' => 'badge'];
     }
 
     public function socialBadgeThemes(): array
     {
-        return ['elegant' => 'elegant-social-badge'];
+        return ['elegant' => 'social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return ['elegant' => 'elegant-date'];
+        return ['elegant' => 'date'];
     }
 
     public function subTitleThemes(): array
     {
-        return ['elegant' => 'elegant-subtitle'];
+        return ['elegant' => 'subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['elegant' => 'contact-item'];
     }
 
     public function fontUrls(): array

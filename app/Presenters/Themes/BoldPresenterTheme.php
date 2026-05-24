@@ -8,197 +8,197 @@ final class BoldPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return ['bold' => 'bold-container'];
+        return ['bold' => 'container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return ['bold' => 'bold-basics'];
+        return ['bold' => 'basics-container'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return ['bold' => 'bold-summary'];
+        return ['bold' => 'summary-container'];
     }
 
     public function workContainerThemes(): array
     {
-        return ['bold' => 'bold-work'];
+        return ['bold' => 'work-container'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return ['bold' => 'bold-volunteers'];
+        return ['bold' => 'volunteers-container'];
     }
 
     public function educationContainerThemes(): array
     {
-        return ['bold' => 'bold-education'];
+        return ['bold' => 'education-container'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return ['bold' => 'bold-awards'];
+        return ['bold' => 'awards-container'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return ['bold' => 'bold-certificates'];
+        return ['bold' => 'certificates-container'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return ['bold' => 'bold-publications'];
+        return ['bold' => 'publications-container'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return ['bold' => 'bold-skills'];
+        return ['bold' => 'skills-container'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return ['bold' => 'bold-languages'];
+        return ['bold' => 'languages-container'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return ['bold' => 'bold-interests'];
+        return ['bold' => 'interests-container'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return ['bold' => 'bold-references'];
+        return ['bold' => 'references-container'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return ['bold' => 'bold-projects'];
+        return ['bold' => 'projects-container'];
     }
 
     public function nameThemes(): array
     {
-        return ['bold' => 'bold-name'];
+        return ['bold' => 'name'];
     }
 
     public function labelThemes(): array
     {
-        return ['bold' => 'bold-label'];
+        return ['bold' => 'label'];
     }
 
     public function sectionThemes(): array
     {
-        return ['bold' => 'bold-section'];
+        return ['bold' => 'section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return ['bold' => 'bold-section-title'];
+        return ['bold' => 'section-title'];
     }
 
     public function itemTitleThemes(): array
     {
-        return ['bold' => 'bold-item-title'];
+        return ['bold' => 'item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return ['bold' => 'bold-item-container'];
+        return ['bold' => 'item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return ['bold' => 'bold-item-details'];
+        return ['bold' => 'item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return ['bold' => 'bold-summary-text'];
+        return ['bold' => 'summary'];
     }
 
     public function contactContainerThemes(): array
     {
-        return ['bold' => 'bold-contact-container'];
+        return ['bold' => 'contact-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function listThemes(): array
     {
-        return ['bold' => 'bold-list'];
+        return ['bold' => 'list'];
     }
 
     public function imageContainerThemes(): array
     {
-        return ['bold' => 'bold-image-container'];
+        return ['bold' => 'image-container'];
     }
 
     public function imageThemes(): array
     {
-        return ['bold' => 'bold-image'];
+        return ['bold' => 'image'];
     }
 
     public function linkThemes(): array
     {
-        return ['bold' => 'bold-links'];
+        return ['bold' => 'links'];
     }
 
     public function iconThemes(): array
     {
-        return ['bold' => 'bold-icon'];
+        return ['bold' => 'icon'];
     }
 
     public function listItemThemes(): array
     {
-        return ['bold' => 'bold-list-item'];
+        return ['bold' => 'list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return ['bold' => 'bold-badge'];
+        return ['bold' => 'badge'];
     }
 
     public function socialBadgeThemes(): array
     {
-        return ['bold' => 'bold-social-badge'];
+        return ['bold' => 'social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return ['bold' => 'bold-date'];
+        return ['bold' => 'date'];
     }
 
     public function subTitleThemes(): array
     {
-        return ['bold' => 'bold-subtitle'];
+        return ['bold' => 'subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return ['bold' => 'bold-contact-item'];
+        return ['bold' => 'contact-item'];
     }
 
     public function fontUrls(): array

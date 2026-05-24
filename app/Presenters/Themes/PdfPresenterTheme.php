@@ -8,197 +8,197 @@ final class PdfPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return ['pdf' => 'pdf-container'];
+        return ['pdf' => 'container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-basics'];
+        return ['pdf' => 'basics-container'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return ['pdf' => 'pdf-summary'];
+        return ['pdf' => 'summary-container'];
     }
 
     public function workContainerThemes(): array
     {
-        return ['pdf' => 'pdf-work'];
+        return ['pdf' => 'work-container'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return ['pdf' => 'pdf-volunteers'];
+        return ['pdf' => 'volunteers-container'];
     }
 
     public function educationContainerThemes(): array
     {
-        return ['pdf' => 'pdf-education'];
+        return ['pdf' => 'education-container'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-awards'];
+        return ['pdf' => 'awards-container'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return ['pdf' => 'pdf-certificates'];
+        return ['pdf' => 'certificates-container'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-publications'];
+        return ['pdf' => 'publications-container'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-skills'];
+        return ['pdf' => 'skills-container'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return ['pdf' => 'pdf-languages'];
+        return ['pdf' => 'languages-container'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-interests'];
+        return ['pdf' => 'interests-container'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return ['pdf' => 'pdf-references'];
+        return ['pdf' => 'references-container'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return ['pdf' => 'pdf-projects'];
+        return ['pdf' => 'projects-container'];
     }
 
     public function nameThemes(): array
     {
-        return ['pdf' => 'pdf-name'];
+        return ['pdf' => 'name'];
     }
 
     public function labelThemes(): array
     {
-        return ['pdf' => 'pdf-label'];
+        return ['pdf' => 'label'];
     }
 
     public function sectionThemes(): array
     {
-        return ['pdf' => 'pdf-section'];
+        return ['pdf' => 'section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return ['pdf' => 'pdf-section-title'];
+        return ['pdf' => 'section-title'];
     }
 
     public function itemTitleThemes(): array
     {
-        return ['pdf' => 'pdf-item-title'];
+        return ['pdf' => 'item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return ['pdf' => 'pdf-item-container'];
+        return ['pdf' => 'item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return ['pdf' => 'pdf-item-details'];
+        return ['pdf' => 'item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return ['pdf' => 'pdf-summary-text'];
+        return ['pdf' => 'summary'];
     }
 
     public function contactContainerThemes(): array
     {
-        return ['pdf' => 'pdf-contact-container'];
+        return ['pdf' => 'contact-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function listThemes(): array
     {
-        return ['pdf' => 'pdf-list'];
+        return ['pdf' => 'list'];
     }
 
     public function imageContainerThemes(): array
     {
-        return ['pdf' => 'pdf-image-container'];
+        return ['pdf' => 'image-container'];
     }
 
     public function imageThemes(): array
     {
-        return ['pdf' => 'pdf-image'];
+        return ['pdf' => 'image'];
     }
 
     public function linkThemes(): array
     {
-        return ['pdf' => 'pdf-links'];
+        return ['pdf' => 'links'];
     }
 
     public function iconThemes(): array
     {
-        return ['pdf' => 'pdf-icon'];
+        return ['pdf' => 'icon'];
     }
 
     public function listItemThemes(): array
     {
-        return ['pdf' => 'pdf-list-item'];
+        return ['pdf' => 'list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return ['pdf' => 'pdf-badge'];
+        return ['pdf' => 'badge'];
     }
 
     public function socialBadgeThemes(): array
     {
-        return ['pdf' => 'pdf-social-badge'];
+        return ['pdf' => 'social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return ['pdf' => 'pdf-date'];
+        return ['pdf' => 'date'];
     }
 
     public function subTitleThemes(): array
     {
-        return ['pdf' => 'pdf-subtitle'];
+        return ['pdf' => 'subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return ['pdf' => 'pdf-contact-item'];
+        return ['pdf' => 'contact-item'];
     }
 
     public function fontUrls(): array
