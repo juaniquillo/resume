@@ -13,7 +13,7 @@ trait CanComposeResumeComponents
     {
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->sectionThemes())
-            ->setAttribute('tag', 'section')
+            // ->setAttribute('name', 'section')
             ->setContents([
                 'title' => $this->compose(ComponentEnum::H2)
                     ->setThemes($this->theme->sectionTitleThemes())

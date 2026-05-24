@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'container' => 'mx-auto max-w-[800px] px-10 py-10 bg-white text-gray-900 border-0',
+    'container' => 'mx-auto max-w-[800px] my-2 px-10 py-10 bg-white text-gray-900 border-0',
     
     'basics-container' => 'mb-8 border-b-2 border-gray-100 pb-8',
     'image-container' => 'hidden', // Usually images are better omitted or very small in strict PDF resumes

@@ -157,7 +157,7 @@ final class BasicsPresenter
                 ->setAttribute('href', $profile->url)
                 ->setAttribute('target', '_blank')
                 ->setContents([
-                    'icon' => $this->compose(ComponentEnum::DIV)
+                    'icon' => $this->compose(ComponentEnum::SPAN)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttributes([
                             'style' => sprintf(
