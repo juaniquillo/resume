@@ -3,9 +3,9 @@
 namespace App\Enums;
 
 use App\Presenters\Contracts\PresenterTheme;
+use App\Presenters\Themes\BlankThemePresenter;
 use App\Presenters\Themes\DefaultPresenterTheme;
 use App\Presenters\Themes\ElegantPresenterTheme;
-use App\Presenters\Themes\BlankThemePresenter;
 
 enum ResumeTheme: string
 {

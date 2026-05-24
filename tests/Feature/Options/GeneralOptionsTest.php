@@ -21,14 +21,14 @@ test('authenticated user can update their slug and theme', function () {
         ->actingAs($user)
         ->post(route('dashboard.resume.general.update'), [
             'slug' => 'new-slug',
-            'theme' => ResumeTheme::TAILWIND->value,
+            'theme' => ResumeTheme::DEFAULT->value,
         ])
         ->assertRedirect()
         ->assertSessionHas('success');
 
     $options = $user->fresh()->generalOptions;
     expect($options->slug)->toBe('new-slug');
-    expect($options->theme)->toBe(ResumeTheme::TAILWIND->value);
+    expect($options->theme)->toBe(ResumeTheme::DEFAULT->value);
 });
 
 test('slug must be unique among options', function () {

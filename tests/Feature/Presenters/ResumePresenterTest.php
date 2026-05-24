@@ -316,6 +316,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function imageContainerThemes(): array
+        {
+            return [];
+        }
+
         public function imageThemes(): array
         {
             return [];
