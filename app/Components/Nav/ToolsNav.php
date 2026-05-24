@@ -47,6 +47,13 @@ class ToolsNav
                 'icon' => 'arrow-down-tray',
                 'description' => 'Export your resume to a JSON file.',
             ],
+            [
+                'name' => 'resume.cache.clear',
+                'label' => 'Clear Resume Cache',
+                'route' => 'dashboard.resume.cache.clear',
+                'icon' => 'trash',
+                'description' => 'Force clear your resume cache.',
+            ],
         ];
     }
 }

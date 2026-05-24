@@ -22,6 +22,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
+use App\Http\Controllers\ResumeCacheController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
@@ -196,9 +197,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
         Route::post('resume/export', [ResumeExportController::class, 'store'])->name('dashboard.resume.export.store');
         Route::delete('resume/export/{id}', [ResumeExportController::class, 'destroy'])->name('dashboard.resume.export.destroy');
-
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
+
         Route::get('resume/preview', ResumePreviewController::class)->name('dashboard.resume.preview');
+
+        Route::get('resume/cache/clear', [ResumeCacheController::class, 'index'])->name('dashboard.resume.cache.clear');
+        Route::post('resume/cache/clear', [ResumeCacheController::class, 'store'])->name('dashboard.resume.cache.store');
 
         /**
          * Options
