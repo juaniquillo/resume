@@ -4,212 +4,212 @@ namespace App\Presenters\Themes;
 
 use App\Presenters\Contracts\PresenterTheme;
 
-final class ElegantPresenterTheme implements PresenterTheme
+final class PdfPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return ['elegant' => 'elegant-container'];
+        return ['pdf' => 'pdf-container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-basics'];
+        return ['pdf' => 'pdf-basics'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return ['elegant' => 'elegant-summary'];
+        return ['pdf' => 'pdf-summary'];
     }
 
     public function workContainerThemes(): array
     {
-        return ['elegant' => 'elegant-work'];
+        return ['pdf' => 'pdf-work'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return ['elegant' => 'elegant-volunteers'];
+        return ['pdf' => 'pdf-volunteers'];
     }
 
     public function educationContainerThemes(): array
     {
-        return ['elegant' => 'elegant-education'];
+        return ['pdf' => 'pdf-education'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-awards'];
+        return ['pdf' => 'pdf-awards'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-certificates'];
+        return ['pdf' => 'pdf-certificates'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-publications'];
+        return ['pdf' => 'pdf-publications'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-skills'];
+        return ['pdf' => 'pdf-skills'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-languages'];
+        return ['pdf' => 'pdf-languages'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-interests'];
+        return ['pdf' => 'pdf-interests'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return ['elegant' => 'elegant-references'];
+        return ['pdf' => 'pdf-references'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return ['elegant' => 'elegant-projects'];
+        return ['pdf' => 'pdf-projects'];
     }
 
     public function nameThemes(): array
     {
-        return ['elegant' => 'elegant-name'];
+        return ['pdf' => 'pdf-name'];
     }
 
     public function labelThemes(): array
     {
-        return ['elegant' => 'elegant-label'];
+        return ['pdf' => 'pdf-label'];
     }
 
     public function sectionThemes(): array
     {
-        return ['elegant' => 'elegant-section'];
+        return ['pdf' => 'pdf-section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return ['elegant' => 'elegant-section-title'];
+        return ['pdf' => 'pdf-section-title'];
     }
 
     public function itemTitleThemes(): array
     {
-        return ['elegant' => 'elegant-item-title'];
+        return ['pdf' => 'pdf-item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return ['elegant' => 'elegant-item-container'];
+        return ['pdf' => 'pdf-item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return ['elegant' => 'elegant-item-details'];
+        return ['pdf' => 'pdf-item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return ['elegant' => 'elegant-summary-text'];
+        return ['pdf' => 'pdf-summary-text'];
     }
 
     public function contactContainerThemes(): array
     {
-        return ['elegant' => 'elegant-contact-container'];
+        return ['pdf' => 'pdf-contact-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function listThemes(): array
     {
-        return ['elegant' => 'elegant-list'];
+        return ['pdf' => 'pdf-list'];
     }
 
     public function imageContainerThemes(): array
     {
-        return ['elegant' => 'elegant-image-container'];
+        return ['pdf' => 'pdf-image-container'];
     }
 
     public function imageThemes(): array
     {
-        return ['elegant' => 'elegant-image'];
+        return ['pdf' => 'pdf-image'];
     }
 
     public function linkThemes(): array
     {
-        return ['elegant' => 'elegant-links'];
+        return ['pdf' => 'pdf-links'];
     }
 
     public function iconThemes(): array
     {
-        return ['elegant' => 'elegant-icon'];
+        return ['pdf' => 'pdf-icon'];
     }
 
     public function listItemThemes(): array
     {
-        return ['elegant' => 'elegant-list'];
+        return ['pdf' => 'pdf-list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return ['elegant' => 'elegant-badge'];
+        return ['pdf' => 'pdf-badge'];
     }
 
     public function socialBadgeThemes(): array
     {
-        return ['elegant' => 'elegant-social-badge'];
+        return ['pdf' => 'pdf-social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return ['elegant' => 'elegant-date'];
+        return ['pdf' => 'pdf-date'];
     }
 
     public function subTitleThemes(): array
     {
-        return ['elegant' => 'elegant-subtitle'];
+        return ['pdf' => 'pdf-subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return ['elegant' => 'elegant-contact-item'];
+        return ['pdf' => 'pdf-contact-item'];
     }
 
     public function fontUrls(): array
     {
         return [
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap',
+            'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap',
         ];
     }
 
     public function fontFamily(): string
     {
-        return "'Playfair Display', serif";
+        return "'Source Sans 3', sans-serif";
     }
 }

@@ -18,10 +18,9 @@
         @if($showThemeToggle)
             @include('partials.theme-toggle-standalone')
         @endif
-        <main>
-            {!! $resumeComponent !!}
-        </main>
-
+        
+        {!! $resumeComponent !!}
+        
         @if(! $minimalView)
             <x-slot:footer>
                 <x-footer :user="$user" />
