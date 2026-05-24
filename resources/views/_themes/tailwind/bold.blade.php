@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-zinc-900 text-white shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] md:shadow-[20px_20px_0px_0px_rgba(255,255,0,1)] my-6 md:my-12 border-4 border-black dark:bg-black dark:border-zinc-800',
+    'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-zinc-900 text-white shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] md:shadow-[20px_20px_0px_0px_rgba(255,255,0,1)] my-6 md:my-6 border-4 border-black dark:bg-black dark:border-zinc-800',
     
     'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-8 border-yellow-400 pb-12',
     'image-container' => 'mb-8 md:mb-12',

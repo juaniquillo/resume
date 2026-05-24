@@ -39,6 +39,8 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('resume/{user:slug}', ResumeController::class)->name('resume');
 
+Route::get('images/{uuid}', ImageController::class)->name('image.serve');
+
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->group(function () {
@@ -207,7 +209,5 @@ Route::middleware(['auth', 'verified'])
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
         Route::post('options/visibility', SectionVisibilityUpdateController::class)->name('dashboard.resume.visibility.update');
     });
-
-Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 
 require __DIR__.'/settings.php';

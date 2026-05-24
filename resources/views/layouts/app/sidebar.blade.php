@@ -30,13 +30,9 @@
 
             <flux:sidebar.nav>
                 
+                <flux:navlist.group heading="Resume">
+
                 {{ $navItems }}
-
-                <flux:menu.separator />
-
-                <flux:navlist.group heading="Tools">
-
-                    {{ $toolsNav }}
 
                 </flux:navlist.group>
 
@@ -45,6 +41,14 @@
                 <flux:navlist.group heading="Options">
 
                     {{ $optionsNav }}
+
+                </flux:navlist.group>
+
+                <flux:menu.separator />
+
+                <flux:navlist.group heading="Tools">
+
+                    {{ $toolsNav }}
 
                 </flux:navlist.group>
 

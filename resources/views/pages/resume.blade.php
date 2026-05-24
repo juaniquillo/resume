@@ -21,10 +21,12 @@
         
         {!! $resumeComponent !!}
         
-        @if(! $minimalView)
-            <x-slot:footer>
-                <x-footer :user="$user" />
-            </x-slot:footer>
-        @endif
     </div>
+
+    @if(! $minimalView)
+        <x-slot:footer>
+            <x-footer :user="$user" />
+        </x-slot:footer>
+    @endif
+    
 </x-layouts.guest>
