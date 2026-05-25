@@ -7,15 +7,15 @@ return [
     'image-container' => 'mb-8 md:mb-12',
     'image' => 'w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 grayscale hover:grayscale-0 transition-all duration-500 border-4 border-white object-cover shadow-[6px_6px_0px_0px_rgba(255,255,0,1)] md:shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] max-w-full',
     'name' => 'text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-2 break-words',
-    'label' => 'text-xl md:text-2xl font-bold bg-yellow-400 text-black px-4 py-1 inline-block uppercase italic tracking-widest mb-6',
+    'label' => 'text-lg md:text-2xl font-bold bg-yellow-400 text-black px-4 py-1 inline-block uppercase italic tracking-widest mt-2 mb-6',
     
-    'contact-container' => 'flex flex-wrap gap-x-6 md:gap-x-10 gap-y-4 text-base md:text-lg font-bold mt-2',
+    'contact-container' => 'flex flex-wrap gap-x-4 md:gap-x-6 gap-y-4 text-base md:text-lg font-bold mt-2',
     'links' => 'text-white hover:text-yellow-400 transition-colors decoration-2 md:decoration-4 underline underline-offset-8 decoration-yellow-400',
     'contact-item' => 'flex items-center gap-2 font-bold',
     'icon' => 'size-4 text-yellow-400',
     
     'section' => 'mb-16 md:mb-24 last:mb-0',
-    'section-title' => 'text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8 md:mb-12 bg-white text-black px-4 md:px-6 py-2 inline-block transform -rotate-2',
+    'section-title' => 'text-2xl md:text-5xl font-black uppercase tracking-tighter mb-8 md:mb-12 bg-white text-black px-4 md:px-6 py-2 inline-block transform -rotate-2',
     
     'summary-container' => 'border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
     'summary' => 'text-xl md:text-2xl leading-tight font-medium text-zinc-300 max-w-4xl whitespace-pre-wrap',

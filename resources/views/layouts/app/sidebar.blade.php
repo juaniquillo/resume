@@ -15,47 +15,33 @@
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                
-                <flux:modal.trigger name="resume-preview">
-                    <flux:button variant="primary" icon="eye" size="sm" class="ml-auto" />
-                </flux:modal.trigger>
 
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
-            
-            <flux:modal name="resume-preview" variant="flyout" class="w-full h-full p-0!">
-                <iframe src="{{ route('dashboard.resume.preview') }}" class="w-full h-full border-0"></iframe>
-            </flux:modal>
 
+            <flux:sidebar.nav> 
+                <x-sidebar-actions />
+            </flux:sidebar.nav>
 
             <flux:sidebar.nav>
-                
                 <flux:navlist.group heading="Resume">
-
-                {{ $navItems }}
-
+                    {{ $navItems }}
                 </flux:navlist.group>
 
                 <flux:menu.separator />
 
                 <flux:navlist.group heading="Options">
-
                     {{ $optionsNav }}
-
                 </flux:navlist.group>
 
                 <flux:menu.separator />
 
                 <flux:navlist.group heading="Tools">
-
                     {{ $toolsNav }}
-
                 </flux:navlist.group>
-
             </flux:sidebar.nav>
 
             <flux:spacer />
-
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
@@ -63,7 +49,7 @@
         <!-- Mobile User Menu -->
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
+            
             <flux:spacer />
 
             <flux:dropdown position="top" align="end">
@@ -118,6 +104,10 @@
         {{ $slot }}
 
         @fluxScripts
+
+        @stack('down')
         
+
     </body>
 </html>
+
