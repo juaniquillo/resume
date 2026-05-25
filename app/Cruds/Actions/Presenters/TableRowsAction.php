@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
@@ -28,7 +29,7 @@ class TableRowsAction extends Action implements ActionInterface
         private ThemeManager $themeManager = new DefaultThemeManager,
         private array $themes = [],
         private array $attributes = [],
-        /** @var class-string<BackendComponent|CompoundComponent> */
+        /** @var class-string<BackendComponent|CompoundComponent|ContentComponent> */
         private string $component = MainBackendComponent::class,
         private string|BackedEnum $type = ComponentEnum::TD,
         /** @var array<string, TableRowsRecipe|RecipeInterface> $extraCells */
@@ -93,15 +94,15 @@ class TableRowsAction extends Action implements ActionInterface
             return $recipeValue($value, $this->model);
         }
 
-        if ($value instanceof BackedEnum) {
-            return $value->value;
-        }
-
         if ($recipeValue) {
             return $recipeValue;
         }
 
-        return $value;
+        if ($value instanceof BackedEnum) {
+            return $value->value;
+        }
+
+        return $recipeValue ??$value;
     }
 
     public function resolveCellComponent(string|BackendComponent|CompoundComponent|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): BackendComponent|CompoundComponent
