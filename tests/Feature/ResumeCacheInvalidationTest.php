@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Work;
+use App\Presenters\ResumePresenter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
 
@@ -18,12 +19,13 @@ test('modifying a Location invalidates resume cache', function () {
     $basic = Basic::factory()->for($user)->create();
     $location = Location::factory()->create(['basic_id' => $basic->id]);
 
-    $key = "resume:{$user->id}:v";
-    $initialVersion = (int) Cache::get($key, 0);
+    $presenter = new ResumePresenter($user);
+    $cacheKey = $presenter->getCacheKey();
+    Cache::forever($cacheKey, 'content');
 
     $location->update(['city' => 'New City']);
 
-    expect((int) Cache::get($key))->toBe($initialVersion + 1);
+    expect(Cache::has($cacheKey))->toBeFalse();
 });
 
 test('modifying a Profile invalidates resume cache', function () {
@@ -31,12 +33,13 @@ test('modifying a Profile invalidates resume cache', function () {
     $basic = Basic::factory()->for($user)->create();
     $profile = Profile::factory()->create(['basic_id' => $basic->id]);
 
-    $key = "resume:{$user->id}:v";
-    $initialVersion = (int) Cache::get($key, 0);
+    $presenter = new ResumePresenter($user);
+    $cacheKey = $presenter->getCacheKey();
+    Cache::forever($cacheKey, 'content');
 
     $profile->update(['url' => 'https://example.com/new']);
 
-    expect((int) Cache::get($key))->toBe($initialVersion + 1);
+    expect(Cache::has($cacheKey))->toBeFalse();
 });
 
 test('modifying a Highlight invalidates resume cache', function () {
@@ -47,12 +50,13 @@ test('modifying a Highlight invalidates resume cache', function () {
         'highlightable_id' => $work->id,
     ]);
 
-    $key = "resume:{$user->id}:v";
-    $initialVersion = (int) Cache::get($key, 0);
+    $presenter = new ResumePresenter($user);
+    $cacheKey = $presenter->getCacheKey();
+    Cache::forever($cacheKey, 'content');
 
     $highlight->update(['highlight' => 'Updated Highlight']);
 
-    expect((int) Cache::get($key))->toBe($initialVersion + 1);
+    expect(Cache::has($cacheKey))->toBeFalse();
 });
 
 test('modifying a Course invalidates resume cache', function () {
@@ -63,10 +67,11 @@ test('modifying a Course invalidates resume cache', function () {
         'courseable_id' => $education->id,
     ]);
 
-    $key = "resume:{$user->id}:v";
-    $initialVersion = (int) Cache::get($key, 0);
+    $presenter = new ResumePresenter($user);
+    $cacheKey = $presenter->getCacheKey();
+    Cache::forever($cacheKey, 'content');
 
     $course->update(['course' => 'Updated Course']);
 
-    expect((int) Cache::get($key))->toBe($initialVersion + 1);
+    expect(Cache::has($cacheKey))->toBeFalse();
 });

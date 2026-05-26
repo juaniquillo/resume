@@ -5,6 +5,7 @@ namespace App\Presenters\Resume;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Enums\Network;
 use App\Models\Basic;
+use App\Models\GeneralOption;
 use App\Models\Profile;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
@@ -20,6 +21,7 @@ final class BasicsPresenter
     public function __construct(
         private ?Basic $basics,
         private PresenterTheme $theme,
+        private ?GeneralOption $options = null,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|null
@@ -52,18 +54,18 @@ final class BasicsPresenter
                     ->setContent($this->basics->label),
                 'contact' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->contactContainerThemes())
-                    ->setContents($this->basicsContactItems($this->basics)),
+                    ->setContents($this->basicsContactItems($this->basics, $this->options)),
             ]));
     }
 
     /**
      * @return array<string, BackendComponent|CompoundComponent>
      */
-    private function basicsContactItems(Basic $basics): array
+    private function basicsContactItems(Basic $basics, ?GeneralOption $options): array
     {
         $info = [];
 
-        if ($basics->email) {
+        if ($basics->email && ! ($options?->hide_email)) {
             $info['email'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->emailThemes())
                 ->setContents([
@@ -78,7 +80,7 @@ final class BasicsPresenter
                 ]);
         }
 
-        if ($basics->phone) {
+        if ($basics->phone && ! ($options?->hide_phone)) {
             $info['phone'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->phoneThemes())
                 ->setContents([

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('theme')->nullable();
             $table->boolean('is_draft')->default(false);
+            $table->boolean('hide_phone')->default(false);
+            $table->boolean('hide_email')->default(false);
             $table->timestamps();
         });
     }

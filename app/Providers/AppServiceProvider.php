@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Presenters\Cache\ResumeThemeCacheManager;
 use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->resisterClasses();
     }
 
     /**
@@ -27,6 +29,13 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         $this->configureBlaze();
+    }
+
+    public function resisterClasses()
+    {
+        $this->app->singleton(ResumeThemeCacheManager::class, function (Application $app) {
+            return new ResumeThemeCacheManager;
+        });
     }
 
     /**

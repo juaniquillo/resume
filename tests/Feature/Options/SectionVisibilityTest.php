@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Presenters\ResumePresenter;
 use Illuminate\Support\Facades\Cache;
 
 test('authenticated user can view section visibility page', function () {
@@ -32,9 +33,10 @@ test('authenticated user can update section visibility', function () {
 
 test('updating visibility invalidates the resume cache', function () {
     $user = User::factory()->create();
-    $cacheKey = "resume:{$user->id}:v";
+    $presenter = new ResumePresenter($user);
+    $cacheKey = $presenter->getCacheKey();
 
-    Cache::forever($cacheKey, 1);
+    Cache::forever($cacheKey, 'cached_content');
 
     $this->withoutMiddleware()
         ->actingAs($user)
@@ -42,5 +44,5 @@ test('updating visibility invalidates the resume cache', function () {
             'summary' => false,
         ]);
 
-    expect((int) Cache::get($cacheKey))->toBe(2);
+    expect(Cache::has($cacheKey))->toBeFalse();
 });
