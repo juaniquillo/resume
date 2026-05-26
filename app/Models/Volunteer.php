@@ -18,13 +18,14 @@ use Illuminate\Support\Carbon;
  * @property-read string $uuid
  * @property-read string $organization
  * @property-read string $position
- * @property-read string $url
- * @property-read string $summary
+ * @property-read string|null $url
+ * @property-read string|null $summary
  * @property-read string $user_id
  * @property-read Carbon $starts_at
  * @property-read Carbon|null $ends_at
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read User $user
  * @property-read Collection<int, Highlight> $highlights
  */
 #[Guarded([])]

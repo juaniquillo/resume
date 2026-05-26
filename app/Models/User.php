@@ -30,11 +30,22 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read string|null $two_factor_secret
  * @property-read string|null $two_factor_recovery_codes
  * @property-read Carbon|null $two_factor_confirmed_at
+ * @property-read string|null $slug
+ * @property-read Basic|null $basics
+ * @property-read Collection<int, Work> $works
+ * @property-read Collection<int, Volunteer> $volunteers
+ * @property-read Collection<int, Education> $education
  * @property-read Collection<int, Award> $awards
  * @property-read Collection<int, Certificate> $certificates
  * @property-read Collection<int, Publication> $publications
  * @property-read Collection<int, Skill> $skills
+ * @property-read Collection<int, Language> $languages
+ * @property-read Collection<int, Interest> $interests
+ * @property-read Collection<int, Reference> $references
  * @property-read Collection<int, Project> $projects
+ * @property-read Collection<int, ResumeImport> $resumeImports
+ * @property-read Collection<int, ResumeExport> $resumeExports
+ * @property-read SectionVisibility|null $sectionVisibility
  * @property-read GeneralOption|null $generalOptions
  */
 class User extends Authenticatable

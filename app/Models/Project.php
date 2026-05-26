@@ -7,6 +7,7 @@ use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $user_id
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read User $user
+ * @property-read Collection<int, Highlight> $highlights
  */
 #[Guarded([])]
 class Project extends Model

@@ -24,5 +24,5 @@
 22. ✅ Add Sensitive fields to the General Options CRUD. It's a list of switches for choosing what fields to hide from the online version and API versions. There will be an option to apply them whenever an export is created. The fields are: phone and email for now.
 23. ✅ Simplify resume cache. Remove version and keep only one cache per user.
 24. ✅ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
-25. ◻️ Make sure all models have DocBlocks with the @property-read statement.
+25. ✅ Make sure all models have DocBlocks with the @property-read statement.
 26. ◻️ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.

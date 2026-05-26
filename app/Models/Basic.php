@@ -19,11 +19,11 @@ use Illuminate\Support\Carbon;
  * @property-read string $uuid
  * @property-read string $name
  * @property-read string $label
- * @property-read string $image
+ * @property-read string|null $image
  * @property-read string $email
- * @property-read string $phone
- * @property-read string $url
- * @property-read string $summary
+ * @property-read string|null $phone
+ * @property-read string|null $url
+ * @property-read string|null $summary
  * @property-read string $user_id
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at

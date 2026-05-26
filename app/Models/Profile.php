@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
+ * @property-read string $uuid
  * @property-read string $basic_id
  * @property-read string $network
  * @property-read string $username
