@@ -30,3 +30,5 @@
 28. ◻️ Show a message in the dashboard that lets the user know when the basics has not been filled. The resume will not be available it that's the case.
 29. ◻️ Refactor the section visibility crud into a Livewire component.
 30. ◻️ Add default svg icon for the Networks that are not in the Enum.
+31. ◻️ In the Export table, don't show the delete button not allow deletion in the controller for if the status is not completed.
+32. ◻️ Add a Tool->reset resume for emptying all resume sections database table. With a big warning, of course.
