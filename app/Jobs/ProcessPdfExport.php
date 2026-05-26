@@ -29,8 +29,11 @@ class ProcessPdfExport implements ShouldQueue
 
         try {
             $user = $this->export->user;
-            $theme = ThemeFactory::forUser($user);
-            $presenter = new ResumePresenter($user, $theme);
+            $theme = $this->export->theme
+                ? ThemeFactory::make($this->export->theme)
+                : ThemeFactory::forUser($user);
+
+            $presenter = new ResumePresenter($user, $theme, isPdf: true);
 
             $html = view('pages.resume', [
                 'user' => $user,

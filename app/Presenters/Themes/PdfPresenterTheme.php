@@ -73,7 +73,16 @@ final class PdfPresenterTheme implements PresenterTheme
 
     public function projectsContainerThemes(): array
     {
-        return ['pdf' => 'projects-container'];
+        return [
+            'default' => 'projects-container',
+        ];
+    }
+
+    public function downloadsContainerThemes(): array
+    {
+        return [
+            'default' => 'downloads-container',
+        ];
     }
 
     public function nameThemes(): array

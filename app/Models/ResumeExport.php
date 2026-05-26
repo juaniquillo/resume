@@ -18,10 +18,13 @@ class ResumeExport extends Model
         'status',
         'error',
         'type',
+        'theme',
+        'allow_download',
     ];
 
     protected $casts = [
         'type' => ResumeExportType::class,
+        'allow_download' => 'boolean',
     ];
 
     /**

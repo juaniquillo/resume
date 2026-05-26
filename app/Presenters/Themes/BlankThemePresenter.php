@@ -76,6 +76,11 @@ final class BlankThemePresenter implements PresenterTheme
         return [];
     }
 
+    public function downloadsContainerThemes(): array
+    {
+        return [];
+    }
+
     public function nameThemes(): array
     {
         return [];

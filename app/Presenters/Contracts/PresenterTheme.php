@@ -77,6 +77,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function downloadsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function nameThemes(): array;
 
     /**

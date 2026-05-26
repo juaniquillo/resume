@@ -104,6 +104,13 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function downloadsContainerThemes(): array
+    {
+        return [
+            'default' => 'downloads-container',
+        ];
+    }
+
     public function nameThemes(): array
     {
         return [

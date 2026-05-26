@@ -27,6 +27,7 @@ return [
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
+    'downloads-container' => 'flex flex-wrap gap-4',
     
     'item-container' => 'mb-8 last:mb-0',
     'item-title' => 'text-xl font-bold text-gray-900 dark:text-white',

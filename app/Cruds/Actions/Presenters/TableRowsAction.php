@@ -102,7 +102,7 @@ class TableRowsAction extends Action implements ActionInterface
             return $value->value;
         }
 
-        return $recipeValue ??$value;
+        return $recipeValue ?? $value;
     }
 
     public function resolveCellComponent(string|BackendComponent|CompoundComponent|null $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): BackendComponent|CompoundComponent

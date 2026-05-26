@@ -35,7 +35,7 @@ class ProcessJsonExport implements ShouldQueue
 
             $json = json_encode($resume, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-            $filename = "resume-export-{$this->export->id}-".now()->timestamp.'.json';
+            $filename = "resume-export-{$this->export->uuid}-".now()->timestamp.'.json';
             $path = "exports/resumes/{$filename}";
 
             Storage::put($path, $json);

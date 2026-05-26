@@ -130,6 +130,16 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         ));
     }
 
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('type', 'submit')
+            ->setAttribute('variant', 'primary')
+            ->setAttribute('color', 'blue')
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__('Start New Import'));
+    }
+
     public function formWithUploadSpanFull(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([JsonFileFactory::NAME]);

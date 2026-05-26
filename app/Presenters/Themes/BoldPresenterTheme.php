@@ -73,7 +73,16 @@ final class BoldPresenterTheme implements PresenterTheme
 
     public function projectsContainerThemes(): array
     {
-        return ['bold' => 'projects-container'];
+        return [
+            'default' => 'projects-container',
+        ];
+    }
+
+    public function downloadsContainerThemes(): array
+    {
+        return [
+            'default' => 'downloads-container',
+        ];
     }
 
     public function nameThemes(): array

@@ -14,8 +14,10 @@ class ResumeImportDownloadController extends Controller
      */
     public function __invoke(Request $request, int $id): StreamedResponse
     {
+        $user = $request->user();
+
         /** @var ResumeImport $import */
-        $import = ResumeImport::where('user_id', $request->user()->id)
+        $import = $user->resumeImports()
             ->where('id', $id)
             ->firstOrFail();
 

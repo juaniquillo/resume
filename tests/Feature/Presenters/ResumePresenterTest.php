@@ -261,6 +261,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function downloadsContainerThemes(): array
+        {
+            return [];
+        }
+
         public function nameThemes(): array
         {
             return [];

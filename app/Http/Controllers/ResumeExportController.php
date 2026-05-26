@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Export\CreateResumeExport;
 use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use App\Enums\ResumeExportType;
 use App\Http\Requests\Resume\ResumeExportFormRequest;
@@ -25,9 +26,12 @@ class ResumeExportController extends Controller
 
         $crud->setFormAction(route('dashboard.resume.export.store'));
 
-        $form = $crud->formWithButtonOnly();
+        $form = $crud->form();
 
-        $exports = ResumeExport::where('user_id', $request->user()->id)
+        $user = $request->user();
+
+        $exports = $user
+            ->resumeExports()
             ->latest()
             ->paginate(10);
 
@@ -42,7 +46,7 @@ class ResumeExportController extends Controller
             ->with('paginator', $exports);
     }
 
-    public function store(ResumeExportFormRequest $request)
+    public function store(ResumeExportFormRequest $request, CreateResumeExport $action)
     {
         if ($request->user()->resumeExports()->count() >= 5) {
             return redirect()
@@ -50,10 +54,10 @@ class ResumeExportController extends Controller
                 ->with('error', 'You can only have up to 5 resume exports. Please delete an old one first.');
         }
 
-        $export = ResumeExport::create([
-            'user_id' => $request->user()->id,
-            'status' => 'pending',
+        $export = $action->handle($request->user(), [
             'type' => $request->validated('type'),
+            'theme' => $request->validated('theme'),
+            'allow_download' => $request->boolean('allow_download'),
         ]);
 
         match ($export->type) {
@@ -68,7 +72,9 @@ class ResumeExportController extends Controller
 
     public function destroy(Request $request, int $id)
     {
-        $export = ResumeExport::where('user_id', $request->user()->id)->findOrFail($id);
+        $user = $request->user();
+        /** @var ResumeExport $export */
+        $export = $user->resumeExports()->findOrFail($id);
 
         if ($export->file_path) {
             Storage::delete($export->file_path);

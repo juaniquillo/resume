@@ -29,6 +29,7 @@ use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
 use App\Http\Controllers\ResumePreviewController;
+use App\Http\Controllers\ResumePublicDownloadController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -39,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('resume/{user:slug}', ResumeController::class)->name('resume');
+Route::get('resume/download/{uuid}', ResumePublicDownloadController::class)->name('resume.download');
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 
