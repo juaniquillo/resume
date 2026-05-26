@@ -12,6 +12,7 @@ enum FluxComponentEnum: string
     case BADGE = 'badge';
     case LINK = 'link';
     case ICON = 'icon';
+    case SEPARATOR = 'separator';
 
     // forms
     case LABEL = 'label';
@@ -24,6 +25,8 @@ enum FluxComponentEnum: string
     case CHECKBOX = 'checkbox';
     case CHECKBOX_GROUP = 'checkbox.group';
     case RADIO = 'radio';
+    case FIELDSET = 'fieldset';
+    case LEGEND = 'legend';
 
     // tables
     case TABLE = 'table';

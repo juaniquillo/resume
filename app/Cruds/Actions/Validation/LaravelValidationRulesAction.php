@@ -6,7 +6,6 @@ namespace App\Cruds\Actions\Validation;
 
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
-use Juaniquillo\CrudAssistant\Contracts\DataContainerInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\InputCollection;
 
@@ -20,12 +19,22 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         protected $model = null
     ) {}
 
-    /**
-     * Execute action on input.
-     *
-     * @return DataContainerInterface
-     */
     public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
+    {
+        $this->executeOne($input);
+
+        $subElements = $input->getSubElements();
+
+        if ($subElements) {
+            foreach ($subElements->getInputs() as $key => $subElement) {
+                $this->executeOne($subElement);
+            }
+        }
+
+        return $this->getOutput();
+    }
+
+    public function executeOne(InputCollection|InputInterface|\IteratorAggregate $input)
     {
         $output = $this->getOutput();
 
