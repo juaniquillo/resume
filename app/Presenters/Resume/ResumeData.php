@@ -20,5 +20,6 @@ final class ResumeData
         public Collection $interests,
         public Collection $references,
         public Collection $projects,
+        public Collection $downloads,
     ) {}
 }

@@ -52,9 +52,19 @@ final class VolunteersPresenter
                 'details' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->itemDetailsThemes())
                     ->setContents([
-                        'organization' => $this->compose(ComponentEnum::SPAN)
-                            ->setThemes($this->theme->subTitleThemes())
-                            ->setContent($volunteer->organization),
+                        'organization' => $volunteer->url
+                            ? $this->compose(ComponentEnum::LINK)
+                                ->setAttribute('href', $volunteer->url)
+                                ->setAttribute('target', '_blank')
+                                ->setThemes($this->theme->linkThemes())
+                                ->setContent(
+                                    $this->compose(ComponentEnum::SPAN)
+                                        ->setThemes($this->theme->subTitleThemes())
+                                        ->setContent($volunteer->organization)
+                                )
+                            : $this->compose(ComponentEnum::SPAN)
+                                ->setThemes($this->theme->subTitleThemes())
+                                ->setContent($volunteer->organization),
                         'dates' => $this->compose(ComponentEnum::SPAN)
                             ->setThemes($this->theme->dateThemes())
                             ->setContent(sprintf('%s - %s',

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read int $user_id
  * @property-read string $slug
  * @property-read string $theme
+ * @property-read bool $is_draft
  */
 class GeneralOption extends Model
 {
@@ -19,6 +20,7 @@ class GeneralOption extends Model
         'user_id',
         'slug',
         'theme',
+        'is_draft',
     ];
 
     public function user(): BelongsTo

@@ -4,202 +4,221 @@ namespace App\Presenters\Themes;
 
 use App\Presenters\Contracts\PresenterTheme;
 
-final class TailwindPresenterTheme implements PresenterTheme
+final class ElegantPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return [];
+        return ['elegant' => 'container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'basics-container'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'summary-container'];
     }
 
     public function workContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'work-container'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'volunteers-container'];
     }
 
     public function educationContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'education-container'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'awards-container'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'certificates-container'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'publications-container'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'skills-container'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'languages-container'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'interests-container'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'references-container'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'projects-container',
+        ];
+    }
+
+    public function downloadsContainerThemes(): array
+    {
+        return [
+            'default' => 'downloads-container',
+        ];
     }
 
     public function nameThemes(): array
     {
-        return [];
+        return ['elegant' => 'name'];
     }
 
     public function labelThemes(): array
     {
-        return [];
+        return ['elegant' => 'label'];
     }
 
     public function sectionThemes(): array
     {
-        return [];
+        return ['elegant' => 'section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return [];
+        return ['elegant' => 'section-title'];
     }
 
     public function itemTitleThemes(): array
     {
-        return [];
+        return ['elegant' => 'item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return [];
+        return ['elegant' => 'item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return [];
+        return ['elegant' => 'summary'];
     }
 
     public function contactContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function listThemes(): array
     {
-        return [];
+        return ['elegant' => 'list'];
+    }
+
+    public function imageContainerThemes(): array
+    {
+        return ['elegant' => 'image-container'];
     }
 
     public function imageThemes(): array
     {
-        return [];
+        return ['elegant' => 'image'];
     }
 
     public function linkThemes(): array
     {
-        return [];
+        return ['elegant' => 'links'];
     }
 
     public function iconThemes(): array
     {
-        return [];
+        return ['elegant' => 'icon'];
     }
 
     public function listItemThemes(): array
     {
-        return [];
+        return ['elegant' => 'list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return [];
+        return ['elegant' => 'badge'];
+    }
+
+    public function socialBadgeThemes(): array
+    {
+        return ['elegant' => 'social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return [];
+        return ['elegant' => 'date'];
     }
 
     public function subTitleThemes(): array
     {
-        return [];
+        return ['elegant' => 'subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-item'];
     }
 
     public function fontUrls(): array
     {
         return [
-            'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap',
+            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap',
         ];
     }
 
     public function fontFamily(): string
     {
-        return "'Space Mono', monospace";
+        return "'Playfair Display', serif";
     }
 }

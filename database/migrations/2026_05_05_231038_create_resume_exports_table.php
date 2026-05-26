@@ -17,6 +17,8 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('type')->default(ResumeExportType::JSON->value);
+            $table->string('theme')->nullable();
+            $table->boolean('allow_download')->default(false);
             $table->string('file_path')->nullable();
             $table->string('status')->default('pending');
             $table->text('error')->nullable();

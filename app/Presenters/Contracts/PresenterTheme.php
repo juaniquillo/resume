@@ -77,6 +77,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function downloadsContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function nameThemes(): array;
 
     /**
@@ -132,6 +137,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function imageContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function imageThemes(): array;
 
     /**
@@ -153,6 +163,11 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function badgeThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function socialBadgeThemes(): array;
 
     /**
      * @return array<string, string|string[]>

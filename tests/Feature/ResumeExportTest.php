@@ -2,6 +2,7 @@
 
 use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Enums\ResumeExportType;
+use App\Enums\ResumeTheme;
 use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Models\Basic;
@@ -197,7 +198,7 @@ test('it cannot download another users export', function () {
         ->assertNotFound();
 });
 
-test('it can initiate a pdf resume export', function () {
+test('it can initiate a resume export with download and theme', function () {
     Queue::fake();
 
     $this->actingAs($this->user)
@@ -205,6 +206,8 @@ test('it can initiate a pdf resume export', function () {
         ->post(route('dashboard.resume.export.store'), [
             '_token' => 'test-token',
             'type' => ResumeExportType::PDF->value,
+            'theme' => ResumeTheme::BOLD->value,
+            'allow_download' => true,
         ])
         ->assertRedirect()
         ->assertSessionHas('success');
@@ -213,9 +216,82 @@ test('it can initiate a pdf resume export', function () {
         'user_id' => $this->user->id,
         'status' => 'pending',
         'type' => ResumeExportType::PDF->value,
+        'theme' => ResumeTheme::BOLD->value,
+        'allow_download' => true,
     ]);
 
     Queue::assertPushed(ProcessPdfExport::class);
+});
+
+test('marking an export for download unmarks others of the same type', function () {
+    $this->withoutMiddleware();
+    $existing = ResumeExport::create([
+        'user_id' => $this->user->id,
+        'type' => ResumeExportType::PDF,
+        'allow_download' => true,
+        'status' => 'completed',
+    ]);
+
+    $this->actingAs($this->user)
+        ->post(route('dashboard.resume.export.store'), [
+            'type' => ResumeExportType::PDF->value,
+            'allow_download' => '1',
+        ]);
+
+    $existing->refresh();
+    expect($existing->allow_download)->toBeFalse();
+
+    $this->assertDatabaseHas('resume_exports', [
+        'user_id' => $this->user->id,
+        'type' => ResumeExportType::PDF->value,
+        'allow_download' => true,
+    ]);
+});
+
+test('json exports cannot be marked for download', function () {
+    $this->withoutMiddleware();
+
+    $this->actingAs($this->user)
+        ->post(route('dashboard.resume.export.store'), [
+            'type' => ResumeExportType::JSON->value,
+            'allow_download' => '1',
+        ]);
+
+    $this->assertDatabaseHas('resume_exports', [
+        'user_id' => $this->user->id,
+        'type' => ResumeExportType::JSON->value,
+        'allow_download' => false,
+    ]);
+});
+
+test('publicly marked exports are downloadable by guests', function () {
+    Storage::fake('local');
+    $filePath = 'exports/resumes/public.json';
+    Storage::disk('local')->put($filePath, 'content');
+
+    $export = ResumeExport::create([
+        'user_id' => $this->user->id,
+        'status' => 'completed',
+        'file_path' => $filePath,
+        'type' => ResumeExportType::JSON->value,
+        'allow_download' => true,
+    ]);
+
+    $this->get(route('resume.download', $export->uuid))
+        ->assertSuccessful();
+});
+
+test('unmarked exports are not downloadable by guests', function () {
+    $export = ResumeExport::create([
+        'user_id' => $this->user->id,
+        'status' => 'completed',
+        'file_path' => 'path.json',
+        'type' => ResumeExportType::JSON->value,
+        'allow_download' => false,
+    ]);
+
+    $this->get(route('resume.download', $export->uuid))
+        ->assertNotFound();
 });
 
 test('the background job generates a pdf file', function () {
@@ -241,7 +317,8 @@ test('the background job generates a pdf file', function () {
 
     Pdf::assertSaved(function (PdfBuilder $pdf, string $path) use ($export) {
         return $path === $export->file_path
-            && ! str_contains($pdf->html, '{"name":"div"');
+            && ! str_contains($pdf->html, '{"name":"div"')
+            && ! str_contains($pdf->html, 'Downloads');
     });
 });
 

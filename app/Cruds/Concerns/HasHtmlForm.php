@@ -59,7 +59,7 @@ trait HasHtmlForm
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
             ->setTheme('cursor', 'pointer')
-            ->setContent($label);
+            ->setContent(__($label));
     }
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent

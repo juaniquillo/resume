@@ -106,6 +106,16 @@ final class TableHelpers
             ->setContent($content);
     }
 
+    public static function booleanBadge(mixed $value): BackendComponent|CompoundComponent
+    {
+        $value = (bool) $value;
+
+        return self::badge(
+            $value ? 'Yes' : 'No',
+            $value ? 'green' : 'zinc'
+        );
+    }
+
     public static function highlightsButton(string $route): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)

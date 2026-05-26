@@ -13,6 +13,8 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Squema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
+use App\Cruds\Squema\ResumeExport\Inputs\ExportThemeSelectFactory;
 use App\Cruds\Squema\ResumeExport\Inputs\ExportTypeSelectFactory;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
@@ -47,6 +49,8 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
     {
         return [
             'type' => ExportTypeSelectFactory::make(),
+            'theme' => ExportThemeSelectFactory::make(),
+            'allow_download' => AllowDownloadSwitchFactory::make(),
         ];
     }
 
@@ -125,23 +129,20 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         ));
     }
 
-    public function formWithButtonOnly(): BackendComponent|CompoundComponent
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
     {
-        $components = $this->inputs();
-        $divWithButton = ComponentBuilder::make(ComponentEnum::DIV)
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setAttribute('variant', 'primary')
-                    ->setTheme('cursor', 'pointer')
-                    ->setContent(__('Start New Export'))
-            )
-            ->setThemes([
-                'margin' => 'top-sm',
-            ]);
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('type', 'submit')
+            ->setAttribute('variant', 'primary')
+            ->setAttribute('color', 'blue')
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__('Start New Export'));
+    }
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
-            ->setContents($components)
-            ->setContent($divWithButton);
+    public function formThemes(): array
+    {
+        return [
+            'forms' => 'two-column',
+        ];
     }
 }

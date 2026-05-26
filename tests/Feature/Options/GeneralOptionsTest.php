@@ -21,14 +21,14 @@ test('authenticated user can update their slug and theme', function () {
         ->actingAs($user)
         ->post(route('dashboard.resume.general.update'), [
             'slug' => 'new-slug',
-            'theme' => ResumeTheme::TAILWIND->value,
+            'theme' => ResumeTheme::DEFAULT->value,
         ])
         ->assertRedirect()
         ->assertSessionHas('success');
 
     $options = $user->fresh()->generalOptions;
     expect($options->slug)->toBe('new-slug');
-    expect($options->theme)->toBe(ResumeTheme::TAILWIND->value);
+    expect($options->theme)->toBe(ResumeTheme::DEFAULT->value);
 });
 
 test('slug must be unique among options', function () {
@@ -86,4 +86,22 @@ test('slug must follow alpha-dash format', function () {
 
     expect($errors)->toHaveKey('slug');
     expect($user->fresh()->generalOptions->slug)->toBe('old-slug');
+});
+
+test('authenticated user can update draft mode', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['is_draft' => false]);
+
+    $this->withoutMiddleware()
+        ->actingAs($user)
+        ->post(route('dashboard.resume.general.update'), [
+            'slug' => 'test-slug',
+            'theme' => ResumeTheme::DEFAULT->value,
+            'is_draft' => '1',
+        ])
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $options = $user->fresh()->generalOptions;
+    expect((string) $options->is_draft)->toBe('1');
 });

@@ -8,6 +8,7 @@ use App\Presenters\Resume\AwardsPresenter;
 use App\Presenters\Resume\BasicsPresenter;
 use App\Presenters\Resume\CertificatesPresenter;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
+use App\Presenters\Resume\DownloadsPresenter;
 use App\Presenters\Resume\EducationPresenter;
 use App\Presenters\Resume\InterestsPresenter;
 use App\Presenters\Resume\LanguagesPresenter;
@@ -33,6 +34,7 @@ final class ResumePresenter
     public function __construct(
         private User $user,
         private ?PresenterTheme $theme = new DefaultPresenterTheme,
+        private bool $isPdf = false,
     ) {}
 
     public function present(): BackendComponent|CompoundComponent|Htmlable
@@ -55,6 +57,7 @@ final class ResumePresenter
             'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($data->interests, $this->theme))->present() : null,
             'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($data->references, $this->theme))->present() : null,
             'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($data->projects, $this->theme))->present() : null,
+            'downloads' => (! $this->isPdf) ? (new DownloadsPresenter($data->downloads, $this->theme))->present() : null,
         ];
 
         return $this->compose(ComponentEnum::DIV)

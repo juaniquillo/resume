@@ -27,7 +27,7 @@ class GeneralOptionsController extends Controller
         $crud = GeneralOptionsCrud::build(
             values: $values,
             errors: $request->session()->get('errors')?->toArray() ?? [],
-            model: $user
+            model: $options
         );
 
         $crud->setFormAction(route('dashboard.resume.general.update'));

@@ -16,17 +16,17 @@ class SlugFactory
 
     public const LABEL = 'Resume Slug';
 
-    public static function make(?int $userId = null): InputInterface
+    public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
-        self::validation($input, $userId);
+        self::validation($input);
 
         return $input;
     }
 
-    public static function validation(InputInterface $input, ?int $userId = null): void
+    public static function validation(InputInterface $input): void
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
@@ -34,9 +34,7 @@ class SlugFactory
                 'string',
                 'alpha_dash:ascii',
                 'max:255',
-                $userId === null
-                    ? Rule::unique(GeneralOption::class)
-                    : Rule::unique(GeneralOption::class)->ignore($userId, 'user_id'),
+                Rule::unique(GeneralOption::class)->ignore(request()->user()->id, 'user_id'),
             ]))
         );
     }

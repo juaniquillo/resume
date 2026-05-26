@@ -11,6 +11,7 @@ use App\Models\Language;
 use App\Models\Project;
 use App\Models\Publication;
 use App\Models\Reference;
+use App\Models\ResumeExport;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -57,6 +58,12 @@ final class ResumeDataLoader
         /** @var Collection<int, Project> $projects */
         $projects = $user->projects()->with('highlights')->orderByDesc('start_date')->get();
 
+        /** @var Collection<int, ResumeExport> $downloads */
+        $downloads = $user->resumeExports()
+            ->where('allow_download', true)
+            ->where('status', 'completed')
+            ->get();
+
         return new ResumeData(
             basics: $basics,
             works: $works,
@@ -70,6 +77,7 @@ final class ResumeDataLoader
             interests: $interests,
             references: $references,
             projects: $projects,
+            downloads: $downloads,
         );
     }
 }

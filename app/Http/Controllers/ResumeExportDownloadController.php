@@ -15,7 +15,10 @@ class ResumeExportDownloadController extends Controller
      */
     public function __invoke(Request $request, string $uuid): StreamedResponse|RedirectResponse
     {
-        $export = ResumeExport::where('user_id', $request->user()->id)
+        $user = $request->user();
+
+        /** @var ResumeExport $export */
+        $export = $user->resumeExports()
             ->where('uuid', $uuid)
             ->firstOrFail();
 

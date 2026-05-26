@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Resume\Import\CreateResumeImport;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
 use App\Cruds\Squema\ResumeImport\ResumeImportCrud;
 use App\Http\Requests\ResumeImportFormRequest;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
-use JustSteveKing\Resume\Factories\ResumeFactory;
 
 class ResumeImportController extends Controller
 {
@@ -29,7 +27,10 @@ class ResumeImportController extends Controller
 
         $form = $crud->formWithUploadSpanFull();
 
-        $imports = ResumeImport::where('user_id', $request->user()->id)
+        $user = $request->user();
+
+        $imports = $user
+            ->resumeImports()
             ->latest()
             ->paginate(10);
 
@@ -44,33 +45,18 @@ class ResumeImportController extends Controller
             ->with('paginator', $imports);
     }
 
-    public function store(ResumeImportFormRequest $request)
+    public function store(ResumeImportFormRequest $request, CreateResumeImport $action)
     {
-        if ($request->user()->resumeImports()->count() >= 5) {
+        $user = $request->user();
+
+        if ($user->resumeImports()->count() >= 5) {
             return redirect()
                 ->back()
                 ->with('error', 'You can only have up to 5 resume imports. Please delete an old one first.');
         }
 
-        /** @var UploadedFile $file */
-        $file = $request->file(JsonFileFactory::NAME);
-
-        try {
-            $json = file_get_contents($file->getRealPath());
-            ResumeFactory::fromJson($json)->validate();
-        } catch (\Exception $e) {
-            throw ValidationException::withMessages([
-                JsonFileFactory::NAME => ['The provided file does not conform to the JSON Resume schema.'],
-            ]);
-        }
-
-        $path = $file->store('imports/resumes');
-
-        $import = ResumeImport::create([
-            'user_id' => $request->user()->id,
-            'file_path' => $path,
-            'file_name' => $file->getClientOriginalName(),
-            'status' => 'pending',
+        $import = $action->handle($user, [
+            JsonFileFactory::NAME => $request->file(JsonFileFactory::NAME),
         ]);
 
         ProcessResumeImport::dispatch($import);
@@ -82,7 +68,9 @@ class ResumeImportController extends Controller
 
     public function destroy(Request $request, int $id)
     {
-        $import = ResumeImport::where('user_id', $request->user()->id)->findOrFail($id);
+        $user = $request->user();
+        /** @var ResumeImport $import */
+        $import = $user->resumeImports()->findOrFail($id);
 
         if ($import->file_path) {
             Storage::delete($import->file_path);

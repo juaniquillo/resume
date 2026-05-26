@@ -30,6 +30,14 @@ test('it can present a resume for a user', function () {
         'summary' => "I am a software engineer.\nLine 2 of summary.",
     ]);
 
+    $basic->location()->create([
+        'address' => '123 Main St',
+        'city' => 'Tech City',
+        'region' => 'Silicon Valley',
+        'postal_code' => '12345',
+        'country_code' => 'US',
+    ]);
+
     // Create profile
     Profile::factory()->create([
         'basic_id' => $basic->id,
@@ -42,6 +50,7 @@ test('it can present a resume for a user', function () {
     Work::factory()->for($user)->create([
         'position' => 'Developer',
         'name' => 'Company Inc',
+        'url' => 'https://company.inc',
         'starts_at' => now()->subYear(),
         'ends_at' => now(),
     ]);
@@ -50,6 +59,7 @@ test('it can present a resume for a user', function () {
     Volunteer::factory()->for($user)->create([
         'position' => 'Volunteer Developer',
         'organization' => 'Open Source Foundation',
+        'url' => 'https://osf.org',
         'starts_at' => now()->subYear(),
     ]);
 
@@ -58,6 +68,8 @@ test('it can present a resume for a user', function () {
         'institution' => 'University of Tech',
         'area' => 'Computer Science',
         'study_type' => 'Bachelor',
+        'score' => '4.0 GPA',
+        'url' => 'https://u-tech.edu',
         'starts_at' => now()->subYears(5),
         'ends_at' => now()->subYear(),
     ]);
@@ -92,6 +104,8 @@ test('it can present a resume for a user', function () {
     // Create skill
     Skill::factory()->for($user)->create([
         'name' => 'PHP',
+        'level' => 'Senior',
+        'keywords' => ['Laravel', 'Symfony'],
     ]);
 
     // Create language
@@ -129,14 +143,22 @@ test('it can present a resume for a user', function () {
     expect($html)->toContain('John Doe');
     expect($html)->toContain('Software Engineer');
     expect($html)->toContain('I am a software engineer.');
+    expect($html)->toContain('123 Main St, Tech City, Silicon Valley, 12345, US');
     expect($html)->toContain('Developer');
     expect($html)->toContain('Company Inc');
+    expect($html)->toContain('https://company.inc');
     expect($html)->toContain('University of Tech');
+    expect($html)->toContain('4.0 GPA');
+    expect($html)->toContain('https://u-tech.edu');
     expect($html)->toContain('PHP');
+    expect($html)->toContain('Senior');
+    expect($html)->toContain('Laravel');
+    expect($html)->toContain('Symfony');
     expect($html)->toContain('English');
     expect($html)->toContain('Resume Project');
     expect($html)->toContain('Volunteer Developer');
     expect($html)->toContain('Open Source Foundation');
+    expect($html)->toContain('https://osf.org');
     expect($html)->toContain('Advanced PHP');
     expect($html)->toContain('Best Developer');
     expect($html)->toContain('Laravel Certified');
@@ -239,6 +261,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function downloadsContainerThemes(): array
+        {
+            return [];
+        }
+
         public function nameThemes(): array
         {
             return [];
@@ -294,6 +321,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function imageContainerThemes(): array
+        {
+            return [];
+        }
+
         public function imageThemes(): array
         {
             return [];
@@ -315,6 +347,11 @@ test('it can use a custom theme', function () {
         }
 
         public function badgeThemes(): array
+        {
+            return [];
+        }
+
+        public function socialBadgeThemes(): array
         {
             return [];
         }

@@ -19,18 +19,20 @@ $optionsCards = ResumeOptionNav::makeCards();
 
         <flux:separator class="mt-6" />
 
-        <flux:heading class="mt-6" size="xl" level="1">{{ __("Tools") }}</flux:heading>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-            {{ $toolsCards }}
-        </div>
-        <flux:separator class="mt-6" />
-
         <flux:heading class="mt-6" size="xl" level="1">{{ __("Options") }}</flux:heading>
 
         <div class="mt-6 flex flex-wrap gap-3">
             {{ $optionsCards }}
         </div>
+        
+        <flux:separator class="mt-6" />
+
+        <flux:heading class="mt-6" size="xl" level="1">{{ __("Tools") }}</flux:heading>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+            {{ $toolsCards }}
+        </div>
+        
     </div>
         
 </x-layouts::app >

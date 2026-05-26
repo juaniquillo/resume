@@ -29,16 +29,18 @@ final class BasicsPresenter
         }
 
         $image = $this->basics->image ?? null;
+        $imageUrl = $image ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
             ->setContents(array_filter([
                 'image' => $image ? $this->compose(ComponentEnum::SPAN)
+                    ->setThemes($this->theme->imageContainerThemes())
                     ->setContent(
                         $this->compose(ComponentEnum::IMG)
                             ->setThemes($this->theme->imageThemes())
                             ->setAttributes([
-                                'src' => route('image.serve', $this->basics->uuid),
+                                'src' => $imageUrl,
                                 'alt' => $this->basics->name,
                             ])
                     ) : null,
@@ -106,7 +108,15 @@ final class BasicsPresenter
         }
 
         if ($basics->location) {
-            $location = "{$basics->location->city}, {$basics->location->country_code}";
+            $locationParts = array_filter([
+                $basics->location->address,
+                $basics->location->city,
+                $basics->location->region,
+                $basics->location->postal_code,
+                $basics->location->country_code,
+            ]);
+            $location = implode(', ', $locationParts);
+
             $info['location'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->locationThemes())
                 ->setContents([
@@ -123,25 +133,44 @@ final class BasicsPresenter
         /** @var Profile $profile */
         foreach ($basics->profiles as $profile) {
             $network = $profile->network;
-            $enum = Network::tryFrom($network);
-            $icon = $enum ? $enum->icon() : 'globe-alt';
+            $enum = Network::fromString($network);
 
-            $profiles["profile_{$profile->id}"] = $this->compose(ComponentEnum::SPAN)
-                ->setThemes($this->theme->profileThemes())
-                ->setContent(
-                    $this->compose(ComponentEnum::LINK)
-                        ->setThemes(array_merge($this->theme->linkThemes(), $this->theme->badgeThemes()))
-                        ->setAttribute('href', $profile->url)
-                        ->setAttribute('target', '_blank')
-                        ->setContents([
-                            'icon' => FluxComponentBuilder::make("icon.{$icon}")
-                                ->setThemeManager((new LocalThemeManager))
-                                ->setThemes($this->theme->iconThemes())
-                                ->setAttribute('variant', 'outline'),
-                            'username' => $this->compose(ComponentEnum::SPAN)
-                                ->setContent($network),
-                        ])
-                );
+            $icon = $enum
+                ? $this->compose(ComponentEnum::DIV)
+                    ->setThemes($this->theme->iconThemes())
+                    ->setAttributes([
+                        'style' => sprintf(
+                            'background-color: #%s; mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
+                            $enum->hex(),
+                            asset("images/networks/{$enum->slug()}.svg"),
+                            asset("images/networks/{$enum->slug()}.svg")
+                        ),
+                        'title' => $network,
+                    ])
+                : FluxComponentBuilder::make('icon.globe-alt')
+                    ->setThemeManager((new LocalThemeManager))
+                    ->setThemes($this->theme->iconThemes())
+                    ->setAttribute('variant', 'outline');
+
+            $profiles["profile_{$profile->id}"] = $this->compose(ComponentEnum::LINK)
+                ->setThemes($this->theme->socialBadgeThemes())
+                ->setAttribute('href', $profile->url)
+                ->setAttribute('target', '_blank')
+                ->setContents([
+                    'icon' => $this->compose(ComponentEnum::SPAN)
+                        ->setThemes($this->theme->iconThemes())
+                        ->setAttributes([
+                            'style' => sprintf(
+                                '--brand-color: #%s; background-color: var(--brand-color); mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
+                                $enum ? $enum->hex() : '000000',
+                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg'),
+                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg')
+                            ),
+                            'title' => $network,
+                        ]),
+                    'name' => $this->compose(ComponentEnum::SPAN)
+                        ->setContent($network),
+                ]);
         }
 
         return [

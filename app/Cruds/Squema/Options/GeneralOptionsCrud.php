@@ -6,9 +6,9 @@ use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
@@ -37,19 +37,10 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
     #[Override]
     public function inputsArray(): array
     {
-        /** @var User|null $user */
-        $user = $this->model;
-
         return [
-            SlugFactory::NAME => SlugFactory::make($user?->id),
+            SlugFactory::NAME => SlugFactory::make(),
             ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
-        ];
-    }
-
-    public function formThemes(): array
-    {
-        return [
-            'forms' => 'one-column',
+            IsDraftFactory::NAME => IsDraftFactory::make(),
         ];
     }
 }

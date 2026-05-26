@@ -104,6 +104,13 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function downloadsContainerThemes(): array
+    {
+        return [
+            'default' => 'downloads-container',
+        ];
+    }
+
     public function nameThemes(): array
     {
         return [
@@ -181,6 +188,11 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function imageContainerThemes(): array
+    {
+        return [];
+    }
+
     public function imageThemes(): array
     {
         return [
@@ -213,6 +225,13 @@ final class DefaultPresenterTheme implements PresenterTheme
     {
         return [
             'default' => 'badge',
+        ];
+    }
+
+    public function socialBadgeThemes(): array
+    {
+        return [
+            'default' => 'social-badge',
         ];
     }
 
