@@ -26,3 +26,6 @@
 24. ✅ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
 25. ✅ Make sure all models have DocBlocks with the @property-read statement.
 26. ◻️ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.
+27. ◻️ Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
+28. ◻️ Show a message in the dashboard that lets the user know when the basics has not been filled. The resume will not be available it that's the case.
+29. ◻️ REfactor the section visibility crud into a Livewire component.
