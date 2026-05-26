@@ -72,7 +72,7 @@ trait HasHtmlForm
         return $this->composeForm($inputs);
     }
 
-    /** @param array<int,string, string> $fullSpanInputs */
+    /** @param array<int|string, string> $fullSpanInputs */
     public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent
     {
         $inputs = self::inputsArray();
@@ -155,13 +155,13 @@ trait HasHtmlForm
         $separator = new DefaultInput("fieldset_wrap_{$key}");
 
         $separator->setRecipe(
-            (new InputComponentRecipe())
+            (new InputComponentRecipe)
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::SEPARATOR)
                 )
         );
-        
+
         return $separator;
     }
 
@@ -190,7 +190,7 @@ trait HasHtmlForm
         return $form;
     }
 
-    /** @param array<int,string, InputInterface> $inputs */
+    /** @param array<int|string, InputInterface> $inputs */
     public function fieldsetWrap(array $inputs, string|int $key, string $legend): InputInterface
     {
         $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
@@ -201,19 +201,19 @@ trait HasHtmlForm
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setWrapperComponent(
-                            function(BackedEnum|string $type, ThemeManager $manager) {
-                               return new FluxBackendComponent($type, $manager);
+                            function (BackedEnum|string $type, ThemeManager $manager) {
+                                return new FluxBackendComponent($type, $manager);
                             }
                         )
                         ->setLabelComponent(
-                            function(BackedEnum|string $type, ThemeManager $manager) {
-                               return new FluxBackendComponent($type, $manager);
+                            function (BackedEnum|string $type, ThemeManager $manager) {
+                                return new FluxBackendComponent($type, $manager);
                             }
                         )
                         ->setInputComponent(
-                            function(BackedEnum|string $type, ThemeManager $manager) {
-                               return (new MainBackendComponent($type, $manager))
-                                ->setTheme('forms', 'fieldset-spacing');
+                            function (BackedEnum|string $type, ThemeManager $manager) {
+                                return (new MainBackendComponent($type, $manager))
+                                    ->setTheme('forms', 'fieldset-spacing');
                             }
                         )
                         ->setWrapperType(FluxComponentEnum::FIELDSET)
@@ -231,6 +231,6 @@ trait HasHtmlForm
 
         $fieldset->setSubElements(CrudAssistant::make($inputs));
 
-        return  $fieldset;
+        return $fieldset;
     }
 }

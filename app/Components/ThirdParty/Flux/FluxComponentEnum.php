@@ -14,7 +14,6 @@ enum FluxComponentEnum: string
     case ICON = 'icon';
     case SEPARATOR = 'separator';
 
-
     // forms
     case LABEL = 'label';
     case TEXT_INPUT = 'input';
