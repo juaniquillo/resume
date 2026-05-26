@@ -5,13 +5,18 @@ namespace App\Cruds\Concerns;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\InputGroups\LabelInputGroup;
+use BackedEnum;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
+use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Containers\InputComponentOutput;
@@ -67,6 +72,7 @@ trait HasHtmlForm
         return $this->composeForm($inputs);
     }
 
+    /** @param array<int,string, string> $fullSpanInputs */
     public function formFullSpanInputs(array $fullSpanInputs): BackendComponent|CompoundComponent
     {
         $inputs = self::inputsArray();
@@ -84,6 +90,8 @@ trait HasHtmlForm
 
     public function inputs(?array $inputs = null): array
     {
+        $inputs = $inputs ?? self::inputsArray();
+
         $action = (new InputComponentAction($this->getValues(), $this->getErrors()))
             ->setDefaultInputGroup(NoWrapSoleInputGroup::class)
             ->setDefaultComponentBag($this->dashboardComponentBag());
@@ -142,6 +150,21 @@ trait HasHtmlForm
         return new DefaultErrorManager;
     }
 
+    public function separator(int|string $key): InputInterface
+    {
+        $separator = new DefaultInput("fieldset_wrap_{$key}");
+
+        $separator->setRecipe(
+            (new InputComponentRecipe())
+                ->setComponentBag(
+                    (new DefaultComponentBag)
+                        ->setInputType(FluxComponentEnum::SEPARATOR)
+                )
+        );
+        
+        return $separator;
+    }
+
     private function composeForm(?array $inputs = null): BackendComponent|CompoundComponent
     {
         $action = $this->formAction;
@@ -165,5 +188,49 @@ trait HasHtmlForm
         );
 
         return $form;
+    }
+
+    /** @param array<int,string, InputInterface> $inputs */
+    public function fieldsetWrap(array $inputs, string|int $key, string $legend): InputInterface
+    {
+        $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
+
+        $fieldset->setRecipe(
+            (new InputComponentRecipe)
+                ->setInputGroup(new LabelInputGroup)
+                ->setComponentBag(
+                    (new DefaultComponentBag)
+                        ->setWrapperComponent(
+                            function(BackedEnum|string $type, ThemeManager $manager) {
+                               return new FluxBackendComponent($type, $manager);
+                            }
+                        )
+                        ->setLabelComponent(
+                            function(BackedEnum|string $type, ThemeManager $manager) {
+                               return new FluxBackendComponent($type, $manager);
+                            }
+                        )
+                        ->setInputComponent(
+                            function(BackedEnum|string $type, ThemeManager $manager) {
+                               return (new MainBackendComponent($type, $manager))
+                                ->setTheme('forms', 'fieldset-spacing');
+                            }
+                        )
+                        ->setWrapperType(FluxComponentEnum::FIELDSET)
+                        ->setLabelType(FluxComponentEnum::LEGEND)
+                        ->setInputType(ComponentEnum::DIV)
+                )
+                ->setThemeBag(
+                    (new DefaultThemeBag)
+                        ->setWrapperTheme([
+                            'forms' => 'column-span-full',
+                        ])
+                )
+
+        );
+
+        $fieldset->setSubElements(CrudAssistant::make($inputs));
+
+        return  $fieldset;
     }
 }

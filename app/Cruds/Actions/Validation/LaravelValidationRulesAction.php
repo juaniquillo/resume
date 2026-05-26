@@ -20,12 +20,22 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         protected $model = null
     ) {}
 
-    /**
-     * Execute action on input.
-     *
-     * @return DataContainerInterface
-     */
     public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
+    {
+        $this->executeOne($input);
+    
+        $subElements = $input->getSubElements();
+
+        if ($subElements) {
+            foreach ($subElements as $key => $subElement) {
+                $this->executeOne($subElement);
+            }
+        }
+        
+        return  $this->getOutput();
+    }
+
+    public function executeOne(InputCollection|InputInterface|\IteratorAggregate $input)
     {
         $output = $this->getOutput();
 

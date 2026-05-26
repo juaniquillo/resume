@@ -43,8 +43,11 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             SlugFactory::NAME => SlugFactory::make(),
             ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
             IsDraftFactory::NAME => IsDraftFactory::make(),
-            HidePhoneFactory::NAME => HidePhoneFactory::make(),
-            HideEmailFactory::NAME => HideEmailFactory::make(),
+            $this->fieldsetWrap([
+                HidePhoneFactory::NAME => HidePhoneFactory::make(),
+                $this->separator('security_1'),
+                HideEmailFactory::NAME => HideEmailFactory::make(),
+            ], 'security', 'Security Options'),
         ];
     }
 }
