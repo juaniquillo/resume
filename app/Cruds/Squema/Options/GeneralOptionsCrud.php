@@ -6,6 +6,8 @@ use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Squema\Options\Inputs\HideEmailFactory;
+use App\Cruds\Squema\Options\Inputs\HidePhoneFactory;
 use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
@@ -41,6 +43,8 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             SlugFactory::NAME => SlugFactory::make(),
             ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
             IsDraftFactory::NAME => IsDraftFactory::make(),
+            HidePhoneFactory::NAME => HidePhoneFactory::make(),
+            HideEmailFactory::NAME => HideEmailFactory::make(),
         ];
     }
 }

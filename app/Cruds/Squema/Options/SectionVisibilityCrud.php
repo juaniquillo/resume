@@ -8,6 +8,7 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Managers\SettingsValueManager;
 use App\Cruds\Squema\Options\Inputs\SectionSwitchFactory;
+use App\Enums\ResumeSection;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Override;
@@ -18,21 +19,6 @@ final class SectionVisibilityCrud implements CrudForm, CrudInterface
         IsCrud;
 
     public const NAME = 'section_visibility';
-
-    public const SECTIONS = [
-        'summary' => 'Summary',
-        'work' => 'Experience',
-        'volunteers' => 'Volunteering',
-        'education' => 'Education',
-        'awards' => 'Awards',
-        'certificates' => 'Certificates',
-        'publications' => 'Publications',
-        'skills' => 'Skills',
-        'languages' => 'Languages',
-        'interests' => 'Interests',
-        'references' => 'References',
-        'projects' => 'Projects',
-    ];
 
     public function __construct(
         protected array $values = [],
@@ -53,7 +39,7 @@ final class SectionVisibilityCrud implements CrudForm, CrudInterface
     public function inputsArray(): array
     {
         $inputs = [];
-        foreach (self::SECTIONS as $key => $label) {
+        foreach (ResumeSection::labels() as $key => $label) {
             $inputs[$key] = SectionSwitchFactory::make($key, $label);
         }
 

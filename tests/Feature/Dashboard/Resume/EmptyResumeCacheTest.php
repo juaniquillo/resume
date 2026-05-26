@@ -11,9 +11,6 @@ uses(RefreshDatabase::class);
 it('clears the resume cache when clearCache is called', function () {
     $user = User::factory()->create();
 
-    // Set a cache version
-    Cache::forever("resume:{$user->id}:v", 1);
-
     $presenter = new ResumePresenter($user);
     $cacheKey = $presenter->getCacheKey();
 

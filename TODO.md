@@ -21,7 +21,8 @@
 19. ✅ Add an "allow download" field in export crud. It should be a switch and when a record is marked for download there should be a link for downloading that file in the new "downloads" section of the resume. Only PDF exports can be marked for download. Only one can be marked at a time. That new section should not be available for the PDF export job.
 20. ✅ Add an optional resume theme dropdown only when PDF export is chosen. This way we can have exports with multiple themes without changing the existing resume theme. 
 21. ◻️ Work on an public API that serves either the whole resume as JSON or sections of it. This APU should be reate limited.
-22. ◻️ Add Sensitive fields to the General Options CRUD. It's a list of switches for choosing what fields to hide from the online version and API versions. There will be an option to apply them whenever an export is created. The fields are: phone and email for now.
-23. ◻️ Simplify resume cache. Remove version and keep only one cache per user.
-24. ◻️ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
+22. ✅ Add Sensitive fields to the General Options CRUD. It's a list of switches for choosing what fields to hide from the online version and API versions. There will be an option to apply them whenever an export is created. The fields are: phone and email for now.
+23. ✅ Simplify resume cache. Remove version and keep only one cache per user.
+24. ✅ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
 25. ◻️ Make sure all models have DocBlocks with the @property-read statement.
+26. ◻️ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.

@@ -2,7 +2,8 @@
 
 namespace App\Models\Concerns;
 
-use Illuminate\Support\Facades\Cache;
+use App\Models\User;
+use App\Presenters\Cache\ResumePresenterCacheManager;
 
 /**
  * @property-read string $user_id
@@ -25,9 +26,9 @@ trait InvalidatesResumeCache
         $userId = $model->resolveResumeUserId();
 
         if ($userId) {
-            $key = "resume:{$userId}:v";
-            $current = (int) Cache::get($key, 0);
-            Cache::forever($key, $current + 1);
+            $user = User::find($userId);
+            $manager = new ResumePresenterCacheManager($user);
+            $manager->clearCache();
         }
     }
 
