@@ -17,15 +17,16 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read string $institution
- * @property-read string $url
- * @property-read string $area
- * @property-read string $study_type
- * @property-read string $score
+ * @property-read string|null $url
+ * @property-read string|null $area
+ * @property-read string|null $study_type
+ * @property-read string|null $score
  * @property-read string $user_id
  * @property-read Carbon $starts_at
  * @property-read Carbon|null $ends_at
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read User $user
  * @property-read Collection<int, Course> $courses
  */
 #[Guarded([])]

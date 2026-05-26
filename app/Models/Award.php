@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon $awarded_at
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
+ * @property-read User $user
  */
 #[Guarded([])]
 class Award extends Model

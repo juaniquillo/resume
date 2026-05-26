@@ -7,7 +7,22 @@ use App\Models\Concerns\Uuidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property-read int $id
+ * @property-read string $uuid
+ * @property-read int $user_id
+ * @property-read ResumeExportType $type
+ * @property-read string|null $theme
+ * @property-read bool $allow_download
+ * @property-read string|null $file_path
+ * @property-read string $status
+ * @property-read string|null $error
+ * @property-read Carbon|null $created_at
+ * @property-read Carbon|null $updated_at
+ * @property-read User $user
+ */
 class ResumeExport extends Model
 {
     use HasFactory, Uuidable;
