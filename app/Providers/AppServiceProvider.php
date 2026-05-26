@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Presenters\Cache\ResumeThemeCacheManager;
+use App\Presenters\Resume\ResumeDataLoader;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ResumeThemeCacheManager::class, function (Application $app) {
             return new ResumeThemeCacheManager;
+        });
+
+        $this->app->singleton(ResumeDataLoader::class, function (Application $app) {
+            return new ResumeDataLoader;
         });
     }
 

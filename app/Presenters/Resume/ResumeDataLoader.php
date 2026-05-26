@@ -20,8 +20,15 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class ResumeDataLoader
 {
+    /** @var array<int, ResumeData> */
+    private array $cache = [];
+
     public function load(User $user): ResumeData
     {
+        if (isset($this->cache[$user->id])) {
+            return $this->cache[$user->id];
+        }
+
         /** @var Basic|null $basics */
         $basics = $user->basics()->with(['location', 'profiles'])->first();
 
@@ -64,7 +71,7 @@ final class ResumeDataLoader
             ->where('status', 'completed')
             ->get();
 
-        return new ResumeData(
+        return $this->cache[$user->id] = new ResumeData(
             basics: $basics,
             works: $works,
             volunteers: $volunteers,
