@@ -33,3 +33,4 @@
 31. ◻️ In the Export table, don't show the delete button not allow deletion in the controller for if the status is not completed.
 32. ◻️ Add a Tool->reset resume for emptying all resume sections database table. With a big warning, of course.
 33. ◻️ The image in the download button of the resume presenter "images/pixel-icons/download.png" does not exist.
+34. ◻️ Add a warning to the import CRUD that the existing resume info will be overwritten with the one in the JSON file.
