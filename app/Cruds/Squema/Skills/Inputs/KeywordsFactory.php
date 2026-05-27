@@ -62,7 +62,8 @@ class KeywordsFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'placeholder' => 'Enter keywords separated by commas...',
+                            // 'placeholder' => 'Enter keywords separated by commas...',
+                            'description' => 'Enter keywords separated by commas',
                         ])
                 )
         );
