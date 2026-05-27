@@ -104,7 +104,13 @@ class ExportTypeSelectFactory
 
     public static function optionsArray(): array
     {
-        $options = [];
+        $options = [
+            [
+                'name' => 'choose',
+                'label' => 'Choose...',
+                'value' => '',
+            ]
+        ];
 
         foreach (ResumeExportType::cases() as $value) {
             $options[] = [

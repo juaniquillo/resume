@@ -52,6 +52,7 @@ class IsDraftFactory
                             'label' => self::LABEL,
                             'description' => 'Hide your resume from the public while you are working on it.',
                             'name' => $input->getName(),
+                            'align' => 'left',
                             'value' => 1,
                         ])
                 )
