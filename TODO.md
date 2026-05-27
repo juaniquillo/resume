@@ -32,3 +32,4 @@
 30. ◻️ Add default svg icon for the Networks that are not in the Enum.
 31. ◻️ In the Export table, don't show the delete button not allow deletion in the controller for if the status is not completed.
 32. ◻️ Add a Tool->reset resume for emptying all resume sections database table. With a big warning, of course.
+33. ◻️ The image in the download button of the resume presenter "images/pixel-icons/download.png" does not exist.
