@@ -6,6 +6,8 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            'hasBasics' => auth()->user()->basics()->exists(),
+        ]);
     }
 }
