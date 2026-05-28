@@ -21,12 +21,12 @@ class SectionVisibility extends Component
         $user = Auth::user();
         $this->sectionVisibility = (array) ($user->sectionVisibility->settings ?? []);
     }
-    
+
     private function crud()
     {
         /** @var User $user */
         $user = Auth::user();
-        
+
         return SectionVisibilityCrud::build(
             values: $this->sectionVisibility,
             errors: $this->formErrors,
@@ -39,7 +39,7 @@ class SectionVisibility extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        $validator = $this->validateForm( $this->crud()->make(), $this->sectionVisibility);
+        $validator = $this->validateForm($this->crud()->make(), $this->sectionVisibility);
 
         (new UpdateSectionVisibility(
             $user,
@@ -48,7 +48,6 @@ class SectionVisibility extends Component
 
         session()->flash('success', 'Section visibility updated successfully.');
     }
-
 
     public function render()
     {

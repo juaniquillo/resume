@@ -37,7 +37,7 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             model: $model,
         );
     }
-    
+
     #[Override]
     public function inputsArray(): array
     {
@@ -52,12 +52,10 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             ], 'security', 'Security Options'),
         ];
     }
-    
-     #[Override]
+
+    #[Override]
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([IsDraftFactory::NAME]);
     }
-
-
 }

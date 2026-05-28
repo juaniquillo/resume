@@ -109,7 +109,7 @@ class ExportTypeSelectFactory
                 'name' => 'choose',
                 'label' => 'Choose...',
                 'value' => '',
-            ]
+            ],
         ];
 
         foreach (ResumeExportType::cases() as $value) {

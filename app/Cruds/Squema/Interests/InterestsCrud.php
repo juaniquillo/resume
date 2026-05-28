@@ -82,12 +82,10 @@ final class InterestsCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    
     public function formThemes(): array
     {
         return [
             'forms' => 'one-column',
         ];
     }
-
 }

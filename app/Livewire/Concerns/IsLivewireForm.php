@@ -20,7 +20,7 @@ trait IsLivewireForm
             )->toArray(),
             [],
             $crud->execute(
-                new LaravelValidationLabelsAction()
+                new LaravelValidationLabelsAction
             )->toArray()
         );
 
@@ -32,5 +32,4 @@ trait IsLivewireForm
 
         return $validator;
     }
-
 }

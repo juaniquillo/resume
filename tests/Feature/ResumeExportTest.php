@@ -134,6 +134,38 @@ test('user can delete their resume export', function () {
     Storage::disk('local')->assertMissing($filePath);
 });
 
+test('user cannot delete a pending or processing resume export', function () {
+    $this->withoutMiddleware();
+    $user = User::factory()->create();
+
+    $export = ResumeExport::create([
+        'user_id' => $user->id,
+        'status' => 'processing',
+    ]);
+
+    $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
+
+    $response->assertRedirect();
+    $response->assertSessionHas('error', 'Only completed or failed exports can be deleted.');
+    $this->assertDatabaseHas('resume_exports', ['id' => $export->id]);
+});
+
+test('user can delete a failed resume export', function () {
+    $this->withoutMiddleware();
+    $user = User::factory()->create();
+
+    $export = ResumeExport::create([
+        'user_id' => $user->id,
+        'status' => 'failed',
+    ]);
+
+    $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
+
+    $response->assertRedirect();
+    $response->assertSessionHas('success', 'Resume export deleted successfully.');
+    $this->assertDatabaseMissing('resume_exports', ['id' => $export->id]);
+});
+
 test('user cannot delete another users resume export', function () {
     $this->withoutMiddleware();
     $user = User::factory()->create();

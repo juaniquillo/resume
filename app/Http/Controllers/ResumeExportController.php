@@ -76,6 +76,12 @@ class ResumeExportController extends Controller
         /** @var ResumeExport $export */
         $export = $user->resumeExports()->findOrFail($id);
 
+        if (! in_array($export->status, ['completed', 'failed'])) {
+            return redirect()
+                ->back()
+                ->with('error', 'Only completed or failed exports can be deleted.');
+        }
+
         if ($export->file_path) {
             Storage::delete($export->file_path);
         }
