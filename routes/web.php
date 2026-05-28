@@ -17,7 +17,6 @@ use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\Options\GeneralOptionsController;
 use App\Http\Controllers\Options\GeneralOptionsUpdateController;
 use App\Http\Controllers\Options\SectionVisibilityController;
-use App\Http\Controllers\Options\SectionVisibilityUpdateController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
@@ -213,7 +212,6 @@ Route::middleware(['auth', 'verified'])
         Route::post('options/general', GeneralOptionsUpdateController::class)->name('dashboard.resume.general.update');
 
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
-        Route::post('options/visibility', SectionVisibilityUpdateController::class)->name('dashboard.resume.visibility.update');
     });
 
 require __DIR__.'/settings.php';

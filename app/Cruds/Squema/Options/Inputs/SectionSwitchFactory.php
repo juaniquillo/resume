@@ -4,6 +4,8 @@ namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Options\SectionVisibilityCrud;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -35,6 +37,8 @@ class SectionSwitchFactory
 
     public static function form(InputInterface $input, string $label): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), SectionVisibilityCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe(
                 checkable: true,
@@ -49,6 +53,7 @@ class SectionSwitchFactory
                             'label' => $label,
                             'name' => $input->getName(),
                             'value' => 1,
+                            ...$livewireAttributes,
                         ])
                 )
         );

@@ -117,7 +117,9 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.export.destroy', $export->id));
+                if (in_array($export->status, ['completed', 'failed'])) {
+                    $contents[] = TableHelpers::deleteButton(route('dashboard.resume.export.destroy', $export->id));
+                }
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
                     ->setContents($contents)

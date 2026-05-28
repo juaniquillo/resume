@@ -175,7 +175,7 @@ trait HasHtmlForm
             ->setThemes($this->formThemes())
             ->setContents(
                 $this->inputs(
-                    inputs: $inputs,
+                    inputs: $inputs ?? self::inputsArray(),
                 )
             );
 

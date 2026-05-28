@@ -12,6 +12,8 @@ use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Override;
 
 final class GeneralOptionsCrud implements CrudForm, CrudInterface
@@ -49,5 +51,11 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
                 HideEmailFactory::NAME => HideEmailFactory::make(),
             ], 'security', 'Security Options'),
         ];
+    }
+
+    #[Override]
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs([IsDraftFactory::NAME]);
     }
 }

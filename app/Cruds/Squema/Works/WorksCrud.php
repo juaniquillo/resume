@@ -48,9 +48,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
-    /**
-     * @return array<?InputInterface>
-     */
+    /** @return array<?InputInterface> */
     public function inputsArray(): array
     {
         return [

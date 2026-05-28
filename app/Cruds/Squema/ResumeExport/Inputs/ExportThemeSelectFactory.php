@@ -66,7 +66,6 @@ class ExportThemeSelectFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'name' => $input->getName(),
-                            'placeholder' => 'Default Theme',
                         ])
                 )
         );

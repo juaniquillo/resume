@@ -17,7 +17,7 @@ class AllowDownloadSwitchFactory
 {
     public const NAME = 'allow_download';
 
-    public const LABEL = 'Allow Download on Public Resume';
+    public const LABEL = 'Allow Download on Web View';
 
     public static function make(): InputInterface
     {
@@ -55,6 +55,7 @@ class AllowDownloadSwitchFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'name' => $input->getName(),
+                            'align' => 'left',
                             'value' => 1,
                         ])
                 )

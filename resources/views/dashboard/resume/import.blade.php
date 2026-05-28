@@ -3,6 +3,10 @@
     <flux:heading size="xl" level="1">{{ __("Resume Import") }}</flux:heading>
     
     <div class="max-w-xl mt-6">
+        <div class="mb-4 text-sm">
+            <x-alerts warning="{{ __('Warning: Importing a new resume will overwrite your existing data.') }}" />
+        </div>
+
         <flux:text class="mb-4">
             {{ __("Upload your resume in JSON Resume format to automatically populate your profile.") }}
         </flux:text>
@@ -12,12 +16,9 @@
 
     @if ($table ?? null)
         <flux:separator variant="subtle" class="mt-6" />
-        <div class="px-5 py-2 bg-gray-200 dark:bg-back-table border border-gray-300 dark:border-slate-700 rounded-lg mt-6 shadow">
-            {{ $table }}
 
-            <div class="py-2">
-                {{ $paginator->links() }}
-            </div>
-        </div>
+        <x-table-container paginator="{{ $paginator }}">
+            {{ $table }}
+        </x-table-container>
     @endif
 </x-layouts::app>

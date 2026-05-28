@@ -8,12 +8,8 @@
 
     @if ($table ?? null)
         <flux:separator variant="subtle" class="mt-6" />
-        <div class="px-5 py-2 bg-gray-200 dark:bg-back-table border border-gray-300 dark:border-slate-700 rounded-lg mt-6 shadow">
+        <x-table-container paginator="{{ $paginator }}">
             {{ $table }}
-
-            <div class="py-2">
-                {{ $paginator->links() }}
-            </div>
-        </div>
+        </x-table-container>
     @endif
 </x-layouts::app>

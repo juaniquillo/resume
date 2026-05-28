@@ -52,6 +52,7 @@ class HidePhoneFactory
                             'label' => self::LABEL,
                             'description' => 'Hide your phone number from the public resume.',
                             'name' => $input->getName(),
+                            'align' => 'left',
                             'value' => 1,
                         ])
                 )

@@ -52,6 +52,7 @@ class HideEmailFactory
                             'label' => self::LABEL,
                             'description' => 'Hide your email address from the public resume.',
                             'name' => $input->getName(),
+                            'align' => 'left',
                             'value' => 1,
                         ])
                 )
