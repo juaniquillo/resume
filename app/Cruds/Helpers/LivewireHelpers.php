@@ -7,10 +7,10 @@ use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class LivewireHelpers
 {
-    public  static function getLivewireInputRecipe(string $name, string $group, bool $isLive = false): InputComponentRecipe
+    public static function getLivewireInputRecipe(string $name, string $group, bool $isLive = false): InputComponentRecipe
     {
         return new InputComponentRecipe(
-            attributeBag: (new DefaultAttributeBag())
+            attributeBag: (new DefaultAttributeBag)
                 ->setInputAttributes(self::getLivewireAttributes($name, $group, $isLive))
         );
     }
@@ -18,14 +18,15 @@ class LivewireHelpers
     public static function getLivewireAttributes(string $name, string $group, bool $isLive = false): array
     {
         $live = $isLive ? '.live' : '';
+
         return [
-            "wire:model{$live}"  => self::getDotNotationName($group, $name),
+            "wire:model{$live}" => self::getDotNotationName($group, $name),
         ];
     }
 
     public static function getDotNotationName(string $group, array|string $name): string
     {
-        if(is_array($name)) {
+        if (is_array($name)) {
             $name = implode('.', $name);
         }
 

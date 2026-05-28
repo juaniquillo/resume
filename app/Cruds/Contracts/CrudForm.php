@@ -13,7 +13,7 @@ interface CrudForm
 {
     /** @return array<?InputInterface> */
     public function inputsArray(): array;
-    
+
     public function setFormAction(string $action): static;
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent;
