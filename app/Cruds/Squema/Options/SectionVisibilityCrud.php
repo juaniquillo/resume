@@ -10,6 +10,7 @@ use App\Cruds\Managers\SettingsValueManager;
 use App\Cruds\Squema\Options\Inputs\SectionSwitchFactory;
 use App\Enums\ResumeSection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Override;
 
@@ -57,5 +58,10 @@ final class SectionVisibilityCrud implements CrudForm, CrudInterface
     public function valueManager(): ValueManager
     {
         return new SettingsValueManager;
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 }

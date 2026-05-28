@@ -28,7 +28,7 @@
 26. ◻️ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.
 27. ◻️ Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
 28. ✅ Show a message in the dashboard that lets the user know when the basics has not been filled. The resume will not be available it that's the case.
-29. ◻️ Refactor the section visibility crud into a Livewire component.
+29. ✅ Refactor the section visibility crud into a Livewire component.
 30. ✅ Add default svg icon for the Networks that are not in the Enum.
 31. ◻️ In the Export table, don't show the delete button not allow deletion in the controller for if the status is not completed.
 32. ◻️ Add a Tool->reset resume for emptying all resume sections database table. With a big warning, of course.
