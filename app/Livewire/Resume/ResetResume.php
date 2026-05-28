@@ -20,16 +20,16 @@ class ResetResume extends Component
         (new ResetResumeAction($user))->handle();
 
         session()->flash('success', __('Your resume has been completely reset.'));
-        
+
         $this->confirming = false;
-        
+
         $this->redirect(route('dashboard'), navigate: true);
     }
 
     public function render()
     {
         $crud = ResumeResetCrud::build();
-        
+
         $form = $crud->form()
             ->setAttribute('wire:submit.prevent', 'resetResume');
 
