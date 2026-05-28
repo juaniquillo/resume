@@ -12,8 +12,8 @@ $optionsCards = ResumeOptionNav::makeCards();
     
     <div class="max-w-4xl">
         @if (! $hasBasics)
-            <div class="mb-6">
-                <x-alerts warning="{{ __('Your basic information is missing. Please fill it out to start building your resume.') }}" />
+            <div class="mb-6 text-sm">
+                <x-alerts ignore-session warning="{{ __('Your basic information is missing. Please fill it out to start building your resume.') }}" />
             </div>
         @endif
 

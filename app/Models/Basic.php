@@ -39,6 +39,16 @@ class Basic extends Model
         InvalidatesResumeCache,
         Uuidable;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($basic) {
+            $basic->location?->delete();
+            $basic->profiles->each->delete();
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
