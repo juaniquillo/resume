@@ -91,5 +91,3 @@ it('deletes a project highlight', function () {
         'id' => $highlight->id,
     ]);
 });
-
-

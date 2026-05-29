@@ -35,5 +35,3 @@ test('command flow logic creates a user', function () {
     expect($user->generalOptions->slug)->toBe($slug);
     expect($user->name)->toBe($name);
 });
-
-

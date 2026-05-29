@@ -146,5 +146,3 @@ it('deletes a profile record', function () {
         'id' => $profile->id,
     ]);
 });
-
-

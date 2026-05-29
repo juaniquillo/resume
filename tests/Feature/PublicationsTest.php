@@ -116,5 +116,3 @@ it('deletes a publication record', function () {
         'id' => $publication->id,
     ]);
 });
-
-

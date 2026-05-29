@@ -80,5 +80,3 @@ it('validates location data', function () {
         ->post(route('dashboard.basics.location.update'), ['_token' => 'test-token'])
         ->assertSessionHasErrors(['city', 'country_code']);
 });
-
-

@@ -107,5 +107,3 @@ test('authenticated user can update draft mode', function () {
     $options = $user->fresh()->generalOptions;
     expect((string) $options->is_draft)->toBe('1');
 });
-
-

@@ -55,5 +55,3 @@ test('resume data loader caches separately for different users', function () {
 
     expect($queriesAfterUser2)->toBeGreaterThan($queriesAfterUser1);
 });
-
-

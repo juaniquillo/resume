@@ -152,5 +152,3 @@ it('deletes an education record', function () {
         'id' => $education->id,
     ]);
 });
-
-

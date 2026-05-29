@@ -128,5 +128,3 @@ test('it processes a resume json and creates database records', function () {
         'course' => 'Database Management Systems',
     ]);
 });
-
-

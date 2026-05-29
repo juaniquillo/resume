@@ -126,5 +126,3 @@ it('deletes old image when a new one is uploaded', function () {
     Storage::disk('local')->assertMissing($oldPath);
     Storage::disk('local')->assertExists($this->user->fresh()->basics->image);
 });
-
-

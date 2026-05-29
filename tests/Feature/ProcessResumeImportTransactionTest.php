@@ -53,5 +53,3 @@ test('it rolls back all changes if a part of the import fails', function () {
         'name' => 'John Doe Rollback',
     ]);
 });
-
-

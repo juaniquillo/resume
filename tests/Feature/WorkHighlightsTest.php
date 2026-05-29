@@ -91,5 +91,3 @@ it('deletes a work highlight', function () {
         'id' => $highlight->id,
     ]);
 });
-
-

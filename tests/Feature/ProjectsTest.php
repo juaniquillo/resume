@@ -118,5 +118,3 @@ it('deletes a project record', function () {
         'id' => $project->id,
     ]);
 });
-
-

@@ -139,5 +139,3 @@ it('deletes a skill record', function () {
         'id' => $skill->id,
     ]);
 });
-
-
