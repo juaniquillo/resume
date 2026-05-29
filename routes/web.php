@@ -29,6 +29,7 @@ use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
 use App\Http\Controllers\ResumePreviewController;
 use App\Http\Controllers\ResumePublicDownloadController;
+use App\Http\Controllers\ResumeResetController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
@@ -204,6 +205,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('resume/cache/clear', [ResumeCacheController::class, 'index'])->name('dashboard.resume.cache.clear');
         Route::post('resume/cache/clear', [ResumeCacheController::class, 'store'])->name('dashboard.resume.cache.store');
+
+        Route::get('resume/reset', ResumeResetController::class)->name('dashboard.resume.reset');
 
         /**
          * Options

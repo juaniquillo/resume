@@ -2,10 +2,12 @@
 
     <flux:heading size="xl" level="1">{{ __("Resume Import") }}</flux:heading>
     
+    <div class="mt-2 text-sm">
+        <x-alerts ignore-session warning="{{ __('Warning: Importing a new resume will overwrite your existing data.') }}" />
+    </div>
+
     <div class="max-w-xl mt-6">
-        <div class="mb-4 text-sm">
-            <x-alerts warning="{{ __('Warning: Importing a new resume will overwrite your existing data.') }}" />
-        </div>
+        
 
         <flux:text class="mb-4">
             {{ __("Upload your resume in JSON Resume format to automatically populate your profile.") }}

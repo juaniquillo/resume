@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasCourses
 {
-    protected static function bootHasHighlights()
+    protected static function bootHasCourses()
     {
         static::deleting(function ($model) {
             $model->courses->each->delete();

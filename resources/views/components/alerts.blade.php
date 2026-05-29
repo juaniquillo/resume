@@ -3,15 +3,16 @@
     'warning' => null,
     'error' => null,
     'custom_error' => null,
+    'ignoreSession' => false,
 ])
 @php
-    $success = $success ?? session('success');
+    $success = $success ?? ($ignoreSession ? null : session('success'));
     $classesSuccess = 'flex bg-green-100 text-green-800 dark:bg-cyan-900 dark:text-green-200 px-3 py-3 rounded-md relative';
 
-    $warning = $warning ?? session('warning');
+    $warning = $warning ?? ($ignoreSession ? null : session('warning'));
     $classesWarning = 'flex bg-yellow-100 text-yellow-700 dark:bg-waring-400 dark:text-red-900 px-3 py-3 rounded-md relative';
 
-    $error = $error ?? session('custom_error') ?? session('error');
+    $error = $error ?? ($ignoreSession ? null : (session('custom_error') ?? session('error')));
     $classesError = 'flex bg-red-800 text-red-200 px-3 py-3 rounded-md relative';
 
 @endphp

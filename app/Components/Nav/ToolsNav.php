@@ -54,6 +54,13 @@ class ToolsNav
                 'icon' => 'trash',
                 'description' => 'Force clear your resume cache.',
             ],
+            [
+                'name' => 'resume.reset',
+                'label' => 'Reset Resume',
+                'route' => 'dashboard.resume.reset',
+                'icon' => 'exclamation-triangle',
+                'description' => 'Permanently delete all your resume data.',
+            ],
         ];
     }
 }
