@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\Artisan;
+use App\Models\User;`r`npest()->group('fast');
+use Illuminate\Support\Facades\Artisan;`r`npest()->group('fast');
 
 test('it can create a user via artisan command', function () {
     Artisan::command('app:make-user', function () {
@@ -33,3 +33,5 @@ test('command flow logic creates a user', function () {
     expect($user->generalOptions->slug)->toBe($slug);
     expect($user->name)->toBe($name);
 });
+
+

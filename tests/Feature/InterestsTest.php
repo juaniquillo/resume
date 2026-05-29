@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Interest;
-use App\Models\User;
+use App\Models\Interest;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -115,3 +115,5 @@ it('deletes an interest record', function () {
         'id' => $interest->id,
     ]);
 });
+
+

@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Reference;
-use App\Models\User;
+use App\Models\Reference;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -111,3 +111,5 @@ it('deletes a reference record', function () {
         'id' => $reference->id,
     ]);
 });
+
+

@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Basic;
-use App\Models\Location;
-use App\Models\User;
+use App\Models\Basic;`r`npest()->group('fast');
+use App\Models\Location;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -78,3 +78,5 @@ it('validates location data', function () {
         ->post(route('dashboard.basics.location.update'), ['_token' => 'test-token'])
         ->assertSessionHasErrors(['city', 'country_code']);
 });
+
+

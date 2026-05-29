@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Basic;
-use App\Models\User;
+use App\Models\Basic;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -31,3 +31,5 @@ it('identifies when it is not the first time (model exists)', function () {
         ->assertSuccessful()
         ->assertViewHas('firstTime', false);
 });
+
+

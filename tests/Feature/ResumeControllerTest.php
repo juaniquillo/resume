@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+pest()->group('slow');
+
 test('public resume route is accessible by slug', function () {
     $user = User::factory()->create();
     $user->generalOptions()->update(['slug' => 'test-slug']);

@@ -56,6 +56,8 @@ class ImageFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
+                'image',
+                'max:1024'
             ]))
         );
     }

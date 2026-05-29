@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
-use App\Models\Volunteer;
+use App\Models\User;`r`npest()->group('fast');
+use App\Models\Volunteer;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -118,3 +118,5 @@ it('deletes a volunteer record', function () {
         'id' => $volunteer->id,
     ]);
 });
+
+

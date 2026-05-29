@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Basic;
-use App\Models\User;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Basic;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
+use Illuminate\Http\UploadedFile;`r`npest()->group('fast');
+use Illuminate\Support\Facades\Storage;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -124,3 +124,5 @@ it('deletes old image when a new one is uploaded', function () {
     Storage::disk('local')->assertMissing($oldPath);
     Storage::disk('local')->assertExists($this->user->fresh()->basics->image);
 });
+
+

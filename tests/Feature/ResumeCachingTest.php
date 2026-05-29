@@ -6,6 +6,8 @@ use App\Presenters\Themes\DefaultPresenterTheme;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+pest()->group('slow');
+
 test('resume is cached after first hit', function () {
     $user = User::factory()->create();
     Basic::factory()->for($user)->create();

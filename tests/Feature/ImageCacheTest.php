@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Basic;
-use App\Models\User;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Basic;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
+use Illuminate\Http\UploadedFile;`r`npest()->group('fast');
+use Illuminate\Support\Facades\Storage;`r`npest()->group('fast');
 
 test('images are served with cache headers', function () {
     Storage::fake('local');
@@ -21,3 +21,5 @@ test('images are served with cache headers', function () {
     $response->assertSuccessful();
     $response->assertHeader('Cache-Control', 'max-age=31536000, public');
 });
+
+

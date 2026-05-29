@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Cache;
 
 uses(RefreshDatabase::class);
 
+pest()->group('slow');
+
 test('modifying a Location invalidates resume cache', function () {
     $user = User::factory()->create();
     $basic = Basic::factory()->for($user)->create();

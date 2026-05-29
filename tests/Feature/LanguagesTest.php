@@ -1,8 +1,8 @@
 <?php
 
-use App\Enums\LanguageFluency;
-use App\Models\Language;
-use App\Models\User;
+use App\Enums\LanguageFluency;`r`npest()->group('fast');
+use App\Models\Language;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -137,3 +137,5 @@ it('deletes a language record', function () {
         'id' => $language->id,
     ]);
 });
+
+

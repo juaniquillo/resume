@@ -20,6 +20,8 @@ use Spatie\LaravelPdf\PdfBuilder;
 
 uses(RefreshDatabase::class);
 
+pest()->group('slow');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
 });

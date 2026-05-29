@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\ResumeTheme;
-use App\Models\User;
+use App\Enums\ResumeTheme;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 test('authenticated user can view general options page', function () {
     $user = User::factory()->create();
@@ -105,3 +105,5 @@ test('authenticated user can update draft mode', function () {
     $options = $user->fresh()->generalOptions;
     expect((string) $options->is_draft)->toBe('1');
 });
+
+

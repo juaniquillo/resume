@@ -10,6 +10,8 @@ use App\Models\Work;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 
+pest()->group('slow');
+
 test('authenticated user can reset their resume', function () {
     $user = User::factory()->create();
 

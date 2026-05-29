@@ -1,8 +1,8 @@
 <?php
 
-use App\Enums\SkillLevel;
-use App\Models\Skill;
-use App\Models\User;
+use App\Enums\SkillLevel;`r`npest()->group('fast');
+use App\Models\Skill;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -137,3 +137,5 @@ it('deletes a skill record', function () {
         'id' => $skill->id,
     ]);
 });
+
+

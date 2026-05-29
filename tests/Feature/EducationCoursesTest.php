@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Education;
-use App\Models\User;
+use App\Models\Education;`r`npest()->group('fast');
+use App\Models\User;`r`npest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -89,3 +89,5 @@ it('deletes an education course', function () {
         'id' => $course->id,
     ]);
 });
+
+

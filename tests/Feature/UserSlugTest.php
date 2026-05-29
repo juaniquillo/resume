@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Database\UniqueConstraintViolationException;
+use App\Models\User;`r`npest()->group('fast');
+use Illuminate\Database\UniqueConstraintViolationException;`r`npest()->group('fast');
 
 test('a user can have a slug', function () {
     $user = User::factory()->create();
@@ -25,3 +25,5 @@ test('factory generates a slug by default', function () {
 
     expect($user->generalOptions->slug)->not->toBeNull();
 });
+
+
