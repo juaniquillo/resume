@@ -3,6 +3,8 @@
 use App\Enums\ResumeTheme;
 use App\Models\User;
 
+pest()->group('fast');
+
 test('authenticated user can view general options page', function () {
     $user = User::factory()->create();
 

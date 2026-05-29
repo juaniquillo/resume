@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Presenters\Resume\ResumeDataLoader;
 use Illuminate\Support\Facades\DB;
 
+pest()->group('fast');
+
 test('resume data loader is a singleton in the container', function () {
     $instance1 = app(ResumeDataLoader::class);
     $instance2 = app(ResumeDataLoader::class);

@@ -47,6 +47,8 @@ class SectionVisibility extends Component
         ))->handle();
 
         session()->flash('success', 'Section visibility updated successfully.');
+
+        $this->redirect(route('dashboard.resume.visibility'), true);
     }
 
     public function render()

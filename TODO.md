@@ -35,3 +35,7 @@
 33. ◻️ The image in the download button of the resume presenter "images/pixel-icons/download.png" does not exist.
 34. ✅ Add a warning to the import CRUD that the existing resume info will be overwritten with the one in the JSON file.
 35. ✅ Refactor table containers to blade x-table-container components, like it's done in `resources\views\dashboard\works\index.blade.php`
+36. ◻️ Refactor CRUDS (forms and tables) to Livewire (for much later).
+37. ◻️ Refactor `ResumeDataLoader` to query and return individual sections. If the section is available in the cache it will return the cache.
+38. ◻️ Simple Resume analytics?
+39. ◻️ New `Section Ordering` CRUD using Livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.

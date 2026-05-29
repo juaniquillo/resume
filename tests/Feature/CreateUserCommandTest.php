@@ -3,6 +3,8 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 
+pest()->group('fast');
+
 test('it can create a user via artisan command', function () {
     Artisan::command('app:make-user', function () {
         // This is a placeholder since testing interactive prompts is complex

@@ -3,6 +3,8 @@
 use App\Models\User;
 use Illuminate\Database\UniqueConstraintViolationException;
 
+pest()->group('fast');
+
 test('a user can have a slug', function () {
     $user = User::factory()->create();
     $user->generalOptions()->update(['slug' => 'test-slug']);

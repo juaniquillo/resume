@@ -5,6 +5,8 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+pest()->group('fast');
+
 test('images are served with cache headers', function () {
     Storage::fake('local');
 

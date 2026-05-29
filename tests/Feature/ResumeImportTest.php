@@ -11,6 +11,8 @@ use Illuminate\Validation\ValidationException;
 
 uses(RefreshDatabase::class);
 
+pest()->group('slow');
+
 test('authenticated user can access resume import page', function () {
     $user = User::factory()->create();
 

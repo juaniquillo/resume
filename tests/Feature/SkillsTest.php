@@ -4,6 +4,8 @@ use App\Enums\SkillLevel;
 use App\Models\Skill;
 use App\Models\User;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
 });

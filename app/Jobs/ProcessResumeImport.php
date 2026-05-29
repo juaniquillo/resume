@@ -41,6 +41,7 @@ use App\Models\User;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -111,13 +112,55 @@ class ProcessResumeImport implements ShouldQueue
         $crud = BasicsCrud::build();
         $inputs = $crud->make();
 
+        /**
+         * Check if image exists. If it does, fetch it and convert to UploadedFile
+         * to allow strict image validation (mimes, size, etc.)
+         */
+        if (isset($basicsData['image']) && is_string($basicsData['image']) && ! empty($basicsData['image'])) {
+            $image = $basicsData['image'];
+            $contents = null;
+            $extension = 'tmp';
+
+            if (str_starts_with($image, 'data:')) {
+                // Handle Data URI
+                if (preg_match('/^data:image\/(\w+);base64,/', $image, $matches)) {
+                    $extension = $matches[1];
+                    $imageContent = substr($image, strpos($image, ',') + 1);
+                    $contents = base64_decode($imageContent);
+                }
+            } else {
+                // Handle URL
+                $contents = @file_get_contents($image);
+                $pathInfo = pathinfo(parse_url($image, PHP_URL_PATH) ?? '');
+                $extension = $pathInfo['extension'] ?? 'tmp';
+            }
+
+            if ($contents) {
+                $tempPath = tempnam(sys_get_temp_dir(), 'resume_import_');
+                file_put_contents($tempPath, $contents);
+
+                $basicsData['image'] = new UploadedFile(
+                    $tempPath,
+                    'avatar.'.$extension,
+                    mime_content_type($tempPath),
+                    null,
+                    true
+                );
+            }
+        }
+
         $mappedBasics = $inputs->execute(new NameValueAction($basicsData))
             ->toArray();
 
         $rules = $inputs->execute(new LaravelValidationRulesAction)->toArray();
         $validated = $this->validate($mappedBasics, $rules);
 
-        (new UpdateBasics($validated, $user))->handle();
+        $imageFile = $validated['image'] ?? null;
+        if (! $imageFile instanceof UploadedFile) {
+            $imageFile = null;
+        }
+
+        (new UpdateBasics($validated, $user, $imageFile))->handle();
 
         /** @var Basic|null $basics */
         $basics = $user->basics()->first();

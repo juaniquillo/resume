@@ -3,6 +3,8 @@
 use App\Models\Education;
 use App\Models\User;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
     $this->education = Education::factory()->create([

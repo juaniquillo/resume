@@ -18,6 +18,9 @@ pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
     ->in('Feature');
 
+pest()->group('slow')->in('Feature/Presenters');
+pest()->group('fast')->in('Unit');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

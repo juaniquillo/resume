@@ -3,6 +3,8 @@
 use App\Models\User;
 use App\Models\Volunteer;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
 });

@@ -6,6 +6,8 @@ use App\Presenters\ResumePresenter;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Livewire;
 
+pest()->group('slow');
+
 test('authenticated user can view section visibility page', function () {
     $user = User::factory()->create();
 

@@ -8,6 +8,8 @@ use App\Models\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 
+pest()->group('fast');
+
 uses(RefreshDatabase::class);
 
 test('it processes a resume json and creates database records', function () {

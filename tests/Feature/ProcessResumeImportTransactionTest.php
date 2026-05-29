@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 
+pest()->group('fast');
+
 uses(RefreshDatabase::class);
 
 test('it rolls back all changes if a part of the import fails', function () {

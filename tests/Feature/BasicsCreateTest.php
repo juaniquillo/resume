@@ -5,6 +5,8 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
 });

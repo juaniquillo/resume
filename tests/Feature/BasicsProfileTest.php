@@ -4,6 +4,8 @@ use App\Models\Basic;
 use App\Models\Profile;
 use App\Models\User;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
     $this->basic = Basic::factory()->create([

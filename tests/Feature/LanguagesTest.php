@@ -4,6 +4,8 @@ use App\Enums\LanguageFluency;
 use App\Models\Language;
 use App\Models\User;
 
+pest()->group('fast');
+
 beforeEach(function () {
     $this->user = User::factory()->create();
 });
