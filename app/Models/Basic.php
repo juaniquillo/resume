@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Actions\Resume\Basics\DeleteBasicsImage;
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\BasicFactory;
@@ -46,6 +47,7 @@ class Basic extends Model
         static::deleting(function ($basic) {
             $basic->location?->delete();
             $basic->profiles->each->delete();
+            (new DeleteBasicsImage($basic))->handle();
         });
     }
 

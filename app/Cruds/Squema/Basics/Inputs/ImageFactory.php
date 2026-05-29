@@ -57,7 +57,7 @@ class ImageFactory
             (new LaravelValidationRulesRecipe([
                 'nullable',
                 'image',
-                'max:1024'
+                'max:1024',
             ]))
         );
     }

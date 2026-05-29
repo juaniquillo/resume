@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\User;`r`npest()->group('fast');
-use Illuminate\Support\Facades\Artisan;`r`npest()->group('fast');
+use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+
+pest()->group('fast');
 
 test('it can create a user via artisan command', function () {
     Artisan::command('app:make-user', function () {

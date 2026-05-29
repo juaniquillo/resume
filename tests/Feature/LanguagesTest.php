@@ -1,8 +1,10 @@
 <?php
 
-use App\Enums\LanguageFluency;`r`npest()->group('fast');
-use App\Models\Language;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
+use App\Enums\LanguageFluency;
+use App\Models\Language;
+use App\Models\User;
+
+pest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();

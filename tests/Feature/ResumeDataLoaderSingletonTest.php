@@ -1,9 +1,11 @@
 <?php
 
-use App\Models\Basic;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
-use App\Presenters\Resume\ResumeDataLoader;`r`npest()->group('fast');
-use Illuminate\Support\Facades\DB;`r`npest()->group('fast');
+use App\Models\Basic;
+use App\Models\User;
+use App\Presenters\Resume\ResumeDataLoader;
+use Illuminate\Support\Facades\DB;
+
+pest()->group('fast');
 
 test('resume data loader is a singleton in the container', function () {
     $instance1 = app(ResumeDataLoader::class);

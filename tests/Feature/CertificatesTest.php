@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\Certificate;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
+use App\Models\Certificate;
+use App\Models\User;
+
+pest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();

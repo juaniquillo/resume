@@ -1,7 +1,9 @@
 <?php
 
-use App\Enums\ResumeTheme;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
+use App\Enums\ResumeTheme;
+use App\Models\User;
+
+pest()->group('fast');
 
 test('authenticated user can view general options page', function () {
     $user = User::factory()->create();

@@ -1,8 +1,10 @@
 <?php
 
-use App\Enums\EducationLevel;`r`npest()->group('fast');
-use App\Models\Education;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
+use App\Enums\EducationLevel;
+use App\Models\Education;
+use App\Models\User;
+
+pest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();

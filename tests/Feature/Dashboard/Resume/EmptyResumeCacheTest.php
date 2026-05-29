@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cache;
 
 uses(RefreshDatabase::class);
 
+pest()->group('fast');
+
 it('clears the resume cache when clearCache is called', function () {
     $user = User::factory()->create();
 

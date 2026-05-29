@@ -8,9 +8,31 @@ use App\Models\Highlight;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
 pest()->group('slow');
+
+test('authenticated user can reset their resume and image is deleted', function () {
+    Storage::fake('local');
+    $user = User::factory()->create();
+    $imagePath = 'basics/avatar.jpg';
+    Storage::disk('local')->put($imagePath, 'dummy content');
+
+    Basic::factory()->create([
+        'user_id' => $user->id,
+        'image' => $imagePath,
+    ]);
+
+    Auth::login($user);
+
+    Livewire::test(ResetResume::class)
+        ->call('resetResume')
+        ->assertRedirect(route('dashboard'));
+
+    expect(Basic::where('user_id', $user->id)->exists())->toBeFalse();
+    Storage::disk('local')->assertMissing($imagePath);
+});
 
 test('authenticated user can reset their resume', function () {
     $user = User::factory()->create();

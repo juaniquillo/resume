@@ -1,9 +1,11 @@
 <?php
 
-use App\Models\Basic;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
-use Illuminate\Http\UploadedFile;`r`npest()->group('fast');
-use Illuminate\Support\Facades\Storage;`r`npest()->group('fast');
+use App\Models\Basic;
+use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+
+pest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();

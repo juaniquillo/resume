@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\Project;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
+use App\Models\Project;
+use App\Models\User;
+
+pest()->group('fast');
 
 beforeEach(function () {
     $this->user = User::factory()->create();

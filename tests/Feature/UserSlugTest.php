@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\User;`r`npest()->group('fast');
-use Illuminate\Database\UniqueConstraintViolationException;`r`npest()->group('fast');
+use App\Models\User;
+use Illuminate\Database\UniqueConstraintViolationException;
+
+pest()->group('fast');
 
 test('a user can have a slug', function () {
     $user = User::factory()->create();

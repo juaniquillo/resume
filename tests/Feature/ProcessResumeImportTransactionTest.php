@@ -1,10 +1,12 @@
 <?php
 
-use App\Jobs\ProcessResumeImport;`r`npest()->group('fast');
-use App\Models\ResumeImport;`r`npest()->group('fast');
-use App\Models\User;`r`npest()->group('fast');
-use Illuminate\Foundation\Testing\RefreshDatabase;`r`npest()->group('fast');
-use Illuminate\Support\Facades\Storage;`r`npest()->group('fast');
+use App\Jobs\ProcessResumeImport;
+use App\Models\ResumeImport;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+
+pest()->group('fast');
 
 uses(RefreshDatabase::class);
 
