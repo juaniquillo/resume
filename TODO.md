@@ -39,3 +39,5 @@
 37. ◻️ Refactor `ResumeDataLoader` to query and return individual sections. If the section is available in the cache it will return the cache.
 38. ◻️ Simple Resume analytics?
 39. ◻️ New `Section Ordering` CRUD using Livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
+40. ◻️ Refresh the README.md and the landing page with the new features. We can an eliminate UUID content. I think it's a little too technical. Also mention that this is not a product. It's a way for me to manage my resume, since I lost my job recently. I anyone wants to try it, the can let me know sending an email to: [victor.h.sanchez.nv@gmail.com](victor.h.sanchez.nv@gmail.com). I'm also thinking of adding some thumbnails. Any suggestions?
+41. ◻️ Cache the dashboard navigation and dashboard cards since they don't change that much.
