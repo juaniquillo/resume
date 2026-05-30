@@ -1,8 +1,11 @@
 @php
     use App\Components\Nav\DashboardNav;
+    use App\Components\Nav\ResumeNav;
     use App\Components\Nav\ResumeOptionNav;
     use App\Components\Nav\ToolsNav; 
-    $navItems = DashboardNav::makeNav();
+
+    $dashboardNav = DashboardNav::makeNav();
+    $resumeNav = ResumeNav::makeNav();
     $toolsNav = ToolsNav::makeNav();
     $optionsNav = ResumeOptionNav::makeNav();
 @endphp
@@ -24,8 +27,11 @@
             </flux:sidebar.nav>
 
             <flux:sidebar.nav>
+
+                {{ $dashboardNav }}
+
                 <flux:navlist.group heading="Resume">
-                    {{ $navItems }}
+                    {{ $resumeNav }}
                 </flux:navlist.group>
 
                 <flux:menu.separator />
