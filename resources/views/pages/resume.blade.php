@@ -7,6 +7,9 @@
     :assets="['resources/css/resume.css', 'resources/js/resume.js']"
     :theme="$theme"
     :is-pdf="$minimalView"
+    :description="$description ?? null"
+    :image="$image ?? null"
+    :noindex="$noindex ?? false"
 >
     @if(! $minimalView)
         <x-slot:nav>
