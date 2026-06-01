@@ -32,10 +32,13 @@
 30. ✅ Add default svg icon for the Networks that are not in the Enum.
 31. ✅ In the Export table, don't show the delete button not allow deletion in the controller for if the status is not completed. (Allowed for failed as well)
 32. ✅ Add a Tool->reset resume for emptying all resume sections database table. With a big warning, of course.
-33. ◻️ The image in the download button of the resume presenter "images/pixel-icons/download.png" does not exist.
+33. ✅ The image in the download button of the resume presenter "images/pixel-icons/download.png" does not exist. (Fixed with SVG mask)
 34. ✅ Add a warning to the import CRUD that the existing resume info will be overwritten with the one in the JSON file.
 35. ✅ Refactor table containers to blade x-table-container components, like it's done in `resources\views\dashboard\works\index.blade.php`
 36. ◻️ Refactor CRUDS (forms and tables) to Livewire (for much later).
 37. ◻️ Refactor `ResumeDataLoader` to query and return individual sections. If the section is available in the cache it will return the cache.
 38. ◻️ Simple Resume analytics?
-39. ◻️ New `Section Ordering` CRUD using Livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
+39. ✅ New `Section Ordering` CRUD using livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
+
+40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).
+41. ◻️ Cache the dashboard navigation and dashboard cards since they don't change that much.

@@ -41,7 +41,9 @@ final class SectionVisibilityCrud implements CrudForm, CrudInterface
     {
         $inputs = [];
         foreach (ResumeSection::labels() as $key => $label) {
+            $separatorKey = $key.'_separator';
             $inputs[$key] = SectionSwitchFactory::make($key, $label);
+            $inputs[$separatorKey] = $this->separator($separatorKey);
         }
 
         return $inputs;

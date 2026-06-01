@@ -1,11 +1,12 @@
 @php
-use App\Components\Nav\DashboardNav;
-use App\Components\Nav\ResumeOptionNav;
-use App\Components\Nav\ToolsNav;
+    use App\Components\Nav\ResumeNav;
+    use App\Components\Nav\ResumeOptionNav;
+    use App\Components\Nav\ToolsNav;
 
-$cards = DashboardNav::makeCards();
-$toolsCards = ToolsNav::makeCards();
-$optionsCards = ResumeOptionNav::makeCards();
+    $cards = ResumeNav::makeCards();
+    $toolsCards = ToolsNav::makeCards();
+    $optionsCards = ResumeOptionNav::makeCards();
+
 @endphp
 
 <x-layouts::app :title="__('Dashboard')">
@@ -17,8 +18,11 @@ $optionsCards = ResumeOptionNav::makeCards();
             </div>
         @endif
 
+
         <flux:heading size="xl" level="1">{{ __("Resume builder") }}</flux:heading>
-        
+
+        <flux:heading class="mt-6" size="xl" level="1">{{ __("Resume") }}</flux:heading>
+
         <div class="mt-6 flex flex-wrap gap-3">
             {{ $cards }}
         </div>

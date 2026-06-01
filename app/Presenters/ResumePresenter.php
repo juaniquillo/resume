@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Enums\ResumeSection;
 use App\Models\GeneralOption;
 use App\Models\User;
 use App\Presenters\Cache\ResumePresenterCacheManager;
@@ -48,12 +49,8 @@ final class ResumePresenter
         /** @var ?GeneralOption $generalOptions */
         $generalOptions = $this->user->generalOptions;
 
-        $sections = [
-            'basics' => (new BasicsPresenter(
-                $data->basics,
-                $this->theme,
-                $generalOptions
-            ))->present(),
+        // Build the pool of available sections (excluding fixed ones)
+        $pool = [
             'summary' => (! ($settings['summary'] ?? false)) ? (new SummaryPresenter($data->basics, $this->theme))->present() : null,
             'work' => (! ($settings['work'] ?? false)) ? (new WorkPresenter($data->works, $this->theme))->present() : null,
             'volunteers' => (! ($settings['volunteers'] ?? false)) ? (new VolunteersPresenter($data->volunteers, $this->theme))->present() : null,
@@ -66,8 +63,29 @@ final class ResumePresenter
             'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($data->interests, $this->theme))->present() : null,
             'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($data->references, $this->theme))->present() : null,
             'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($data->projects, $this->theme))->present() : null,
-            'downloads' => (! $this->isPdf) ? (new DownloadsPresenter($data->downloads, $this->theme))->present() : null,
+            'downloads' => (! $this->isPdf && ! ($settings['downloads'] ?? false)) ? (new DownloadsPresenter($data->downloads, $this->theme))->present() : null,
         ];
+
+        // Get custom order or use default enum order
+        $orderedKeys = $this->user->sectionOrders()
+            ->orderBy('sort_order')
+            ->pluck('section')
+            ->toArray();
+
+        if (empty($orderedKeys)) {
+            $orderedKeys = collect(ResumeSection::cases())->pluck('value')->toArray();
+        }
+
+        // Reconstruct sections array in order
+        $sections = [
+            'basics' => (new BasicsPresenter($data->basics, $this->theme, $generalOptions))->present(),
+        ];
+
+        foreach ($orderedKeys as $key) {
+            if (isset($pool[$key])) {
+                $sections[$key] = $pool[$key];
+            }
+        }
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->containerThemes())

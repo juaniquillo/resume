@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GeneralOption;
 use App\Models\User;
 use App\Presenters\Cache\ResumeThemeCacheManager;
 use App\Presenters\ResumePresenter;
+use App\Support\Helpers;
 
 class ResumeController extends Controller
 {
     public function __invoke(User $user)
     {
-        /** @var GeneralOption|null $options */
-        $options = $user->generalOptions;
-
-        if ($options?->is_draft || ! $user->basics()->exists()) {
+        if (Helpers::isResumeInDraftState($user)) {
             return response()->view('pages.resume-draft', [
                 'user' => $user,
             ], 403);

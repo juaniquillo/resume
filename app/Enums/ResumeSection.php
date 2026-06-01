@@ -16,6 +16,7 @@ enum ResumeSection: string
     case INTERESTS = 'interests';
     case REFERENCES = 'references';
     case PROJECTS = 'projects';
+    case DOWNLOADS = 'downloads';
 
     public function label(): string
     {
@@ -32,6 +33,7 @@ enum ResumeSection: string
             self::INTERESTS => 'Interests',
             self::REFERENCES => 'References',
             self::PROJECTS => 'Projects',
+            self::DOWNLOADS => 'Downloads',
         };
     }
 

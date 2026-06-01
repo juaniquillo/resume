@@ -25,19 +25,23 @@ The application leverages the [CrudAssistant](https://github.com/juaniquillo/cru
 - **Table Presenters**: Customize how data is rendered in dashboard tables using Flux components.
 
 ### Core Sections
-- **Basics**: Name, label, image, and contact details.
-- **Location**: Single-record management for residential details.
-- **Profiles**: Management of social media and professional networks using the `Network` enum.
-- **Work & Volunteers**: Detailed history including sub-CRUDs for highlights.
-- **Education, Awards, & Certificates**: Full tracking of academic and professional achievements.
+- **Basics & Contact**: Name, label, avatar, and multi-network profile management.
+- **Experience & Portfolio**: Detailed work history, volunteering, and comprehensive project tracking.
+- **Academic & Achievements**: Full tracking of education, courses, awards, and certifications.
 - **Skills & Languages**: Granular level tracking and keyword management.
-- **Projects, Publications, & References**: Comprehensive portfolio and citation management.
+- **Customization**: **Drag-and-drop section ordering** and **Modular Themes** (Default, Bold, Elegant).
 
 ### Key Implementation Details
-- **Resume Schema**: Integration with [juststeveking/resume-php](https://github.com/JustSteveKing/resume-php) for standardized resume parsing, validating against the JSON Resume schema, frontend rendering, and export functionality.
-- **Uuidable Records**: All entities use UUIDs via a central trait for secure and consistent identification.
-- **Strict Typing**: Full use of PHP 8.4 type hints, return types, and static analysis (PHPStan Level 9).
-- **Responsive Flux UI**: A polished dashboard experience using Flux components and Tailwind 4.
+- **Resume Schema**: Full alignment with the JSON Resume standard for maximum compatibility.
+- **Strict Typing**: Modern PHP 8.4 features and static analysis (PHPStan Level 5).
+- **Responsive Dashboard**: A polished administrative experience using Livewire 4 and Flux UI.
+
+## 💡 About this Project
+
+This is **not a commercial product**. It's a personal tool I built to manage and showcase my own professional journey after recently losing my job. I decided to open-source it to share the architectural patterns (CrudAssistant, Backend Components) and to help anyone else in a similar situation.
+
+If you'd like to try it out or have any suggestions, I'd love to hear from you!
+🐦 **[@juaniquillo](https://x.com/juaniquillo)**
 
 ## 🛠️ Installation
 

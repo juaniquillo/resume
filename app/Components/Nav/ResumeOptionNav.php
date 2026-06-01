@@ -46,6 +46,13 @@ class ResumeOptionNav
                 'icon' => 'eye',
                 'description' => 'Enable or disable resume sections.',
             ],
+            [
+                'name' => 'resume.ordering',
+                'label' => 'Section Ordering',
+                'route' => 'dashboard.resume.ordering',
+                'icon' => 'bars-3-bottom-left',
+                'description' => 'Change the display order of resume sections.',
+            ],
         ];
     }
 }

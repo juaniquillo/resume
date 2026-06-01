@@ -45,6 +45,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Project> $projects
  * @property-read Collection<int, ResumeImport> $resumeImports
  * @property-read Collection<int, ResumeExport> $resumeExports
+ * @property-read Collection<int, SectionOrder> $sectionOrders
  * @property-read SectionVisibility|null $sectionVisibility
  * @property-read GeneralOption|null $generalOptions
  */
@@ -174,6 +175,11 @@ class User extends Authenticatable
     public function resumeExports(): HasMany
     {
         return $this->hasMany(ResumeExport::class);
+    }
+
+    public function sectionOrders(): HasMany
+    {
+        return $this->hasMany(SectionOrder::class);
     }
 
     public function sectionVisibility(): HasOne
