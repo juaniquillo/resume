@@ -16,6 +16,7 @@ use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\Options\GeneralOptionsController;
 use App\Http\Controllers\Options\GeneralOptionsUpdateController;
+use App\Http\Controllers\Options\SectionOrderingController;
 use App\Http\Controllers\Options\SectionVisibilityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
-use App\Http\Controllers\ResumePreviewController;
+use App\Http\Controllers\ResumePreview;
 use App\Http\Controllers\ResumePublicDownloadController;
 use App\Http\Controllers\ResumeResetController;
 use App\Http\Controllers\SkillsController;
@@ -201,20 +202,21 @@ Route::middleware(['auth', 'verified'])
         Route::delete('resume/export/{id}', [ResumeExportController::class, 'destroy'])->name('dashboard.resume.export.destroy');
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
 
-        Route::get('resume/preview', ResumePreviewController::class)->name('dashboard.resume.preview');
+        Route::get('resume/preview', ResumePreview::class)->name('dashboard.resume.preview');
 
         Route::get('resume/cache/clear', [ResumeCacheController::class, 'index'])->name('dashboard.resume.cache.clear');
         Route::post('resume/cache/clear', [ResumeCacheController::class, 'store'])->name('dashboard.resume.cache.store');
 
         Route::get('resume/reset', ResumeResetController::class)->name('dashboard.resume.reset');
 
-        /**
+        /**s
          * Options
          */
         Route::get('options/general', GeneralOptionsController::class)->name('dashboard.resume.general');
         Route::post('options/general', GeneralOptionsUpdateController::class)->name('dashboard.resume.general.update');
 
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
+        Route::get('options/ordering', SectionOrderingController::class)->name('dashboard.resume.ordering');
     });
 
 require __DIR__.'/settings.php';
