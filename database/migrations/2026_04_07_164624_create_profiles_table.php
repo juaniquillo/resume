@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('uuid');
 
             $table
-                ->foreignUlid('basic_id')
+                ->foreignId('basic_id')
                 ->index()
                 ->constrained('basics')
                 ->cascadeOnDelete();
