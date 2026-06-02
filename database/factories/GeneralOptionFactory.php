@@ -3,19 +3,19 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\References\ReferencesCrud;
-use App\Models\Reference;
+use App\Cruds\Squema\Options\GeneralOptionsCrud;
+use App\Models\GeneralOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Reference>
+ * @extends Factory<GeneralOption>
  */
-class ReferenceFactory extends Factory
+class GeneralOptionFactory extends Factory
 {
     /** @return array<string, mixed> */
     public function definition(): array
     {
-        $crud = ReferencesCrud::build();
+        $crud = GeneralOptionsCrud::build();
 
         return $crud->make()->execute(
             new LaravelFactoryAction

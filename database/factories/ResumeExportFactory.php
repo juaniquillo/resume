@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\ResumeExportType;
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use App\Models\ResumeExport;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,20 +12,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ResumeExportFactory extends Factory
 {
-    protected $model = ResumeExport::class;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function definition(): array
     {
-        return [
-            'user_id' => User::factory(),
-            'file_path' => $this->faker->filePath(),
-            'status' => 'completed',
-            'type' => ResumeExportType::JSON->value,
-        ];
+        $crud = ResumeExportCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

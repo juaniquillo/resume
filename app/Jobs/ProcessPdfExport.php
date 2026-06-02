@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\ResumeExport;
+use App\Presenters\Cache\ResumePresenterCacheManager;
 use App\Presenters\ResumePresenter;
 use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,6 +13,20 @@ use Spatie\LaravelPdf\Facades\Pdf;
 class ProcessPdfExport implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 3;
+
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 180;
 
     /**
      * Create a new job instance.
@@ -54,11 +69,28 @@ class ProcessPdfExport implements ShouldQueue
                 'status' => 'completed',
                 'file_path' => $path,
             ]);
+
+            if ($this->export->allow_download) {
+                $manager = new ResumePresenterCacheManager($user);
+                $manager->clearCache();
+            }
+
         } catch (\Exception $e) {
             $this->export->update([
                 'status' => 'failed',
                 'error' => $e->getMessage(),
             ]);
         }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(\Throwable $exception): void
+    {
+        $this->export->update([
+            'status' => 'failed',
+            'error' => $exception->getMessage(),
+        ]);
     }
 }

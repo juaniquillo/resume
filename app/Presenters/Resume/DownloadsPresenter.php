@@ -29,8 +29,11 @@ final class DownloadsPresenter
         }
 
         $items = $this->downloads->map(function (ResumeExport $export) {
+            $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$export->type->value;
+
             return $this->compose(ComponentEnum::LINK)
                 ->setAttribute('href', route('resume.download', $export->uuid))
+                ->setAttribute('download', $filename)
                 ->setThemes($this->theme->socialBadgeThemes())
                 ->setContents([
                     'icon' => $this->compose(ComponentEnum::SPAN)

@@ -25,8 +25,8 @@
 23. ✅ Simplify resume cache. Remove version and keep only one cache per user.
 24. ✅ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
 25. ✅ Make sure all models have DocBlocks with the @property-read statement.
-26. ◻️ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.
-27. ◻️ Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
+26. ✅ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.
+27. ✅s Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
 28. ✅ Show a message in the dashboard that lets the user know when the basics has not been filled. The resume will not be available it that's the case.
 29. ✅ Refactor the section visibility crud into a Livewire component.
 30. ✅ Add default svg icon for the Networks that are not in the Enum.
@@ -41,4 +41,4 @@
 39. ✅ New `Section Ordering` CRUD using livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
 
 40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).
-41. ◻️ Cache the dashboard navigation and dashboard cards since they don't change that much.
+41. ◻️ Create a cache manager fot the dashboard navigation components and dashboard cards since they don't change that much.

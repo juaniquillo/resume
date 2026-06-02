@@ -14,6 +14,20 @@ class ProcessJsonExport implements ShouldQueue
     use Queueable;
 
     /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 3;
+
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 60;
+
+    /**
      * Create a new job instance.
      */
     public function __construct(
@@ -50,5 +64,16 @@ class ProcessJsonExport implements ShouldQueue
                 'error' => $e->getMessage(),
             ]);
         }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(\Throwable $exception): void
+    {
+        $this->export->update([
+            'status' => 'failed',
+            'error' => $exception->getMessage(),
+        ]);
     }
 }

@@ -5,13 +5,39 @@
     'footer' => null,
     'theme' => null,
     'minimalView' => false,
+    'description' => null,
+    'image' => null,
+    'noindex' => false,
 ])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth @if($minimalView) light @endif">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    @if($noindex)
+        <meta name="robots" content="noindex, nofollow">
+    @endif
+
     <title>{{ $title }}</title>
+    
+    @if($description)
+        <meta name="description" content="{{ $description }}">
+        <meta property="og:description" content="{{ $description }}">
+        <meta name="twitter:description" content="{{ $description }}">
+    @endif
+
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    
+    @if($image)
+        <meta property="og:image" content="{{ $image }}">
+        <meta name="twitter:image" content="{{ $image }}">
+    @endif
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
 
     {{-- Vite Assets --}}
     @vite($assets)

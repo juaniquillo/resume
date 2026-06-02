@@ -28,6 +28,7 @@ use App\Http\Controllers\ResumeExportController;
 use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
+use App\Http\Controllers\ResumeOgController;
 use App\Http\Controllers\ResumePreview;
 use App\Http\Controllers\ResumePublicDownloadController;
 use App\Http\Controllers\ResumeResetController;
@@ -40,8 +41,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('resume/{user:slug}', ResumeController::class)->name('resume');
-Route::get('resume/download/{uuid}', ResumePublicDownloadController::class)->name('resume.download');
+Route::get('resume/{user:slug}', ResumeController::class)->middleware('throttle:60,1')->name('resume');
+Route::get('resume/{user:slug}/og-preview', [ResumeOgController::class, 'show'])->name('resume.og.show');
+Route::get('resume/{user:slug}/og-image.png', [ResumeOgController::class, 'image'])->name('resume.og.image');
+Route::get('resume/download/{uuid}', ResumePublicDownloadController::class)->middleware('throttle:10,1')->name('resume.download');
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 
