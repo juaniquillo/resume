@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Blaze\Blaze;
@@ -20,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->resisterClasses();
+        $this->registerClasses();
     }
 
     /**
@@ -28,11 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Schema::defaultStringLength(191);
         $this->configureDefaults();
         $this->configureBlaze();
     }
 
-    public function resisterClasses()
+    public function registerClasses()
     {
         $this->app->singleton(ResumeThemeCacheManager::class, function (Application $app) {
             return new ResumeThemeCacheManager;
