@@ -46,8 +46,9 @@ class UrlFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
+                'string',
                 'url',
-                'max:255',
+                'max:191',
             ]))
         );
     }

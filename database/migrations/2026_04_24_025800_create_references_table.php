@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('reference')->nullable();
 
             $table
-                ->foreignUlid('user_id')
+                ->foreignId('user_id')
                 ->index()
                 ->constrained('users')
                 ->cascadeOnDelete();

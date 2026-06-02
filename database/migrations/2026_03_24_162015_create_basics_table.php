@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone')->nullable();
             $table->string('url')->nullable();
-            $table->string('summary')->nullable();
+            $table->text('summary')->nullable();
 
             $table
-                ->foreignUlid('user_id')
+                ->foreignId('user_id')
                 ->index()
                 ->constrained('users')
                 ->cascadeOnDelete();

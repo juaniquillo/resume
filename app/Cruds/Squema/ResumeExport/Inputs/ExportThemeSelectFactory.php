@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\ResumeExport\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
@@ -38,8 +39,16 @@ class ExportThemeSelectFactory
 
         self::validation($input);
         self::table($input);
+        self::factory($input);
 
         return $input;
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(callback: fn () => fake()->randomElement(ResumeTheme::cases())->value)
+        );
     }
 
     public static function validation(InputInterface $input): void

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('fluency');
 
             $table
-                ->foreignUlid('user_id')
+                ->foreignId('user_id')
                 ->index()
                 ->constrained('users')
                 ->cascadeOnDelete();
