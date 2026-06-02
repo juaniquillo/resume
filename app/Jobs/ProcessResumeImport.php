@@ -51,6 +51,20 @@ class ProcessResumeImport implements ShouldQueue
     use Queueable;
 
     /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 3;
+
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 300;
+
+    /**
      * Create a new job instance.
      */
     public function __construct(
@@ -95,6 +109,17 @@ class ProcessResumeImport implements ShouldQueue
                 'error' => $e->getMessage(),
             ]);
         }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(\Throwable $exception): void
+    {
+        $this->import->update([
+            'status' => 'failed',
+            'error' => $exception->getMessage(),
+        ]);
     }
 
     private function validate(array $data, array $rules): array
