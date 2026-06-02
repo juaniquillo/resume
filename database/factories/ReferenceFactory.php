@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\References\ReferencesCrud;
 use App\Models\Reference;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -11,18 +12,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ReferenceFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function definition(): array
     {
-        return [
-            'uuid' => $this->faker->uuid(),
-            'name' => $this->faker->name(),
-            'reference' => $this->faker->paragraph(),
-            'user_id' => User::factory(),
-        ];
+        $crud = ReferencesCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }

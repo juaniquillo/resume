@@ -115,6 +115,9 @@ final class ResumePresenter
 
     private function getCacheManager(): CacheManager
     {
-        return $this->cacheManager ?? (new ResumePresenterCacheManager($this->user, $this->theme));
+        if (! $this->cacheManager) {
+            $this->cacheManager = new ResumePresenterCacheManager($this->user, $this->theme);
+        }
+        return $this->cacheManager;
     }
 }

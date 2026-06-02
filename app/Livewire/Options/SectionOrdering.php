@@ -42,6 +42,7 @@ class SectionOrdering extends Component
             });
 
         $this->dispatch('resume-order-updated');
+        $this->dispatch('resume-updated');
 
         return $sections;
     }

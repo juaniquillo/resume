@@ -47,6 +47,7 @@ class SectionVisibility extends Component
         ))->handle();
 
         $this->dispatch('resume-order-updated');
+        $this->dispatch('resume-updated');
 
         session()->flash('success', 'Section visibility updated successfully.');
 

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\LanguageFluency;
+use App\Cruds\Actions\Model\LaravelFactoryAction;
+use App\Cruds\Squema\Languages\LanguagesCrud;
 use App\Models\Language;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,18 +12,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class LanguageFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function definition(): array
     {
-        return [
-            'uuid' => $this->faker->uuid(),
-            'language' => $this->faker->languageCode(),
-            'fluency' => $this->faker->randomElement(LanguageFluency::cases())->value,
-            'user_id' => User::factory(),
-        ];
+        $crud = LanguagesCrud::build();
+
+        return $crud->make()->execute(
+            new LaravelFactoryAction
+        )->toArray();
     }
 }
