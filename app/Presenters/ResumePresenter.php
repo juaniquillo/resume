@@ -118,6 +118,7 @@ final class ResumePresenter
         if (! $this->cacheManager) {
             $this->cacheManager = new ResumePresenterCacheManager($this->user, $this->theme);
         }
+
         return $this->cacheManager;
     }
 }

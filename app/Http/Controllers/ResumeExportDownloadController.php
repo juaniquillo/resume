@@ -30,6 +30,8 @@ class ResumeExportDownloadController extends Controller
             return redirect()->back()->with('error', 'The exported file was not found.');
         }
 
-        return Storage::download($export->file_path);
+        $filename = str_replace(' ', '-', strtolower($user->name)).'-resume.'.$export->type->value;
+
+        return Storage::download($export->file_path, $filename);
     }
 }

@@ -24,6 +24,8 @@ class ResumePublicDownloadController extends Controller
             abort(404, 'The exported file was not found.');
         }
 
-        return Storage::download($export->file_path);
+        $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$export->type->value;
+
+        return Storage::download($export->file_path, $filename);
     }
 }

@@ -8,8 +8,8 @@ use Livewire\Component;
 
 class PreviewIframe extends Component
 {
-    private ?string $cacheBuster = null; 
-    
+    private ?string $cacheBuster = null;
+
     #[On('resume-updated')]
     public function refreshIframe()
     {

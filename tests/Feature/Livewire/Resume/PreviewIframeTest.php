@@ -23,6 +23,6 @@ test('PreviewIframe component listens for the update event', function () {
 
     Livewire::actingAs($user)
         ->test(PreviewIframe::class)
-        ->dispatch('resume-order-updated')
+        ->dispatch('resume-updated')
         ->assertStatus(200);
 });
