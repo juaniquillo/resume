@@ -33,7 +33,7 @@ class SlugFactory
                 'required',
                 'string',
                 'alpha_dash:ascii',
-                'max:255',
+                'max:191',
                 Rule::unique(GeneralOption::class)->ignore(request()->user()->id, 'user_id'),
             ]))
         );

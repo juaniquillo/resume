@@ -61,7 +61,7 @@ class StudyTypeFactory
             (new LaravelValidationRulesRecipe([
                 'required',
                 'string',
-                'max:255',
+                'max:191',
             ]))
         );
     }
