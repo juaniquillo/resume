@@ -15,6 +15,6 @@ class Helpers
     {
         $options = $user->generalOptions;
 
-        return ($options->is_draft ?? true) || ! $user->basics()->exists();
+        return ($options->is_draft ?? true) || ! $user->resumeBasics();
     }
 }

@@ -4,6 +4,8 @@ namespace App\Components\Nav;
 
 use App\Components\Concerns\HasFluxCards;
 use App\Components\Concerns\IsFluxNavigation;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ResumeNav
 {
@@ -32,7 +34,7 @@ class ResumeNav
      * > */
     public static function items(): array
     {
-        return [
+        $items = [
             [
                 'name' => 'basics',
                 'label' => 'Basics',
@@ -149,5 +151,14 @@ class ResumeNav
                 'description' => 'Add, edit and manage your projects.',
             ],
         ];
+
+        /** @var User|null $user */
+        $user = Auth::user();
+
+        if ($user && ! $user->resumeBasics()) {
+            return array_filter($items, fn ($item) => $item['name'] === 'basics');
+        }
+
+        return $items;
     }
 }

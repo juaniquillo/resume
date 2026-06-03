@@ -22,7 +22,7 @@ class BasicsLocationController extends Controller
         $user = $request->user();
 
         /** @var Basic|null $basics */
-        $basics = $user?->basics()->first();
+        $basics = $user?->resumeBasics();
 
         $form = null;
         $table = null;

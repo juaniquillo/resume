@@ -39,11 +39,11 @@ final class LocationsCrud implements CrudForm, CrudInterface
     public function inputsArray(): array
     {
         return [
+            'city' => CityFactory::make(),
+            'country_code' => CountryCodeFactory::make(),
             'basics' => BasicsFactory::make(),
             'address' => AddressFactory::make(),
             'postal_code' => PostalCodeFactory::make(),
-            'city' => CityFactory::make(),
-            'country_code' => CountryCodeFactory::make(),
             'region' => RegionFactory::make(),
         ];
     }

@@ -14,7 +14,7 @@ class BasicsController extends Controller
 
         $user = $request->user();
 
-        $model = $user?->basics()->first();
+        $model = $user?->resumeBasics();
 
         $crud = BasicsCrud::build(
             values: $values,

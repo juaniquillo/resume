@@ -38,6 +38,7 @@ use App\Cruds\Squema\Works\WorksCrud;
 use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
+use App\Presenters\Resume\ResumeDataLoader;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -76,6 +77,8 @@ class ProcessResumeImport implements ShouldQueue
      */
     public function handle(): void
     {
+        app(ResumeDataLoader::class)->clearCache($this->import->user_id);
+
         $this->import->update(['status' => 'processing']);
 
         try {
@@ -188,7 +191,7 @@ class ProcessResumeImport implements ShouldQueue
         (new UpdateBasics($validated, $user, $imageFile))->handle();
 
         /** @var Basic|null $basics */
-        $basics = $user->basics()->first();
+        $basics = $user->resumeBasics();
 
         if ($basics) {
             if (isset($basicsData['location'])) {
