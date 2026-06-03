@@ -26,7 +26,7 @@ class BasicsProfileController extends Controller
         $user = $request->user();
 
         /** @var Basic|null $basics */
-        $basics = $user?->basics()->first();
+        $basics = $user?->resumeBasics();
 
         $form = null;
         $table = null;
@@ -61,7 +61,7 @@ class BasicsProfileController extends Controller
         $user = $request->user();
 
         /** @var Basic|null $basics */
-        $basics = $user?->basics()->first();
+        $basics = $user?->resumeBasics();
 
         if (! $basics) {
             return back()
@@ -86,7 +86,7 @@ class BasicsProfileController extends Controller
         $user = $request->user();
 
         /** @var Basic|null $basics */
-        $basics = $user?->basics()->first();
+        $basics = $user?->resumeBasics();
         $form = null;
 
         if ($basics) {
@@ -111,7 +111,7 @@ class BasicsProfileController extends Controller
         $user = $request->user();
 
         /** @var Basic $basics */
-        $basics = $user->basics()->firstOrFail();
+        $basics = $user->resumeBasics() ?? abort(404);
 
         /** @var Profile $profile */
         $profile = $basics->profiles()->findOrFail($id);
@@ -128,7 +128,7 @@ class BasicsProfileController extends Controller
         $user = $request->user();
 
         /** @var Basic $basics */
-        $basics = $user->basics()->firstOrFail();
+        $basics = $user->resumeBasics() ?? abort(404);
 
         /** @var Profile $profile */
         $profile = $basics->profiles()->findOrFail($id);

@@ -26,7 +26,7 @@
 24. ✅ Create a resume sections enum and use it instead of the constant on SectionVisibilityCrud.
 25. ✅ Make sure all models have DocBlocks with the @property-read statement.
 26. ✅ Add a link with an icon for the status of the resume (published or draft) to the sidebar-actions component next to the preview button. The link should take you general options.
-27. ✅s Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
+27. ✅ Separate tests groups into the fast ones and the slow ones (mostly the ones that do blade rending). That will make easier to run only when the related code changed.
 28. ✅ Show a message in the dashboard that lets the user know when the basics has not been filled. The resume will not be available it that's the case.
 29. ✅ Refactor the section visibility crud into a Livewire component.
 30. ✅ Add default svg icon for the Networks that are not in the Enum.
@@ -36,8 +36,8 @@
 34. ✅ Add a warning to the import CRUD that the existing resume info will be overwritten with the one in the JSON file.
 35. ✅ Refactor table containers to blade x-table-container components, like it's done in `resources\views\dashboard\works\index.blade.php`
 36. ◻️ Refactor CRUDS (forms and tables) to Livewire (for much later).
-37. ◻️ Refactor `ResumeDataLoader` to query and return individual sections. If the section is available in the cache it will return the cache.
-38. ◻️ Simple Resume analytics?
+37. ✅ I want to make the `ResumeDataLoader` the global database accessor for any resume section. I don't want to repeat queries if I access one of the sections twice or more during the request lifecycle. I want to use it every time a sections is accessed but not for database mutations. Any advices?
+38. ✅ Simple Resume analytics.
 39. ✅ New `Section Ordering` CRUD using livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
 
 40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).

@@ -16,75 +16,129 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\Volunteer;
 use App\Models\Work;
+use Closure;
 use Illuminate\Database\Eloquent\Collection;
 
 final class ResumeDataLoader
 {
-    /** @var array<int, ResumeData> */
     private array $cache = [];
 
     public function load(User $user): ResumeData
     {
-        if (isset($this->cache[$user->id])) {
-            return $this->cache[$user->id];
-        }
+        return $this->getCached($user->id, 'full_resume', fn () => new ResumeData(
+            basics: $this->basics($user),
+            works: $this->works($user),
+            volunteers: $this->volunteers($user),
+            education: $this->education($user),
+            awards: $this->awards($user),
+            certificates: $this->certificates($user),
+            publications: $this->publications($user),
+            skills: $this->skills($user),
+            languages: $this->languages($user),
+            interests: $this->interests($user),
+            references: $this->references($user),
+            projects: $this->projects($user),
+            downloads: $this->downloads($user),
+        ));
+    }
 
-        /** @var Basic|null $basics */
-        $basics = $user->basics()->with(['location', 'profiles'])->first();
+    public function basics(User $user): ?Basic
+    {
+        return $this->getCached($user->id, 'basics', fn () => $user->basics()->with(['location', 'profiles'])->first());
+    }
 
-        /** @var Collection<int, Work> $works */
-        $works = $user->works()->with('highlights')->orderByDesc('starts_at')->get();
+    /** @return Collection<int, Work> */
+    public function works(User $user): Collection
+    {
+        return $this->getCached($user->id, 'works', fn () => $user->works()->with('highlights')->orderByDesc('starts_at')->get());
+    }
 
-        /** @var Collection<int, Volunteer> $volunteers */
-        $volunteers = $user->volunteers()->with('highlights')->orderByDesc('starts_at')->get();
+    /** @return Collection<int, Volunteer> */
+    public function volunteers(User $user): Collection
+    {
+        return $this->getCached($user->id, 'volunteers', fn () => $user->volunteers()->with('highlights')->orderByDesc('starts_at')->get());
+    }
 
-        /** @var Collection<int, Education> $education */
-        $education = $user->education()->with('courses')->orderByDesc('starts_at')->get();
+    /** @return Collection<int, Education> */
+    public function education(User $user): Collection
+    {
+        return $this->getCached($user->id, 'education', fn () => $user->education()->with('courses')->orderByDesc('starts_at')->get());
+    }
 
-        /** @var Collection<int, Award> $awards */
-        $awards = $user->awards()->orderByDesc('awarded_at')->get();
+    /** @return Collection<int, Award> */
+    public function awards(User $user): Collection
+    {
+        return $this->getCached($user->id, 'awards', fn () => $user->awards()->orderByDesc('awarded_at')->get());
+    }
 
-        /** @var Collection<int, Certificate> $certificates */
-        $certificates = $user->certificates()->orderByDesc('date')->get();
+    /** @return Collection<int, Certificate> */
+    public function certificates(User $user): Collection
+    {
+        return $this->getCached($user->id, 'certificates', fn () => $user->certificates()->orderByDesc('date')->get());
+    }
 
-        /** @var Collection<int, Publication> $publications */
-        $publications = $user->publications()->orderByDesc('date')->get();
+    /** @return Collection<int, Publication> */
+    public function publications(User $user): Collection
+    {
+        return $this->getCached($user->id, 'publications', fn () => $user->publications()->orderByDesc('date')->get());
+    }
 
-        /** @var Collection<int, Skill> $skills */
-        $skills = $user->skills()->get();
+    /** @return Collection<int, Skill> */
+    public function skills(User $user): Collection
+    {
+        return $this->getCached($user->id, 'skills', fn () => $user->skills()->get());
+    }
 
-        /** @var Collection<int, Language> $languages */
-        $languages = $user->languages()->get();
+    /** @return Collection<int, Language> */
+    public function languages(User $user): Collection
+    {
+        return $this->getCached($user->id, 'languages', fn () => $user->languages()->get());
+    }
 
-        /** @var Collection<int, Interest> $interests */
-        $interests = $user->interests()->get();
+    /** @return Collection<int, Interest> */
+    public function interests(User $user): Collection
+    {
+        return $this->getCached($user->id, 'interests', fn () => $user->interests()->get());
+    }
 
-        /** @var Collection<int, Reference> $references */
-        $references = $user->references()->get();
+    /** @return Collection<int, Reference> */
+    public function references(User $user): Collection
+    {
+        return $this->getCached($user->id, 'references', fn () => $user->references()->get());
+    }
 
-        /** @var Collection<int, Project> $projects */
-        $projects = $user->projects()->with('highlights')->orderByDesc('start_date')->get();
+    /** @return Collection<int, Project> */
+    public function projects(User $user): Collection
+    {
+        return $this->getCached($user->id, 'projects', fn () => $user->projects()->with('highlights')->orderByDesc('start_date')->get());
+    }
 
-        /** @var Collection<int, ResumeExport> $downloads */
-        $downloads = $user->resumeExports()
+    /** @return Collection<int, ResumeExport> */
+    public function downloads(User $user): Collection
+    {
+        return $this->getCached($user->id, 'downloads', fn () => $user->resumeExports()
             ->where('allow_download', true)
             ->where('status', 'completed')
-            ->get();
+            ->get());
+    }
 
-        return $this->cache[$user->id] = new ResumeData(
-            basics: $basics,
-            works: $works,
-            volunteers: $volunteers,
-            education: $education,
-            awards: $awards,
-            certificates: $certificates,
-            publications: $publications,
-            skills: $skills,
-            languages: $languages,
-            interests: $interests,
-            references: $references,
-            projects: $projects,
-            downloads: $downloads,
-        );
+    public function clearCache(?int $userId = null): void
+    {
+        if ($userId) {
+            unset($this->cache[$userId]);
+
+            return;
+        }
+
+        $this->cache = [];
+    }
+
+    private function getCached(int $userId, string $key, Closure $callback): mixed
+    {
+        if (! isset($this->cache[$userId][$key])) {
+            $this->cache[$userId][$key] = $callback();
+        }
+
+        return $this->cache[$userId][$key];
     }
 }

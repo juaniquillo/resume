@@ -36,7 +36,7 @@ class ResumeController extends Controller
         }
 
         /** @var Basic|null $basics */
-        $basics = $user->basics;
+        $basics = $user->resumeBasics();
         $description = $basics?->summary ? Str::limit(strip_tags($basics->summary), 160) : null;
         $image = route('resume.og.image', $user);
 

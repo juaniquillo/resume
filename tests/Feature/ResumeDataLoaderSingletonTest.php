@@ -2,6 +2,7 @@
 
 use App\Models\Basic;
 use App\Models\User;
+use App\Models\Work;
 use App\Presenters\Resume\ResumeDataLoader;
 use Illuminate\Support\Facades\DB;
 
@@ -54,4 +55,32 @@ test('resume data loader caches separately for different users', function () {
     $queriesAfterUser2 = count(DB::getQueryLog());
 
     expect($queriesAfterUser2)->toBeGreaterThan($queriesAfterUser1);
+});
+
+test('resume data loader supports granular lazy loading', function () {
+    $user = User::factory()->create();
+    Basic::factory()->for($user)->create();
+    Work::factory()->count(2)->for($user)->create();
+
+    $loader = app(ResumeDataLoader::class);
+
+    DB::enableQueryLog();
+
+    // Load only basics
+    $loader->basics($user);
+    $queriesAfterBasics = count(DB::getQueryLog());
+    expect($queriesAfterBasics)->toBe(3); // One for basics, one for location, one for profiles
+
+    // Load basics again (should be cached)
+    $loader->basics($user);
+    expect(count(DB::getQueryLog()))->toBe($queriesAfterBasics);
+
+    // Load works (should hit DB)
+    $loader->works($user);
+    $queriesAfterWorks = count(DB::getQueryLog());
+    expect($queriesAfterWorks)->toBeGreaterThan($queriesAfterBasics);
+
+    // Load works again (cached)
+    $loader->works($user);
+    expect(count(DB::getQueryLog()))->toBe($queriesAfterWorks);
 });

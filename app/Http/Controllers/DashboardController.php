@@ -12,7 +12,7 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         return view('dashboard.index', [
-            'hasBasics' => $user->basics()->exists(),
+            'hasBasics' => (bool) $user->resumeBasics(),
             'views' => $user->generalOptions->views ?? 0,
         ]);
     }

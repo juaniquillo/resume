@@ -12,7 +12,7 @@ class ResumeOgController extends Controller
     {
         return view('pages.resume-og', [
             'user' => $user,
-            'basics' => $user->basics,
+            'basics' => $user->resumeBasics(),
         ]);
     }
 

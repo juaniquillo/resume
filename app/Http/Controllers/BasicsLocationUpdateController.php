@@ -16,7 +16,7 @@ class BasicsLocationUpdateController extends Controller
         $user = $request->user();
 
         /** @var Basic|null $basics */
-        $basics = $user?->basics()->first();
+        $basics = $user?->resumeBasics();
 
         if (! $basics) {
             return back()
