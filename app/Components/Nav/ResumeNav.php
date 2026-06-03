@@ -4,6 +4,7 @@ namespace App\Components\Nav;
 
 use App\Components\Concerns\HasFluxCards;
 use App\Components\Concerns\IsFluxNavigation;
+use App\Models\User;
 
 class ResumeNav
 {
@@ -150,8 +151,8 @@ class ResumeNav
             ],
         ];
 
-        /** @var \App\Models\User|null $user */
-        $user = auth()->user();
+        /** @var User|null $user */
+        $user = request()->user();
 
         if ($user && ! $user->resumeBasics()) {
             return array_filter($items, fn ($item) => $item['name'] === 'basics');
