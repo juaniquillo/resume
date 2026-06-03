@@ -15,9 +15,10 @@
 
         @if ($slug)
             <flux:button 
-                class="cursor-pointer flex-1 justify-start overflow-hidden" 
+                class="cursor-pointer justify-start overflow-hidden" 
                 size="sm" 
-                variant="ghost" 
+                variant="primary" 
+                color="{{ $isDraft ? 'zinc' : 'emerald'}}"
                 icon="{{ $isDraft ? 'pencil-square' : 'globe-alt' }}" 
                 href="{{ route('resume', $slug) }}" 
                 target="_blank"

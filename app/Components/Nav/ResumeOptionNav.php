@@ -5,6 +5,7 @@ namespace App\Components\Nav;
 use App\Components\Concerns\HasFluxCards;
 use App\Components\Concerns\IsFluxNavigation;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ResumeOptionNav
 {
@@ -57,7 +58,7 @@ class ResumeOptionNav
         ];
 
         /** @var User|null $user */
-        $user = request()->user();
+        $user = Auth::user();
 
         if ($user && ! $user->resumeBasics()) {
             return array_filter($items, fn ($item) => $item['name'] === 'resume.general');
