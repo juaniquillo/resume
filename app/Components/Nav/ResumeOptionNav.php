@@ -31,7 +31,7 @@ class ResumeOptionNav
      * > */
     public static function items(): array
     {
-        return [
+        $items = [
             [
                 'name' => 'resume.general',
                 'label' => 'General Options',
@@ -54,5 +54,14 @@ class ResumeOptionNav
                 'description' => 'Change the display order of resume sections.',
             ],
         ];
+
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+
+        if ($user && ! $user->resumeBasics()) {
+            return array_filter($items, fn ($item) => $item['name'] === 'resume.general');
+        }
+
+        return $items;
     }
 }

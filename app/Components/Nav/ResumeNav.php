@@ -32,7 +32,7 @@ class ResumeNav
      * > */
     public static function items(): array
     {
-        return [
+        $items = [
             [
                 'name' => 'basics',
                 'label' => 'Basics',
@@ -149,5 +149,14 @@ class ResumeNav
                 'description' => 'Add, edit and manage your projects.',
             ],
         ];
+
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+
+        if ($user && ! $user->resumeBasics()) {
+            return array_filter($items, fn ($item) => $item['name'] === 'basics');
+        }
+
+        return $items;
     }
 }
