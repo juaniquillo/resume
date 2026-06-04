@@ -82,7 +82,7 @@ trait HasFluxCards
     public static function cardIcon(array $item): BackendComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::ICON)
-            ->setAttribute('class', 'text-zinc-400')
+            ->setAttribute('class', 'text-sky-500')
             ->setAttributes([
                 'name' => $item['icon'],
             ])

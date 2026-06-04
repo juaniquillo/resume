@@ -23,22 +23,22 @@ return [
     'certificates-container' => '',
     'publications-container' => '',
     'skills-container' => '',
-    'languages-container' => 'flex flex-wrap gap-5',
+    'languages-container' => 'flex flex-wrap gap-x-6',
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
     'downloads-container' => 'flex flex-wrap gap-4',
     
     'item-container' => 'mb-8 xl:mb-10 last:mb-0',
-    'item-title' => 'text-xl xl:text-2xl font-bold text-gray-900 dark:text-white',
-    'item-details' => 'text-gray-600 xl:text-lg mb-3 italic font-medium dark:text-gray-400',
+    'item-title' => 'text-xl xl:text-2xl font-bold text-gray-900 dark:text-white mb-1',
+    'item-details' => 'flex flex-wrap gap-4 text-gray-600 xl:text-lg mb-3 italic font-medium dark:text-gray-400',
     
     'summary' => 'whitespace-pre-wrap text-lg xl:text-xl leading-relaxed text-gray-700 dark:text-gray-300',
     
     'list' => 'list-disc list-inside space-y-1 xl:space-y-2 text-gray-700 xl:text-lg mt-2 dark:text-gray-300',
     'list-item' => '',
     
-    'badge' => 'inline-block px-2 py-0.5 text-xs xl:text-sm font-semibold tracking-wide uppercase rounded-md bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50',
+    'badge' => 'self-center inline-block px-2 py-0.5 text-xs xl:text-sm font-semibold tracking-wide uppercase rounded-md bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50',
     'social-badge' => 'group inline-flex items-center gap-2 px-3 py-1 text-sm xl:text-base font-bold rounded-xl bg-gray-100 text-gray-700 border-2 border-gray-200 transition-all duration-300 hover:bg-sky-600 hover:text-white hover:border-sky-700 hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-sky-500 dark:hover:text-white dark:hover:border-sky-400',
     'date' => 'text-gray-500 font-normal dark:text-gray-500',
     'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',
