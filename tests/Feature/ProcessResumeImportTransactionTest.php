@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -37,14 +38,14 @@ test('it rolls back all changes if a part of the import fails', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'resume_failure.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $job = new ProcessResumeImport($import);
     $job->handle();
 
     $import->refresh();
-    expect($import->status)->toBe('failed');
+    expect($import->status)->toBe(ProcessStatus::FAILED);
     expect($import->error)->toContain('The name field is required'); // WorksCrud maps 'company' to 'name'
 
     // Verify that NO basics were created (they should have been rolled back)

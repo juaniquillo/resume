@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Models\Basic;
 use App\Models\ResumeExport;
@@ -48,7 +49,7 @@ test('public resume shows allowed downloads', function () {
     ResumeExport::create([
         'user_id' => $user->id,
         'type' => ResumeExportType::JSON,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
         'file_path' => 'path.json',
         'allow_download' => true,
     ]);

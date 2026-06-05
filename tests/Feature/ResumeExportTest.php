@@ -1,6 +1,7 @@
 <?php
 
 use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;
 use App\Jobs\ProcessJsonExport;
@@ -49,7 +50,7 @@ test('it can initiate a resume export', function () {
 
     $this->assertDatabaseHas('resume_exports', [
         'user_id' => $this->user->id,
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     Queue::assertPushed(ProcessJsonExport::class);
@@ -64,7 +65,7 @@ test('the background job generates a valid json file', function () {
 
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
         'type' => ResumeExportType::JSON->value,
     ]);
 
@@ -72,10 +73,10 @@ test('the background job generates a valid json file', function () {
     $job->handle();
 
     $export->refresh();
-    if ($export->status === 'failed') {
+    if ($export->status === ProcessStatus::FAILED) {
         dump($export->error);
     }
-    expect($export->status)->toBe('completed');
+    expect($export->status)->toBe(ProcessStatus::COMPLETED);
     expect($export->file_path)->not->toBeNull();
 
     Storage::disk('local')->assertExists($export->file_path);
@@ -126,7 +127,7 @@ test('user can delete their resume export', function () {
     $export = ResumeExport::create([
         'user_id' => $user->id,
         'file_path' => $filePath,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
@@ -142,7 +143,7 @@ test('user cannot delete a pending or processing resume export', function () {
 
     $export = ResumeExport::create([
         'user_id' => $user->id,
-        'status' => 'processing',
+        'status' => ProcessStatus::PROCESSING,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
@@ -158,7 +159,7 @@ test('user can delete a failed resume export', function () {
 
     $export = ResumeExport::create([
         'user_id' => $user->id,
-        'status' => 'failed',
+        'status' => ProcessStatus::FAILED,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
@@ -176,7 +177,7 @@ test('user cannot delete another users resume export', function () {
     $export = ResumeExport::create([
         'user_id' => $otherUser->id,
         'file_path' => 'path/to/file.json',
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.export.destroy', $export->id));
@@ -209,7 +210,7 @@ test('it can download a completed export', function () {
 
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
         'file_path' => $filePath,
         'type' => ResumeExportType::JSON->value,
     ]);
@@ -223,7 +224,7 @@ test('it cannot download another users export', function () {
     $otherUser = User::factory()->create();
     $export = ResumeExport::create([
         'user_id' => $otherUser->id,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
         'file_path' => 'some/path.json',
     ]);
 
@@ -248,7 +249,7 @@ test('it can initiate a resume export with download and theme', function () {
 
     $this->assertDatabaseHas('resume_exports', [
         'user_id' => $this->user->id,
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
         'type' => ResumeExportType::PDF->value,
         'theme' => ResumeTheme::BOLD->value,
         'allow_download' => true,
@@ -263,7 +264,7 @@ test('marking an export for download unmarks others of the same type', function 
         'user_id' => $this->user->id,
         'type' => ResumeExportType::PDF,
         'allow_download' => true,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $this->actingAs($this->user)
@@ -305,7 +306,7 @@ test('publicly marked exports are downloadable by guests', function () {
 
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
         'file_path' => $filePath,
         'type' => ResumeExportType::JSON->value,
         'allow_download' => true,
@@ -318,7 +319,7 @@ test('publicly marked exports are downloadable by guests', function () {
 test('unmarked exports are not downloadable by guests', function () {
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
         'file_path' => 'path.json',
         'type' => ResumeExportType::JSON->value,
         'allow_download' => false,
@@ -337,7 +338,7 @@ test('the background job generates a pdf file', function () {
 
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
         'type' => ResumeExportType::PDF->value,
     ]);
 
@@ -345,7 +346,7 @@ test('the background job generates a pdf file', function () {
     $job->handle();
 
     $export->refresh();
-    expect($export->status)->toBe('completed');
+    expect($export->status)->toBe(ProcessStatus::COMPLETED);
     expect($export->file_path)->not->toBeNull();
     expect($export->file_path)->toEndWith('.pdf');
 
@@ -362,7 +363,7 @@ test('the background job handles cases with no data correctly', function () {
     // User exists but has NO basics, work, etc.
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
         'type' => ResumeExportType::JSON->value,
     ]);
 
@@ -370,7 +371,7 @@ test('the background job handles cases with no data correctly', function () {
     $job->handle();
 
     $export->refresh();
-    expect($export->status)->toBe('failed');
+    expect($export->status)->toBe(ProcessStatus::FAILED);
     expect($export->file_path)->toBeNull();
     expect($export->error)->toBe(BasicsCrud::MISSING_BASICS_ERROR);
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Models\Education;
 use App\Models\ResumeImport;
@@ -71,17 +72,17 @@ test('it processes a resume json and creates database records', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'resume.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $job = new ProcessResumeImport($import);
     $job->handle();
 
     $import->refresh();
-    if ($import->status === 'failed') {
+    if ($import->status === ProcessStatus::FAILED) {
         dump($import->error);
     }
-    expect($import->status)->toBe('completed');
+    expect($import->status)->toBe(ProcessStatus::COMPLETED);
 
     // Assert Basics
     $this->assertDatabaseHas('basics', [

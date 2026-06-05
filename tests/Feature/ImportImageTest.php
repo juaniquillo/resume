@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -34,14 +35,14 @@ test('it processes a resume with a valid data uri image', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'resume_with_image.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $job = new ProcessResumeImport($import);
     $job->handle();
 
     $import->refresh();
-    expect($import->status)->toBe('completed');
+    expect($import->status)->toBe(ProcessStatus::COMPLETED);
 
     $basics = $user->basics()->first();
     expect($basics->image)->not->toBeNull();
@@ -73,14 +74,14 @@ test('it fails when the imported image is too large', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'resume_large_image.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $job = new ProcessResumeImport($import);
     $job->handle();
 
     $import->refresh();
-    expect($import->status)->toBe('failed');
+    expect($import->status)->toBe(ProcessStatus::FAILED);
     // It might fail either because it's not a real image (if garbage) or because it's too large.
     // The validator returns all errors.
     expect($import->error)->toMatch('/The image field must (be an image|not be greater than)/');
@@ -109,13 +110,13 @@ test('it fails when the imported file is not an image', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'resume_not_image.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $job = new ProcessResumeImport($import);
     $job->handle();
 
     $import->refresh();
-    expect($import->status)->toBe('failed');
+    expect($import->status)->toBe(ProcessStatus::FAILED);
     expect($import->error)->toContain('The image field must be an image');
 });
