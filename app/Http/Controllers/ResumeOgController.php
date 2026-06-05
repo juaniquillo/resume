@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Managers\Resume\OgImageManager;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Spatie\LaravelScreenshot\Facades\Screenshot;
@@ -18,13 +19,14 @@ class ResumeOgController extends Controller
 
     public function image(User $user)
     {
-        $path = "og-images/ogg-{$user->id}.png";
+        $manager = new OgImageManager($user);
+        $path = $manager->getPath();
 
-        if (! Storage::exists($path)) {
+        if (! $manager->imageExists()) {
             Screenshot::url(route('resume.og.show', $user))
-                ->width(1200)
-                ->height(630)
-                ->save(storage_path("app/private/og-images/{$path}"));
+                ->width(OgImageManager::WIDTH)
+                ->height(OgImageManager::HEIGHT)
+                ->save($manager->getStorePath());
         }
 
         return response(Storage::get($path))->header('Content-Type', 'image/png');
