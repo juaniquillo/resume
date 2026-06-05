@@ -16,17 +16,8 @@
             </div>
         </div>
 
-        <div class="relative">
+        <div>
             {{ $form }}
-
-            <div wire:loading wire:target="resetResume" class="absolute inset-0  flex items-center justify-center rounded-lg">
-                <flux:spacer />
-                <div class="flex items-center gap-3 px-4 py-2 bg-white dark:bg-zinc-800 shadow-lg rounded-lg border border-zinc-200 dark:border-zinc-700">
-                    <flux:icon.arrow-path class="animate-spin size-5 text-red-600" />
-                    <flux:text class="font-medium text-red-600">{{ __("Resetting your resume... please wait.") }}</flux:text>
-                </div>
-                <flux:spacer />
-            </div>
         </div>
     </div>
 </div>
