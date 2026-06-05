@@ -5,6 +5,7 @@ namespace App\Cruds\Actions\Presenters;
 use BackedEnum;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
@@ -123,9 +124,9 @@ class TableComponentUtil
         array $themes = [],
         array $attributes = [],
         ThemeManager $themeManager = new DefaultThemeManager,
-        /** @var class-string<BackendComponent|CompoundComponent> */
+        /** @var class-string<BackendComponent|CompoundComponent|ContentComponent> */
         string $component = MainBackendComponent::class,
-    ): BackendComponent|CompoundComponent {
+    ): BackendComponent|CompoundComponent|ContentComponent {
         $component = new $component($type, $this->themeManager);
 
         $component->setAttributes($attributes)
