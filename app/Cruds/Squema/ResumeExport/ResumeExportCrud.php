@@ -70,10 +70,19 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     default => 'zinc',
                 };
 
+                $icon = match ($export->status) {
+                    'pending' => 'loading',
+                    'processing' => 'arrow-trend-up',
+                    'completed' => 'check',
+                    'failed' => 'x-mark',
+                    default => 'question',
+                };
+
                 $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                     ->setAttributes([
                         'color' => $color,
                         'inset' => 'top bottom',
+                        'icon' => $icon,
                     ])
                     ->setContent(ucfirst($export->status));
 

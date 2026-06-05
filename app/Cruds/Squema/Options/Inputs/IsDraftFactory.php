@@ -14,7 +14,7 @@ class IsDraftFactory
 {
     public const NAME = 'is_draft';
 
-    public const LABEL = 'Draft Mode';
+    public const LABEL = 'Toggle Draft Mode';
 
     public static function make(): InputInterface
     {

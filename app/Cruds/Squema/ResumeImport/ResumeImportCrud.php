@@ -80,10 +80,19 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     default => 'zinc',
                 };
 
+                $icon = match ($import->status) {
+                    'pending' => 'loading',
+                    'processing' => 'arrow-trend-up',
+                    'completed' => 'check',
+                    'failed' => 'x-mark',
+                    default => 'question',
+                };
+
                 $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
                     ->setAttributes([
                         'color' => $color,
                         'inset' => 'top bottom',
+                        'icon' => $icon,
                     ])
                     ->setContent(ucfirst($import->status));
 

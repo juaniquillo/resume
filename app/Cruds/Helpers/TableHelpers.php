@@ -97,12 +97,16 @@ final class TableHelpers
             );
     }
 
-    public static function badge(string $content, string $color): BackendComponent|CompoundComponent
+    public static function badge(string $content, string $color, array $extraAttributes = []): BackendComponent|CompoundComponent
     {
+        $attributes = [
+            'color' => $color,
+        ];
+
+        $attributes = array_merge($attributes, $extraAttributes);
+
         return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
-            ->setAttributes([
-                'color' => $color,
-            ])
+            ->setAttributes($attributes)
             ->setContent($content);
     }
 

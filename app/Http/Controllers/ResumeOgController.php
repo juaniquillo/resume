@@ -26,7 +26,8 @@ class ResumeOgController extends Controller
             Screenshot::url(route('resume.og.show', $user))
                 ->width(OgImageManager::WIDTH)
                 ->height(OgImageManager::HEIGHT)
-                ->save($manager->getStorePath());
+                ->disk(config('filesystems.default'))
+                ->save($path);
         }
 
         return response(Storage::get($path))->header('Content-Type', 'image/png');

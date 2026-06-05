@@ -43,6 +43,7 @@ final class ResumeResetCrud implements CrudForm, CrudInterface
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'danger')
             ->setTheme('cursor', 'pointer')
+            ->setAttribute('onclick', "return confirm('Are you sure you want to reset your resume? This action cannot be undone.')")
             ->setContent(__($label));
     }
 }

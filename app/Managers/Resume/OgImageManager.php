@@ -39,11 +39,6 @@ class OgImageManager
         return "og-images/ogg-{$this->user->id}.png";
     }
 
-    public function getStorePath(): string
-    {
-        return Storage::path($this->getPath());
-    }
-
     public function imageExists(): bool
     {
         return Storage::exists($this->getPath());

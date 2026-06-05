@@ -20,9 +20,8 @@
                 variant="primary" 
                 color="{{ $isDraft ? 'zinc' : 'emerald'}}"
                 icon="{{ $isDraft ? 'pencil-square' : 'globe-alt' }}" 
-                href="{{ route('resume', $slug) }}" 
-                target="_blank"
-                title="{{ $isDraft ? __('Draft (click to view)') : __('Published (click to view)') }}"
+                href="{{ route('dashboard.resume.general') }}" 
+                title="{{ $isDraft ? __('Draft (click to change)') : __('Published (click to change)') }}"
             >
                 <span class="truncate">{{ $isDraft ? __('Draft') : __('Published') }}</span>
             </flux:button>
