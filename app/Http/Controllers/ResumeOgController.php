@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Managers\Resume\OgImageManager;
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
-use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\Storage;
+use Spatie\LaravelScreenshot\Facades\Screenshot;
 
 class ResumeOgController extends Controller
 {
@@ -18,18 +19,16 @@ class ResumeOgController extends Controller
 
     public function image(User $user)
     {
-        $cacheKey = "resume-og-image-{$user->id}-".($user->updated_at->timestamp ?? '0');
+        $manager = new OgImageManager($user);
+        $path = $manager->getPath();
 
-        $image = Cache::rememberForever($cacheKey, function () use ($user) {
-            return Browsershot::url(route('resume.og.show', $user))
-                ->windowSize(1200, 630)
-                ->setExtraHttpHeaders([
-                    'Authorization' => 'Bearer '.config('app.key'), // Simple internal bypass if needed
-                ])
-                ->waitUntilNetworkIdle()
-                ->screenshot();
-        });
+        if (! $manager->imageExists()) {
+            Screenshot::url(route('resume.og.show', $user))
+                ->width(OgImageManager::WIDTH)
+                ->height(OgImageManager::HEIGHT)
+                ->save($manager->getStorePath());
+        }
 
-        return response($image)->header('Content-Type', 'image/png');
+        return response(Storage::get($path))->header('Content-Type', 'image/png');
     }
 }

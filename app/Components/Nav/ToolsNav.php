@@ -55,6 +55,13 @@ class ToolsNav
                 'description' => 'Force clear your resume cache.',
             ],
             [
+                'name' => 'resume.og',
+                'label' => 'OG Image Management',
+                'route' => 'dashboard.resume.og',
+                'icon' => 'photo',
+                'description' => 'Preview and regenerate your OG image.',
+            ],
+            [
                 'name' => 'resume.reset',
                 'label' => 'Reset Resume',
                 'route' => 'dashboard.resume.reset',

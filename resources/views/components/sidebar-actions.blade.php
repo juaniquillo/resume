@@ -1,7 +1,7 @@
 <div {{ $attributes }}>
     <div class="flex items-center gap-2 mb-2 px-2">
         <flux:modal.trigger name="sidebar-preview" >
-            <flux:button class="cursor-pointer shrink-0" title="{{ __('Preview') }}" size="sm" variant="primary" icon="eye"></flux:button>
+            <flux:button class="cursor-pointer shrink-0" title="{{ __('Preview') }}" size="xs" variant="primary" icon="eye"></flux:button>
         </flux:modal.trigger>
 
         @php
@@ -16,7 +16,7 @@
         @if ($slug)
             <flux:button 
                 class="cursor-pointer justify-start overflow-hidden" 
-                size="sm" 
+                size="xs" 
                 variant="primary" 
                 color="{{ $isDraft ? 'zinc' : 'emerald'}}"
                 icon="{{ $isDraft ? 'pencil-square' : 'globe-alt' }}" 

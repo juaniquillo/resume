@@ -47,6 +47,7 @@ A cache strategy is planned for the `ResumePresenter` orchestrator level to opti
 ### 2. Testing
 - **Pest:** Every feature or refactor must be covered by a Pest test.
 - **Browser Testing:** For UI changes, smoke test pages for JS errors using the browser tools.
+- **Assets:** Run `npm run build` after making any visual or CSS changes to ensure assets are compiled.
 
 ### 3. Database
 - **Migrations:** Always create migrations for schema changes.

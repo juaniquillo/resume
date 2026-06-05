@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $user = User::factory()->create([
-            'name' => 'Victor',
-            'email' => 'victor.h.sanchez.nv@gmail.com',
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('123456'),
         ]);
 
         GeneralOption::where('user_id', $user->id)->first()->update([
-            'slug' => 'juaniquillo',
+            'slug' => 'admin',
             'theme' => ResumeTheme::DEFAULT->value,
         ]);
     }

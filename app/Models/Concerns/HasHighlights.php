@@ -5,6 +5,9 @@ namespace App\Models\Concerns;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+/**
+ * @method static void deleting(\Closure $callback)
+ */
 trait HasHighlights
 {
     protected static function bootHasHighlights()

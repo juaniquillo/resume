@@ -4,7 +4,7 @@
     
     <div class="max-w-xl mt-6">
         <flux:text class="mb-4">
-            {{ __("Export your resume in JSON or PDF format. The process will run in the background, and you will be able to download the file once it's completed.") }}
+            {{ __("Export your resume in JSON or PDF format. The process will run in the background, and you will be able to download the file once it's completed. You can keep up to five exports at a time.") }}
         </flux:text>
 
          {{ $form }}

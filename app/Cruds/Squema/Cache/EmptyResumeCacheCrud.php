@@ -10,6 +10,7 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Presenters\ResumePresenter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
@@ -40,7 +41,7 @@ final class EmptyResumeCacheCrud implements CrudForm, CrudInterface
 
     public function handleCacheClear(): void
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if ($user) {
             (new ResumePresenter($user))->clearCache();

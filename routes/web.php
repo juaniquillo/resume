@@ -29,6 +29,7 @@ use App\Http\Controllers\ResumeExportDownloadController;
 use App\Http\Controllers\ResumeImportController;
 use App\Http\Controllers\ResumeImportDownloadController;
 use App\Http\Controllers\ResumeOgController;
+use App\Http\Controllers\ResumeOgManagementController;
 use App\Http\Controllers\ResumePreview;
 use App\Http\Controllers\ResumePublicDownloadController;
 use App\Http\Controllers\ResumeResetController;
@@ -209,6 +210,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('resume/cache/clear', [ResumeCacheController::class, 'index'])->name('dashboard.resume.cache.clear');
         Route::post('resume/cache/clear', [ResumeCacheController::class, 'store'])->name('dashboard.resume.cache.store');
+
+        Route::get('resume/og', [ResumeOgManagementController::class, 'index'])->name('dashboard.resume.og');
 
         Route::get('resume/reset', ResumeResetController::class)->name('dashboard.resume.reset');
 
