@@ -3,18 +3,18 @@
 namespace App\Managers\Resume;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class OgImageManager
 {
     public const WIDTH = 1200;
-    
+
     public const HEIGHT = 630;
 
     public function __construct(
         private User $user
-    ) 
-    {}
+    ) {}
 
     public function delete(): static
     {
@@ -29,7 +29,7 @@ class OgImageManager
 
     public function fetch(): static
     {
-        file_get_contents(route('resume.og.image', $this->user));
+        Http::get(route('resume.og.image', $this->user));
 
         return $this;
     }
@@ -37,7 +37,7 @@ class OgImageManager
     public function getPath(): string
     {
         return "og-images/ogg-{$this->user->id}.png";
-    }   
+    }
 
     public function getStorePath(): string
     {

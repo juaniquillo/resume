@@ -11,14 +11,19 @@ use Livewire\Component;
 class OgImageReset extends Component
 {
     public string $slug = '';
+
     public string $width = '';
+
     public string $height = '';
 
     public string $version = '';
 
+    public bool $test = false;
 
-    public function mount(): void
+    public function mount(bool $test = false): void
     {
+        $this->test = $test;
+
         $this->slug = $this->getUser()->getSlugAttribute();
 
         $this->width = (string) OgManager::WIDTH;
@@ -29,23 +34,27 @@ class OgImageReset extends Component
     }
 
     public function regenerate(): void
-    {        
+    {
         $this->src(true);
     }
 
-     #[Computed]
-    public function src($regenerate = false): string 
+    #[Computed]
+    public function src($regenerate = false): string
     {
         if ($regenerate) {
             $user = $this->getUser();
 
             $manager = new OgManager($user);
 
-            $manager->delete()->fetch();
+            $manager->delete();
+
+            if (! $this->test) {
+                $manager->fetch();
+            }
 
             $this->version = (string) time();
 
-            $this->dispatch('notify', 
+            $this->dispatch('notify',
                 message: __('OG image regenerated successfully.'),
                 variant: 'success'
             );
@@ -58,6 +67,7 @@ class OgImageReset extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
         return $user;
     }
 

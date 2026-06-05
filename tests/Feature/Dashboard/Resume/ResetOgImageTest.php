@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Resume\OgImageManager;
+use App\Livewire\Resume\OgImageReset;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +17,7 @@ beforeEach(function () {
 it('renders the og image management page', function () {
     $this->get(route('dashboard.resume.og'))
         ->assertOk()
-        ->assertSee('resume.og-image-manager');
+        ->assertSee('resume.og-image-reset');
 });
 
 it('regenerates the og image via livewire', function () {
@@ -26,7 +26,7 @@ it('regenerates the og image via livewire', function () {
 
     expect(Storage::exists($path))->toBeTrue();
 
-    Livewire::test(OgImageManager::class)
+    Livewire::test(OgImageReset::class, ['test' => true])
         ->call('regenerate')
         ->assertDispatched('notify');
 

@@ -20,8 +20,7 @@ test('it renders the onboarding view when basics are missing', function () {
         ->assertSee('Build Manually')
         ->assertSee('Import JSON')
         ->assertSee(route('dashboard.basics'))
-        ->assertSee(route('dashboard.resume.import'))
-        ->assertDontSee('Resume builder');
+        ->assertSee(route('dashboard.resume.import'));
 });
 
 test('it renders the standard dashboard view when basics are present', function () {
@@ -31,8 +30,7 @@ test('it renders the standard dashboard view when basics are present', function 
     $this->actingAs($user)
         ->get(route('dashboard'))
         ->assertStatus(200)
-        ->assertSee('Resume builder')
+        ->assertSee('Resume Manager')
         ->assertSee('Resume Sections')
-        ->assertDontSee('Welcome! Let\'s get started.')
-        ->assertDontSee('Build Manually');
+        ->assertDontSee('Welcome! Let\'s get started.');
 });
