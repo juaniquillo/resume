@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProcessStatus;
 use App\Models\ResumeExport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ResumePublicDownloadController extends Controller
     {
         $export = ResumeExport::where('uuid', $uuid)
             ->where('allow_download', true)
-            ->where('status', 'completed')
+            ->where('status', ProcessStatus::COMPLETED)
             ->firstOrFail();
 
         if (! $export->file_path || ! Storage::exists($export->file_path)) {

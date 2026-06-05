@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Actions\Resume\Export\BuildResumeArray;
+use App\Enums\ProcessStatus;
 use App\Models\ResumeExport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -39,7 +40,7 @@ class ProcessJsonExport implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->export->update(['status' => 'processing']);
+        $this->export->update(['status' => ProcessStatus::PROCESSING]);
 
         try {
             $user = $this->export->user;
@@ -55,12 +56,12 @@ class ProcessJsonExport implements ShouldQueue
             Storage::put($path, $json);
 
             $this->export->update([
-                'status' => 'completed',
+                'status' => ProcessStatus::COMPLETED,
                 'file_path' => $path,
             ]);
         } catch (\Exception $e) {
             $this->export->update([
-                'status' => 'failed',
+                'status' => ProcessStatus::FAILED,
                 'error' => $e->getMessage(),
             ]);
         }
@@ -72,7 +73,7 @@ class ProcessJsonExport implements ShouldQueue
     public function failed(\Throwable $exception): void
     {
         $this->export->update([
-            'status' => 'failed',
+            'status' => ProcessStatus::FAILED,
             'error' => $exception->getMessage(),
         ]);
     }

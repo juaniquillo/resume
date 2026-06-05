@@ -3,6 +3,7 @@
 namespace App\Actions\Resume\Import;
 
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
+use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -34,7 +35,7 @@ class CreateResumeImport
         $import = $user->resumeImports()->create([
             'file_path' => $path,
             'file_name' => $file->getClientOriginalName(),
-            'status' => 'pending',
+            'status' => ProcessStatus::PENDING,
         ]);
 
         return $import;

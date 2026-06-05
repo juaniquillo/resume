@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProcessStatus;
 use App\Models\ResumeExport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ResumeExportDownloadController extends Controller
             ->where('uuid', $uuid)
             ->firstOrFail();
 
-        if ($export->status !== 'completed' || ! $export->file_path) {
+        if ($export->status !== ProcessStatus::COMPLETED || ! $export->file_path) {
             return redirect()->back()->with('error', 'The export is not ready for download.');
         }
 

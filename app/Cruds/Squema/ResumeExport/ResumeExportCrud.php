@@ -16,6 +16,7 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
 use App\Cruds\Squema\ResumeExport\Inputs\ExportThemeSelectFactory;
 use App\Cruds\Squema\ResumeExport\Inputs\ExportTypeSelectFactory;
+use App\Enums\ProcessStatus;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -62,31 +63,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var ResumeExport $export */
                 $export = $model;
 
-                $color = match ($export->status) {
-                    'pending' => 'zinc',
-                    'processing' => 'blue',
-                    'completed' => 'green',
-                    'failed' => 'red',
-                    default => 'zinc',
-                };
-
-                $icon = match ($export->status) {
-                    'pending' => 'loading',
-                    'processing' => 'arrow-trend-up',
-                    'completed' => 'check',
-                    'failed' => 'x-mark',
-                    default => 'question',
-                };
-
-                $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
-                    ->setAttributes([
-                        'color' => $color,
-                        'inset' => 'top bottom',
-                        'icon' => $icon,
-                    ])
-                    ->setContent(ucfirst($export->status));
-
-                return $badge;
+                return TableHelpers::statusBadge($export->status);
             }
         ));
 
@@ -104,7 +81,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 
                 $contents = [];
 
-                if ($export->status === 'completed') {
+                if ($export->status === ProcessStatus::COMPLETED) {
                     $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$export->type->value;
 
                     $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
@@ -116,7 +93,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                         ->setTheme('cursor', 'pointer');
                 }
 
-                if ($export->status === 'failed' && $export->error) {
+                if ($export->status === ProcessStatus::FAILED && $export->error) {
                     $contents[] = TableHelpers::tableModal(
                         id: "error-modal-{$export->id}",
                         content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
@@ -129,7 +106,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                if (in_array($export->status, ['completed', 'failed'])) {
+                if (in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
                     $contents[] = TableHelpers::deleteButton(route('dashboard.resume.export.destroy', $export->id));
                 }
 

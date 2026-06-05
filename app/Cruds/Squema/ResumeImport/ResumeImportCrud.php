@@ -14,6 +14,7 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
+use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -72,31 +73,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var ResumeImport $import */
                 $import = $model;
 
-                $color = match ($import->status) {
-                    'pending' => 'zinc',
-                    'processing' => 'blue',
-                    'completed' => 'green',
-                    'failed' => 'red',
-                    default => 'zinc',
-                };
-
-                $icon = match ($import->status) {
-                    'pending' => 'loading',
-                    'processing' => 'arrow-trend-up',
-                    'completed' => 'check',
-                    'failed' => 'x-mark',
-                    default => 'question',
-                };
-
-                $badge = FluxComponentBuilder::make(FluxComponentEnum::BADGE)
-                    ->setAttributes([
-                        'color' => $color,
-                        'inset' => 'top bottom',
-                        'icon' => $icon,
-                    ])
-                    ->setContent(ucfirst($import->status));
-
-                return $badge;
+                return TableHelpers::statusBadge($import->status);
             }
         ));
 
@@ -114,7 +91,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 
                 $contents = [];
 
-                if ($import->status === 'failed' && $import->error) {
+                if ($import->status === ProcessStatus::FAILED && $import->error) {
                     $contents[] = TableHelpers::tableModal(
                         id: "error-modal-{$import->id}",
                         content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)

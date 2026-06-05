@@ -2,6 +2,7 @@
 
 namespace App\Presenters\Resume;
 
+use App\Enums\ProcessStatus;
 use App\Models\Award;
 use App\Models\Basic;
 use App\Models\Certificate;
@@ -118,7 +119,7 @@ final class ResumeDataLoader
     {
         return $this->getCached($user->id, 'downloads', fn () => $user->resumeExports()
             ->where('allow_download', true)
-            ->where('status', 'completed')
+            ->where('status', ProcessStatus::COMPLETED)
             ->get());
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Resume\Export\CreateResumeExport;
 use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Http\Requests\Resume\ResumeExportFormRequest;
 use App\Jobs\ProcessJsonExport;
@@ -76,7 +77,7 @@ class ResumeExportController extends Controller
         /** @var ResumeExport $export */
         $export = $user->resumeExports()->findOrFail($id);
 
-        if (! in_array($export->status, ['completed', 'failed'])) {
+        if (! in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
             return redirect()
                 ->back()
                 ->with('error', 'Only completed or failed exports can be deleted.');
