@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Models\Concerns\Uuidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property-read string|null $theme
  * @property-read bool $allow_download
  * @property-read string|null $file_path
- * @property-read string $status
+ * @property-read ProcessStatus $status
  * @property-read string|null $error
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
@@ -39,6 +40,7 @@ class ResumeExport extends Model
 
     protected $casts = [
         'type' => ResumeExportType::class,
+        'status' => ProcessStatus::class,
         'allow_download' => 'boolean',
     ];
 

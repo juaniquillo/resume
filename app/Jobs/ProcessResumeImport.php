@@ -35,6 +35,7 @@ use App\Cruds\Squema\References\ReferencesCrud;
 use App\Cruds\Squema\Skills\SkillsCrud;
 use App\Cruds\Squema\Volunteers\VolunteersCrud;
 use App\Cruds\Squema\Works\WorksCrud;
+use App\Enums\ProcessStatus;
 use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -79,7 +80,7 @@ class ProcessResumeImport implements ShouldQueue
     {
         app(ResumeDataLoader::class)->clearCache($this->import->user_id);
 
-        $this->import->update(['status' => 'processing']);
+        $this->import->update(['status' => ProcessStatus::PROCESSING]);
 
         try {
             $json = Storage::get($this->import->file_path);
@@ -105,10 +106,10 @@ class ProcessResumeImport implements ShouldQueue
                 $this->processProjects($user, $data);
             });
 
-            $this->import->update(['status' => 'completed']);
+            $this->import->update(['status' => ProcessStatus::COMPLETED]);
         } catch (\Exception $e) {
             $this->import->update([
-                'status' => 'failed',
+                'status' => ProcessStatus::FAILED,
                 'error' => $e->getMessage(),
             ]);
         }
@@ -120,7 +121,7 @@ class ProcessResumeImport implements ShouldQueue
     public function failed(\Throwable $exception): void
     {
         $this->import->update([
-            'status' => 'failed',
+            'status' => ProcessStatus::FAILED,
             'error' => $exception->getMessage(),
         ]);
     }

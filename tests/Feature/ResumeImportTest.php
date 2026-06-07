@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -55,7 +56,7 @@ test('user can upload a resume json file', function () {
     $this->assertDatabaseHas('resume_imports', [
         'user_id' => $user->id,
         'file_name' => 'resume.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     $import = ResumeImport::first();
@@ -143,20 +144,20 @@ test('process resume import job correctly imports data', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'sample.json',
-        'status' => 'pending',
+        'status' => ProcessStatus::PENDING,
     ]);
 
     (new ProcessResumeImport($import))->handle();
 
     $import->refresh(); // Refresh the model to get the latest status and error
 
-    $this->assertEquals('completed', $import->status, "Import job failed: {$import->error}");
+    $this->assertEquals(ProcessStatus::COMPLETED, $import->status, "Import job failed: {$import->error}");
 
     $user = $user->refresh();
 
     $this->assertDatabaseHas('resume_imports', [
         'id' => $import->id,
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $basics = $user->basics()->first();
@@ -214,7 +215,7 @@ test('user can delete their resume import', function () {
         'user_id' => $user->id,
         'file_path' => $filePath,
         'file_name' => 'test.json',
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));
@@ -233,7 +234,7 @@ test('user cannot delete another users resume import', function () {
         'user_id' => $otherUser->id,
         'file_path' => 'path/to/file.json',
         'file_name' => 'file.json',
-        'status' => 'completed',
+        'status' => ProcessStatus::COMPLETED,
     ]);
 
     $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));

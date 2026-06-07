@@ -5,6 +5,7 @@ namespace App\Cruds\Squema\ResumeImport\Inputs;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Enums\ProcessStatus;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -33,7 +34,7 @@ class JsonFileFactory
             new LaravelFactoryRecipe(callback: function ($input, $output, $faker) {
                 $output->file_path = $faker->filePath();
                 $output->file_name = $faker->word().'.json';
-                $output->status = 'completed';
+                $output->status = ProcessStatus::COMPLETED;
             })
         );
     }

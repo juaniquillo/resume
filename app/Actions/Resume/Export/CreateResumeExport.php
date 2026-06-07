@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Export;
 
+use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Models\ResumeExport;
 use App\Models\User;
@@ -29,7 +30,7 @@ class CreateResumeExport
 
         /** @var ResumeExport $export */
         $export = $user->resumeExports()->create([
-            'status' => 'pending',
+            'status' => ProcessStatus::PENDING,
             'type' => $type,
             'theme' => $theme,
             'allow_download' => $allowDownload,

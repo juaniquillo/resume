@@ -5,6 +5,7 @@ namespace App\Cruds\Helpers;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Enums\ProcessStatus;
 use BackedEnum;
 use Carbon\CarbonImmutable;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -108,6 +109,22 @@ final class TableHelpers
         return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
             ->setAttributes($attributes)
             ->setContent($content);
+    }
+
+    public static function statusBadge(ProcessStatus|string $status): BackendComponent|CompoundComponent
+    {
+        if (is_string($status)) {
+            $status = ProcessStatus::from($status);
+        }
+
+        return self::badge(
+            content: $status->label(),
+            color: $status->color(),
+            extraAttributes: [
+                'inset' => 'top bottom',
+                'icon' => $status->icon(),
+            ]
+        );
     }
 
     public static function booleanBadge(mixed $value): BackendComponent|CompoundComponent
