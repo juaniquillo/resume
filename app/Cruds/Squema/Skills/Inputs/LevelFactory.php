@@ -124,13 +124,12 @@ class LevelFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                value: function (?string $value, Model|Skill $model) {
+                value: function (SkillLevel|string|null $value, Model|Skill $model) {
                     if (! $value) {
                         return '';
                     }
 
                     $color = 'zinc';
-
                     $enum = SkillLevel::tryFrom($value);
 
                     if ($enum) {

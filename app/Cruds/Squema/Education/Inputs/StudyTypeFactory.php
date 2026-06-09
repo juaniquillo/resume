@@ -125,17 +125,16 @@ class StudyTypeFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                value: function (?string $value, Model|Education $model) {
+                value: function (EducationLevel|string|null $value, Model|Education $model) {
                     if (! $value) {
                         return '';
                     }
 
                     $color = 'zinc';
-
                     $enum = EducationLevel::tryFrom($value);
 
                     if ($enum) {
-                        $color = $enum->colors();
+                        $color = $enum->color();
                     }
 
                     return FluxComponentBuilder::make(FluxComponentEnum::BADGE)

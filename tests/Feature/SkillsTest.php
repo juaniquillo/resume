@@ -24,7 +24,7 @@ it('renders the skills index page for authenticated users', function () {
         ->assertViewHas('table', null)
         ->assertSee('list="skill_level_data"', false)
         ->assertSee('<datalist id="skill_level_data">', false)
-        ->assertSee('<option value="Expert">', false);
+        ->assertSee('<option value="'.SkillLevel::EXPERT->value.'">', false);
 });
 
 it('renders the skills table when records exist', function () {
@@ -59,10 +59,10 @@ it('stores a new skill record', function () {
     ]);
 });
 
-it('stores a skill with a custom level', function () {
+it('stores a skill with a specific level', function () {
     $data = [
         'name' => 'Cooking',
-        'level' => 'Master Chef',
+        'level' => SkillLevel::BEGINNER->value,
     ];
 
     $this->actingAs($this->user)
@@ -74,7 +74,26 @@ it('stores a skill with a custom level', function () {
     $this->assertDatabaseHas('skills', [
         'user_id' => $this->user->id,
         'name' => 'Cooking',
-        'level' => 'Master Chef',
+        'level' => SkillLevel::BEGINNER->value,
+    ]);
+});
+
+it('stores a skill with a custom level', function () {
+    $data = [
+        'name' => 'Woodworking',
+        'level' => 'Master Craftsman',
+    ];
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.skills.store'), array_merge($data, ['_token' => 'test-token']))
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('skills', [
+        'user_id' => $this->user->id,
+        'name' => 'Woodworking',
+        'level' => 'Master Craftsman',
     ]);
 });
 
@@ -97,7 +116,7 @@ it('renders the edit skill page', function () {
         ->assertViewHas('form')
         ->assertSee('list="skill_level_data"', false)
         ->assertSee('<datalist id="skill_level_data">', false)
-        ->assertSee('<option value="Expert">', false);
+        ->assertSee('<option value="'.SkillLevel::EXPERT->value.'">', false);
 });
 
 it('updates an existing skill record', function () {

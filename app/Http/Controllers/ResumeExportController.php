@@ -11,7 +11,6 @@ use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Models\ResumeExport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ResumeExportController extends Controller
 {
@@ -81,10 +80,6 @@ class ResumeExportController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'Only completed or failed exports can be deleted.');
-        }
-
-        if ($export->file_path) {
-            Storage::delete($export->file_path);
         }
 
         $export->delete();

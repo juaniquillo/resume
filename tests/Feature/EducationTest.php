@@ -24,7 +24,7 @@ it('renders the education index page for authenticated users', function () {
         ->assertViewHas('table', null)
         ->assertSee('list="study_type_data"', false)
         ->assertSee('<datalist id="study_type_data">', false)
-        ->assertSee('<option value="Bachelor degree">', false);
+        ->assertSee('<option value="'.EducationLevel::BACHELOR_DEGREE->value.'">', false);
 });
 
 it('renders the education table when records exist', function () {
@@ -65,12 +65,12 @@ it('stores a new education record', function () {
     ]);
 });
 
-it('stores an education record with a custom study type', function () {
+it('stores an education record with a specific study type', function () {
     $data = [
         'institution' => 'Self Taught',
         'url' => 'https://youtube.com',
         'area' => 'Web Development',
-        'study_type' => 'Self-paced course',
+        'study_type' => EducationLevel::VOCATIONAL->value,
         'starts_at' => '2021-01-01',
     ];
 
@@ -82,7 +82,28 @@ it('stores an education record with a custom study type', function () {
 
     $this->assertDatabaseHas('education', [
         'user_id' => $this->user->id,
-        'study_type' => 'Self-paced course',
+        'study_type' => EducationLevel::VOCATIONAL->value,
+    ]);
+});
+
+it('stores an education record with a custom study type', function () {
+    $data = [
+        'institution' => 'Bootcamp',
+        'url' => 'https://bootcamp.com',
+        'area' => 'Fullstack',
+        'study_type' => 'Custom Bootcamp Type',
+        'starts_at' => '2023-01-01',
+    ];
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.education.store'), array_merge($data, ['_token' => 'test-token']))
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('education', [
+        'user_id' => $this->user->id,
+        'study_type' => 'Custom Bootcamp Type',
     ]);
 });
 
@@ -105,7 +126,7 @@ it('renders the edit education page', function () {
         ->assertViewHas('form')
         ->assertSee('list="study_type_data"', false)
         ->assertSee('<datalist id="study_type_data">', false)
-        ->assertSee('<option value="Bachelor degree">', false);
+        ->assertSee('<option value="'.EducationLevel::BACHELOR_DEGREE->value.'">', false);
 });
 
 it('updates an existing education record', function () {

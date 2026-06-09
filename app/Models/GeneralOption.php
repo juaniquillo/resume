@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ResumeTheme;
 use App\Models\Concerns\InvalidatesResumeCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,10 +13,10 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property-read int $user_id
  * @property-read string $slug
- * @property-read string|null $theme
- * @property-read string $is_draft
- * @property-read string $hide_phone
- * @property-read string $hide_email
+ * @property-read ResumeTheme|null $theme
+ * @property-read bool $is_draft
+ * @property-read bool $hide_phone
+ * @property-read bool $hide_email
  * @property-read int $views
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
@@ -35,6 +36,16 @@ class GeneralOption extends Model
         'hide_email',
         'views',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'theme' => ResumeTheme::class,
+            'is_draft' => 'boolean',
+            'hide_phone' => 'boolean',
+            'hide_email' => 'boolean',
+        ];
+    }
 
     public function user(): BelongsTo
     {

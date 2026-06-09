@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EducationLevel;
 use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Models\Education;
@@ -55,7 +56,7 @@ test('it processes a resume json and creates database records', function () {
             [
                 'institution' => 'University of Technology',
                 'area' => 'Computer Science',
-                'studyType' => 'bachelor_degree',
+                'studyType' => EducationLevel::BACHELOR_DEGREE->value,
                 'startDate' => '2016-09-01',
                 'endDate' => '2020-06-01',
                 'courses' => [

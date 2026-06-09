@@ -30,7 +30,7 @@ test('authenticated user can update their slug and theme', function () {
 
     $options = $user->fresh()->generalOptions;
     expect($options->slug)->toBe('new-slug');
-    expect($options->theme)->toBe(ResumeTheme::DEFAULT->value);
+    expect($options->theme)->toBe(ResumeTheme::DEFAULT);
 });
 
 test('slug must be unique among options', function () {

@@ -13,7 +13,7 @@ enum EducationLevel: string
     case MASTER_DEGREE = 'Master degree';
     case DOCTORATE = 'Doctorate';
 
-    public function colors(): string
+    public function color(): string
     {
         return match ($this) {
             self::PRESCHOOL => 'red',

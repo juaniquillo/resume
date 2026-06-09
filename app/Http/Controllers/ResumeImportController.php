@@ -9,7 +9,6 @@ use App\Http\Requests\ResumeImportFormRequest;
 use App\Jobs\ProcessResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ResumeImportController extends Controller
 {
@@ -71,10 +70,6 @@ class ResumeImportController extends Controller
         $user = $request->user();
         /** @var ResumeImport $import */
         $import = $user->resumeImports()->findOrFail($id);
-
-        if ($import->file_path) {
-            Storage::delete($import->file_path);
-        }
 
         $import->delete();
 
