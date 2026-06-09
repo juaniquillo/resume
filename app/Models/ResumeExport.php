@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;
+use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property-read int $id
@@ -27,7 +29,7 @@ use Illuminate\Support\Carbon;
  */
 class ResumeExport extends Model
 {
-    use HasFactory, Uuidable;
+    use HasFactory, InvalidatesResumeCache, Uuidable;
 
     protected $fillable = [
         'user_id',
@@ -52,5 +54,14 @@ class ResumeExport extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (ResumeExport $export) {
+            if ($export->file_path) {
+                Storage::delete($export->file_path);
+            }
+        });
     }
 }
