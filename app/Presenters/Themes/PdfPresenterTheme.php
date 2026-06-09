@@ -170,6 +170,11 @@ final class PdfPresenterTheme implements PresenterTheme
         return ['pdf' => 'badge'];
     }
 
+    public function keywordBadgeThemes(): array
+    {
+        return ['pdf' => 'badge'];
+    }
+
     public function socialBadgeThemes(): array
     {
         return ['pdf' => 'social-badge'];

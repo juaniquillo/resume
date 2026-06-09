@@ -35,7 +35,7 @@ final class InterestsPresenter
                         $interest = $model;
 
                         $keywords = array_map(fn ($kw) => $this->compose(ComponentEnum::SPAN)
-                            ->setThemes($this->theme->badgeThemes())
+                            ->setThemes($this->theme->keywordBadgeThemes())
                             ->setContent($kw), $interest->keywords ?? []);
 
                         return $this->compose(ComponentEnum::DIV)

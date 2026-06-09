@@ -167,6 +167,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function keywordBadgeThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function socialBadgeThemes(): array;
 
     /**

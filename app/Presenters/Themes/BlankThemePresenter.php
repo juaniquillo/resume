@@ -166,6 +166,11 @@ final class BlankThemePresenter implements PresenterTheme
         return [];
     }
 
+    public function keywordBadgeThemes(): array
+    {
+        return [];
+    }
+
     public function socialBadgeThemes(): array
     {
         return [];

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
             $table->string('slug')->unique();
             $table->string('theme')->nullable();
-            $table->boolean('is_draft')->default(false);
+            $table->boolean('is_draft')->default(true);
             $table->boolean('hide_phone')->default(false);
             $table->boolean('hide_email')->default(false);
             $table->unsignedBigInteger('views')->default(0);

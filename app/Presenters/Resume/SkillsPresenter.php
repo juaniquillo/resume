@@ -35,7 +35,7 @@ final class SkillsPresenter
                         $skill = $model;
 
                         $keywords = array_map(fn ($kw) => $this->compose(ComponentEnum::SPAN)
-                            ->setThemes($this->theme->badgeThemes())
+                            ->setThemes($this->theme->keywordBadgeThemes())
                             ->setContent($kw), $skill->keywords ?? []);
 
                         return $this->compose(ComponentEnum::DIV)
