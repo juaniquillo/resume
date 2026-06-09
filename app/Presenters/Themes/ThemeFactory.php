@@ -15,15 +15,19 @@ class ThemeFactory
         $options = $user->generalOptions()->first();
 
         if (! $options || ! $options->theme) {
-            return self::make(ResumeTheme::DEFAULT->value);
+            return self::make(ResumeTheme::DEFAULT);
         }
 
         return self::make($options->theme);
     }
 
-    public static function make(string $theme): PresenterTheme
+    public static function make(string|ResumeTheme|null $theme): PresenterTheme
     {
-        $theme = ResumeTheme::tryFrom($theme) ?? self::make(ResumeTheme::DEFAULT->value);
+        if ($theme instanceof ResumeTheme) {
+            return $theme->instance();
+        }
+
+        $theme = ResumeTheme::tryFrom((string) $theme) ?? ResumeTheme::DEFAULT;
 
         return $theme->instance();
     }

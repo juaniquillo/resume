@@ -6,6 +6,7 @@ use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\InputGroups\LabelInputGroup;
+use App\Cruds\Managers\EnumResolverValueManager;
 use BackedEnum;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -26,7 +27,6 @@ use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Managers\DefaultErrorManager;
-use Juaniquillo\InputComponentAction\Managers\DefaultValueManager;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 trait HasHtmlForm
@@ -142,7 +142,7 @@ trait HasHtmlForm
 
     public function valueManager(): ValueManager
     {
-        return new DefaultValueManager;
+        return new EnumResolverValueManager;
     }
 
     public function errorManager(): ErrorManager

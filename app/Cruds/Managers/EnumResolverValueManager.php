@@ -40,7 +40,7 @@ class EnumResolverValueManager implements ValueManager
         $recipeValueProcessed = null;
 
         if (\array_key_exists(key: $name, array: $values)) {
-            return $values[$name];
+            return $this->formatValue($values[$name]);
         }
 
         if (! $ignoreRecipeValue) {
@@ -51,19 +51,29 @@ class EnumResolverValueManager implements ValueManager
             }
         }
 
-        $modelValue = null;
-
-        /** @var BackedEnum|Stringable|array|string|null $modelValueRaw */
         $modelValueRaw = $model->{$name} ?? null;
 
-        if ($modelValueRaw instanceof BackedEnum) {
-            $modelValue = $modelValueRaw->value;
-        } elseif ($modelValueRaw instanceof Stringable) {
-            $modelValue = $modelValueRaw->__toString();
-        } else {
-            $modelValue = \is_array($modelValueRaw) ? \trim(implode(', ', $modelValueRaw)) : $modelValueRaw;
+        return $this->formatValue($recipeValueProcessed) ?? $this->formatValue($modelValueRaw) ?? null;
+    }
+
+    private function formatValue(mixed $value): Stringable|string|int|array|null
+    {
+        if ($value === null) {
+            return null;
         }
 
-        return $recipeValueProcessed ?? $modelValue ?? null;
+        if ($value instanceof BackedEnum) {
+            return $value->value;
+        }
+
+        if ($value instanceof Stringable) {
+            return $value;
+        }
+
+        if (\is_array($value)) {
+            return \trim(implode(', ', $value));
+        }
+
+        return $value;
     }
 }

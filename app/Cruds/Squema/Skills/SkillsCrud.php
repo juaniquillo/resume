@@ -11,7 +11,6 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\TableHelpers;
-use App\Cruds\Managers\ArrayToCommaSeparatedValueManager;
 use App\Cruds\Squema\Skills\Inputs\KeywordsFactory;
 use App\Cruds\Squema\Skills\Inputs\LevelFactory;
 use App\Cruds\Squema\Skills\Inputs\NameFactory;
@@ -23,8 +22,6 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\InputComponentAction\Contracts\ValueManager;
-use Override;
 
 final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -92,11 +89,5 @@ final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    #[Override]
-    public function valueManager(): ValueManager
-    {
-        return new ArrayToCommaSeparatedValueManager;
     }
 }

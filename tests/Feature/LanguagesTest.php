@@ -24,7 +24,7 @@ it('renders the languages index page for authenticated users', function () {
         ->assertViewHas('table', null)
         ->assertSee('list="language_fluency_data"', false)
         ->assertSee('<datalist id="language_fluency_data">', false)
-        ->assertSee('<option value="Expert">', false);
+        ->assertSee('<option value="'.LanguageFluency::EXPERT->value.'">', false);
 });
 
 it('renders the languages table when records exist', function () {
@@ -59,10 +59,10 @@ it('stores a new language record', function () {
     ]);
 });
 
-it('stores a language with a custom fluency', function () {
+it('stores a language with a specific fluency', function () {
     $data = [
         'language' => 'Klingon',
-        'fluency' => 'Native Warrior',
+        'fluency' => LanguageFluency::NATIVE->value,
     ];
 
     $this->actingAs($this->user)
@@ -74,7 +74,26 @@ it('stores a language with a custom fluency', function () {
     $this->assertDatabaseHas('languages', [
         'user_id' => $this->user->id,
         'language' => 'Klingon',
-        'fluency' => 'Native Warrior',
+        'fluency' => LanguageFluency::NATIVE->value,
+    ]);
+});
+
+it('stores a language with a custom fluency', function () {
+    $data = [
+        'language' => 'Elvish',
+        'fluency' => 'Immortal Fluent',
+    ];
+
+    $this->actingAs($this->user)
+        ->withSession(['_token' => 'test-token'])
+        ->post(route('dashboard.languages.store'), array_merge($data, ['_token' => 'test-token']))
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $this->assertDatabaseHas('languages', [
+        'user_id' => $this->user->id,
+        'language' => 'Elvish',
+        'fluency' => 'Immortal Fluent',
     ]);
 });
 
@@ -97,7 +116,7 @@ it('renders the edit language page', function () {
         ->assertViewHas('form')
         ->assertSee('list="language_fluency_data"', false)
         ->assertSee('<datalist id="language_fluency_data">', false)
-        ->assertSee('<option value="Expert">', false);
+        ->assertSee('<option value="'.LanguageFluency::EXPERT->value.'">', false);
 });
 
 it('updates an existing language record', function () {
