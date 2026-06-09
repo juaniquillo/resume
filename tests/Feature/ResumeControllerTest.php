@@ -13,7 +13,7 @@ pest()->group('slow');
 
 test('public resume route is accessible by slug', function () {
     $user = User::factory()->create();
-    $user->generalOptions()->update(['slug' => 'test-slug']);
+    $user->generalOptions()->update(['slug' => 'test-slug', 'is_draft' => false]);
     Basic::factory()->create(['user_id' => $user->id, 'name' => 'Test User']);
 
     $response = $this->get(route('resume', ['user' => 'test-slug']));
@@ -43,7 +43,7 @@ test('resume is unavailable for public when draft', function () {
 
 test('public resume shows allowed downloads', function () {
     $user = User::factory()->create();
-    $user->generalOptions()->update(['slug' => 'download-slug']);
+    $user->generalOptions()->update(['slug' => 'download-slug', 'is_draft' => false]);
     Basic::factory()->create(['user_id' => $user->id]);
 
     ResumeExport::create([
