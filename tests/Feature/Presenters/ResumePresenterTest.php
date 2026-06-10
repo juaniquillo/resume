@@ -351,6 +351,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function keywordBadgeThemes(): array
+        {
+            return [];
+        }
+
         public function socialBadgeThemes(): array
         {
             return [];

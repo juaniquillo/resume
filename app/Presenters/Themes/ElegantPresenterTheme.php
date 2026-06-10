@@ -170,6 +170,11 @@ final class ElegantPresenterTheme implements PresenterTheme
         return ['elegant' => 'badge'];
     }
 
+    public function keywordBadgeThemes(): array
+    {
+        return ['elegant' => 'badge'];
+    }
+
     public function socialBadgeThemes(): array
     {
         return ['elegant' => 'social-badge'];

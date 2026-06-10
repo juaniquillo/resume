@@ -10,6 +10,7 @@ pest()->group('slow');
 
 test('resume is cached after first hit', function () {
     $user = User::factory()->create();
+    $user->generalOptions()->update(['is_draft' => false]);
     Basic::factory()->for($user)->create();
 
     $cacheKey = "resume:{$user->id}:".md5(DefaultPresenterTheme::class);
@@ -23,6 +24,7 @@ test('resume is cached after first hit', function () {
 
 test('subsequent hits use cache and avoid redundant queries', function () {
     $user = User::factory()->create();
+    $user->generalOptions()->update(['is_draft' => false]);
     Basic::factory()->for($user)->create();
 
     // Warm up cache
@@ -50,6 +52,7 @@ test('subsequent hits use cache and avoid redundant queries', function () {
 
 test('updating a model invalidates the cache', function () {
     $user = User::factory()->create();
+    $user->generalOptions()->update(['is_draft' => false]);
     $basic = Basic::factory()->for($user)->create();
 
     $cacheKey = "resume:{$user->id}:".md5(DefaultPresenterTheme::class);

@@ -170,6 +170,11 @@ final class BoldPresenterTheme implements PresenterTheme
         return ['bold' => 'badge'];
     }
 
+    public function keywordBadgeThemes(): array
+    {
+        return ['bold' => 'badge'];
+    }
+
     public function socialBadgeThemes(): array
     {
         return ['bold' => 'social-badge'];

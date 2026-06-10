@@ -39,6 +39,7 @@ return [
     'list-item' => '',
     
     'badge' => 'self-center inline-block px-2 py-0.5 text-xs xl:text-sm font-semibold tracking-wide uppercase rounded-md bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50',
+    'keyword-badge' => 'self-center inline-block px-2 py-0.5 text-xs xl:text-sm font-semibold tracking-wide uppercase rounded-md bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700',
     'social-badge' => 'group inline-flex items-center gap-2 px-3 py-1 text-sm xl:text-base font-bold rounded-xl bg-gray-100 text-gray-700 border-2 border-gray-200 transition-all duration-300 hover:bg-sky-600 hover:text-white hover:border-sky-700 hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-sky-500 dark:hover:text-white dark:hover:border-sky-400',
     'date' => 'text-gray-500 font-normal dark:text-gray-500',
     'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',

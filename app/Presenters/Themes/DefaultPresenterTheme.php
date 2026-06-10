@@ -228,6 +228,13 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function keywordBadgeThemes(): array
+    {
+        return [
+            'default' => 'keyword-badge',
+        ];
+    }
+
     public function socialBadgeThemes(): array
     {
         return [
