@@ -16,7 +16,7 @@ test('ToggleDraftState component toggles the draft status correctly', function (
         'slug' => 'test-user',
         'is_draft' => true,
     ]);
-    
+
     // Also create basics so Helpers::isResumeInDraftState doesn't return true because of missing basics
     Basic::factory()->for($user)->create();
 
@@ -41,7 +41,7 @@ test('ToggleDraftState component toggles the draft status correctly', function (
 test('ToggleDraftState component renders nothing if slug is missing', function () {
     $user = User::factory()->create();
     $user->generalOptions()->delete();
-    
+
     Livewire::actingAs($user)
         ->test(ToggleDraftState::class)
         ->assertDontSee(__('Draft'))
