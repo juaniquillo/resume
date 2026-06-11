@@ -5,6 +5,7 @@ namespace App\Cruds\Squema\Projects\Inputs;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
@@ -47,7 +48,14 @@ class EndDateFactory
             (new LaravelValidationRulesRecipe([
                 'nullable',
                 'date',
+                'after_or_equal:1900-01-01',
             ]))
+        );
+
+        $input->setRecipe(
+            (new LaravelValidationMessagesRecipe(
+                messages: 'The :attribute field must be a valid date after or equal to January 1st, 1900.')
+            )
         );
     }
 
@@ -70,7 +78,7 @@ class EndDateFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->date();
+                    $output->{ $input->getName() } = $faker->dateTimeBetween('-30 years', 'now')->format('Y-m-d');
                 }
             )
         );

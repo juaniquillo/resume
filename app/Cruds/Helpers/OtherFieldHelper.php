@@ -83,7 +83,7 @@ class OtherFieldHelper
         );
 
         $input->setRecipe(
-            (new LaravelValidationMessagesRecipe)->ignore()
+            (new LaravelValidationMessagesRecipe([]))->ignore()
         );
 
         $input->setRecipe(

@@ -14,6 +14,9 @@ class WorkFormRequest extends FormRequest
 {
     private ?InputCollectionInterface $crud = null;
 
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
         return true;
@@ -24,27 +27,33 @@ class WorkFormRequest extends FormRequest
         $this->crud = WorksCrud::build()->make();
     }
 
-    /**  @return array<string, ValidationRule|array<mixed>|string> */
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
     public function rules(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationRulesAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationRulesAction)->toArray();
     }
 
-    /**  @return array<string, string> */
-    public function messages()
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationMessagesAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 
-    /** @return array<string, string> */
-    public function attributes()
+    /**
+     * Get the validation attributes that apply to the request.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationLabelsAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
     }
 }

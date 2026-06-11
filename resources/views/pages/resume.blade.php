@@ -6,7 +6,7 @@
     :title="($user->name ?? 'User') . ' - Resume'"
     :assets="['resources/css/resume.css', 'resources/js/resume.js']"
     :theme="$theme"
-    :is-pdf="$minimalView"
+    :minimal-view="$minimalView"
     :description="$description ?? null"
     :image="$image ?? null"
     :noindex="$noindex ?? false"

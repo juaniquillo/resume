@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
+use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Squema\Education\EducationCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -24,13 +25,22 @@ class EducationFormRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->crud = EducationCrud::build()->make();
-
     }
 
     /** @return array<string, ValidationRule|array<mixed>|string> */
     public function rules(): array
     {
         return $this->crud->execute(new LaravelValidationRulesAction)->toArray();
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 
     /** @return array<string, string> */
