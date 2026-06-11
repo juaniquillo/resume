@@ -27,7 +27,7 @@ class ResumeApiController extends Controller
 
             if ($request->has('section')) {
                 $section = $request->query('section');
-                
+
                 if (! isset($resume[$section])) {
                     return response()->json([
                         'message' => "Section '{$section}' not found in this resume.",
@@ -40,7 +40,7 @@ class ResumeApiController extends Controller
             return response()->json($resume);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error building resume data: ' . $e->getMessage(),
+                'message' => 'Error building resume data: '.$e->getMessage(),
             ], 500);
         }
     }

@@ -59,7 +59,7 @@
             -webkit-print-color-adjust: exact;
         }
         @page {
-            margin: 15mm 10mm;
+            margin: 12mm 5mm;
         }
         @page :first {
             margin-top: 10mm;
