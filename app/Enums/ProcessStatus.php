@@ -23,7 +23,7 @@ enum ProcessStatus: string
     {
         return match ($this) {
             self::PENDING => 'loading',
-            self::PROCESSING => 'arrow-trend-up',
+            self::PROCESSING => 'arrow-trending-up',
             self::COMPLETED => 'check',
             self::FAILED => 'x-mark',
         };

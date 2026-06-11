@@ -57,6 +57,7 @@ class EndsAtFactory
             (new LaravelValidationRulesRecipe([
                 'nullable',
                 'date',
+                'after_or_equal:1900-01-01',
                 'after_or_equal:starts_at_education',
             ]))
         );
@@ -67,7 +68,7 @@ class EndsAtFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->date();
+                    $output->{ $input->getName() } = $faker->dateTimeBetween('-30 years', 'now')->format('Y-m-d');
                 }
             )
         );
