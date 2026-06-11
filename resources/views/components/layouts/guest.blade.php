@@ -53,6 +53,18 @@
             htmlElement.classList.remove('dark');
         }
     </script>
+    @else 
+    <style>
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+        @page {
+            margin: 15mm 10mm;
+        }
+        @page :first {
+            margin-top: 10mm;
+        }
+    </style>
     @endif
 
     {{-- Fonts --}}
@@ -71,11 +83,6 @@
             font-family: {!! $theme ? $theme->fontFamily() : "'Space Mono', monospace" !!};
         }
 
-        @if($minimalView)
-        html {
-            -webkit-print-color-adjust: exact;
-        }
-        @endif
     </style>
 </head>
 <body class="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">

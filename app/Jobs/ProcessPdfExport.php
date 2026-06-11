@@ -63,6 +63,7 @@ class ProcessPdfExport implements ShouldQueue
             $path = "exports/resumes/{$filename}";
 
             Pdf::html($html)
+                ->margins(0, 0, 0, 0, 'mm')
                 ->disk(config('filesystems.default'))
                 ->save($path);
 
