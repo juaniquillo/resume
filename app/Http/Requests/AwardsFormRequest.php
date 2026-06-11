@@ -3,19 +3,28 @@
 namespace App\Http\Requests;
 
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
+use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Squema\Awards\AwardsCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
 class AwardsFormRequest extends FormRequest
 {
+    private ?InputCollectionInterface $crud = null;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function prepareForValidation()
+    {
+        $this->crud = AwardsCrud::build()->make();
     }
 
     /**
@@ -25,7 +34,7 @@ class AwardsFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        return AwardsCrud::build()->make()->execute(new LaravelValidationRulesAction)->toArray();
+        return $this->crud->execute(new LaravelValidationRulesAction)->toArray();
     }
 
     /**
@@ -35,6 +44,16 @@ class AwardsFormRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return AwardsCrud::build()->make()->execute(new LaravelValidationLabelsAction)->toArray();
+        return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 }

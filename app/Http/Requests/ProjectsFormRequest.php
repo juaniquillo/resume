@@ -34,24 +34,26 @@ class ProjectsFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationRulesAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationRulesAction)->toArray();
     }
 
-    /**  @return array<string, string> */
-    public function messages()
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationMessagesAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 
-    /** @return array<string, string> */
-    public function attributes()
+    /**
+     * Get the validation attributes that apply to the request.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
     {
-        return $this->crud->execute(
-            new LaravelValidationLabelsAction
-        )->toArray();
+        return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
     }
 }

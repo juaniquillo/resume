@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\Certificates\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
@@ -39,6 +40,12 @@ class DateFactory
                 'date',
                 'after_or_equal:1900-01-01',
             ]))
+        );
+
+        $input->setRecipe(
+            (new LaravelValidationMessagesRecipe(
+                messages: 'The :attribute field must be a valid date after or equal to January 1st, 1900.')
+            )
         );
     }
 
