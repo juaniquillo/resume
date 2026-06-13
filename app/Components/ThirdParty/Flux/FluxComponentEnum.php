@@ -13,6 +13,7 @@ enum FluxComponentEnum: string
     case LINK = 'link';
     case ICON = 'icon';
     case SEPARATOR = 'separator';
+    case SPACER = 'spacer';
 
     // forms
     case LABEL = 'label';
@@ -43,7 +44,9 @@ enum FluxComponentEnum: string
     // modal
     case MODAL = 'modal';
     case MODAL_TRIGGER = 'modal.trigger';
+    case MODAL_CLOSE = 'modal.close';
 
+    // tooltip
     case TOOLTIP = 'tooltip';
 
 }
