@@ -7,6 +7,7 @@ use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -62,14 +63,14 @@ class EndDateFactory
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
-            (new InputComponentRecipe)
-                ->setAttributeBag(
-                    (new DefaultAttributeBag)
-                        ->setInputAttributes([
-                            'label' => self::LABEL,
-                            'type' => 'month',
-                        ])
-                )
+            new InputComponentRecipe(
+                inputValue: FormHelpers::dateFormatOutput(),
+                attributeBag: (new DefaultAttributeBag)
+                    ->setInputAttributes([
+                        'label' => self::LABEL,
+                        'type' => 'month',
+                    ]),
+            )
         );
     }
 

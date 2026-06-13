@@ -63,17 +63,15 @@ class DateFactory
     public static function form(InputInterface $input): void
     {
         $input->setRecipe(
-            (new InputComponentRecipe(
+            new InputComponentRecipe(
                 inputValue: FormHelpers::dateFormatOutput(),
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([
                         'label' => self::LABEL,
                         'badge' => 'required',
                         'type' => 'month',
-                    ])
+                    ]),
             )
-            )
-
         );
     }
 

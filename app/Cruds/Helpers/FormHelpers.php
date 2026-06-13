@@ -3,9 +3,8 @@
 namespace App\Cruds\Helpers;
 
 use App\Components\Builders\FluxComponentBuilder;
-use App\Models\Work;
-use Carbon\CarbonImmutable;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
@@ -42,14 +41,16 @@ class FormHelpers
         return function (InputInterface $input, array $values, ?object $model) {
             $name = $input->getName();
 
-            /** @var ?Work $work */
-            $work = $model;
+            if (! $model) {
+                return null;
+            }
 
-            if ($model && isset($work->{$name})) {
-                /** @var CarbonImmutable $startsAt */
-                $startsAt = $work->{$name};
+            $value = ($model instanceof Model)
+                ? $model->getAttribute($name)
+                : ($model->{$name} ?? null);
 
-                return DateHelpers::formatDateOutput($startsAt);
+            if ($value instanceof \DateTimeInterface) {
+                return DateHelpers::formatDateOutput($value);
             }
 
             return null;

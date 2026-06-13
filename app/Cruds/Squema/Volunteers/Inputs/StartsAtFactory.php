@@ -70,7 +70,7 @@ class StartsAtFactory
                         'label' => self::LABEL,
                         'badge' => 'required',
                         'type' => 'month',
-                    ])
+                    ]),
             )
         );
     }
