@@ -70,7 +70,7 @@ class EndsAtFactory
                     ->setInputAttributes([
                         'label' => self::LABEL,
                         'type' => 'month',
-                    ])
+                    ]),
             )
         );
     }

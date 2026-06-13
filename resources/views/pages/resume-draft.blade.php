@@ -1,5 +1,6 @@
 <x-layouts.guest
     :title="($user->name ?? 'User') . ' - Resume Unavailable'"
+    :noindex="true"
 >
     <div class="min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-950">
         <div class="max-w-md w-full text-center space-y-6">

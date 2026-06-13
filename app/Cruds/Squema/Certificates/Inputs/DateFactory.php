@@ -59,7 +59,7 @@ class DateFactory
                         'label' => self::LABEL,
                         'badge' => 'required',
                         'type' => 'month',
-                    ])
+                    ]),
             )
         );
     }
