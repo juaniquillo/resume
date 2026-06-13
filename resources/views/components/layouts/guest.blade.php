@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     @if($noindex)
+        <!-- Indexing blocked by noindex prop -->
         <meta name="robots" content="noindex, nofollow">
     @endif
 

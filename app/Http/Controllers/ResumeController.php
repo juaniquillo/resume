@@ -46,7 +46,7 @@ class ResumeController extends Controller
             'resumeComponent' => $presenter->presentCached(),
             'description' => $description,
             'image' => $image,
-            'noindex' => $isDraft,
+            'noindex' => false,
         ]);
     }
 }
