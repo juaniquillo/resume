@@ -3,6 +3,7 @@
         <flux:button 
             wire:click="toggle"
             wire:loading.attr="disabled"
+            wire:confirm="{{ $isDraft ? __('Are you sure you want to publish the resume?') : __('Are you sure you want to set the resume as draft?') }}"
             class="cursor-pointer justify-start overflow-hidden w-full" 
             size="xs" 
             variant="primary" 

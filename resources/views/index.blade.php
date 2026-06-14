@@ -1,5 +1,6 @@
 <x-layouts.guest
     title="Resume Manager"
+    description="A professional, open-source resume management system. Build, customize, and export your resume in JSON and PDF formats with beautiful professional themes."
     :assets="['resources/css/landing.css', 'resources/js/landing.js']"
 >
     <x-slot:nav>
@@ -94,7 +95,7 @@
             </p>
             <div class="inline-block p-6 rounded-2xl border-2 border-sky-600/20 dark:border-sky-500/20">
                 <p class="text-lg font-medium text-gray-900 dark:text-white mb-2">Want to try it out or have feedback?</p>
-                <a href="https://x.com/juaniquillo" target="_blank" class="text-xl font-bold text-sky-600 dark:text-sky-400 hover:underline">
+                <a href="https://x.com/juaniquillo" target="_blank" rel="noopener noreferrer" class="text-xl font-bold text-sky-600 dark:text-sky-400 hover:underline">
                     @juaniquillo
                 </a>
             </div>

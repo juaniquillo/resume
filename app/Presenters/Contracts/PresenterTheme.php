@@ -214,5 +214,10 @@ interface PresenterTheme
      */
     public function fontUrls(): array;
 
+    /**
+     * @return array<int, array{family: string, path: string, weight?: string, style?: string, type?: string}>
+     */
+    public function localFonts(): array;
+
     public function fontFamily(): string;
 }

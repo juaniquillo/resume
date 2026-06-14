@@ -55,6 +55,15 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasResumeData, Notifiable, TwoFactorAuthenticatable;
 
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user) {
+            $user->basics?->delete();
+            $user->resumeExports->each->delete();
+            $user->resumeImports->each->delete();
+        });
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

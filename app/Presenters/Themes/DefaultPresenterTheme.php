@@ -298,6 +298,16 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function localFonts(): array
+    {
+        return [
+            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Italic.ttf', 'weight' => '400', 'style' => 'italic'],
+            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-BoldItalic.ttf', 'weight' => '700', 'style' => 'italic'],
+        ];
+    }
+
     public function fontFamily(): string
     {
         return "'Space Mono', monospace";
