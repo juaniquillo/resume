@@ -42,6 +42,7 @@
 
 40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).
 41. ◻️ Create a cache manager fot the dashboard navigation components and dashboard cards since they don't change that much.
-42. ◻️ Test deleting a user and verifying the rest of the resume sections and all files are deleted.
+42. ◻️ Create a Test that deletes a user and verifying the rest of the resume sections and all files are deleted.
 43. ◻️ Make sure the download section doesn't show in a PDF export.
 44. ◻️ For some reason the Profile Network icons don't show on the PDF export. Only a color square shows.
+44. ◻️ Add the image and the address to the General Options' Security Options group.

@@ -69,14 +69,57 @@
     @endif
 
     {{-- Fonts --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    @if ($theme)
+    @if ($theme && ! empty($theme->localFonts()))
+        <style>
+            @foreach ($theme->localFonts() as $font)
+                @font-face {
+                    font-family: '{{ $font['family'] }}';
+                    src: url('{{ asset($font['path']) }}') format('{{ $font['type'] ?? 'truetype' }}');
+                    font-weight: {{ $font['weight'] ?? 'normal' }};
+                    font-style: {{ $font['style'] ?? 'normal' }};
+                    font-display: swap;
+                }
+            @endforeach
+        </style>
+    @elseif ($theme)
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         @foreach ($theme->fontUrls() as $url)
             <link href="{{ $url }}" rel="stylesheet">
         @endforeach
     @else
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <style>
+            @font-face {
+                font-family: 'Space Mono';
+                src: url('{{ asset('fonts/SpaceMono-Regular.ttf') }}') format('truetype');
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: 'Space Mono';
+                src: url('{{ asset('fonts/SpaceMono-Bold.ttf') }}') format('truetype');
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: 'Space Mono';
+                src: url('{{ asset('fonts/SpaceMono-Italic.ttf') }}') format('truetype');
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: 'Space Mono';
+                src: url('{{ asset('fonts/SpaceMono-BoldItalic.ttf') }}') format('truetype');
+                font-weight: 700;
+                font-style: italic;
+                font-display: swap;
+            }
+        </style>
     @endif
 
     <style>

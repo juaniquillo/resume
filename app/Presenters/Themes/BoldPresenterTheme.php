@@ -222,6 +222,18 @@ final class BoldPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function localFonts(): array
+    {
+        return [
+            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Black.ttf', 'weight' => '900', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/Syne-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/Syne-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/Syne-ExtraBold.ttf', 'weight' => '800', 'style' => 'normal'],
+        ];
+    }
+
     public function fontFamily(): string
     {
         return "'Syne', sans-serif";

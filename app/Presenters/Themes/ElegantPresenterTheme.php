@@ -222,6 +222,19 @@ final class ElegantPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function localFonts(): array
+    {
+        return [
+            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Italic.ttf', 'weight' => '400', 'style' => 'italic'],
+            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Light.ttf', 'weight' => '300', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Medium.ttf', 'weight' => '500', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-SemiBold.ttf', 'weight' => '600', 'style' => 'normal'],
+        ];
+    }
+
     public function fontFamily(): string
     {
         return "'Playfair Display', serif";

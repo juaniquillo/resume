@@ -401,6 +401,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function localFonts(): array
+        {
+            return [];
+        }
+
         public function fontFamily(): string
         {
             return 'sans-serif';
