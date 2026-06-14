@@ -44,7 +44,7 @@ final class ResumeDataLoader
             ]);
 
             return new ResumeData(
-                basics: $user->basics,
+                basics: $user->basics instanceof Basic ? $user->basics : null,
                 works: $user->works,
                 volunteers: $user->volunteers,
                 education: $user->education,
