@@ -221,10 +221,10 @@ final class BlankThemePresenter implements PresenterTheme
     public function localFonts(): array
     {
         return [
-            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-Italic.ttf', 'weight' => '400', 'style' => 'italic'],
-            ['family' => 'Space Mono', 'path' => 'fonts/SpaceMono-BoldItalic.ttf', 'weight' => '700', 'style' => 'italic'],
+            ['family' => 'Space Mono', 'path' => 'fonts/space-mono-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Space Mono', 'path' => 'fonts/space-mono-bold.woff2', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Space Mono', 'path' => 'fonts/space-mono-italic.woff2', 'weight' => '400', 'style' => 'italic'],
+            ['family' => 'Space Mono', 'path' => 'fonts/space-mono-bold-italic.woff2', 'weight' => '700', 'style' => 'italic'],
         ];
     }
 

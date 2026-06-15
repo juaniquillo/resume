@@ -225,13 +225,13 @@ final class ElegantPresenterTheme implements PresenterTheme
     public function localFonts(): array
     {
         return [
-            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'Playfair Display', 'path' => 'fonts/Playfair_9pt-Italic.ttf', 'weight' => '400', 'style' => 'italic'],
-            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Light.ttf', 'weight' => '300', 'style' => 'normal'],
-            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-Medium.ttf', 'weight' => '500', 'style' => 'normal'],
-            ['family' => 'Inter', 'path' => 'fonts/Inter_18pt-SemiBold.ttf', 'weight' => '600', 'style' => 'normal'],
+            ['family' => 'Playfair Display', 'path' => 'fonts/playfair-9pt-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Playfair Display', 'path' => 'fonts/playfair-9pt-bold.woff2', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Playfair Display', 'path' => 'fonts/playfair-9pt-italic.woff2', 'weight' => '400', 'style' => 'italic'],
+            ['family' => 'Inter', 'path' => 'fonts/inter-18pt-light.woff2', 'weight' => '300', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/inter-18pt-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/inter-18pt-medium.woff2', 'weight' => '500', 'style' => 'normal'],
+            ['family' => 'Inter', 'path' => 'fonts/inter-18pt-semibold.woff2', 'weight' => '600', 'style' => 'normal'],
         ];
     }
 

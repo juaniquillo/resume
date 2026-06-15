@@ -225,13 +225,13 @@ final class PdfPresenterTheme implements PresenterTheme
     public function localFonts(): array
     {
         return [
-            ['family' => 'Libre Baskerville', 'path' => 'fonts/LibreBaskerville-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Libre Baskerville', 'path' => 'fonts/LibreBaskerville-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'Libre Baskerville', 'path' => 'fonts/LibreBaskerville-Italic.ttf', 'weight' => '400', 'style' => 'italic'],
-            ['family' => 'Source Sans 3', 'path' => 'fonts/SourceSans3-Light.ttf', 'weight' => '300', 'style' => 'normal'],
-            ['family' => 'Source Sans 3', 'path' => 'fonts/SourceSans3-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Source Sans 3', 'path' => 'fonts/SourceSans3-SemiBold.ttf', 'weight' => '600', 'style' => 'normal'],
-            ['family' => 'Source Sans 3', 'path' => 'fonts/SourceSans3-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Libre Baskerville', 'path' => 'fonts/libre-baskerville-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Libre Baskerville', 'path' => 'fonts/libre-baskerville-bold.woff2', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Libre Baskerville', 'path' => 'fonts/libre-baskerville-italic.woff2', 'weight' => '400', 'style' => 'italic'],
+            ['family' => 'Source Sans 3', 'path' => 'fonts/source-sans-3-light.woff2', 'weight' => '300', 'style' => 'normal'],
+            ['family' => 'Source Sans 3', 'path' => 'fonts/source-sans-3-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Source Sans 3', 'path' => 'fonts/source-sans-3-semibold.woff2', 'weight' => '600', 'style' => 'normal'],
+            ['family' => 'Source Sans 3', 'path' => 'fonts/source-sans-3-bold.woff2', 'weight' => '700', 'style' => 'normal'],
         ];
     }
 

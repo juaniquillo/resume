@@ -225,12 +225,12 @@ final class BoldPresenterTheme implements PresenterTheme
     public function localFonts(): array
     {
         return [
-            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'Montserrat', 'path' => 'fonts/Montserrat-Black.ttf', 'weight' => '900', 'style' => 'normal'],
-            ['family' => 'Syne', 'path' => 'fonts/Syne-Regular.ttf', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'Syne', 'path' => 'fonts/Syne-Bold.ttf', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'Syne', 'path' => 'fonts/Syne-ExtraBold.ttf', 'weight' => '800', 'style' => 'normal'],
+            ['family' => 'Montserrat', 'path' => 'fonts/montserrat-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Montserrat', 'path' => 'fonts/montserrat-bold.woff2', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Montserrat', 'path' => 'fonts/montserrat-black.woff2', 'weight' => '900', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/syne-regular.woff2', 'weight' => '400', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/syne-bold.woff2', 'weight' => '700', 'style' => 'normal'],
+            ['family' => 'Syne', 'path' => 'fonts/syne-extra-bold.woff2', 'weight' => '800', 'style' => 'normal'],
         ];
     }
 
