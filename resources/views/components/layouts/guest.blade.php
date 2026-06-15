@@ -74,7 +74,7 @@
             @foreach ($theme->localFonts() as $font)
                 @font-face {
                     font-family: '{{ $font['family'] }}';
-                    src: url('{{ asset($font['path']) }}') format('{{ $font['type'] ?? 'truetype' }}');
+                    src: url('{{ asset($font['path']) }}') format('{{ $font['type'] ?? 'woff2' }}');
                     font-weight: {{ $font['weight'] ?? 'normal' }};
                     font-style: {{ $font['style'] ?? 'normal' }};
                     font-display: swap;
@@ -93,28 +93,28 @@
         <style>
             @font-face {
                 font-family: 'Space Mono';
-                src: url('{{ asset('fonts/SpaceMono-Regular.ttf') }}') format('truetype');
+                src: url('{{ asset('fonts/space-mono-regular.woff2') }}') format('woff2');
                 font-weight: 400;
                 font-style: normal;
                 font-display: swap;
             }
             @font-face {
                 font-family: 'Space Mono';
-                src: url('{{ asset('fonts/SpaceMono-Bold.ttf') }}') format('truetype');
+                src: url('{{ asset('fonts/space-mono-bold.woff2') }}') format('woff2');
                 font-weight: 700;
                 font-style: normal;
                 font-display: swap;
             }
             @font-face {
                 font-family: 'Space Mono';
-                src: url('{{ asset('fonts/SpaceMono-Italic.ttf') }}') format('truetype');
+                src: url('{{ asset('fonts/space-mono-italic.woff2') }}') format('woff2');
                 font-weight: 400;
                 font-style: italic;
                 font-display: swap;
             }
             @font-face {
                 font-family: 'Space Mono';
-                src: url('{{ asset('fonts/SpaceMono-BoldItalic.ttf') }}') format('truetype');
+                src: url('{{ asset('fonts/space-mono-bold-italic.woff2') }}') format('woff2');
                 font-weight: 700;
                 font-style: italic;
                 font-display: swap;
