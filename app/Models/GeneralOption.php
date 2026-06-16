@@ -17,6 +17,8 @@ use Illuminate\Support\Carbon;
  * @property-read bool $is_draft
  * @property-read bool $hide_phone
  * @property-read bool $hide_email
+ * @property-read bool $hide_image
+ * @property-read bool $hide_address
  * @property-read int $views
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
@@ -34,6 +36,8 @@ class GeneralOption extends Model
         'is_draft',
         'hide_phone',
         'hide_email',
+        'hide_image',
+        'hide_address',
         'views',
     ];
 
@@ -44,6 +48,8 @@ class GeneralOption extends Model
             'is_draft' => 'boolean',
             'hide_phone' => 'boolean',
             'hide_email' => 'boolean',
+            'hide_image' => 'boolean',
+            'hide_address' => 'boolean',
         ];
     }
 

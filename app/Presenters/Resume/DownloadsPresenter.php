@@ -36,14 +36,11 @@ final class DownloadsPresenter
                 ->setAttribute('download', $filename)
                 ->setThemes($this->theme->socialBadgeThemes())
                 ->setContents([
-                    'icon' => $this->compose(ComponentEnum::SPAN)
+                    'icon' => $this->compose('mask-icon')->useLocal()
                         ->setThemes($this->theme->iconThemes())
                         ->setAttributes([
-                            'style' => sprintf(
-                                'background-color: currentColor; mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
-                                asset('images/download.svg'),
-                                asset('images/download.svg')
-                            ),
+                            'path' => 'images/download.svg',
+                            'color' => 'currentColor',
                         ]),
                     'label' => $this->compose(ComponentEnum::SPAN)
                         ->setContent($export->type->label()),

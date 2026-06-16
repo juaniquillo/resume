@@ -69,19 +69,7 @@
     @endif
 
     {{-- Fonts --}}
-    @if ($theme && ! empty($theme->localFonts()))
-        <style>
-            @foreach ($theme->localFonts() as $font)
-                @font-face {
-                    font-family: '{{ $font['family'] }}';
-                    src: url('{{ asset($font['path']) }}') format('{{ $font['type'] ?? 'woff2' }}');
-                    font-weight: {{ $font['weight'] ?? 'normal' }};
-                    font-style: {{ $font['style'] ?? 'normal' }};
-                    font-display: swap;
-                }
-            @endforeach
-        </style>
-    @elseif ($theme)
+    @if ($theme)
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         @foreach ($theme->fontUrls() as $url)
@@ -90,36 +78,7 @@
     @else
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <style>
-            @font-face {
-                font-family: 'Space Mono';
-                src: url('{{ asset('fonts/space-mono-regular.woff2') }}') format('woff2');
-                font-weight: 400;
-                font-style: normal;
-                font-display: swap;
-            }
-            @font-face {
-                font-family: 'Space Mono';
-                src: url('{{ asset('fonts/space-mono-bold.woff2') }}') format('woff2');
-                font-weight: 700;
-                font-style: normal;
-                font-display: swap;
-            }
-            @font-face {
-                font-family: 'Space Mono';
-                src: url('{{ asset('fonts/space-mono-italic.woff2') }}') format('woff2');
-                font-weight: 400;
-                font-style: italic;
-                font-display: swap;
-            }
-            @font-face {
-                font-family: 'Space Mono';
-                src: url('{{ asset('fonts/space-mono-bold-italic.woff2') }}') format('woff2');
-                font-weight: 700;
-                font-style: italic;
-                font-display: swap;
-            }
-        </style>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     @endif
 
     <style>

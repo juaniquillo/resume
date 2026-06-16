@@ -30,13 +30,15 @@ final class BasicsPresenter
             return null;
         }
 
+        $options = $this->options;
         $image = $this->basics->image ?? null;
-        $imageUrl = $image ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
+        $hideImage = $options !== null && $options->hide_image;
+        $imageUrl = ($image && ! $hideImage) ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
             ->setContents(array_filter([
-                'image' => $image ? $this->compose(ComponentEnum::SPAN)
+                'image' => ($image && ! $hideImage) ? $this->compose(ComponentEnum::SPAN)
                     ->setThemes($this->theme->imageContainerThemes())
                     ->setContent(
                         $this->compose(ComponentEnum::IMG)
@@ -54,7 +56,7 @@ final class BasicsPresenter
                     ->setContent($this->basics->label),
                 'contact' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->contactContainerThemes())
-                    ->setContents($this->basicsContactItems($this->basics, $this->options)),
+                    ->setContents($this->basicsContactItems($this->basics, $options)),
             ]));
     }
 
@@ -65,7 +67,7 @@ final class BasicsPresenter
     {
         $info = [];
 
-        if ($basics->email && ! ($options?->hide_email)) {
+        if ($basics->email && ! ($options !== null && $options->hide_email)) {
             $info['email'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->emailThemes())
                 ->setContents([
@@ -80,7 +82,7 @@ final class BasicsPresenter
                 ]);
         }
 
-        if ($basics->phone && ! ($options?->hide_phone)) {
+        if ($basics->phone && ! ($options !== null && $options->hide_phone)) {
             $info['phone'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->phoneThemes())
                 ->setContents([
@@ -111,7 +113,7 @@ final class BasicsPresenter
 
         if ($basics->location) {
             $locationParts = array_filter([
-                $basics->location->address,
+                ! ($options !== null && $options->hide_address) ? $basics->location->address : null,
                 $basics->location->city,
                 $basics->location->region,
                 $basics->location->postal_code,
@@ -138,15 +140,11 @@ final class BasicsPresenter
             $enum = Network::fromString($network);
 
             $icon = $enum
-                ? $this->compose(ComponentEnum::DIV)
+                ? $this->compose('mask-icon')->useLocal()
                     ->setThemes($this->theme->iconThemes())
                     ->setAttributes([
-                        'style' => sprintf(
-                            'background-color: #%s; mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
-                            $enum->hex(),
-                            asset("images/networks/{$enum->slug()}.svg"),
-                            asset("images/networks/{$enum->slug()}.svg")
-                        ),
+                        'path' => "images/networks/{$enum->slug()}.svg",
+                        'color' => "#{$enum->hex()}",
                         'title' => $network,
                     ])
                 : FluxComponentBuilder::make('icon.globe-alt')
@@ -159,15 +157,11 @@ final class BasicsPresenter
                 ->setAttribute('href', $profile->url)
                 ->setAttribute('target', '_blank')
                 ->setContents([
-                    'icon' => $this->compose(ComponentEnum::SPAN)
+                    'icon' => $this->compose('mask-icon')->useLocal()
                         ->setThemes($this->theme->iconThemes())
                         ->setAttributes([
-                            'style' => sprintf(
-                                '--brand-color: #%s; background-color: var(--brand-color); mask-image: url(%s); -webkit-mask-image: url(%s); mask-size: contain; mask-repeat: no-repeat; mask-position: center;',
-                                $enum ? $enum->hex() : '000000',
-                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg'),
-                                asset('images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg')
-                            ),
+                            'path' => 'images/networks/'.($enum ? $enum->slug() : 'globe-alt').'.svg',
+                            'color' => '#'.($enum ? $enum->hex() : '000000'),
                             'title' => $network,
                         ]),
                     'name' => $this->compose(ComponentEnum::SPAN)
