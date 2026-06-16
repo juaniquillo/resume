@@ -6,7 +6,9 @@ use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Squema\Options\Inputs\HideAddressFactory;
 use App\Cruds\Squema\Options\Inputs\HideEmailFactory;
+use App\Cruds\Squema\Options\Inputs\HideImageFactory;
 use App\Cruds\Squema\Options\Inputs\HidePhoneFactory;
 use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
@@ -49,6 +51,10 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
                 HidePhoneFactory::NAME => HidePhoneFactory::make(),
                 $this->separator('security_1'),
                 HideEmailFactory::NAME => HideEmailFactory::make(),
+                $this->separator('security_2'),
+                HideImageFactory::NAME => HideImageFactory::make(),
+                $this->separator('security_3'),
+                HideAddressFactory::NAME => HideAddressFactory::make(),
             ], 'security', 'Security Options'),
         ];
     }

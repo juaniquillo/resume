@@ -107,3 +107,32 @@ test('authenticated user can update draft mode', function () {
     $options = $user->fresh()->generalOptions;
     expect((string) $options->is_draft)->toBe('1');
 });
+
+test('authenticated user can update security options', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update([
+        'hide_phone' => false,
+        'hide_email' => false,
+        'hide_image' => false,
+        'hide_address' => false,
+    ]);
+
+    $this->withoutMiddleware()
+        ->actingAs($user)
+        ->post(route('dashboard.resume.general.update'), [
+            'slug' => 'test-slug',
+            'theme' => ResumeTheme::DEFAULT->value,
+            'hide_phone' => '1',
+            'hide_email' => '1',
+            'hide_image' => '1',
+            'hide_address' => '1',
+        ])
+        ->assertRedirect()
+        ->assertSessionHas('success');
+
+    $options = $user->fresh()->generalOptions;
+    expect($options->hide_phone)->toBeTrue();
+    expect($options->hide_email)->toBeTrue();
+    expect($options->hide_image)->toBeTrue();
+    expect($options->hide_address)->toBeTrue();
+});
