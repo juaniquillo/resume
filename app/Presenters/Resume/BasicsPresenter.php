@@ -165,7 +165,7 @@ final class BasicsPresenter
                             'title' => $network,
                         ]),
                     'name' => $this->compose(ComponentEnum::SPAN)
-                        ->setContent($network),
+                        ->setContent($profile->username ? "{$network} ({$profile->username})" : $network),
                 ]);
         }
 
