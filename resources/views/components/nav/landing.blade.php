@@ -1,5 +1,5 @@
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md">
-    <div class="container mx-auto max-w-4xl px-8 py-6 flex justify-between items-center">
+    <div class="container mx-auto max-w-4xl 2xl:max-w-6xl px-8 py-6 flex justify-between items-center">
         <div class="text-xl font-bold tracking-tight">
             Resume Manager<span class="text-sky-600">.</span>
         </div>
