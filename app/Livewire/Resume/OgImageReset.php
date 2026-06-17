@@ -3,6 +3,7 @@
 namespace App\Livewire\Resume;
 
 use App\Managers\Resume\OgImageManager as OgManager;
+use App\Models\GeneralOption;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -29,7 +30,7 @@ class OgImageReset extends Component
         $this->width = (string) OgManager::WIDTH;
         $this->height = (string) OgManager::HEIGHT;
 
-        /** @var \App\Models\GeneralOption|null $options */
+        /** @var GeneralOption|null $options */
         $options = $this->getUser()->generalOptions;
 
         $this->version = (string) ($options->og_image_version ?? 1);
@@ -57,7 +58,7 @@ class OgImageReset extends Component
 
             $user->generalOptions()->increment('og_image_version');
 
-            /** @var \App\Models\GeneralOption|null $options */
+            /** @var GeneralOption|null $options */
             $options = $user->generalOptions?->refresh();
 
             $this->version = (string) ($options->og_image_version ?? 1);

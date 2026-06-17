@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Basic;
+use App\Models\GeneralOption;
 use App\Models\User;
 use App\Presenters\Cache\ResumeThemeCacheManager;
 use App\Presenters\ResumePresenter;
@@ -39,7 +40,7 @@ class ResumeController extends Controller
         $basics = $user->resumeBasics();
         $description = $basics?->summary ? Str::limit(strip_tags($basics->summary), 160) : null;
 
-        /** @var \App\Models\GeneralOption|null $options */
+        /** @var GeneralOption|null $options */
         $options = $user->generalOptions;
 
         $image = route('resume.og.image', [
