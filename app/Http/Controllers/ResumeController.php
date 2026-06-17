@@ -38,7 +38,14 @@ class ResumeController extends Controller
         /** @var Basic|null $basics */
         $basics = $user->resumeBasics();
         $description = $basics?->summary ? Str::limit(strip_tags($basics->summary), 160) : null;
-        $image = route('resume.og.image', $user);
+
+        /** @var \App\Models\GeneralOption|null $options */
+        $options = $user->generalOptions;
+
+        $image = route('resume.og.image', [
+            'user' => $user,
+            'v' => $options->og_image_version ?? 1,
+        ]);
 
         return view('pages.resume', [
             'user' => $user,

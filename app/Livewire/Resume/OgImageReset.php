@@ -29,7 +29,10 @@ class OgImageReset extends Component
         $this->width = (string) OgManager::WIDTH;
         $this->height = (string) OgManager::HEIGHT;
 
-        $this->version = (string) time();
+        /** @var \App\Models\GeneralOption|null $options */
+        $options = $this->getUser()->generalOptions;
+
+        $this->version = (string) ($options->og_image_version ?? 1);
 
     }
 
@@ -52,7 +55,12 @@ class OgImageReset extends Component
                 $manager->fetch();
             }
 
-            $this->version = (string) time();
+            $user->generalOptions()->increment('og_image_version');
+
+            /** @var \App\Models\GeneralOption|null $options */
+            $options = $user->generalOptions?->refresh();
+
+            $this->version = (string) ($options->og_image_version ?? 1);
 
             $this->dispatch('notify',
                 message: __('OG image regenerated successfully.'),
