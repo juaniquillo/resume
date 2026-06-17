@@ -50,6 +50,7 @@ final class ProjectsPresenter
                     ? $this->compose(ComponentEnum::LINK)
                         ->setAttribute('href', $project->url)
                         ->setAttribute('target', '_blank')
+                        ->setThemes($this->theme->linkThemes())
                         ->setContent(
                             $this->compose(ComponentEnum::H3)
                                 ->setThemes($this->theme->itemTitleThemes())
