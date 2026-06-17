@@ -34,6 +34,10 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, and naming.
 - Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
 - Check for existing components to reuse before writing a new one.
+- **Design Policy**: Standardize on the `2xl:` breakpoint for large-screen layout enhancements (containers shift from `max-w-4xl` to `max-w-6xl`).
+- **Cache Management**: Apply the `InvalidatesResumeCache` trait to any Model that impacts the public resume to ensure automated cache purging.
+- **Type Clarity**: Always use Fully Qualified Class Names (FQCNs) in `@var` PHPDoc tags to prevent PHPStan resolution errors across namespaces.
+- **Privacy & Performance**: Serve all fonts locally from `public/fonts/` as `.ttf` files; avoid external font CDNs.
 
 ## Verification Scripts
 
