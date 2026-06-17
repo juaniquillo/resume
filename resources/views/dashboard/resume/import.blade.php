@@ -22,7 +22,7 @@
     @if ($table ?? null)
         <flux:separator variant="subtle" class="mt-6" />
 
-        <x-table-container paginator="{{ $paginator }}">
+        <x-table-container :paginator="$paginator">
             {{ $table }}
         </x-table-container>
     @endif
