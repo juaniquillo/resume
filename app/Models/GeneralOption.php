@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property-read bool $hide_image
  * @property-read bool $hide_address
  * @property-read int $views
+ * @property-read int $og_image_version
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  * @property-read User $user
@@ -39,6 +40,7 @@ class GeneralOption extends Model
         'hide_image',
         'hide_address',
         'views',
+        'og_image_version',
     ];
 
     protected function casts(): array
@@ -50,6 +52,7 @@ class GeneralOption extends Model
             'hide_email' => 'boolean',
             'hide_image' => 'boolean',
             'hide_address' => 'boolean',
+            'og_image_version' => 'integer',
         ];
     }
 

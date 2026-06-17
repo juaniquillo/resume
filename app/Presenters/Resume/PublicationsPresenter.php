@@ -37,6 +37,7 @@ final class PublicationsPresenter
                         ? $this->compose(ComponentEnum::LINK)
                             ->setAttribute('href', $pub->url)
                             ->setAttribute('target', '_blank')
+                            ->setThemes($this->theme->linkThemes())
                             ->setContent(
                                 $this->compose(ComponentEnum::H3)
                                     ->setThemes($this->theme->itemTitleThemes())
