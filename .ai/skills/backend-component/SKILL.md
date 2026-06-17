@@ -6,6 +6,7 @@ description: Build and compose dynamic HTML components in PHP using the juaniqui
 # Backend Component Development
 
 ## When to Use This Skill
+
 Use this skill when the user needs to:
 - Create a new HTML component (button, div, table, form element, modal, etc.)
 - Compose multiple components into a tree structure
@@ -228,6 +229,7 @@ $restored = ComponentFactory::fromArray($array);
 This works recursively for nested content, themes, settings, and Livewire state.
 
 ## Guardrails
+
 - Do NOT build HTML strings manually — always use the component builder and enum to ensure proper rendering.
 - Do NOT apply CSS classes directly in Blade templates — use the theme system instead for maintainability.
 - Always use `ComponentEnum` cases rather than raw strings when possible, to benefit from IDE autocompletion and type safety.

@@ -35,31 +35,39 @@ All database operations and complex business logic MUST be encapsulated in **Lar
 - **Constraint:** Do not put logic in Controllers or Models.
 
 ### 5. Cache Strategy
-A cache strategy is planned for the `ResumePresenter` orchestrator level to optimize performance for public resume views.
+A cache strategy is implemented at the `ResumePresenter` level, utilizing a modular `ResumeThemeCacheManager` to optimize performance for public views.
+
+### 6. Recent Architectural Improvements
+- **OG Image Versioning**: Implemented an `og_image_version` in `GeneralOption` to act as a manual/automatic cache buster for social sharing.
+- **Ultra-Wide Screen Support**: Standardized on the `2xl:` breakpoint across all themes and the landing page to provide a superior experience on displays larger than 1536px.
+- **Cascading Deletions & File Cleanup**: The `User` model includes a `deleting` hook that ensures all associated resume data and physical files (images, exports, imports) are purged from storage, preventing orphan data.
 
 ## 🛠️ Development Standards
 
 ### 1. Code Quality
-- **Type Safety:** Always use strict typing, return types, and PHP 8.4 features (e.g., property promotion).
-- **PHPStan:** Maintain Level 5 compliance for all new code.
-- **Pint:** Run `vendor/bin/pint --format agent` before finalizing any change.
+- **Type Safety**: Always use strict typing, return types, and PHP 8.4 features (e.g., property promotion, constructor hooks).
+- **PHPStan**: Maintain Level 5 compliance. Always use FQCNs in `@var` tags for cross-namespace clarity.
+- **Pint**: Run `vendor/bin/pint --format agent` before finalizing any change.
 
 ### 2. Testing
-- **Pest:** Every feature or refactor must be covered by a Pest test.
-- **Browser Testing:** For UI changes, smoke test pages for JS errors using the browser tools.
-- **Assets:** Run `npm run build` after making any visual or CSS changes to ensure assets are compiled.
+- **Pest**: Every feature or refactor must be covered by a Pest test.
+- **Environment Safety**: ALWAYS run tests with `$env:DB_CONNECTION='sqlite'; $env:DB_DATABASE=':memory:';`.
+- **Browser Testing**: For UI changes, smoke test pages for JS errors using the browser tools.
+- **Assets**: Run `npm run build` after making any visual or CSS changes to ensure assets are compiled.
 
 ### 3. Database
-- **Migrations:** Always create migrations for schema changes.
-- **Factories/Seeders:** Maintain high-quality factories for all models to support robust testing.
+- **Migrations**: Always create migrations for schema changes.
+- **Factories/Seeders**: Maintain high-quality factories for all models to support robust testing.
 
 ## 📋 Current Objectives & Roadmap
-1. **Slug Management:** Implement a CRUD/Action to allow users to update their public `slug` (must be unique and validated).
-2. **Cache Implementation:** Add granular caching to the modular presenter system.
-3. **Resume Options:** Create a CRUD for toggling resume sections and adjusting their order.
+1. **Public JSON API**: Implement a rate-limited API that serves the resume in JSON format (JSON Resume compatible).
+2. **Dashboard Performance**: Create a cache manager for high-frequency dashboard components (navigation, summary cards).
+3. **Multi-User Scaling**: Optimize query consolidation for multi-tenant environments.
 
 ## 🎨 Design System
 Refer to `DESIGN.md` for the "Retro-Modern" aesthetic (Space Mono, Pixel Icons, specific hex palette).
+- **Breakpoint Policy**: `2xl:` is the primary target for large-screen layout enhancements (containers shift from `max-w-4xl` to `max-w-6xl`).
+- **Font Policy**: All fonts MUST be served locally from `public/fonts/` as `.ttf` files to optimize LCP and ensure privacy.
 
 ---
 

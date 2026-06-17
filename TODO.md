@@ -46,3 +46,4 @@
 43. ◻️ Make sure the download section doesn't show in a PDF export.
 44. ✅ The Profile Network icons (svg) don't show on the PDF export. Only a color square shows.
 45. ✅ Add the image and the address to the General Options' Security Options group.
+46. ◻️ Work on a new Resume Theme now under another Agent/Model
