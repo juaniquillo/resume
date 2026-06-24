@@ -2,9 +2,12 @@
 
 use App\Models\Basic;
 use App\Models\Education;
+use App\Models\Highlight;
+use App\Models\Project;
 use App\Models\ResumeExport;
 use App\Models\ResumeImport;
 use App\Models\User;
+use App\Models\Volunteer;
 use App\Models\Work;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -62,4 +65,23 @@ test('deleting a user cleans up all related data and files', function () {
     $disk->assertMissing($imagePath);
     $disk->assertMissing($exportPath);
     $disk->assertMissing($importPath);
+});
+
+test('deleting a user cleans up polymorphic highlights', function () {
+    $user = User::factory()->create();
+
+    $work = Work::factory()->for($user)->create();
+    $work->highlights()->create(['highlight' => 'Work highlight']);
+
+    $volunteer = Volunteer::factory()->for($user)->create();
+    $volunteer->highlights()->create(['highlight' => 'Volunteer highlight']);
+
+    $project = Project::factory()->for($user)->create();
+    $project->highlights()->create(['highlight' => 'Project highlight']);
+
+    expect(Highlight::count())->toBe(3);
+
+    $user->delete();
+
+    expect(Highlight::count())->toBe(0);
 });
