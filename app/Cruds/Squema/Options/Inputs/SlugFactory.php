@@ -3,6 +3,7 @@
 namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Enums\SlugBlacklist;
 use App\Models\GeneralOption;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -34,6 +35,7 @@ class SlugFactory
                 'string',
                 'alpha_dash:ascii',
                 'max:191',
+                'not_in:'.implode(',', SlugBlacklist::values()),
                 Rule::unique(GeneralOption::class)->ignore(request()->user()->id, 'user_id'),
             ]))
         );
