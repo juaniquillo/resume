@@ -61,6 +61,9 @@ class User extends Authenticatable
             $user->basics?->delete();
             $user->resumeExports->each->delete();
             $user->resumeImports->each->delete();
+            $user->works()->get()->each->delete();
+            $user->volunteers()->get()->each->delete();
+            $user->projects()->get()->each->delete();
         });
     }
 

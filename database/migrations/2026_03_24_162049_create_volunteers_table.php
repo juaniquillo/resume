@@ -24,8 +24,7 @@ return new class extends Migration
             $table
                 ->foreignId('user_id')
                 ->index()
-                ->constrained('users')
-                ->cascadeOnDelete();
+                ->constrained('users');
 
             $table->timestamp('starts_at');
             $table->timestamp('ends_at')->nullable();
