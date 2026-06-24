@@ -50,11 +50,11 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             $this->fieldsetWrap([
                 HidePhoneFactory::NAME => HidePhoneFactory::make(),
                 $this->separator('security_1'),
-                HideEmailFactory::NAME => HideEmailFactory::make(),
-                $this->separator('security_2'),
-                HideImageFactory::NAME => HideImageFactory::make(),
-                $this->separator('security_3'),
                 HideAddressFactory::NAME => HideAddressFactory::make(),
+                $this->separator('security_2'),
+                HideEmailFactory::NAME => HideEmailFactory::make(),
+                $this->separator('security_3'),
+                HideImageFactory::NAME => HideImageFactory::make(),
             ], 'security', 'Security Options'),
         ];
     }
