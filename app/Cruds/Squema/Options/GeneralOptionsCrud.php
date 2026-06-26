@@ -16,6 +16,7 @@ use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Override;
 
 final class GeneralOptionsCrud implements CrudForm, CrudInterface
@@ -40,21 +41,34 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
         );
     }
 
+    /**
+     * @return InputInterface[]
+     */
+    public static function slugInput(?int $id = null): array
+    {
+        return [
+            SlugFactory::NAME => SlugFactory::make($id),
+        ];
+    }
+
+    /**
+     * @return InputInterface[]
+     */
     #[Override]
     public function inputsArray(): array
     {
         return [
-            SlugFactory::NAME => SlugFactory::make(),
+            ...self::slugInput(),
             ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
             IsDraftFactory::NAME => IsDraftFactory::make(),
             $this->fieldsetWrap([
                 HidePhoneFactory::NAME => HidePhoneFactory::make(),
                 $this->separator('security_1'),
-                HideEmailFactory::NAME => HideEmailFactory::make(),
-                $this->separator('security_2'),
-                HideImageFactory::NAME => HideImageFactory::make(),
-                $this->separator('security_3'),
                 HideAddressFactory::NAME => HideAddressFactory::make(),
+                $this->separator('security_2'),
+                HideEmailFactory::NAME => HideEmailFactory::make(),
+                $this->separator('security_3'),
+                HideImageFactory::NAME => HideImageFactory::make(),
             ], 'security', 'Security Options'),
         ];
     }
