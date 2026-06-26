@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         GeneralOption::where('user_id', $user->id)->first()->update([
-            'slug' => 'admin',
+            'slug' => 'user-1',
             'theme' => ResumeTheme::DEFAULT->value,
         ]);
     }

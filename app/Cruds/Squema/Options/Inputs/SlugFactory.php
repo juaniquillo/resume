@@ -5,6 +5,7 @@ namespace App\Cruds\Squema\Options\Inputs;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Enums\SlugBlacklist;
 use App\Models\GeneralOption;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -17,27 +18,36 @@ class SlugFactory
 
     public const LABEL = 'Resume Slug';
 
-    public static function make(): InputInterface
+    public static function make(?int $id = null): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
         self::form($input);
-        self::validation($input);
+        self::validation($input, $id);
 
         return $input;
     }
 
-    public static function validation(InputInterface $input): void
+    public static function validation(InputInterface $input, ?int $id = null): void
     {
+
+        $rules = [
+            'required',
+            'string',
+            'alpha_dash:ascii',
+            'max:191',
+            'not_in:'.implode(',', SlugBlacklist::values()),
+            'unique' => Rule::unique(GeneralOption::class),
+        ];
+
+        $id = $id ?? Auth::id();
+
+        if ($id) {
+            $rules['unique'] = Rule::unique(GeneralOption::class)->ignore($id, 'user_id');
+        }
+
         $input->setRecipe(
-            (new LaravelValidationRulesRecipe([
-                'required',
-                'string',
-                'alpha_dash:ascii',
-                'max:191',
-                'not_in:'.implode(',', SlugBlacklist::values()),
-                Rule::unique(GeneralOption::class)->ignore(request()->user()->id, 'user_id'),
-            ]))
+            (new LaravelValidationRulesRecipe($rules))
         );
     }
 
