@@ -89,16 +89,6 @@ If existing pages and components support dark mode, new pages and components mus
 
 ## Common Patterns
 
-### Ultra-Wide Support (2xl)
-
-The project standardizes on the `2xl:` breakpoint (1536px) for large-screen layout enhancements. Use it to expand containers and scale typography:
-
-```html
-<div class="container mx-auto max-w-4xl 2xl:max-w-6xl">
-    <h1 class="text-5xl md:text-7xl 2xl:text-8xl">Large Title</h1>
-</div>
-```
-
 ### Flexbox Layout
 
 <!-- Flexbox Layout -->
