@@ -23,9 +23,11 @@ class ResumeController extends Controller
             ], 403);
         }
 
-        // Increment views if not the owner
+        /** @var GeneralOption|null $options */
+        $options = $user->generalOptions;
+
         if ($request->user()?->id !== $user->id) {
-            $user->generalOptions()->increment('views');
+            Helpers::incrementViews($options);
         }
 
         $theme = app(ResumeThemeCacheManager::class)->getThemePresenter($user);
@@ -39,9 +41,6 @@ class ResumeController extends Controller
         /** @var Basic|null $basics */
         $basics = $user->resumeBasics();
         $description = $basics?->summary ? Str::limit(strip_tags($basics->summary), 160) : null;
-
-        /** @var GeneralOption|null $options */
-        $options = $user->generalOptions;
 
         $image = route('resume.og.image', [
             'user' => $user,
