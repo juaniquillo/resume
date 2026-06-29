@@ -2,11 +2,13 @@
 
 namespace App\Support;
 
+use App\Models\GeneralOption;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class Helpers
 {
-    public static function isClosure($callback)
+    public static function isClosure(mixed $callback)
     {
         return is_object($callback) && ($callback instanceof \Closure);
     }
@@ -16,6 +18,13 @@ class Helpers
         $options = $user->generalOptions;
 
         return ($options->is_draft ?? true) || ! $user->resumeBasics();
+    }
+
+    public static function incrementViews(GeneralOption $options): void
+    {
+        defer(fn () => DB::table('general_options')
+            ->where('id', $options->id)
+            ->increment('views'));
     }
 
     /**
