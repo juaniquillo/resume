@@ -90,7 +90,7 @@ trait HasHtmlForm
 
     public function inputs(?array $inputs = null): array
     {
-        $inputs = $inputs ?? self::inputsArray();
+        $inputs ??= self::inputsArray();
 
         $action = (new InputComponentAction($this->getValues(), $this->getErrors()))
             ->setDefaultInputGroup(NoWrapSoleInputGroup::class)
@@ -167,16 +167,13 @@ trait HasHtmlForm
 
     private function composeForm(?array $inputs = null): BackendComponent|CompoundComponent
     {
-        $action = $this->formAction;
         $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', $action)
+            ->setAttribute('action', $this->formAction)
             ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
             ->setThemes($this->formThemes())
             ->setContents(
-                $this->inputs(
-                    inputs: $inputs ?? self::inputsArray(),
-                )
+                $this->inputs(inputs: $inputs)
             );
 
         $form->setContent(
@@ -201,20 +198,14 @@ trait HasHtmlForm
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setWrapperComponent(
-                            function (BackedEnum|string $type, ThemeManager $manager) {
-                                return new FluxBackendComponent($type, $manager);
-                            }
+                            fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
                         )
                         ->setLabelComponent(
-                            function (BackedEnum|string $type, ThemeManager $manager) {
-                                return new FluxBackendComponent($type, $manager);
-                            }
+                            fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
                         )
                         ->setInputComponent(
-                            function (BackedEnum|string $type, ThemeManager $manager) {
-                                return (new MainBackendComponent($type, $manager))
-                                    ->setTheme('forms', 'fieldset-spacing');
-                            }
+                            fn (BackedEnum|string $type, ThemeManager $manager) => (new MainBackendComponent($type, $manager))
+                                ->setTheme('forms', 'fieldset-spacing')
                         )
                         ->setWrapperType(FluxComponentEnum::FIELDSET)
                         ->setLabelType(FluxComponentEnum::LEGEND)
