@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
+
+use App\Http\Controllers\Controller;
 
 class ResumeResetController extends Controller
 {

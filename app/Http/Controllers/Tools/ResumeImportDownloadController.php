@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use App\Models\ResumeImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
