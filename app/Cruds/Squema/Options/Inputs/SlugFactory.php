@@ -3,6 +3,8 @@
 namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Options\GeneralOptionsCrud;
 use App\Enums\SlugBlacklist;
 use App\Models\GeneralOption;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +55,8 @@ class SlugFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), GeneralOptionsCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setAttributeBag(
@@ -62,6 +66,7 @@ class SlugFactory
                             'badge' => 'required',
                             'icon' => 'link',
                             'placeholder' => 'E.g. john-doe',
+                            ...$livewireAttributes,
                         ])
                 )
         );

@@ -4,6 +4,8 @@ namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Options\GeneralOptionsCrud;
 use App\Enums\ResumeTheme;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
@@ -63,6 +65,8 @@ class ThemeSelectFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), GeneralOptionsCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setComponentBag(
@@ -75,6 +79,7 @@ class ThemeSelectFactory
                             'label' => self::LABEL,
                             'name' => $input->getName(),
                             'badge' => 'required',
+                            ...$livewireAttributes,
                         ])
                 )
         );

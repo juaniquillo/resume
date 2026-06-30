@@ -60,8 +60,7 @@ class SectionVisibility extends Component
         $form = $crud->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
-        return view('livewire.options.section-visibility', [
-            'form' => $form,
-        ]);
+        return view('livewire.options.section-visibility')
+            ->with('form', $form);
     }
 }
