@@ -15,7 +15,6 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\Options\GeneralOptionsController;
-use App\Http\Controllers\Options\GeneralOptionsUpdateController;
 use App\Http\Controllers\Options\SectionOrderingController;
 use App\Http\Controllers\Options\SectionVisibilityController;
 use App\Http\Controllers\ProjectController;
@@ -219,7 +218,6 @@ Route::middleware(['auth', 'verified'])
          * Options
          */
         Route::get('options/general', GeneralOptionsController::class)->name('dashboard.resume.general');
-        Route::post('options/general', GeneralOptionsUpdateController::class)->name('dashboard.resume.general.update');
 
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
         Route::get('options/ordering', SectionOrderingController::class)->name('dashboard.resume.ordering');
