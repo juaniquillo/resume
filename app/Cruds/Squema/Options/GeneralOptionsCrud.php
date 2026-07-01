@@ -14,6 +14,7 @@ use App\Cruds\Squema\Options\Inputs\IsDraftFactory;
 use App\Cruds\Squema\Options\Inputs\SlugFactory;
 use App\Cruds\Squema\Options\Inputs\ThemeSelectFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -77,5 +78,10 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([IsDraftFactory::NAME]);
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 }

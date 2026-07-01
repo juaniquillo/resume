@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
 
 use App\Actions\Resume\Export\CreateResumeExport;
 use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
 use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Resume\ResumeExportFormRequest;
 use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;

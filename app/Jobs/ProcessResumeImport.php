@@ -192,7 +192,7 @@ class ProcessResumeImport implements ShouldQueue
         (new UpdateBasics($validated, $user, $imageFile))->handle();
 
         /** @var Basic|null $basics */
-        $basics = $user->resumeBasics();
+        $basics = $user->refresh()->resumeBasics();
 
         if ($basics) {
             if (isset($basicsData['location'])) {

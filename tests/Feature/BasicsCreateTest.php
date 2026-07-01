@@ -1,9 +1,11 @@
 <?php
 
+use App\Livewire\Basics\UpdateBasics;
 use App\Models\Basic;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 
 pest()->group('fast');
 
@@ -12,28 +14,25 @@ beforeEach(function () {
 });
 
 it('validates required fields', function () {
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.update'), ['_token' => 'test-token'])
-        ->assertSessionHasErrors(['name', 'label', 'email']);
+    Livewire::actingAs($this->user)
+        ->test(UpdateBasics::class)
+        ->set('basics.name', '')
+        ->set('basics.label', '')
+        ->set('basics.email', '')
+        ->call('updateForm')
+        ->assertHasErrors(['name', 'label', 'email']);
 });
 
 it('creates a new basic record', function () {
-    $data = [
-        '_token' => 'test-token',
-        'name' => 'John Doe',
-        'label' => 'Developer',
-        'email' => 'john@example.com',
-        'phone' => '1234567890',
-        'url' => 'https://example.com',
-        'summary' => 'Some summary',
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.update'), $data)
-        ->assertRedirect()
-        ->assertSessionHas('success');
+    Livewire::actingAs($this->user)
+        ->test(UpdateBasics::class)
+        ->set('basics.name', 'John Doe')
+        ->set('basics.label', 'Developer')
+        ->set('basics.email', 'john@example.com')
+        ->set('basics.url', 'https://example.com')
+        ->set('basics.summary', 'Some summary')
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics'));
 
     $this->assertDatabaseHas('basics', [
         'user_id' => $this->user->id,
@@ -46,22 +45,21 @@ it('updates an existing basic record', function () {
     $basic = Basic::factory()->create([
         'user_id' => $this->user->id,
         'name' => 'Old Name',
+        'email' => 'old@example.com',
+        'label' => 'Old Label',
+        'phone' => null,
     ]);
 
-    $data = [
-        '_token' => 'test-token',
-        'name' => 'New Name',
-        'label' => 'Developer',
-        'email' => 'john@example.com',
-        'phone' => '1234567890',
-        'url' => 'https://example.com',
-        'summary' => 'Some summary',
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.update'), $data)
-        ->assertRedirect();
+    Livewire::actingAs($this->user)
+        ->test(UpdateBasics::class)
+        ->set('basics.name', 'New Name')
+        ->set('basics.label', 'Developer')
+        ->set('basics.email', 'john@example.com')
+        ->set('basics.phone', '1234567890')
+        ->set('basics.url', 'https://example.com')
+        ->set('basics.summary', 'Some summary')
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics'));
 
     $this->assertDatabaseHas('basics', [
         'id' => $basic->id,
@@ -74,20 +72,14 @@ it('handles image upload', function () {
 
     $image = UploadedFile::fake()->image('avatar.jpg');
 
-    $data = [
-        '_token' => 'test-token',
-        'name' => 'John Doe',
-        'label' => 'Developer',
-        'email' => 'john@example.com',
-        'phone' => '1234567890',
-        'url' => 'https://example.com',
-        'image' => $image,
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.update'), $data)
-        ->assertRedirect();
+    Livewire::actingAs($this->user)
+        ->test(UpdateBasics::class)
+        ->set('basics.name', 'John Doe')
+        ->set('basics.label', 'Developer')
+        ->set('basics.email', 'john@example.com')
+        ->set('basics.image', $image)
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics'));
 
     $basic = $this->user->fresh()->basics;
 
@@ -99,10 +91,14 @@ it('deletes old image when a new one is uploaded', function () {
     Storage::fake('local');
 
     $oldImage = UploadedFile::fake()->image('old_avatar.jpg');
-    $oldPath = $oldImage->store('basics');
+    $oldPath = $oldImage->store('basics', 'local');
 
-    $basic = Basic::factory()->create([
+    Basic::factory()->create([
         'user_id' => $this->user->id,
+        'name' => 'Old Name',
+        'email' => 'old@example.com',
+        'label' => 'Old Label',
+        'phone' => null,
         'image' => $oldPath,
     ]);
 
@@ -110,18 +106,14 @@ it('deletes old image when a new one is uploaded', function () {
 
     $newImage = UploadedFile::fake()->image('new_avatar.jpg');
 
-    $data = [
-        '_token' => 'test-token',
-        'name' => 'John Doe',
-        'label' => 'Developer',
-        'email' => 'john@example.com',
-        'image' => $newImage,
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.update'), $data)
-        ->assertRedirect();
+    Livewire::actingAs($this->user)
+        ->test(UpdateBasics::class)
+        ->set('basics.name', 'John Doe')
+        ->set('basics.label', 'Developer')
+        ->set('basics.email', 'john@example.com')
+        ->set('basics.image', $newImage)
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics'));
 
     Storage::disk('local')->assertMissing($oldPath);
     Storage::disk('local')->assertExists($this->user->fresh()->basics->image);

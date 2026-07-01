@@ -4,6 +4,11 @@
             <flux:button class="cursor-pointer shrink-0" title="{{ __('Preview') }}" size="xs" variant="primary" icon="eye"></flux:button>
         </flux:modal.trigger>
 
+        @php
+            $resumeUrl = route('resume', [Auth::user()->slug]);
+        @endphp
+        <flux:button class="cursor-pointer shrink-0" title="{{ __('Visit') }}" :href="$resumeUrl" target="_blank" size="xs" variant="primary" color="indigo" icon="link" />
+
         <livewire:options.toggle-draft-state />
     </div>
 

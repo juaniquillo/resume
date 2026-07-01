@@ -1,8 +1,10 @@
 <?php
 
+use App\Livewire\Basics\UpdateLocation;
 use App\Models\Basic;
 use App\Models\Location;
 use App\Models\User;
+use Livewire\Livewire;
 
 pest()->group('fast');
 
@@ -23,23 +25,25 @@ it('renders the location index page for authenticated users', function () {
         ->get(route('dashboard.basics.location'))
         ->assertSuccessful()
         ->assertViewIs('dashboard.basics.location.index')
-        ->assertViewHas('form');
+        ->assertViewHas('basics');
+});
+
+it('renders the UpdateLocation Livewire component', function () {
+    Livewire::actingAs($this->user)
+        ->test(UpdateLocation::class)
+        ->assertStatus(200);
 });
 
 it('stores a new location record', function () {
-    $data = [
-        'address' => '123 Main St',
-        'postal_code' => '12345',
-        'city' => 'Anytown',
-        'country_code' => 'US',
-        'region' => 'State',
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.location.update'), array_merge($data, ['_token' => 'test-token']))
-        ->assertRedirect()
-        ->assertSessionHas('success');
+    Livewire::actingAs($this->user)
+        ->test(UpdateLocation::class)
+        ->set('location.city', 'Anytown')
+        ->set('location.country_code', 'US')
+        ->set('location.address', '123 Main St')
+        ->set('location.postal_code', '12345')
+        ->set('location.region', 'State')
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics.location'));
 
     $this->assertDatabaseHas('locations', [
         'basic_id' => $this->basic->id,
@@ -54,19 +58,15 @@ it('updates an existing location record', function () {
         'address' => 'Old Address',
     ]);
 
-    $data = [
-        'address' => 'New Address',
-        'postal_code' => '54321',
-        'city' => 'Othertown',
-        'country_code' => 'CA',
-        'region' => 'Province',
-    ];
-
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.location.update'), array_merge($data, ['_token' => 'test-token']))
-        ->assertRedirect()
-        ->assertSessionHas('success');
+    Livewire::actingAs($this->user)
+        ->test(UpdateLocation::class)
+        ->set('location.city', 'Othertown')
+        ->set('location.country_code', 'CA')
+        ->set('location.address', 'New Address')
+        ->set('location.postal_code', '54321')
+        ->set('location.region', 'Province')
+        ->call('updateForm')
+        ->assertRedirect(route('dashboard.basics.location'));
 
     $this->assertDatabaseHas('locations', [
         'id' => $location->id,
@@ -75,8 +75,10 @@ it('updates an existing location record', function () {
 });
 
 it('validates location data', function () {
-    $this->actingAs($this->user)
-        ->withSession(['_token' => 'test-token'])
-        ->post(route('dashboard.basics.location.update'), ['_token' => 'test-token'])
-        ->assertSessionHasErrors(['city', 'country_code']);
+    Livewire::actingAs($this->user)
+        ->test(UpdateLocation::class)
+        ->set('location.city', '')
+        ->set('location.country_code', '')
+        ->call('updateForm')
+        ->assertHasErrors(['city', 'country_code']);
 });

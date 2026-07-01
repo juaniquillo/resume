@@ -65,7 +65,6 @@ test('it processes a resume json and creates database records', function () {
             ],
         ],
     ];
-
     $filePath = 'imports/resumes/resume.json';
     Storage::disk('local')->put($filePath, json_encode($resumeData));
 
