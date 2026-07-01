@@ -29,14 +29,14 @@ class UpdateBasics extends Component
         $user = Auth::user();
 
         $image = $this->basics[ImageFactory::NAME] ?? null;
-        if(isset($image) && is_string($image)) {
+        if (isset($image) && is_string($image)) {
             unset($this->basics[ImageFactory::NAME]);
         }
 
-        $this->validateForm($this->crud()->make(), $this->basics);
+        $validator = $this->validateForm($this->crud()->make(), $this->basics);
 
         (new UpdateAction(
-            $this->basics,
+            $validator->validated(),
             $user,
             $this->basics[ImageFactory::NAME] ?? null
         ))->handle();
@@ -53,7 +53,7 @@ class UpdateBasics extends Component
         $user = Auth::user();
 
         $this->basics = $user->basics?->toArray() ?? [];
-        
+
     }
 
     private function crud()
