@@ -68,10 +68,10 @@ class ImageFactory
     public static function form(InputInterface $input): void
     {
         $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), BasicsCrud::getLivewireGroup());
-        
+
         $input->setRecipe(
             new InputComponentRecipe(
-                disableBag: (new DefaultDisableBag())
+                disableBag: (new DefaultDisableBag)
                     ->setDisableInputValue(true),
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([

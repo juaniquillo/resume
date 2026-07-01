@@ -17,6 +17,7 @@ class UpdateBasics
 
     public function handle(): Basic
     {
+        /** @var Basic|null $basics */
         $basics = $this->user->basics;
 
         if ($this->image) {

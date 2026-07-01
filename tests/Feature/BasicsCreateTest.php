@@ -29,7 +29,6 @@ it('creates a new basic record', function () {
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
-        ->set('basics.phone', '1234567890')
         ->set('basics.url', 'https://example.com')
         ->set('basics.summary', 'Some summary')
         ->call('updateForm')
@@ -46,6 +45,9 @@ it('updates an existing basic record', function () {
     $basic = Basic::factory()->create([
         'user_id' => $this->user->id,
         'name' => 'Old Name',
+        'email' => 'old@example.com',
+        'label' => 'Old Label',
+        'phone' => null,
     ]);
 
     Livewire::actingAs($this->user)
@@ -75,7 +77,7 @@ it('handles image upload', function () {
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
-        ->set('image', $image)
+        ->set('basics.image', $image)
         ->call('updateForm')
         ->assertRedirect(route('dashboard.basics'));
 
@@ -91,8 +93,12 @@ it('deletes old image when a new one is uploaded', function () {
     $oldImage = UploadedFile::fake()->image('old_avatar.jpg');
     $oldPath = $oldImage->store('basics', 'local');
 
-    $basic = Basic::factory()->create([
+    Basic::factory()->create([
         'user_id' => $this->user->id,
+        'name' => 'Old Name',
+        'email' => 'old@example.com',
+        'label' => 'Old Label',
+        'phone' => null,
         'image' => $oldPath,
     ]);
 
@@ -105,7 +111,7 @@ it('deletes old image when a new one is uploaded', function () {
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
-        ->set('image', $newImage)
+        ->set('basics.image', $newImage)
         ->call('updateForm')
         ->assertRedirect(route('dashboard.basics'));
 

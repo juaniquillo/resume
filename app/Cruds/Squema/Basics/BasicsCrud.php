@@ -83,8 +83,8 @@ final class BasicsCrud implements CrudForm, CrudInterface
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
             ->setAttributes([
-                "wire:loading.attr" => "disabled",
-                "wire:target" => $livewireAttributes['wire:model'],
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $livewireAttributes['wire:model'],
             ])
             ->setTheme('cursor', 'pointer')
             ->setContent(__($label));
