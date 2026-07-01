@@ -3,7 +3,6 @@
 use App\Http\Controllers\AwardsController;
 use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\BasicsLocationController;
-use App\Http\Controllers\BasicsLocationUpdateController;
 use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
@@ -59,7 +58,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('basics', BasicsController::class)->name('dashboard.basics');
 
         Route::get('basics/locations', BasicsLocationController::class)->name('dashboard.basics.location');
-        Route::post('basics/locations', BasicsLocationUpdateController::class)->name('dashboard.basics.location.update');
 
         Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
         Route::post('basics/profiles', [BasicsProfileController::class, 'store'])->name('dashboard.basics.profiles.store');

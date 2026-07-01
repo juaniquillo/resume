@@ -5,7 +5,7 @@
     @if ($basics)
         
         <div class="max-w-xl mt-6">
-            {{ $form }}
+            <livewire:basics.update-location />
         </div>
         
        

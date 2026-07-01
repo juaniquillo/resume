@@ -6,6 +6,8 @@ use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Locations\LocationsCrud;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -49,6 +51,8 @@ class CountryCodeFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), LocationsCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setAttributeBag(
@@ -56,7 +60,7 @@ class CountryCodeFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'badge' => 'required',
-                        ])
+                        ] + $livewireAttributes)
                 )
         );
     }
