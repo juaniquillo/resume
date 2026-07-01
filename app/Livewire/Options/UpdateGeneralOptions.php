@@ -27,11 +27,11 @@ class UpdateGeneralOptions extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        $this->validateForm($this->crud()->make(), $this->generalOptions);
+        $validator = $this->validateForm($this->crud()->make(), $this->generalOptions);
 
         (new UpdateAction(
             $user,
-            $this->generalOptions
+            $validator->validated()
         ))->handle();
 
         $this->dispatch('resume-updated');
