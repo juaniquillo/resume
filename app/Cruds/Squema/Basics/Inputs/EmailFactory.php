@@ -6,6 +6,8 @@ use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Basics\BasicsCrud;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -56,6 +58,8 @@ class EmailFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), BasicsCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setAttributeBag(
@@ -64,7 +68,7 @@ class EmailFactory
                             'label' => self::LABEL,
                             'type' => 'email',
                             'badge' => 'required',
-                        ])
+                        ] + $livewireAttributes)
                 )
         );
     }

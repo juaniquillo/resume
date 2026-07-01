@@ -5,7 +5,6 @@ use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\BasicsLocationController;
 use App\Http\Controllers\BasicsLocationUpdateController;
 use App\Http\Controllers\BasicsProfileController;
-use App\Http\Controllers\BasicsUpdateController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
@@ -58,7 +57,6 @@ Route::middleware(['auth', 'verified'])
          * Basics
          */
         Route::get('basics', BasicsController::class)->name('dashboard.basics');
-        Route::post('basics', BasicsUpdateController::class)->name('dashboard.basics.update');
 
         Route::get('basics/locations', BasicsLocationController::class)->name('dashboard.basics.location');
         Route::post('basics/locations', BasicsLocationUpdateController::class)->name('dashboard.basics.location.update');
