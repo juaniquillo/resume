@@ -104,7 +104,9 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+                if ($import->status !== ProcessStatus::PENDING && $import->status !== ProcessStatus::PROCESSING) {
+                    $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+                }
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
                     ->setContents($contents)
