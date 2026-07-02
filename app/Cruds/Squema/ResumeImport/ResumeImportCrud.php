@@ -133,7 +133,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formFullSpanInputs([JsonFileFactory::NAME]);
     }
 
-    public  static function canShowDeleteButton(ProcessStatus $status): bool
+    public static function canShowDeleteButton(ProcessStatus $status): bool
     {
         return $status !== ProcessStatus::PENDING && $status !== ProcessStatus::PROCESSING;
     }
