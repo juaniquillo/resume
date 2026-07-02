@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Basics\UpdateLocation;
+use App\Livewire\Resume\Basics\UpdateLocation;
 use App\Models\Basic;
 use App\Models\Location;
 use App\Models\User;

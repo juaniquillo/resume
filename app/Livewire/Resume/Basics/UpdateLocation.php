@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Basics;
+namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateLocation as UpdateAction;
 use App\Cruds\Squema\Locations\LocationsCrud;
@@ -76,7 +76,7 @@ class UpdateLocation extends Component
         $form = $crud->formWithInputsSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
-        return view('livewire.basics.update-location')
+        return view('livewire.resume.basics.update-location')
             ->with('form', $form);
     }
 }
