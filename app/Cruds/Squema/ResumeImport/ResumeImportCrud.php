@@ -104,7 +104,9 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
                     );
                 }
 
-                $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+                if (self::canShowDeleteButton($import->status)) {
+                    $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
+                }
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
                     ->setContents($contents)
@@ -129,5 +131,10 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
     public function formWithUploadSpanFull(?array $inputs = null): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([JsonFileFactory::NAME]);
+    }
+
+    public static function canShowDeleteButton(ProcessStatus $status): bool
+    {
+        return $status !== ProcessStatus::PENDING && $status !== ProcessStatus::PROCESSING;
     }
 }

@@ -72,6 +72,12 @@ class ResumeImportController extends Controller
         /** @var ResumeImport $import */
         $import = $user->resumeImports()->findOrFail($id);
 
+        if (! ResumeImportCrud::canShowDeleteButton($import->status)) {
+            return redirect()
+                ->back()
+                ->with('error', 'You cannot delete a resume import that is pending or processing.');
+        }
+
         $import->delete();
 
         return redirect()

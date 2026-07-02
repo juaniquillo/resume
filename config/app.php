@@ -2,6 +2,8 @@
 
 return [
 
+    'developer_visual_mode' => env('DEVELOPER_VISUAL_MODE', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
