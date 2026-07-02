@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Basics;
+namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateBasics as UpdateAction;
 use App\Cruds\Squema\Basics\BasicsCrud;
@@ -75,7 +75,7 @@ class UpdateBasics extends Component
         $form = $crud->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
-        return view('livewire.basics.update-basics')
+        return view('livewire.resume.basics.update-basics')
             ->with('form', $form);
     }
 }

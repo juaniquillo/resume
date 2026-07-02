@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Basics\UpdateBasics;
+use App\Livewire\Resume\Basics\UpdateBasics;
 use App\Models\Basic;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;

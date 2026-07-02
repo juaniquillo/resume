@@ -5,7 +5,7 @@
     @if ($basics)
         
         <div class="max-w-xl mt-6">
-            <livewire:basics.update-location />
+            <livewire:resume.basics.update-location />
         </div>
         
        
