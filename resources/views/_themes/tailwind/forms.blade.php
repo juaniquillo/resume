@@ -6,4 +6,5 @@ return [
     'column-span-full' => 'col-span-full',
     'width-md' => 'w-1/2',
     'fieldset-spacing' => 'space-y-4', 
+    'loading-opacity' => 'data-loading:opacity-50',
 ];

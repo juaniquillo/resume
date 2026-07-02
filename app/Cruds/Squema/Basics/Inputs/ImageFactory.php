@@ -7,12 +7,15 @@ use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Basics\BasicsCrud;
 use App\Models\Basic;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class ImageFactory
@@ -64,15 +67,19 @@ class ImageFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), BasicsCrud::getLivewireGroup());
+
         $input->setRecipe(
-            (new InputComponentRecipe)
-                ->setAttributeBag(
-                    (new DefaultAttributeBag)
-                        ->setInputAttributes([
-                            'label' => self::LABEL,
-                            'type' => FluxComponentEnum::TEXT_FILE->value,
-                        ])
-                )
+            new InputComponentRecipe(
+                disableBag: (new DefaultDisableBag)
+                    ->setDisableInputValue(true),
+                attributeBag: (new DefaultAttributeBag)
+                    ->setInputAttributes([
+                        'label' => self::LABEL,
+                        'type' => FluxComponentEnum::TEXT_FILE->value,
+                        ...$livewireAttributes,
+                    ]),
+            )
         );
     }
 

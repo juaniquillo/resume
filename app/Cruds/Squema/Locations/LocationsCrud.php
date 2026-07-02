@@ -21,6 +21,8 @@ final class LocationsCrud implements CrudForm, CrudInterface
     use HasHtmlForm,
         IsCrud;
 
+    public const NAME = 'basics_location';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
@@ -51,5 +53,10 @@ final class LocationsCrud implements CrudForm, CrudInterface
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs(['region']);
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return 'location';
     }
 }

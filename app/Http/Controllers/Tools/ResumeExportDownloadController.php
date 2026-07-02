@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
 
 use App\Enums\ProcessStatus;
+use App\Http\Controllers\Controller;
 use App\Models\ResumeExport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

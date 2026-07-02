@@ -4,6 +4,8 @@ namespace App\Cruds\Squema\Options\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\Options\GeneralOptionsCrud;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -38,6 +40,8 @@ class HideAddressFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), GeneralOptionsCrud::getLivewireGroup());
+
         $input->setRecipe(
             (new InputComponentRecipe(
                 checkable: true,
@@ -54,6 +58,7 @@ class HideAddressFactory
                             'name' => $input->getName(),
                             'align' => 'left',
                             'value' => 1,
+                            ...$livewireAttributes,
                         ])
                 )
         );

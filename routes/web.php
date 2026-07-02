@@ -3,9 +3,7 @@
 use App\Http\Controllers\AwardsController;
 use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\BasicsLocationController;
-use App\Http\Controllers\BasicsLocationUpdateController;
 use App\Http\Controllers\BasicsProfileController;
-use App\Http\Controllers\BasicsUpdateController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
@@ -15,25 +13,24 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InterestsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\Options\GeneralOptionsController;
-use App\Http\Controllers\Options\GeneralOptionsUpdateController;
 use App\Http\Controllers\Options\SectionOrderingController;
 use App\Http\Controllers\Options\SectionVisibilityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectHighlightsController;
 use App\Http\Controllers\PublicationsController;
 use App\Http\Controllers\ReferencesController;
-use App\Http\Controllers\ResumeCacheController;
 use App\Http\Controllers\ResumeController;
-use App\Http\Controllers\ResumeExportController;
-use App\Http\Controllers\ResumeExportDownloadController;
-use App\Http\Controllers\ResumeImportController;
-use App\Http\Controllers\ResumeImportDownloadController;
 use App\Http\Controllers\ResumeOgController;
-use App\Http\Controllers\ResumeOgManagementController;
-use App\Http\Controllers\ResumePreview;
 use App\Http\Controllers\ResumePublicDownloadController;
-use App\Http\Controllers\ResumeResetController;
 use App\Http\Controllers\SkillsController;
+use App\Http\Controllers\Tools\ResumeCacheController;
+use App\Http\Controllers\Tools\ResumeExportController;
+use App\Http\Controllers\Tools\ResumeExportDownloadController;
+use App\Http\Controllers\Tools\ResumeImportController;
+use App\Http\Controllers\Tools\ResumeImportDownloadController;
+use App\Http\Controllers\Tools\ResumeOgManagementController;
+use App\Http\Controllers\Tools\ResumePreview;
+use App\Http\Controllers\Tools\ResumeResetController;
 use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
@@ -59,10 +56,8 @@ Route::middleware(['auth', 'verified'])
          * Basics
          */
         Route::get('basics', BasicsController::class)->name('dashboard.basics');
-        Route::post('basics', BasicsUpdateController::class)->name('dashboard.basics.update');
 
         Route::get('basics/locations', BasicsLocationController::class)->name('dashboard.basics.location');
-        Route::post('basics/locations', BasicsLocationUpdateController::class)->name('dashboard.basics.location.update');
 
         Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
         Route::post('basics/profiles', [BasicsProfileController::class, 'store'])->name('dashboard.basics.profiles.store');
@@ -219,7 +214,6 @@ Route::middleware(['auth', 'verified'])
          * Options
          */
         Route::get('options/general', GeneralOptionsController::class)->name('dashboard.resume.general');
-        Route::post('options/general', GeneralOptionsUpdateController::class)->name('dashboard.resume.general.update');
 
         Route::get('options/visibility', SectionVisibilityController::class)->name('dashboard.resume.visibility');
         Route::get('options/ordering', SectionOrderingController::class)->name('dashboard.resume.ordering');

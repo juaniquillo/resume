@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Presenters\ResumePresenter;
 use App\Presenters\Themes\ThemeFactory;

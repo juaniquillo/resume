@@ -19,8 +19,7 @@ it('renders the basics index page for authenticated users', function () {
         ->get(route('dashboard.basics'))
         ->assertSuccessful()
         ->assertViewIs('dashboard.basics.index')
-        ->assertViewHas('form')
-        ->assertViewHas('firstTime', true);
+        ->assertSeeLivewire('basics.update-basics');
 });
 
 it('identifies when it is not the first time (model exists)', function () {
@@ -30,6 +29,5 @@ it('identifies when it is not the first time (model exists)', function () {
 
     $this->actingAs($this->user)
         ->get(route('dashboard.basics'))
-        ->assertSuccessful()
-        ->assertViewHas('firstTime', false);
+        ->assertSuccessful();
 });

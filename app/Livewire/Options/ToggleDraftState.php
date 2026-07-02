@@ -33,6 +33,7 @@ class ToggleDraftState extends Component
         (new ResumePresenterCacheManager($user))->clearCache();
 
         $this->dispatch('resume-updated');
+        $this->dispatch('resume-visibility-updated');
 
         $status = Helpers::isResumeInDraftState($user) ? __('Draft') : __('Published');
 

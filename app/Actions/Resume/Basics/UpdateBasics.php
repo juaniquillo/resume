@@ -17,7 +17,8 @@ class UpdateBasics
 
     public function handle(): Basic
     {
-        $basics = Basic::where('user_id', $this->user->id)->first();
+        /** @var Basic|null $basics */
+        $basics = $this->user->basics;
 
         if ($this->image) {
             if ($basics?->image) {
