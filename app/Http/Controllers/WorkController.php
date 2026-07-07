@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Resume\Work\UpdateWork;
 use App\Cruds\Squema\Works\WorksCrud;
-use App\Http\Requests\WorkFormRequest;
-use App\Models\Work;
 use Illuminate\Http\Request;
 
 class WorkController extends Controller
@@ -26,8 +23,6 @@ class WorkController extends Controller
             errors: $errors,
         );
 
-        $crud->setFormAction(route('dashboard.works.store'));
-
         $form = $crud->formWithTextareaSpanFull();
 
         if (! $works->isEmpty()) {
@@ -38,48 +33,6 @@ class WorkController extends Controller
             ->with('form', $form)
             ->with('table', $table)
             ->with('paginator', $works);
-    }
-
-    public function store(WorkFormRequest $request)
-    {
-        $validated = $request->validated();
-
-        $request->user()->works()->create($validated);
-
-        return redirect()
-            ->back()->with('success', 'Work created successfully.');
-    }
-
-    public function edit(Request $request, int $id)
-    {
-        $model = $request->user()->works()->findOrFail($id);
-
-        $values = $request->old();
-        $errors = $request->session()->get('errors')?->toArray() ?? [];
-
-        $crud = WorksCrud::build(
-            values: $values,
-            errors: $errors,
-            model: $model,
-        );
-
-        $crud->setFormAction(route('dashboard.works.update', $id));
-
-        $form = $crud->formWithTextareaSpanFull();
-
-        return view('dashboard.works.edit')
-            ->with('form', $form);
-    }
-
-    public function update(WorkFormRequest $request, int $id)
-    {
-        /** @var Work $model */
-        $model = $request->user()->works()->findOrFail($id);
-
-        (new UpdateWork($request->validated(), $model))->handle();
-
-        return redirect()
-            ->back()->with('success', 'Work updated successfully.');
     }
 
     public function destroy(Request $request, int $id)

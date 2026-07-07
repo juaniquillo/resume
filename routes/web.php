@@ -35,6 +35,7 @@ use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkHighlightsController;
+use App\Livewire\Resume\Works\EditWork;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -69,9 +70,7 @@ Route::middleware(['auth', 'verified'])
          * Works
          */
         Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
-        Route::post('works', [WorkController::class, 'store'])->name('dashboard.works.store');
-        Route::get('works/{id}/edit', [WorkController::class, 'edit'])->name('dashboard.works.edit');
-        Route::post('works/{id}', [WorkController::class, 'update'])->name('dashboard.works.update');
+        Route::get('works/{workId}/edit', EditWork::class)->name('dashboard.works.edit');
         Route::delete('works/{id}', [WorkController::class, 'destroy'])->name('dashboard.works.destroy');
 
         Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
