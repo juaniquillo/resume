@@ -21,6 +21,7 @@ use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -32,6 +33,8 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     use HasHtmlForm,
         HasHtmlTable,
         IsCrud;
+
+    public const NAME = 'works';
 
     public function __construct(
         protected array $values = [],
@@ -52,20 +55,20 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            'uuid' => UuidFactory::make(),
-            'user' => UserFactory::make(),
-            'name' => NameFactory::make(),
-            'url' => UrlFactory::make(),
-            'position' => PositionFactory::make(),
-            'starts_at' => StartsAtFactory::make(),
-            'ends_at' => EndsAtFactory::make(),
-            'summary' => SummaryFactory::make(),
+            // 'uuid' => UuidFactory::make(),
+            // 'user' => UserFactory::make(),
+            NameFactory::NAME => NameFactory::make(),
+            UrlFactory::NAME => UrlFactory::make(),
+            PositionFactory::NAME => PositionFactory::make(),
+            StartsAtFactory::NAME => StartsAtFactory::make(),
+            EndsAtFactory::NAME => EndsAtFactory::make(),
+            SummaryFactory::NAME => SummaryFactory::make(),
         ];
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['summary']);
+        return $this->formFullSpanInputs([SummaryFactory::NAME]);
     }
 
     protected function extraCells(TableRowsAction $action): void
@@ -110,5 +113,10 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 }

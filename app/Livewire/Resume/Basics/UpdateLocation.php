@@ -7,6 +7,7 @@ use App\Cruds\Squema\Locations\LocationsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -47,6 +48,7 @@ class UpdateLocation extends Component
     }
 
     #[On('resume-updated')]
+    #[Computed]
     public function refreshVariables(): void
     {
         /** @var User $user */

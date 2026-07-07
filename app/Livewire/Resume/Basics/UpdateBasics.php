@@ -8,6 +8,7 @@ use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,12 +48,13 @@ class UpdateBasics extends Component
     }
 
     #[On('resume-updated')]
+    #[Computed]
     public function refreshVariables(): void
     {
         /** @var User $user */
         $user = Auth::user();
 
-        $this->basics = $user->basics?->toArray() ?? [];
+        $this->basics = $user->resumeBasics()?->toArray() ?? [];
 
     }
 

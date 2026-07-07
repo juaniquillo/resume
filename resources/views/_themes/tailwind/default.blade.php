@@ -4,7 +4,7 @@ return [
     'container' => 'container mx-auto max-w-4xl 2xl:max-w-6xl p-8',
     'basics-container' => 'mb-12',
     'image' => 'w-32 h-32 2xl:w-40 2xl:h-40 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6 dark:border-sky-500',
-    'name' => 'text-5xl md:text-7xl 2xl:text-8xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',
+    'name' => '[word-spacing:-.5rem] md:[word-spacing:-.8rem] text-5xl md:text-7xl 2xl:text-8xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',
     'label' => 'text-2xl 2xl:text-3xl font-medium text-sky-600 mb-6 2xl:mb-10 dark:text-sky-400',
     
     'contact-container' => 'flex flex-wrap gap-4 text-md 2xl:text-lg font-medium',

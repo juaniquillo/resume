@@ -1,6 +1,6 @@
 <x-layouts::app :title="__('Dashboard')">
 
-    <flux:heading size="xl" level="1">{{  __("Create Your Location") }}</flux:heading>
+    <flux:heading size="xl" level="1">{{  __("Add your location") }}</flux:heading>
 
     @if ($basics)
         
