@@ -46,25 +46,25 @@ class EditWork extends Component
         $this->redirect(route('dashboard.works'));
     }
 
-    #[On('resume-updated')]
     #[Computed]
     public function refreshVariables(): void
     {
         $work = $this->getModel();
 
         // format date output to be compatible with the input type="month"
-        $works = $this->crud($work)->make()->execute(
+        $workOutput = $this->crud($work)->make()->execute(
             new FormatDateAction(
                 model: $work
             )
         );
 
-        $this->works = $works->toArray();
+        $this->works = $workOutput->toArray();
 
     }
 
     /** @throws ModelNotFoundException */
     #[On('resume-updated')]
+    #[Computed]
     private function getModel(): Work
     {
         /** @var User $user */
@@ -87,8 +87,6 @@ class EditWork extends Component
 
     public function render()
     {
-        /** @var User $user */
-        $user = Auth::user();
         $work = $this->getModel();
 
         $crud = $this->crud($work);
