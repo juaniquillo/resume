@@ -36,15 +36,14 @@ class DeleteWork extends Component
 
     private function getUser(): User
     {
-        /** @var User $user */
         return Auth::user();
     }
 
     public function getComponent(): BackendComponent|CompoundComponent
     {
         return TableHelpers::livewireDeleteButton(
-            action: "deleteWork",
-            confirmMessage: "Are you sure you want to delete this work?",
+            action: 'deleteWork',
+            confirmMessage: 'Are you sure you want to delete this work?',
         );
     }
 
