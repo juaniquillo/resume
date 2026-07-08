@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -33,17 +32,19 @@ class WorksTable extends Component
 
     private function crud()
     {
-        return WorksCrud::build(
-            values: [],
-            errors: [],
-        );
+        return WorksCrud::build();
     }
 
-    private function table(): BackendComponent|CompoundComponent
+    private function table(): ?BackendComponent
     {
-        return $this->crud()->makeTable($this->getModels());
+        $models = $this->getModels();
+        if ($models->isEmpty()) {
+            return null;
+        }
+
+        return $this->crud()->makeTable($models);
     }
-    
+
     public function render()
     {
         return view('livewire.resume.works.works-table')
