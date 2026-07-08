@@ -48,3 +48,5 @@
 45. ✅ Add the image and the address to the General Options' Security Options group.
 46. ✅ Work on a new Resume Theme now under another Agent/Model
 47. ◻️ Add a theme select menu to the resume dashboard preview.
+48. ◻️ Work on cover letter CRUD and export.
+49. ◻️ Add the JSON export to the downloads' section.
