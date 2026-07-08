@@ -71,7 +71,6 @@ Route::middleware(['auth', 'verified'])
          */
         Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
         Route::get('works/{workId}/edit', EditWork::class)->name('dashboard.works.edit');
-        Route::delete('works/{id}', [WorkController::class, 'destroy'])->name('dashboard.works.destroy');
 
         Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
         Route::post('works/{id}/highlights', [WorkHighlightsController::class, 'store'])->name('dashboard.works.highlights.store');
