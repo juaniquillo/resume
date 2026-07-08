@@ -19,6 +19,7 @@ use App\Cruds\Squema\Works\Inputs\SummaryFactory;
 use App\Cruds\Squema\Works\Inputs\UrlFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
+use App\Livewire\Resume\Works\DeleteWork;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -51,12 +52,19 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    public function inputsArrayComplete(): array
+    {
+        return [
+            'uuid' => UuidFactory::make(),
+            'user' => UserFactory::make(),
+            ...$this->inputsArray(),
+        ];
+    }
+
     /** @return array<?InputInterface> */
     public function inputsArray(): array
     {
         return [
-            // 'uuid' => UuidFactory::make(),
-            // 'user' => UserFactory::make(),
             NameFactory::NAME => NameFactory::make(),
             UrlFactory::NAME => UrlFactory::make(),
             PositionFactory::NAME => PositionFactory::make(),
@@ -100,7 +108,8 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 
                 $contents = [
                     $helper->editButton(route('dashboard.works.edit', [$work->id])),
-                    $helper->deleteButton(route('dashboard.works.destroy', [$work->id])),
+                    // $helper->deleteButton(route('dashboard.works.destroy', [$work->id])),
+                    $this->liveWireDeleteButton($work),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -113,6 +122,18 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
+    }
+
+    public function liveWireDeleteButton(Work $model): BackendComponent|CompoundComponent
+    {
+        $component = ComponentBuilder::make(DeleteWork::class)
+            ->setLivewire()
+            ->setLivewireKey("delete-work-{$model->id}")
+            ->setLivewireParams([
+                'workId' => $model->id,
+            ]);
+
+        return $component;
     }
 
     public static function getLivewireGroup(): string

@@ -43,9 +43,12 @@ class EditWork extends Component
 
         session()->flash('success', 'Work updated successfully.');
 
+        $this->dispatch('resume-updated');
+
         $this->redirect(route('dashboard.works'));
     }
 
+    #[On('resume-updated')]
     #[Computed]
     public function refreshVariables(): void
     {
@@ -54,7 +57,7 @@ class EditWork extends Component
         // format date output to be compatible with the input type="month"
         $workOutput = $this->crud($work)->make()->execute(
             new FormatDateAction(
-                model: $work
+                model: $work,
             )
         );
 
@@ -63,7 +66,6 @@ class EditWork extends Component
     }
 
     /** @throws ModelNotFoundException */
-    #[On('resume-updated')]
     #[Computed]
     private function getModel(): Work
     {

@@ -36,7 +36,11 @@ class CreateWork extends Component
 
         session()->flash('success', 'Work created successfully.');
 
-        $this->redirect(route('dashboard.works'));
+        $this->dispatch('resume-updated');
+
+        $this->refreshVariables();
+
+        // $this->redirect(route('dashboard.works'));
     }
 
     #[Computed]

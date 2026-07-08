@@ -16,6 +16,7 @@ class FormatDateAction implements ActionInterface
 
     public function __construct(
         private Model $model,
+        private bool $onlyDates = false,
     ) {}
 
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
@@ -29,7 +30,7 @@ class FormatDateAction implements ActionInterface
 
         if ($recipe && $isDate) {
             $output->set($name, DateHelpers::formatDateOutput($value));
-        } else {
+        } elseif (! $this->onlyDates) {
             $output->set($name, $value);
         }
 
