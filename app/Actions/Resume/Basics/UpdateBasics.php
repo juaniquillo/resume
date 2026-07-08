@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Basics;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Basic;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -33,9 +34,11 @@ class UpdateBasics
             unset($this->data['image']);
         }
 
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         return Basic::updateOrCreate(
             ['user_id' => $this->user->id],
-            $this->data
+            $data
         );
     }
 }
