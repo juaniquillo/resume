@@ -14,6 +14,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Livewire\Component;
 use Stringable;
 
 final class TableHelpers
@@ -101,6 +102,17 @@ final class TableHelpers
             ->setAttribute('wire:click.prevent', $action);
 
         return $button;
+    }
+
+    /** @param class-string<Component>|BackedEnum $component */
+    public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
+    {
+        $component = ComponentBuilder::make($component)
+            ->setLivewire()
+            ->setLivewireKey($id)
+            ->setLivewireParams($params);
+
+        return $component;
     }
 
     public static function baseDeleteButton(): BackendComponent|CompoundComponent

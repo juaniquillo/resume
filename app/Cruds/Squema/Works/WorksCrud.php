@@ -20,6 +20,7 @@ use App\Cruds\Squema\Works\Inputs\UrlFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use App\Livewire\Resume\Works\DeleteWork;
+use App\Livewire\Resume\Works\EditWork;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -74,6 +75,13 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->composeForm($this->inputsArray(), [
+            'forms' => 'one-column',
+        ]);
+    }
+
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([SummaryFactory::NAME]);
@@ -107,9 +115,17 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 $helper = TableHelpers::make();
 
                 $contents = [
-                    $helper->editButton(route('dashboard.works.edit', [$work->id])),
-                    // $helper->deleteButton(route('dashboard.works.destroy', [$work->id])),
-                    $this->liveWireDeleteButton($work),
+                    // $helper->editButton(route('dashboard.works.edit', [$work->id])),
+                    $helper->liveWireComponent(
+                        component: EditWork::class, 
+                        id: "edit-work-{$model->id}", 
+                        params: ['workId' => $model->id,]
+                    ),
+                    $helper->liveWireComponent(
+                        component: DeleteWork::class, 
+                        id: "delete-work-{$model->id}", 
+                        params: ['workId' => $model->id,]
+                    ),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -122,18 +138,6 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    public function liveWireDeleteButton(Work $model): BackendComponent|CompoundComponent
-    {
-        $component = ComponentBuilder::make(DeleteWork::class)
-            ->setLivewire()
-            ->setLivewireKey("delete-work-{$model->id}")
-            ->setLivewireParams([
-                'workId' => $model->id,
-            ]);
-
-        return $component;
     }
 
     public static function getLivewireGroup(): string

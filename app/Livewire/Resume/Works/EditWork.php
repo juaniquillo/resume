@@ -6,18 +6,24 @@ use App\Actions\Resume\Work\UpdateWork;
 use App\Cruds\Actions\General\FormatDateAction;
 use App\Cruds\Squema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
+use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Models\Work;
+use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class EditWork extends Component
 {
-    use IsLivewireForm;
+    use IsLivewireForm,
+        IsLivewireModal;
 
     public array $works = [];
 
@@ -45,10 +51,11 @@ class EditWork extends Component
 
         $this->dispatch('resume-updated');
 
-        $this->redirect(route('dashboard.works'));
+        (new FluxManager())->modal($this->getModalKey())->close();
+
+        // $this->redirect(route('dashboard.works'));
     }
 
-    #[On('resume-updated')]
     #[Computed]
     public function refreshVariables(): void
     {
@@ -87,16 +94,44 @@ class EditWork extends Component
         );
     }
 
+    public function getForm(): BackendComponent|CompoundComponent
+    {
+        return $this->crud($this->getModel())
+            ->formNarrow()
+            ->setAttribute('wire:submit.prevent', 'updateForm()');
+    }
+
+    public function getModalKey(): string
+    {
+        return "edit-work-{$this->workId}";
+    }
+
+    public function getModal(): BackendComponent|CompoundComponent
+    {
+        $id = $this->getModalKey();
+        $form = $this->getForm();
+
+        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+            ->setContents([
+                // From trait
+                'button' => $this->modalButton(
+                    label: 'Edit Work', 
+                    id: $id,
+                    icon: self::EDIT_ICON, 
+                    size: 'xs'
+                ),
+                // From trait
+                'modal' => $this->modalComponent(
+                    id: $id, 
+                    content: $form
+                )
+                ->setTheme('modal', 'lg'),
+            ]);
+    }
+
     public function render()
     {
-        $work = $this->getModel();
-
-        $crud = $this->crud($work);
-
-        $form = $crud->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'updateForm()');
-
         return view('livewire.resume.works.edit-work')
-            ->with('form', $form);
+            ->with('update', $this->getModal());
     }
 }

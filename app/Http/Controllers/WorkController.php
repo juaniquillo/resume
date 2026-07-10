@@ -11,13 +11,4 @@ class WorkController extends Controller
         return view('dashboard.works.index');
     }
 
-    public function destroy(Request $request, int $id)
-    {
-        $model = $request->user()->works()->findOrFail($id);
-
-        $model->delete();
-
-        return redirect()
-            ->back()->with('success', 'Work deleted successfully.');
-    }
 }

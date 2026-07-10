@@ -31,7 +31,6 @@ class DeleteWork extends Component
         $work->delete();
 
         $this->dispatch('resume-updated');
-        $this->dispatch('work-deleted', $id);
     }
 
     private function getUser(): User

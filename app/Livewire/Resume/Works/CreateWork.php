@@ -6,14 +6,22 @@ use App\Actions\Resume\Work\CreateWork as CreateWorkAction;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Squema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
+use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use Flux\Flux;
+use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class CreateWork extends Component
 {
-    use IsLivewireForm;
+    use IsLivewireForm,
+        IsLivewireModal;
 
     public array $works = [];
 
@@ -39,6 +47,8 @@ class CreateWork extends Component
         $this->dispatch('resume-updated');
 
         $this->refreshVariables();
+
+        (new FluxManager())->modal($this->getModalKey())->close();
 
         // $this->redirect(route('dashboard.works'));
     }
@@ -67,14 +77,44 @@ class CreateWork extends Component
         );
     }
 
+    public function getForm(): BackendComponent|CompoundComponent
+    {
+        return $this->crud()
+            ->formNarrow()
+            ->setAttribute('wire:submit.prevent', 'createForm()');
+    }
+
+    public function getModalKey(): string
+    {
+        return "create-work";
+    }
+
+    public function getModal(): BackendComponent|CompoundComponent
+    {
+        $id = $this->getModalKey();
+        $form = $this->getForm();
+
+        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+            ->setContents([
+                // From trait
+                'button' => $this->modalButton(
+                    label: 'Edit Work', 
+                    id: $id,
+                    variant: 'filled',
+                    icon: self::CREATE_ICON, 
+                ),
+                // From trait
+                'modal' => $this->modalComponent(
+                    id: $id, 
+                    content: $form
+                )
+                ->setTheme('modal', 'lg'),
+            ]);
+    }
+    
     public function render()
     {
-        $crud = $this->crud();
-
-        $form = $crud->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'createForm()');
-
         return view('livewire.resume.works.create_work')
-            ->with('form', $form);
+            ->with('create', $this->getModal());
     }
 }
