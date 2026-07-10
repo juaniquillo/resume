@@ -70,7 +70,6 @@ Route::middleware(['auth', 'verified'])
          * Works
          */
         Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
-        Route::get('works/{workId}/edit', EditWork::class)->name('dashboard.works.edit');
 
         Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
         Route::post('works/{id}/highlights', [WorkHighlightsController::class, 'store'])->name('dashboard.works.highlights.store');
