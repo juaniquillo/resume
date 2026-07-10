@@ -35,7 +35,6 @@ use App\Http\Controllers\VolunteersController;
 use App\Http\Controllers\VolunteersHighlightsController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkHighlightsController;
-use App\Livewire\Resume\Works\EditWork;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
