@@ -51,12 +51,25 @@ it('updates an existing work record', function () {
         ->set('works.ends_at', '2021-01-01')
         ->set('works.summary', 'Updated summary')
         ->call('updateForm')
-        ->assertHasNoErrors()
-        ->assertRedirect(route('dashboard.works'));
+        ->assertHasNoErrors();
 
     $this->assertDatabaseHas('works', [
         'id' => $work->id,
         'name' => 'New Corp',
         'position' => 'Senior Developer',
     ]);
+});
+
+it('validates update form', function () {
+    $work = Work::factory()->create([
+        'user_id' => $this->user->id,
+        'name' => 'Old Corp',
+    ]);
+
+    $this->actingAs($this->user);
+
+    Livewire::test(EditWork::class, ['workId' => $work->id])
+        ->set('works.name', '')
+        ->call('updateForm')
+        ->assertHasErrors(['name']);
 });

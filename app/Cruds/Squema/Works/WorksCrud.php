@@ -117,14 +117,14 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 $contents = [
                     // $helper->editButton(route('dashboard.works.edit', [$work->id])),
                     $helper->liveWireComponent(
-                        component: EditWork::class, 
-                        id: "edit-work-{$model->id}", 
-                        params: ['workId' => $model->id,]
+                        component: EditWork::class,
+                        id: "edit-work-{$work->id}",
+                        params: ['workId' => $work->id]
                     ),
                     $helper->liveWireComponent(
-                        component: DeleteWork::class, 
-                        id: "delete-work-{$model->id}", 
-                        params: ['workId' => $model->id,]
+                        component: DeleteWork::class,
+                        id: "delete-work-{$work->id}",
+                        params: ['workId' => $work->id]
                     ),
                 ];
 

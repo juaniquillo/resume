@@ -51,7 +51,7 @@ class EditWork extends Component
 
         $this->dispatch('resume-updated');
 
-        (new FluxManager())->modal($this->getModalKey())->close();
+        (new FluxManager)->modal($this->getModalKey())->close();
 
         // $this->redirect(route('dashboard.works'));
     }
@@ -115,17 +115,17 @@ class EditWork extends Component
             ->setContents([
                 // From trait
                 'button' => $this->modalButton(
-                    label: 'Edit Work', 
+                    label: 'Edit Work',
                     id: $id,
-                    icon: self::EDIT_ICON, 
+                    icon: self::EDIT_ICON,
                     size: 'xs'
                 ),
                 // From trait
                 'modal' => $this->modalComponent(
-                    id: $id, 
-                    content: $form
-                )
-                ->setTheme('modal', 'lg'),
+                    id: $id,
+                    content: $form,
+                    themes: ['modal' => 'lg'],
+                ),
             ]);
     }
 

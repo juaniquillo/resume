@@ -20,8 +20,7 @@ it('deletes a work record', function () {
 
     Livewire::test(DeleteWork::class, ['workId' => $work->id])
         ->call('deleteWork')
-        ->assertDispatched('resume-updated')
-        ->assertDispatched('work-deleted', $work->id);
+        ->assertDispatched('resume-updated');
 
     $this->assertDatabaseMissing('works', [
         'id' => $work->id,

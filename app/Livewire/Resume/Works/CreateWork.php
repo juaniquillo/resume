@@ -8,7 +8,6 @@ use App\Cruds\Squema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
-use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -48,7 +47,7 @@ class CreateWork extends Component
 
         $this->refreshVariables();
 
-        (new FluxManager())->modal($this->getModalKey())->close();
+        (new FluxManager)->modal($this->getModalKey())->close();
 
         // $this->redirect(route('dashboard.works'));
     }
@@ -86,7 +85,7 @@ class CreateWork extends Component
 
     public function getModalKey(): string
     {
-        return "create-work";
+        return 'create-work';
     }
 
     public function getModal(): BackendComponent|CompoundComponent
@@ -98,20 +97,20 @@ class CreateWork extends Component
             ->setContents([
                 // From trait
                 'button' => $this->modalButton(
-                    label: 'Edit Work', 
+                    label: 'Edit Work',
                     id: $id,
                     variant: 'filled',
-                    icon: self::CREATE_ICON, 
+                    icon: self::CREATE_ICON,
                 ),
                 // From trait
                 'modal' => $this->modalComponent(
-                    id: $id, 
-                    content: $form
-                )
-                ->setTheme('modal', 'lg'),
+                    id: $id,
+                    content: $form,
+                    themes: ['modal' => 'lg']
+                ),
             ]);
     }
-    
+
     public function render()
     {
         return view('livewire.resume.works.create_work')
