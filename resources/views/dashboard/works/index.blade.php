@@ -6,10 +6,7 @@
         <livewire:resume.works.create-work />
     </div>
 
-    <flux:separator variant="subtle" class="mt-6" />
-
-    <x-table-container>
-        <livewire:resume.works.works-table />
-    </x-table-container>
+    <livewire:resume.works.works-table />
+    
 
 </x-layouts::app>

@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Livewire\Resume\Works;
+namespace App\Livewire\Resume\Highlights;
 
-use App\Actions\Resume\Work\UpdateWork;
-use App\Cruds\Actions\General\FormatDateAction;
-use App\Cruds\Squema\Works\WorksCrud;
+use App\Actions\Highlights\UpdateHighlight;
+use App\Cruds\Squema\Highlights\HighlightsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
+use App\Models\Contracts\HighlightModel;
+use App\Models\Highlight;
 use App\Models\User;
-use App\Models\Work;
 use Flux\FluxManager;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -18,33 +20,36 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
-class EditWork extends Component
+class EditHighlight extends Component
 {
     use IsLivewireForm,
         IsLivewireModal;
 
-    public array $works = [];
-
+    public array $highlights = [];
+    
     #[Locked]
-    public int $workId;
+    public ?int $highlightId = null;
 
-    public function mount(int $workId): void
+    public function mount(int $highlightId): void
     {
-        $this->workId = $workId;
+        $this->highlightId = $highlightId;
         $this->refreshVariables();
     }
-
+    
     public function updateForm(): void
     {
-        $work = $this->getModel();
+        $user = $this->getUser();
+        $highlight = Highlight::findOrFail($this->highlightId);
 
-        $validator = $this->validateForm($this->crud($work)->make(), $this->works);
+        $validator = $this->validateForm($this->crud($highlight)->make(), $this->highlights);
 
-        (new UpdateWork(
-            $validator->validated(),
-            $work
+        (new UpdateHighlight(
+            $user,
+            $highlight,
+            $validator->validate(),
         ))->handle();
 
         session()->flash('success', 'Work updated successfully.');
@@ -52,58 +57,61 @@ class EditWork extends Component
         $this->dispatch('resume-updated');
 
         (new FluxManager)->modal($this->getModalKey())->close();
-
-        // $this->redirect(route('dashboard.works'));
+        
     }
 
+    
     #[Computed]
     public function refreshVariables(): void
     {
-        $work = $this->getModel();
-
-        // format date output to be compatible with the input type="month"
-        $workOutput = $this->crud($work)->make()->execute(
-            new FormatDateAction(
-                model: $work,
-            )
-        );
-
-        $this->works = $workOutput->toArray();
-
+        $this->highlights = $this->getModel()->toArray();
     }
 
-    /** @throws ModelNotFoundException */
+    /** 
+     * @throws ModelNotFoundException 
+     */
     #[Computed]
-    private function getModel(): Work
+    private function getModel(): Highlight
     {
-        /** @var User $user */
-        $user = Auth::user();
+        $user = $this->getUser();
+        $highlight = Highlight::findOrFail($this->highlightId);
 
-        /** @var Work $work */
-        $work = $user->works()->findOrFail($this->workId);
+        /** @var Model|HighlightModel $parent */
+        $parent = $highlight->highlightable;
 
-        return $work;
+        if($parent->getUserId() !== $user->id) {
+            throw new AuthenticationException('You are not authorized to delete this highlight');
+        }
+
+        return $highlight;
     }
 
-    private function crud(Work $work)
+    private function getUser(): User
     {
-        return WorksCrud::build(
-            values: $this->works,
+        return Auth::user();
+    }
+
+
+    private function crud(Highlight $highlight)
+    {
+        return (HighlightsCrud::build(
+            values: $this->highlights,
             errors: $this->formErrors,
-            model: $work,
-        );
+            model: $highlight,
+        ))
+            ->setLivewire();
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formNarrow()
+            ->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
-
+    
     public function getModalKey(): string
     {
-        return "edit-work-{$this->workId}";
+        return "edit-work-{$this->highlightId}";
     }
 
     public function getModal(): BackendComponent|CompoundComponent
@@ -131,7 +139,7 @@ class EditWork extends Component
 
     public function render()
     {
-        return view('livewire.resume.works.edit-work')
+        return view('livewire.resume.highlights.update_highlight')
             ->with('update', $this->getModal());
     }
 }

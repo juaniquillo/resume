@@ -59,7 +59,13 @@ class NameValueAction extends Action implements ActionInterface
         $inputName = $input->getName();
 
         if (! $recipe) {
+            
             if (! array_key_exists($inputName, $values)) {
+
+                if ($this->globalDefault !== null) {
+                    $output->set($inputName, $this->globalDefault);
+                }
+                
                 return $output;
             }
 

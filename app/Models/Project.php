@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $end_date
  * @property-read string|null $url
  * @property-read string|null $description
- * @property-read string $user_id
+ * @property-read int $user_id
  * @property-read Carbon|null $created_at
  * @property-read Carbon|null $updated_at
  * @property-read User $user

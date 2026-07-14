@@ -9,12 +9,17 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
+use App\Cruds\Concerns\IsLivewireForm;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Squema\Highlights\Inputs\HighlightFactory;
+use App\Livewire\Resume\Highlights\DeleteHighlight;
+use App\Livewire\Resume\Highlights\EditHighlight;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -24,7 +29,10 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
 {
     use HasHtmlForm,
         HasHtmlTable,
+        IsLivewireForm,
         IsCrud;
+
+    public const NAME = 'highlights';
 
     public function __construct(
         protected array $values = [],
@@ -53,7 +61,7 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            'highlight' => HighlightFactory::make(),
+            'highlight' => HighlightFactory::make($this->isLivewire),
         ];
     }
 
@@ -74,9 +82,26 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Highlight $highlight */
                 $highlight = $model;
 
+                $helper = TableHelpers::make();
+
                 $contents = [
-                    $this->tableEditButton($highlight),
-                    $this->tableDeleteButton($highlight),
+                    // $this->tableEditButton($highlight),
+                    // $this->tableDeleteButton($highlight),
+
+                    $helper->liveWireComponent(
+                        component: EditHighlight::class,
+                        id: "edit-highlight-{$highlight->id}",
+                        params: [
+                            $highlight->id,
+                        ]
+                    ),
+                    $helper->liveWireComponent(
+                        component: DeleteHighlight::class,
+                        id: "delete-highlight-{$highlight->id}",
+                        params: [
+                            $highlight->id,
+                        ]
+                    ),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -100,19 +125,8 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
             ->setTheme('cursor', 'pointer');
     }
 
-    public function tableDeleteButton(Highlight $highlight): BackendComponent|CompoundComponent
+    public static function getLivewireGroup(): string
     {
-        return ComponentBuilder::make(ComponentEnum::FORM)
-            ->setAttribute('action', route($this->baseRoute.'.destroy', [$highlight->highlightable_id, $highlight->id]))
-            ->setAttribute('method', 'delete')
-            ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('onclick', "return confirm('Are you sure you want to delete this highlight?')")
-                    ->setTheme('cursor', 'pointer'),
-            );
+        return Str::camel(self::NAME);
     }
 }

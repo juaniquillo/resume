@@ -15,39 +15,8 @@ class WorkHighlightsController extends Controller
         /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);
 
-        $crud = HighlightsCrud::build(
-            values: $request->old(),
-            errors: $request->session()->get('errors')?->toArray() ?? [],
-            baseRoute: 'dashboard.works.highlights',
-        );
-
-        $crud->setFormAction(
-            route('dashboard.works.highlights.store', $id)
-        );
-
-        $table = null;
-        $highlights = $work->highlights()->paginate(10);
-
-        if (! $highlights->isEmpty()) {
-            $table = $crud->makeTable($highlights);
-        }
-
         return view('dashboard.works.highlights.index')
-            ->with('form', $crud->formWithTextareaSpanFull())
-            ->with('table', $table)
-            ->with('paginator', $highlights);
-    }
-
-    public function store(HighlightsFormRequest $request, int $id)
-    {
-        $validated = $request->validated();
-
-        /** @var Work $work */
-        $work = $request->user()->works()->findOrFail($id);
-        $work->highlights()->create($validated);
-
-        return back()
-            ->with('success', 'Highlight created successfully.');
+            ->with('model', $work);
     }
 
     public function edit(Request $request, int $id, int $highlightId)
