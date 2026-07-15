@@ -4,7 +4,9 @@ namespace App\Components\Concerns;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
@@ -15,12 +17,34 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
  */
 trait IsFluxNavigation
 {
-    public static function makeNav(): BackendComponent
+    public static function makeNav(): BackendComponent|Htmlable
     {
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents(
                 self::navItems()
             );
+    }
+
+    public static function cacheNav(): string
+    {
+        $key = self::getKeyCache();
+
+        return Cache::remember($key, now()->addWeek(), function () {
+            return self::makeNav()->toHtml();
+        });
+
+    }
+
+    public static function getKeyCache(): string
+    {
+        $class = md5(self::class);
+
+        return "cache-nav-{$class}";
+    }
+
+    public static function clearCache(): void
+    {
+        Cache::forget(self::getKeyCache());
     }
 
     public static function items(): array
