@@ -30,13 +30,13 @@ class DeleteHighlight extends Component
     public function deleteWHighlight(): void
     {
         $user = $this->getUser();
-        
+
         $highlight = Highlight::findOrFail($this->highlightId);
 
         /** @var Model|HighlightModel $parent */
         $parent = $highlight->highlightable;
 
-        if($parent->getUserId() !== $user->id) {
+        if ($parent->getUserId() !== $user->id) {
             throw new AuthenticationException('You are not authorized to delete this highlight');
         }
 

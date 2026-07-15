@@ -26,15 +26,14 @@ trait HasHighlights
     {
         return $this->id;
     }
-    
+
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-   public  function getUserId(): int
+    public function getUserId(): int
     {
         return $this->user_id;
     }
-
 }

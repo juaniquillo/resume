@@ -12,5 +12,4 @@ trait IsLivewireForm
 
         return $this;
     }
-
 }

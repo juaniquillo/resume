@@ -55,10 +55,10 @@ class HighlightFactory
     public static function form(InputInterface $input, bool $isLivewire = false): void
     {
         $livewireAttributes = [];
-        if($isLivewire) {
+        if ($isLivewire) {
             $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), HighlightsCrud::getLivewireGroup());
         }
-        
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setInputGroup(new InputErrorGroup)
@@ -75,7 +75,7 @@ class HighlightFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'badge' => 'required',
-                            ...$livewireAttributes
+                            ...$livewireAttributes,
                         ])
                 )
                 ->setHookBag(

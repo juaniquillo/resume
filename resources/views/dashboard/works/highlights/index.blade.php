@@ -3,7 +3,7 @@
     <flux:heading size="xl" level="1">{{ __("Work Highlights") }}</flux:heading>
 
     <div class="mt-6">
-        <flux:button variant="primary" size="xs" :href="route('dashboard.works')">Go back to Works</flux:button>
+        <flux:button variant="primary" size="xs" :href="route('dashboard.works')" wire:navigate >Go back to Works</flux:button>
     </div>
     
     <div class="max-w-xl mt-6">

@@ -166,8 +166,15 @@ final class TableHelpers
 
     public static function highlightsButton(string $route): BackendComponent|CompoundComponent
     {
+        return self::baseHighlightsButton()
+            ->setAttribute('wire:navigate', '')
+            ->setAttribute('href', $route);
+
+    }
+
+    public static function baseHighlightsButton(): BackendComponent|CompoundComponent
+    {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', $route)
             ->setContent('Highlights')
             ->setAttribute('variant', 'primary')
             ->setAttribute('icon', 'sun')

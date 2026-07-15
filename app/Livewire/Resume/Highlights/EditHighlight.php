@@ -20,7 +20,6 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class EditHighlight extends Component
@@ -29,7 +28,7 @@ class EditHighlight extends Component
         IsLivewireModal;
 
     public array $highlights = [];
-    
+
     #[Locked]
     public ?int $highlightId = null;
 
@@ -38,7 +37,7 @@ class EditHighlight extends Component
         $this->highlightId = $highlightId;
         $this->refreshVariables();
     }
-    
+
     public function updateForm(): void
     {
         $user = $this->getUser();
@@ -57,18 +56,17 @@ class EditHighlight extends Component
         $this->dispatch('resume-updated');
 
         (new FluxManager)->modal($this->getModalKey())->close();
-        
+
     }
 
-    
     #[Computed]
     public function refreshVariables(): void
     {
         $this->highlights = $this->getModel()->toArray();
     }
 
-    /** 
-     * @throws ModelNotFoundException 
+    /**
+     * @throws ModelNotFoundException
      */
     #[Computed]
     private function getModel(): Highlight
@@ -79,7 +77,7 @@ class EditHighlight extends Component
         /** @var Model|HighlightModel $parent */
         $parent = $highlight->highlightable;
 
-        if($parent->getUserId() !== $user->id) {
+        if ($parent->getUserId() !== $user->id) {
             throw new AuthenticationException('You are not authorized to delete this highlight');
         }
 
@@ -91,14 +89,13 @@ class EditHighlight extends Component
         return Auth::user();
     }
 
-
     private function crud(Highlight $highlight)
     {
-        return (HighlightsCrud::build(
+        return HighlightsCrud::build(
             values: $this->highlights,
             errors: $this->formErrors,
             model: $highlight,
-        ))
+        )
             ->setLivewire();
     }
 
@@ -108,7 +105,7 @@ class EditHighlight extends Component
             ->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
-    
+
     public function getModalKey(): string
     {
         return "edit-work-{$this->highlightId}";

@@ -38,16 +38,16 @@ class HighlightTable extends Component
 
         return $highlights;
     }
-    
+
     private function crud()
     {
-        return HighlightsCrud::build([], [],baseRoute: 'dashboard.works.highlights',);
+        return HighlightsCrud::build([], [], baseRoute: 'dashboard.works.highlights');
     }
 
     private function table(): ?BackendComponent
     {
         $models = $this->getModels();
-        
+
         if ($models->isEmpty()) {
             return null;
         }
@@ -59,6 +59,6 @@ class HighlightTable extends Component
     public function render()
     {
         return view('livewire.resume.highlights.highlight_table')
-            ->with('table',  $this->table());
+            ->with('table', $this->table());
     }
 }

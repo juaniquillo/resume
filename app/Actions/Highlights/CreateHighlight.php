@@ -13,15 +13,14 @@ class CreateHighlight
         private User $user,
         private Model|HighlightModel $model,
         private array $data
-    )
-    {}
+    ) {}
 
     public function handle(): void
     {
-        if($this->model->getUserId() !== $this->user->id) {
+        if ($this->model->getUserId() !== $this->user->id) {
             throw new AuthenticationException('You are not authorized to create a highlight for this user');
         }
-        
+
         $this->model
             ->highlights()
             ->create($this->data);

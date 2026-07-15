@@ -29,8 +29,8 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
 {
     use HasHtmlForm,
         HasHtmlTable,
-        IsLivewireForm,
-        IsCrud;
+        IsCrud,
+        IsLivewireForm;
 
     public const NAME = 'highlights';
 

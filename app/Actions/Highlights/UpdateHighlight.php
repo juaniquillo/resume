@@ -14,8 +14,7 @@ class UpdateHighlight
         private User $user,
         private Highlight $highlight,
         private array $data
-    )
-    {}
+    ) {}
 
     public function handle(): void
     {
@@ -24,10 +23,10 @@ class UpdateHighlight
         /** @var Model|HighlightModel $parent */
         $parent = $highlight->highlightable;
 
-        if($parent->getUserId() !== $this->user->id) {
+        if ($parent->getUserId() !== $this->user->id) {
             throw new AuthenticationException('You are not authorized to update a highlight for this user');
         }
-        
+
         $highlight->update($this->data);
     }
 }

@@ -12,6 +12,5 @@ interface HighlightModel
 
     public function getUuid(): string;
 
-    public  function getUserId(): int;
-    
+    public function getUserId(): int;
 }

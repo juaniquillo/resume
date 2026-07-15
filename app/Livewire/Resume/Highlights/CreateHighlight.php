@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
 use App\Models\User;
+use Flux\FluxManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -17,7 +18,6 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
-use Flux\FluxManager;
 
 class CreateHighlight extends Component
 {
@@ -47,7 +47,7 @@ class CreateHighlight extends Component
     {
         /** @var User $user */
         $user = Auth::user();
-        
+
         $validator = $this->validateForm($this->crud()->make(), $this->highlights);
 
         (new CreateHighlightAction(
@@ -63,8 +63,6 @@ class CreateHighlight extends Component
         $this->refreshVariables();
 
         (new FluxManager)->modal($this->getModalKey())->close();
-
-        // $this->redirect(route('dashboard.works.highlights', [$this->model->getId()]));
     }
 
     public function refreshVariables(): void
@@ -77,7 +75,7 @@ class CreateHighlight extends Component
             );
 
         $this->highlights = $output->toArray();
-        
+
     }
 
     public function getForm(): BackendComponent|CompoundComponent
@@ -115,7 +113,7 @@ class CreateHighlight extends Component
                 ),
             ]);
     }
-    
+
     public function render()
     {
         return view('livewire.resume.highlights.create_highlight')

@@ -21,6 +21,7 @@ use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
 use App\Livewire\Resume\Works\DeleteWork;
 use App\Livewire\Resume\Works\EditWork;
+// use App\Livewire\Resume\Works\Highlights;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -94,7 +95,15 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Work $work */
                 $work = $model;
 
+                $helper = TableHelpers::make();
+
                 return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
+
+                // return $helper->liveWireComponent(
+                //     component: Highlights::class,
+                //     id: "work-highlights-{$work->id}",
+                //     params: [$work->id]
+                // );
 
             },
         ));
@@ -119,12 +128,12 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                     $helper->liveWireComponent(
                         component: EditWork::class,
                         id: "edit-work-{$work->id}",
-                        params: ['workId' => $work->id]
+                        params: [$work->id]
                     ),
                     $helper->liveWireComponent(
                         component: DeleteWork::class,
                         id: "delete-work-{$work->id}",
-                        params: ['workId' => $work->id]
+                        params: [$work->id]
                     ),
                 ];
 
