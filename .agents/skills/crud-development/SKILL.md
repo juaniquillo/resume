@@ -63,7 +63,32 @@ Implement persistence in `app/Actions/Resume/{Entity}/`:
 - Create the view using the dashboard layout and the `$form` variable.
 - Add the item to `app/Components/Nav/DashboardNav.php`.
 
-## Reference Materials
+## Livewire CRUD Development
+
+When migrating or building new CRUD modules as Livewire components, follow these standardized patterns:
+
+### 1. Component Traits
+Use the standard trait stack for consistent behavior:
+- `IsLivewireForm`: Provides `validateForm()` to run CRUD-schema-backed validation.
+- `IsLivewireModal`: Provides helper methods for `modalButton` and `modalComponent` using Flux UI.
+
+### 2. State & Reactivity
+- **Form State**: Store form values in a `public array $values` property.
+- **Variable Refreshing**: Implement `#[Computed]` `refreshVariables()` to sync the component state with the CRUD schema defaults or model data.
+- **Events**: Always dispatch `resume-updated` after successful creation/updates to trigger re-renders of parent tables/views.
+
+### 3. Modal Workflow
+- **Submission**: Use `wire:submit.prevent="saveForm()"` on the form.
+- **Persistence**: If the modal should remain open (e.g., for bulk entry), avoid calling `FluxManager->modal()->close()`.
+- **Validation**:
+  ```php
+  $validator = $this->validateForm($this->crud()->make(), $this->values);
+  $data = FormHelpers::convertEmptyStringToNull($validator->validated());
+  ```
+
+### 4. Controller Delegation
+- New CRUDs should move logic away from `Http/Controllers` and into Livewire components.
+- Controllers should ideally only be used to render the container view that hosts the Livewire component(s).
 
 For detailed patterns and code examples, see:
 - [MIGRATIONS_AND_MODELS.md](references/MIGRATIONS_AND_MODELS.md)

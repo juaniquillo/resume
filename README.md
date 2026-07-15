@@ -11,8 +11,9 @@ A professional resume management system designed to help you take full control o
 *   **Comprehensive Career Tracking**: Manage every aspect of your professional profile, including work history, education, volunteer work, and certifications.
 *   **Detailed Accomplishments**: Add "Highlights" to every experience—because your achievements matter more than just your titles.
 *   **Flexible Skills & Languages**: Easily track your skill levels and multilingual capabilities with a streamlined, intuitive interface.
-*   **Modular Customization**: Organize your resume sections with drag-and-drop ordering and tailor the visibility of specific details to fit each application.
-*   **JSON Resume Compatibility**: Your data is structured to align with the [JSON Resume](https://jsonresume.org/) standard, ensuring maximum portability and compatibility.
+* **Modular Customization**: Organize your resume sections with drag-and-drop ordering and tailor the visibility of specific details to fit each application.
+* **Open Graph Management**: Effortlessly manage and customize the social preview images for your professional profile to ensure you make a great impression when sharing your link.
+* **JSON Resume Compatibility**: Your data is structured to align with the [JSON Resume](https://jsonresume.org/) standard, ensuring maximum portability and compatibility.
 
 ## 💡 About this Project
 
