@@ -19,8 +19,12 @@ use App\Cruds\Squema\Works\Inputs\SummaryFactory;
 use App\Cruds\Squema\Works\Inputs\UrlFactory;
 use App\Cruds\Squema\Works\Inputs\UserFactory;
 use App\Cruds\Squema\Works\Inputs\UuidFactory;
+use App\Livewire\Resume\Works\DeleteWork;
+use App\Livewire\Resume\Works\EditWork;
+// use App\Livewire\Resume\Works\Highlights;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -32,6 +36,8 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     use HasHtmlForm,
         HasHtmlTable,
         IsCrud;
+
+    public const NAME = 'works';
 
     public function __construct(
         protected array $values = [],
@@ -48,24 +54,38 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
-    /** @return array<?InputInterface> */
-    public function inputsArray(): array
+    public function inputsArrayComplete(): array
     {
         return [
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
-            'name' => NameFactory::make(),
-            'url' => UrlFactory::make(),
-            'position' => PositionFactory::make(),
-            'starts_at' => StartsAtFactory::make(),
-            'ends_at' => EndsAtFactory::make(),
-            'summary' => SummaryFactory::make(),
+            ...$this->inputsArray(),
         ];
+    }
+
+    /** @return array<?InputInterface> */
+    public function inputsArray(): array
+    {
+        return [
+            NameFactory::NAME => NameFactory::make(),
+            UrlFactory::NAME => UrlFactory::make(),
+            PositionFactory::NAME => PositionFactory::make(),
+            StartsAtFactory::NAME => StartsAtFactory::make(),
+            EndsAtFactory::NAME => EndsAtFactory::make(),
+            SummaryFactory::NAME => SummaryFactory::make(),
+        ];
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->composeForm($this->inputsArray(), [
+            'forms' => 'one-column',
+        ]);
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['summary']);
+        return $this->formFullSpanInputs([SummaryFactory::NAME]);
     }
 
     protected function extraCells(TableRowsAction $action): void
@@ -75,7 +95,15 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Work $work */
                 $work = $model;
 
+                $helper = TableHelpers::make();
+
                 return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
+
+                // return $helper->liveWireComponent(
+                //     component: Highlights::class,
+                //     id: "work-highlights-{$work->id}",
+                //     params: [$work->id]
+                // );
 
             },
         ));
@@ -96,8 +124,17 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 $helper = TableHelpers::make();
 
                 $contents = [
-                    $helper->editButton(route('dashboard.works.edit', [$work->id])),
-                    $helper->deleteButton(route('dashboard.works.destroy', [$work->id])),
+                    // $helper->editButton(route('dashboard.works.edit', [$work->id])),
+                    $helper->liveWireComponent(
+                        component: EditWork::class,
+                        id: "edit-work-{$work->id}",
+                        params: [$work->id]
+                    ),
+                    $helper->liveWireComponent(
+                        component: DeleteWork::class,
+                        id: "delete-work-{$work->id}",
+                        params: [$work->id]
+                    ),
                 ];
 
                 return ComponentBuilder::make(ComponentEnum::DIV)
@@ -110,5 +147,10 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         );
 
         $action->setExtraCell('Settings', $recipe);
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 }

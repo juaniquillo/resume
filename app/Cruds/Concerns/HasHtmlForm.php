@@ -165,13 +165,15 @@ trait HasHtmlForm
         return $separator;
     }
 
-    private function composeForm(?array $inputs = null): BackendComponent|CompoundComponent
+    private function composeForm(?array $inputs = null, ?array $themes = null): BackendComponent|CompoundComponent
     {
+        $themes ??= $this->formThemes();
+
         $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
             ->setAttribute('action', $this->formAction)
             ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
-            ->setThemes($this->formThemes())
+            ->setThemes($themes)
             ->setContents(
                 $this->inputs(inputs: $inputs)
             );

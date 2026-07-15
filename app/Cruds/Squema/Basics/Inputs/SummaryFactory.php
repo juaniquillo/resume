@@ -65,6 +65,7 @@ class SummaryFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'rows' => 12,
                         ] + $livewireAttributes)
                 )
         );

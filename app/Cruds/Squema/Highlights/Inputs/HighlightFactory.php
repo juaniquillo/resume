@@ -6,7 +6,9 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Squema\Highlights\HighlightsCrud;
 use BackedEnum;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -28,11 +30,11 @@ class HighlightFactory
 
     const LABEL = 'Highlights';
 
-    public static function make(): InputInterface
+    public static function make(bool $isLivewire = false): InputInterface
     {
         $input = new DefaultInput('highlight', 'Highlight');
 
-        self::form($input);
+        self::form($input, $isLivewire);
         self::validation($input);
         self::table($input);
 
@@ -50,8 +52,13 @@ class HighlightFactory
         );
     }
 
-    public static function form(InputInterface $input): void
+    public static function form(InputInterface $input, bool $isLivewire = false): void
     {
+        $livewireAttributes = [];
+        if ($isLivewire) {
+            $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), HighlightsCrud::getLivewireGroup());
+        }
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setInputGroup(new InputErrorGroup)
@@ -68,6 +75,7 @@ class HighlightFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'badge' => 'required',
+                            ...$livewireAttributes,
                         ])
                 )
                 ->setHookBag(

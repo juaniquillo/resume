@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Work;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Work;
 
 class UpdateWork
@@ -13,6 +14,9 @@ class UpdateWork
 
     public function handle(): bool
     {
-        return $this->work->update($this->data);
+        /** Brings back null for empty strings for Livewire forms */
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->work->update($data);
     }
 }

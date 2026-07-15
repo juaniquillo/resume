@@ -69,16 +69,8 @@ Route::middleware(['auth', 'verified'])
          * Works
          */
         Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
-        Route::post('works', [WorkController::class, 'store'])->name('dashboard.works.store');
-        Route::get('works/{id}/edit', [WorkController::class, 'edit'])->name('dashboard.works.edit');
-        Route::post('works/{id}', [WorkController::class, 'update'])->name('dashboard.works.update');
-        Route::delete('works/{id}', [WorkController::class, 'destroy'])->name('dashboard.works.destroy');
 
         Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
-        Route::post('works/{id}/highlights', [WorkHighlightsController::class, 'store'])->name('dashboard.works.highlights.store');
-        Route::get('works/{id}/highlights/{highlightId}/edit', [WorkHighlightsController::class, 'edit'])->name('dashboard.works.highlights.edit');
-        Route::post('works/{id}/highlights/{highlightId}', [WorkHighlightsController::class, 'update'])->name('dashboard.works.highlights.update');
-        Route::delete('works/{id}/highlights/{highlightId}', [WorkHighlightsController::class, 'destroy'])->name('dashboard.works.highlights.destroy');
 
         /**
          * Volunteers

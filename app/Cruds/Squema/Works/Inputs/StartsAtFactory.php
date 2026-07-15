@@ -2,13 +2,16 @@
 
 namespace App\Cruds\Squema\Works\Inputs;
 
+use App\Cruds\Actions\General\FormatDateRecipe;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Squema\Works\WorksCrud;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -35,7 +38,14 @@ class StartsAtFactory
         self::import($input);
         self::export($input);
 
+        self::dateFormat($input);
+
         return $input;
+    }
+
+    public static function dateFormat(InputInterface $input): void
+    {
+        $input->setRecipe(new FormatDateRecipe(isDate: true));
     }
 
     public static function import(InputInterface $input): void
@@ -62,6 +72,8 @@ class StartsAtFactory
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), WorksCrud::getLivewireGroup());
+
         $input->setRecipe(
             new InputComponentRecipe(
                 inputValue: FormHelpers::dateFormatOutput(),
@@ -70,6 +82,7 @@ class StartsAtFactory
                         'label' => self::LABEL,
                         'badge' => 'required',
                         'type' => 'month',
+                        ...$livewireAttributes,
                     ]),
             )
         );

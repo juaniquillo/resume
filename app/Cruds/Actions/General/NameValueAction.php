@@ -16,10 +16,19 @@ class NameValueAction extends Action implements ActionInterface
     /** @var array<int, Closure(?string):(?string)> */
     private array $modifiers = [];
 
+    private ?string $globalDefault = null;
+
     public function __construct(
         /** @var array<string, mixed> $values */
         private array $values
     ) {}
+
+    public function setGlobalDefault(?string $default): static
+    {
+        $this->globalDefault = $default;
+
+        return $this;
+    }
 
     /**
      * @param  Closure(?string):(?string)  $modifier
@@ -50,7 +59,13 @@ class NameValueAction extends Action implements ActionInterface
         $inputName = $input->getName();
 
         if (! $recipe) {
+
             if (! array_key_exists($inputName, $values)) {
+
+                if ($this->globalDefault !== null) {
+                    $output->set($inputName, $this->globalDefault);
+                }
+
                 return $output;
             }
 
@@ -90,6 +105,8 @@ class NameValueAction extends Action implements ActionInterface
         if (! $found) {
             if ($recipe->default !== null) {
                 $output->set($inputName, $recipe->default);
+            } elseif ($this->globalDefault !== null) {
+                $output->set($inputName, $this->globalDefault);
             }
 
             return $output;
@@ -110,7 +127,7 @@ class NameValueAction extends Action implements ActionInterface
     {
         $names = $recipe->useLabelAsName ? $input->getLabel() : ($recipe->name ?? $input->getName());
 
-        if (is_string($names)) {
+        if (\is_string($names)) {
             return [$names];
         }
 

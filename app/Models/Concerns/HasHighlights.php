@@ -21,4 +21,19 @@ trait HasHighlights
     {
         return $this->morphMany(Highlight::class, 'highlightable');
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
 }

@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @property-read string $position
  * @property-read string|null $url
  * @property-read string|null $summary
- * @property-read string $user_id
+ * @property-read int $user_id
  * @property-read Carbon $starts_at
  * @property-read Carbon|null $ends_at
  * @property-read Carbon|null $created_at

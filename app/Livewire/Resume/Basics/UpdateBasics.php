@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Basics;
+namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateBasics as UpdateAction;
 use App\Cruds\Squema\Basics\BasicsCrud;
@@ -8,6 +8,7 @@ use App\Cruds\Squema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,12 +48,13 @@ class UpdateBasics extends Component
     }
 
     #[On('resume-updated')]
+    #[Computed]
     public function refreshVariables(): void
     {
         /** @var User $user */
         $user = Auth::user();
 
-        $this->basics = $user->basics?->toArray() ?? [];
+        $this->basics = $user->resumeBasics()?->toArray() ?? [];
 
     }
 
@@ -75,7 +77,7 @@ class UpdateBasics extends Component
         $form = $crud->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
-        return view('livewire.basics.update-basics')
+        return view('livewire.resume.basics.update-basics')
             ->with('form', $form);
     }
 }

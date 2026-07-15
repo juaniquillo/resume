@@ -14,6 +14,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Livewire\Component;
 use Stringable;
 
 final class TableHelpers
@@ -87,15 +88,41 @@ final class TableHelpers
             ->setAttribute('action', $route)
             ->setAttribute('method', 'delete')
             ->setContent(
-                FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                self::baseDeleteButton()
                     ->setAttribute('type', 'submit')
-                    ->setContent('Delete')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('variant', 'danger')
-                    ->setAttribute('icon', 'trash')
                     ->setAttribute('onclick', "return confirm('Are you sure you want to delete this record?')")
-                    ->setTheme('cursor', 'pointer'),
             );
+    }
+
+    public static function livewireDeleteButton(string $action, string $confirmMessage = 'Are you sure you want to delete this record?'): BackendComponent|CompoundComponent
+    {
+        $button = self::baseDeleteButton()
+            ->setAttribute('type', 'button')
+            ->setAttribute('wire:confirm', $confirmMessage)
+            ->setAttribute('wire:click.prevent', $action);
+
+        return $button;
+    }
+
+    /** @param class-string<Component>|BackedEnum $component */
+    public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
+    {
+        $component = ComponentBuilder::make($component)
+            ->setLivewire()
+            ->setLivewireKey($id)
+            ->setLivewireParams($params);
+
+        return $component;
+    }
+
+    public static function baseDeleteButton(): BackendComponent|CompoundComponent
+    {
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setContent('Delete')
+            ->setAttribute('size', 'xs')
+            ->setAttribute('variant', 'danger')
+            ->setAttribute('icon', 'trash')
+            ->setTheme('cursor', 'pointer');
     }
 
     public static function badge(string $content, string $color, array $extraAttributes = []): BackendComponent|CompoundComponent
@@ -139,8 +166,15 @@ final class TableHelpers
 
     public static function highlightsButton(string $route): BackendComponent|CompoundComponent
     {
+        return self::baseHighlightsButton()
+            ->setAttribute('wire:navigate', '')
+            ->setAttribute('href', $route);
+
+    }
+
+    public static function baseHighlightsButton(): BackendComponent|CompoundComponent
+    {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', $route)
             ->setContent('Highlights')
             ->setAttribute('variant', 'primary')
             ->setAttribute('icon', 'sun')
