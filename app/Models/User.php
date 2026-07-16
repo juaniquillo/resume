@@ -180,6 +180,11 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
+    public function coverLetters(): HasMany
+    {
+        return $this->hasMany(CoverLetter::class);
+    }
+
     public function resumeImports(): HasMany
     {
         return $this->hasMany(ResumeImport::class);

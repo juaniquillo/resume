@@ -5,6 +5,7 @@ use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\BasicsLocationController;
 use App\Http\Controllers\BasicsProfileController;
 use App\Http\Controllers\CertificatesController;
+use App\Http\Controllers\CoverLettersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EducationCoursesController;
@@ -179,6 +180,11 @@ Route::middleware(['auth', 'verified'])
         Route::get('projects/{id}/highlights/{highlightId}/edit', [ProjectHighlightsController::class, 'edit'])->name('dashboard.projects.highlights.edit');
         Route::post('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'update'])->name('dashboard.projects.highlights.update');
         Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
+
+        /**
+         * Cover Letters
+         */
+        Route::get('cover-letters', [CoverLettersController::class, 'index'])->name('dashboard.cover-letters');
 
         /**
          * Tools

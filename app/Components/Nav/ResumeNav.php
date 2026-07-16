@@ -150,6 +150,14 @@ class ResumeNav
                 'icon' => 'folder',
                 'description' => 'Add, edit and manage your projects.',
             ],
+            [
+                'name' => 'cover-letters',
+                'label' => 'Cover Letters',
+                'route' => 'dashboard.cover-letters',
+                'active' => ['dashboard.cover-letters'],
+                'icon' => 'document-text',
+                'description' => 'Manage your personalized cover letters.',
+            ],
         ];
 
         /** @var User|null $user */
