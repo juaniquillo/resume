@@ -152,7 +152,7 @@ class ResumeNav
             ],
             [
                 'name' => 'cover-letters',
-                'label' => 'Cover Letters',
+                'label' => 'Cover Letter',
                 'route' => 'dashboard.cover-letters',
                 'active' => ['dashboard.cover-letters'],
                 'icon' => 'document-text',

@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read int $user_id
- * @property-read string $title
- * @property-read string $company
  * @property-read string $content
  */
 #[Guarded([])]

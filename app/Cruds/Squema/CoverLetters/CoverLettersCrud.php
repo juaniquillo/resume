@@ -2,27 +2,22 @@
 
 namespace App\Cruds\Squema\CoverLetters;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
-use App\Cruds\Squema\CoverLetters\Inputs\CompanyFactory;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Squema\CoverLetters\Inputs\ContentFactory;
-use App\Cruds\Squema\CoverLetters\Inputs\TitleFactory;
-use App\Livewire\Resume\CoverLetters\DeleteCoverLetter;
-use App\Livewire\Resume\CoverLetters\EditCoverLetter;
-use App\Models\CoverLetter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Override;
 
 final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -30,23 +25,13 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
-    public const NAME = 'cover-letters';
-
-    public array $values = [];
-
-    public array $errors = [];
-
-    public ?Model $model = null;
+    public const NAME = 'cover_letter';
 
     public function __construct(
-        array $values = [],
-        array $errors = [],
-        ?Model $model = null,
-    ) {
-        $this->values = $values;
-        $this->errors = $errors;
-        $this->model = $model;
-    }
+        protected array $values = [],
+        protected array $errors = [],
+        protected ?Model $model = null,
+    ) {}
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
@@ -60,17 +45,13 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            TitleFactory::NAME => TitleFactory::make(),
-            CompanyFactory::NAME => CompanyFactory::make(),
-            ContentFactory::NAME => ContentFactory::make(),
+            'content' => ContentFactory::make(),
         ];
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->composeForm($this->inputsArray(), [
-            'forms' => 'one-column',
-        ]);
+        return $this->formFullSpanInputs(['content']);
     }
 
     public static function getLivewireGroup(): string
@@ -78,38 +59,22 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
         return Str::camel(self::NAME);
     }
 
-    protected function tableOptions(TableRowsAction $action): void
+    #[Override]
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
     {
-        $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes(ContentFactory::NAME, self::getLivewireGroup());
 
-                /** @var CoverLetter $coverLetter */
-                $coverLetter = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->liveWireComponent(
-                        component: EditCoverLetter::class,
-                        id: "edit-cover-letter-{$coverLetter->id}",
-                        params: ['coverLetterId' => $coverLetter->id]
-                    ),
-                    $helper->liveWireComponent(
-                        component: DeleteCoverLetter::class,
-                        id: "delete-cover-letter-{$coverLetter->id}",
-                        params: ['coverLetterId' => $coverLetter->id]
-                    ),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
-        );
-
-        $action->setExtraCell('Settings', $recipe);
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('type', 'submit')
+            ->setAttribute('variant', 'primary')
+            ->setAttribute('color', 'blue')
+            ->setAttributes([
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $livewireAttributes['wire:model'],
+            ])
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__('Save'));
     }
+
+    public function tableOptions(TableRowsAction $action): void {}
 }

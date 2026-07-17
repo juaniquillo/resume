@@ -18,8 +18,6 @@ class CoverLetterFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(3),
-            'company' => $this->faker->optional()->company,
             'content' => $this->faker->paragraphs(3, true),
         ];
     }

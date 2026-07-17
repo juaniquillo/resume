@@ -14,3 +14,15 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
+{{-- 
+<script>
+    const htmlElement = document.documentElement;
+
+    // Initialize theme immediately to prevent FOUC
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        htmlElement.dataset.theme = 'dark';
+
+    } else {
+        delete htmlElement.dataset.theme; 
+    }
+</script> --}}
