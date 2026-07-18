@@ -4,6 +4,6 @@
 
     <div class="max-w-xl mt-6">
         <livewire:resume.cover-letters.cover-letter-update />
-    </div>
+    </div>      
 
 </x-layouts::app>

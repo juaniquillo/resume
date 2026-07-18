@@ -50,3 +50,4 @@
 47. ◻️ Add a theme select menu to the resume dashboard preview.
 48. ◻️ Work on cover letter CRUD and export.
 49. ◻️ Add the JSON export to the downloads' section.
+50. ◻️ Refactor HasHtmlTable trait to make it Livewire aware.

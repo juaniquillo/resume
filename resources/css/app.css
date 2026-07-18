@@ -8,9 +8,6 @@
 
 @source '../../vendor/juaniquillo/laravel-backend-component/resources/views*.blade.php'; 
 
-/**/ 
-@import "../../vendor/mckenziearts/livewire-markdown-editor/resources/css/markdown-editor.css";
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

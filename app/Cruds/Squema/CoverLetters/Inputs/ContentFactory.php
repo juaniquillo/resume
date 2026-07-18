@@ -56,7 +56,7 @@ class ContentFactory
                             'label' => self::LABEL,
                             'name' => $input->getName(),
                             'rows' => 15,
-                            'data-markdown' => 1
+                            'data-markdown' => 1,
                         ], $livewireAttributes))
                 )
         );
