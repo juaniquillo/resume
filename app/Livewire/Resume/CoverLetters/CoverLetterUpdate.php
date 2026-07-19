@@ -47,7 +47,7 @@ class CoverLetterUpdate extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        /** @var CoverLetter $model */
+        /** @var ?CoverLetter $model */
         $model = $user->coverLetters()->first();
 
         $values = $model ? $model->toArray() : [];

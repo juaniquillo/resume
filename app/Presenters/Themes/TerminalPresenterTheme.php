@@ -211,6 +211,20 @@ final class TerminalPresenterTheme implements PresenterTheme
         return ['terminal' => 'contact-item'];
     }
 
+    public function coverLetterContainerThemes(): array
+    {
+        return [
+            'terminal' => 'section',
+        ];
+    }
+
+    public function coverLetterThemes(): array
+    {
+        return [
+            'terminal' => 'summary',
+        ];
+    }
+
     public function fontUrls(): array
     {
         return [
