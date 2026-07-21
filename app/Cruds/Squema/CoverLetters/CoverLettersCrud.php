@@ -4,7 +4,6 @@ namespace App\Cruds\Squema\CoverLetters;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -13,10 +12,13 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Squema\CoverLetters\Inputs\ContentFactory;
+use App\Livewire\Resume\CoverLetters\PreviewCoverLetter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Override;
 
 final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
@@ -64,17 +66,30 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
     {
         $livewireAttributes = LivewireHelpers::getLivewireAttributes(ContentFactory::NAME, self::getLivewireGroup());
 
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('type', 'submit')
-            ->setAttribute('variant', 'primary')
-            ->setAttribute('color', 'blue')
-            ->setAttributes([
-                'wire:loading.attr' => 'disabled',
-                'wire:target' => $livewireAttributes['wire:model'],
+        return ComponentBuilder::make(ComponentEnum::DIV)
+            ->setThemes([
+                'display' => 'flex',
+                'flex' => 'gap-sm',
             ])
-            ->setTheme('cursor', 'pointer')
-            ->setContent(__('Save'));
+            ->setContents([
+                'preview' => ComponentBuilder::make(PreviewCoverLetter::class)
+                    ->setLivewire()
+                    ->setLivewireKey('preview-cover-letter'),
+                'save' => FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    ->setAttribute('type', 'submit')
+                    ->setAttribute('variant', 'primary')
+                    ->setAttribute('color', 'blue')
+                    ->setAttributes([
+                        'wire:loading.attr' => 'disabled',
+                        'wire:target' => $livewireAttributes['wire:model'],
+                    ])
+                    ->setTheme('cursor', 'pointer')
+                    ->setContent(__('Save')),
+            ])
+            ->setThemes([
+                'display' => 'flex',
+                'flex' => ['gap-sm'],
+            ]);
     }
 
-    public function tableOptions(TableRowsAction $action): void {}
 }

@@ -14,7 +14,7 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class CoverLetterUpdate extends Component
+class CoverLetterForm extends Component
 {
     use IsLivewireForm;
 
@@ -34,22 +34,18 @@ class CoverLetterUpdate extends Component
         session()->flash('success', 'Cover letter saved successfully.');
 
         $this->dispatch('resume-updated');
+        $this->dispatch('cover-letter-updated');
         // $this->refreshVariables();
 
         session()->flash('success', 'The Cover Letter updated successfully.');
 
-        $this->redirect(route('dashboard.cover-letters'));
+        // $this->redirect(route('dashboard.cover-letters'));
     }
 
     #[Computed]
     public function refreshVariables(): void
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        /** @var ?CoverLetter $model */
-        $model = $user->coverLetters()->first();
-
+        $model = $this->getModel();
         $values = $model ? $model->toArray() : [];
 
         $output = $this->crud($values)
@@ -59,6 +55,17 @@ class CoverLetterUpdate extends Component
             );
 
         $this->coverLetter = $output->toArray();
+    }
+
+    public function getModel(): ?CoverLetter
+    {
+        
+        /** @var User $user */
+        $user = Auth::user();
+
+        /** @var ?CoverLetter $model */
+        return $user->coverLetters()->first();
+
     }
 
     private function crud(array $values = [])
@@ -78,7 +85,7 @@ class CoverLetterUpdate extends Component
 
     public function render()
     {
-        return view('livewire.resume.cover-letters.cover-letter-update')
+        return view('livewire.resume.cover-letters.cover-letter-form')
             ->with('form', $this->getForm());
     }
 }

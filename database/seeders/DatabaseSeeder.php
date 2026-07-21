@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('12345'),
         ]);
 
         GeneralOption::where('user_id', $user->id)->first()->update([

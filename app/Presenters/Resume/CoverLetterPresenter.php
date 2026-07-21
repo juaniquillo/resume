@@ -5,7 +5,7 @@ namespace App\Presenters\Resume;
 use App\Models\CoverLetter;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
-use Illuminate\Support\Str;
+use Juaniquillo\BackendComponents\Builders\LocalComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -28,7 +28,10 @@ final class CoverLetterPresenter
         return $this->section('Cover Letter',
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->coverLetterContainerThemes())
-                ->setContent(Str::markdown($this->coverLetter->content))
+                ->setContent(
+                    LocalComponentBuilder::make('markdown')
+                        ->setContent($this->coverLetter->content)
+                )
         );
     }
 }

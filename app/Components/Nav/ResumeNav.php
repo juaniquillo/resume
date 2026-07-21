@@ -39,6 +39,7 @@ class ResumeNav
                 'name' => 'basics',
                 'label' => 'Basics',
                 'description' => 'Start here. Update basic info.',
+                'prevent_filter' => true,
                 'sub_nav' => [
                     [
                         'name' => 'basics',
@@ -155,6 +156,7 @@ class ResumeNav
                 'label' => 'Cover Letter',
                 'route' => 'dashboard.cover-letters',
                 'active' => ['dashboard.cover-letters'],
+                'prevent_filter' => true,
                 'icon' => 'document-text',
                 'description' => 'Manage your personalized cover letters.',
             ],
@@ -164,7 +166,7 @@ class ResumeNav
         $user = Auth::user();
 
         if ($user && ! $user->resumeBasics()) {
-            return array_filter($items, fn ($item) => $item['name'] === 'basics');
+            return array_filter($items, fn ($item) => ($item['prevent_filter'] ?? false));
         }
 
         return $items;

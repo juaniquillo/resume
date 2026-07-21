@@ -41,7 +41,7 @@
 39. ✅ New `Section Ordering` CRUD using livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
 
 40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).
-41. ◻️ Create a cache manager fot the dashboard navigation components and dashboard cards since they don't change that much.
+41. ✅ Create a cache manager for the dashboard navigation components and dashboard cards since they don't change that much.
 42. ✅ Create a Test that deletes a user and verifying the rest of the resume sections and all files are deleted.
 43. ◻️ Make sure the download section doesn't show in a PDF export.
 44. ✅ The Profile Network icons (svg) don't show on the PDF export. Only a color square shows.
@@ -51,3 +51,4 @@
 48. ◻️ Work on cover letter CRUD and export.
 49. ◻️ Add the JSON export to the downloads' section.
 50. ◻️ Refactor HasHtmlTable trait to make it Livewire aware.
+51. ◻️ Add own "custom general" options to exports.
