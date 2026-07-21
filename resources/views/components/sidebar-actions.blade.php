@@ -7,7 +7,7 @@
         @php
             $resumeUrl = route('resume', [Auth::user()->slug]);
         @endphp
-        <flux:button class="cursor-pointer shrink-0" title="{{ __('Visit') }}" :href="$resumeUrl"variant="primary" color="zinc" size="xs" icon="link" />
+        <flux:button class="cursor-pointer shrink-0" title="{{ __('Visit') }}" :href="$resumeUrl" target="_blank" variant="primary" color="zinc" size="xs" icon="link" />
 
         <livewire:options.toggle-draft-state />
     </div>
