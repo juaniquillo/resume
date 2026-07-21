@@ -6,7 +6,7 @@ use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\CoverLetter;
 use App\Models\User;
 use App\Presenters\Resume\CoverLetterPresenter;
-use App\Presenters\Themes\DefaultPresenterTheme;
+use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -50,10 +50,14 @@ class PreviewCoverLetter extends Component
 
     private function getPresenterContent(): BackendComponent|CompoundComponent
     {
-        $model = $this->getModel();
-        
-        if($model) {
-            return (new CoverLetterPresenter($model, new DefaultPresenterTheme))->present();
+        $user = Auth::user();
+
+        $model = $this->getModel($user);
+
+        if ($model) {
+            $theme = ThemeFactory::forUser($user);
+
+            return (new CoverLetterPresenter($model, $theme))->present();
         }
 
         return ComponentBuilder::make(ComponentEnum::DIV)
@@ -62,15 +66,12 @@ class PreviewCoverLetter extends Component
     }
 
     #[On('cover-letter-updated')]
-    public function getModel(): ?CoverLetter
+    public function getModel(User $user): ?CoverLetter
     {
-        
-        /** @var User $user */
-        $user = Auth::user();
-
         /** @var ?CoverLetter $model */
-        return $user->coverLetters()->first();
+        $model = $user->coverLetters()->first();
 
+        return $model;
     }
 
     public function render()

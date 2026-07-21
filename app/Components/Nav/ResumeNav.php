@@ -156,7 +156,6 @@ class ResumeNav
                 'label' => 'Cover Letter',
                 'route' => 'dashboard.cover-letters',
                 'active' => ['dashboard.cover-letters'],
-                'prevent_filter' => true,
                 'icon' => 'document-text',
                 'description' => 'Manage your personalized cover letters.',
             ],

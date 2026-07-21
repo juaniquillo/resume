@@ -91,5 +91,4 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
                 'flex' => ['gap-sm'],
             ]);
     }
-
 }

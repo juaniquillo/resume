@@ -59,13 +59,13 @@ class CoverLetterForm extends Component
 
     public function getModel(): ?CoverLetter
     {
-        
         /** @var User $user */
         $user = Auth::user();
 
         /** @var ?CoverLetter $model */
-        return $user->coverLetters()->first();
+        $model = $user->coverLetters()->first();
 
+        return $model;
     }
 
     private function crud(array $values = [])
