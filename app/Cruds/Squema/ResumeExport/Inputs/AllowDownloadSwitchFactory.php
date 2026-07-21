@@ -75,7 +75,7 @@ class AllowDownloadSwitchFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                label: 'Public',
+                label: 'Allow Download',
                 value: function ($value, Model $model) {
                     return TableHelpers::booleanBadge($value);
                 }

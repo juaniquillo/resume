@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Resume\CoverLetters;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\CoverLetter;
 use App\Models\User;
@@ -18,6 +20,41 @@ use Livewire\Component;
 class PreviewCoverLetter extends Component
 {
     use IsLivewireModal;
+
+    public function getModalKey(): string
+    {
+        return 'preview-cover-letter-component';
+    }
+
+    private function getPresenterContent(): BackendComponent|CompoundComponent
+    {
+        $user = Auth::user();
+
+        $model = $this->getModel($user);
+
+        if ($model) {
+            $theme = ThemeFactory::forUser($user);
+
+            return ComponentBuilder::make(ComponentEnum::DIV)
+                ->setTheme('margin', 'top-sm')
+                ->setContent(
+                    (new CoverLetterPresenter($model, $theme))->present()
+                );
+        }
+
+        return ComponentBuilder::make(ComponentEnum::DIV)
+            ->setContent('No content available yet')
+            ->setTheme('margin', 'top-sm');
+    }
+
+    #[On('cover-letter-updated')]
+    public function getModel(User $user): ?CoverLetter
+    {
+        /** @var ?CoverLetter $model */
+        $model = $user->coverLetters()->first();
+
+        return $model;
+    }
 
     public ?string $content = null;
 
@@ -37,41 +74,13 @@ class PreviewCoverLetter extends Component
                 // From trait
                 'modal' => $this->modalComponent(
                     id: $id,
+                    heading: FluxComponentBuilder::make(FluxComponentEnum::HEADING)
+                        ->setAttribute('size', 'xl')
+                        ->setContent('Cover Letter'),
                     content: $this->getPresenterContent(),
                     themes: ['modal' => '2xl']
                 ),
             ]);
-    }
-
-    public function getModalKey(): string
-    {
-        return 'preview-cover-letter-component';
-    }
-
-    private function getPresenterContent(): BackendComponent|CompoundComponent
-    {
-        $user = Auth::user();
-
-        $model = $this->getModel($user);
-
-        if ($model) {
-            $theme = ThemeFactory::forUser($user);
-
-            return (new CoverLetterPresenter($model, $theme))->present();
-        }
-
-        return ComponentBuilder::make(ComponentEnum::DIV)
-            ->setContent('No content available yet')
-            ->setTheme('margin', 'top-sm');
-    }
-
-    #[On('cover-letter-updated')]
-    public function getModel(User $user): ?CoverLetter
-    {
-        /** @var ?CoverLetter $model */
-        $model = $user->coverLetters()->first();
-
-        return $model;
     }
 
     public function render()

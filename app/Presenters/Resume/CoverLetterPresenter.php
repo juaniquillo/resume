@@ -25,13 +25,11 @@ final class CoverLetterPresenter
             return null;
         }
 
-        return $this->section('Cover Letter',
-            $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->coverLetterContainerThemes())
-                ->setContent(
-                    LocalComponentBuilder::make('markdown')
-                        ->setContent($this->coverLetter->content)
-                )
-        );
+        return $this->compose(ComponentEnum::DIV)
+            ->setThemes($this->theme->coverLetterContainerThemes())
+            ->setContent(
+                LocalComponentBuilder::make('markdown')
+                    ->setContent($this->coverLetter->content)
+            );
     }
 }

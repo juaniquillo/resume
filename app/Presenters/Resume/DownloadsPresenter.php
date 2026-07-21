@@ -2,6 +2,7 @@
 
 namespace App\Presenters\Resume;
 
+use App\Enums\ResumeExportType;
 use App\Models\ResumeExport;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
@@ -29,10 +30,14 @@ final class DownloadsPresenter
         }
 
         $items = $this->downloads->map(function (ResumeExport $export) {
-            $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$export->type->value;
+            $extension = match ($export->type) {
+                ResumeExportType::COVER_LETTER_PDF => 'pdf',
+                default => $export->type->value,
+            };
+            $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$extension;
 
             return $this->compose(ComponentEnum::LINK)
-                ->setAttribute('href', route('resume.download', $export->uuid))
+                ->setAttribute('href', route('dashboard.resume.export.download', [$export->uuid]))
                 ->setAttribute('download', $filename)
                 ->setThemes($this->theme->socialBadgeThemes())
                 ->setContents([

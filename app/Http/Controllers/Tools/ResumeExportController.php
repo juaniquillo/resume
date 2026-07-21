@@ -8,6 +8,7 @@ use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Resume\ResumeExportFormRequest;
+use App\Jobs\ProcessCoverLetterPdfExport;
 use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Models\ResumeExport;
@@ -64,6 +65,7 @@ class ResumeExportController extends Controller
         match ($export->type) {
             ResumeExportType::JSON => ProcessJsonExport::dispatch($export),
             ResumeExportType::PDF => ProcessPdfExport::dispatch($export),
+            ResumeExportType::COVER_LETTER_PDF => ProcessCoverLetterPdfExport::dispatch($export),
         };
 
         return redirect()

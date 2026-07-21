@@ -283,7 +283,7 @@ test('marking an export for download unmarks others of the same type', function 
     ]);
 });
 
-test('json exports cannot be marked for download', function () {
+test('json exports can be marked for download', function () {
     $this->withoutMiddleware();
 
     $this->actingAs($this->user)
@@ -295,7 +295,7 @@ test('json exports cannot be marked for download', function () {
     $this->assertDatabaseHas('resume_exports', [
         'user_id' => $this->user->id,
         'type' => ResumeExportType::JSON->value,
-        'allow_download' => false,
+        'allow_download' => true,
     ]);
 });
 
