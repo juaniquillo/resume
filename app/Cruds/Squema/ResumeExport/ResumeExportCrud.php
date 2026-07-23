@@ -87,7 +87,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                     $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
                         ->setAttribute('href', route('dashboard.resume.export.download', [
                             'uuid' => $export->uuid,
-                            'v' => md5($export->created_at)
+                            'v' => md5($export->created_at),
                         ]))
                         ->setAttribute('download', $filename)
                         ->setContent(__('Download'))

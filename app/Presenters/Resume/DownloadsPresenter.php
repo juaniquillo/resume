@@ -39,7 +39,7 @@ final class DownloadsPresenter
             return $this->compose(ComponentEnum::LINK)
                 ->setAttribute('href', route('dashboard.resume.export.download', [
                     'uuid' => $export->uuid,
-                    'v' => md5($export->created_at)
+                    'v' => md5($export->created_at),
                 ]))
                 ->setAttribute('download', $filename)
                 ->setThemes($this->theme->socialBadgeThemes())
