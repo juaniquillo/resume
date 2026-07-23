@@ -218,7 +218,7 @@ final class BoldPresenterTheme implements PresenterTheme
     public function coverLetterContainerThemes(): array
     {
         return [
-            'default' => 'prose-slate',
+            'bold' => 'cover-letter-container',
         ];
     }
 

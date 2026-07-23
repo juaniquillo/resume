@@ -10,7 +10,7 @@
  */
 
 return [
-    'cover-letter-container' => 'prose max-w-none text-gray-700 prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-gray-900 prose-a:underline',
+    'cover-letter-container' => 'bg-white px-4 pt-1 pb-2 prose max-w-none text-gray-700 text-sm prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-gray-900 prose-a:text-gray-900 prose-a:underline',
     
     'container' => 'mx-auto max-w-[800px] my-2 px-10 py-10 bg-white text-gray-900 border-0',
     

@@ -10,7 +10,7 @@
  */
 
 return [
-    'cover-letter-container' => 'prose prose-stone text-gray-800 dark:text-gray-200 prose-headings:font-serif prose-headings:font-bold',
+    'cover-letter-container' => 'prose prose-stone text-gray-800 font-serif dark:text-gray-200 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
     
     'container' => 'mx-auto max-w-4xl px-6 md:px-12 py-10 md:py-16 bg-white shadow-2xl my-6 md:my-12 border border-gray-100 dark:bg-gray-900 dark:border-gray-800 dark:shadow-none',
     
