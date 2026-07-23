@@ -218,7 +218,7 @@ final class PdfPresenterTheme implements PresenterTheme
     public function coverLetterContainerThemes(): array
     {
         return [
-            'pdf' => '',
+            'pdf' => 'cover-letter-container',
         ];
     }
 
