@@ -15,16 +15,16 @@ class CreateResumeExport
     public function handle(User $user, array $data): ResumeExport
     {
         $type = $data['type'];
-        $isPdf = $type === ResumeExportType::PDF->value;
+        $enumType = ResumeExportType::from($type);
 
         // Force allow_download to false and theme to null if not PDF
-        $allowDownload = $isPdf ? (bool) $data['allow_download'] : false;
-        $theme = $isPdf ? ($data['theme'] ?? null) : null;
+        $allowDownload = (bool) $data['allow_download'];
+        $theme = $enumType->themeable() ? ($data['theme'] ?? null) : null;
 
         if ($allowDownload) {
-            // Unmark any other PDF export currently allowed for download
+            // Unmark any other export of the same type currently allowed for download
             $user->resumeExports()
-                ->where('type', ResumeExportType::PDF)
+                ->where('type', $type)
                 ->update(['allow_download' => false]);
         }
 

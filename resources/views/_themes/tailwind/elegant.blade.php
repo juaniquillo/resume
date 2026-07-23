@@ -1,6 +1,17 @@
 <?php
 
+/*
+ * LEGEND
+ * 
+ * Main colors: text-gray-900 | dark:text-white | border-gray-100 | dark:border-gray-800
+ * Text: text-gray-700 | dark:text-gray-300
+ * Title: text-xs | font-sans | font-bold | uppercase | tracking-[0.3em]
+ * Links: text-gray-600 | hover:text-gray-900 | dark:text-gray-400 | dark:hover:text-white
+ */
+
 return [
+    'cover-letter-container' => 'prose prose-stone text-gray-800 dark:text-gray-200 prose-headings:font-serif prose-headings:font-bold',
+    
     'container' => 'mx-auto max-w-4xl px-6 md:px-12 py-10 md:py-16 bg-white shadow-2xl my-6 md:my-12 border border-gray-100 dark:bg-gray-900 dark:border-gray-800 dark:shadow-none',
     
     'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center text-center',

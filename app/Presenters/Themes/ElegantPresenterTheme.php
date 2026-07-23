@@ -215,6 +215,20 @@ final class ElegantPresenterTheme implements PresenterTheme
         return ['elegant' => 'contact-item'];
     }
 
+    public function coverLetterContainerThemes(): array
+    {
+        return [
+            'elegant' => 'prose-stone',
+        ];
+    }
+
+    public function coverLetterThemes(): array
+    {
+        return [
+            'elegant' => 'summary',
+        ];
+    }
+
     public function fontUrls(): array
     {
         return [

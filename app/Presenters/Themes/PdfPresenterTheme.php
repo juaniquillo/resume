@@ -215,6 +215,20 @@ final class PdfPresenterTheme implements PresenterTheme
         return ['pdf' => 'contact-item'];
     }
 
+    public function coverLetterContainerThemes(): array
+    {
+        return [
+            'pdf' => '',
+        ];
+    }
+
+    public function coverLetterThemes(): array
+    {
+        return [
+            'pdf' => 'summary',
+        ];
+    }
+
     public function fontUrls(): array
     {
         return [

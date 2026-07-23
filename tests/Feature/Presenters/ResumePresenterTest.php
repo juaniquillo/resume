@@ -396,6 +396,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function coverLetterContainerThemes(): array
+        {
+            return [];
+        }
+
         public function fontUrls(): array
         {
             return [];

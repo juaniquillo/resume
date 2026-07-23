@@ -217,7 +217,7 @@ final class TableHelpers
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
             ->setAttribute('variant', 'light')
-            ->setContent('N/A');
+            ->setContent($label);
 
     }
 

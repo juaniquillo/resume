@@ -1,73 +1,72 @@
 <?php
 
-namespace App\Cruds\Squema\ResumeExport\Inputs;
+namespace App\Cruds\Squema\CoverLetters\Inputs;
 
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Squema\CoverLetters\CoverLettersCrud;
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class AllowDownloadSwitchFactory
+class CompanyFactory
 {
-    public const NAME = 'allow_download';
+    const NAME = 'company';
 
-    public const LABEL = 'Allow Download on Web View';
+    const LABEL = 'Target Company';
 
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
-
         self::form($input);
         self::validation($input);
-        self::table($input);
         self::factory($input);
+        self::table($input);
 
         return $input;
-    }
-
-    public static function factory(InputInterface $input): void
-    {
-        $input->setRecipe(
-            new LaravelFactoryRecipe(callback: fn () => fake()->boolean())
-        );
     }
 
     public static function validation(InputInterface $input): void
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'sometimes',
-                'boolean',
+                'nullable',
+                'string',
+                'max:255',
             ]))
         );
     }
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), CoverLettersCrud::getLivewireGroup());
         $input->setRecipe(
-            (new InputComponentRecipe(
-                checkable: true,
-            ))
-                ->setComponentBag(
-                    (new DefaultComponentBag)
-                        ->setInputType(FluxComponentEnum::SWITCH)
-                )
+            (new InputComponentRecipe)
                 ->setAttributeBag(
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'name' => $input->getName(),
-                            'align' => 'left',
-                            'value' => 1,
+                            ...$livewireAttributes,
                         ])
                 )
+        );
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{ $input->getName() } = $faker->company;
+                }
+            )
         );
     }
 
@@ -75,9 +74,12 @@ class AllowDownloadSwitchFactory
     {
         $input->setRecipe(
             new TableRowsRecipe(
-                label: 'Allow Download',
                 value: function ($value, Model $model) {
-                    return TableHelpers::booleanBadge($value);
+                    if (empty($value)) {
+                        return TableHelpers::emptyValue();
+                    }
+
+                    return $value;
                 }
             )
         );

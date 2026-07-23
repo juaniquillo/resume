@@ -111,6 +111,20 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function coverLetterContainerThemes(): array
+    {
+        return [
+            'default' => 'cover-letter-container',
+        ];
+    }
+
+    public function coverLetterThemes(): array
+    {
+        return [
+            'default' => 'summary',
+        ];
+    }
+
     public function nameThemes(): array
     {
         return [

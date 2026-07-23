@@ -215,6 +215,20 @@ final class BoldPresenterTheme implements PresenterTheme
         return ['bold' => 'contact-item'];
     }
 
+    public function coverLetterContainerThemes(): array
+    {
+        return [
+            'default' => 'prose-slate',
+        ];
+    }
+
+    public function coverLetterThemes(): array
+    {
+        return [
+            'default' => 'summary',
+        ];
+    }
+
     public function fontUrls(): array
     {
         return [

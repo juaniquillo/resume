@@ -39,6 +39,7 @@ class ResumeNav
                 'name' => 'basics',
                 'label' => 'Basics',
                 'description' => 'Start here. Update basic info.',
+                'prevent_filter' => true,
                 'sub_nav' => [
                     [
                         'name' => 'basics',
@@ -150,13 +151,21 @@ class ResumeNav
                 'icon' => 'folder',
                 'description' => 'Add, edit and manage your projects.',
             ],
+            [
+                'name' => 'cover-letters',
+                'label' => 'Cover Letter',
+                'route' => 'dashboard.cover-letters',
+                'active' => ['dashboard.cover-letters'],
+                'icon' => 'document-text',
+                'description' => 'Manage your personalized cover letters.',
+            ],
         ];
 
         /** @var User|null $user */
         $user = Auth::user();
 
         if ($user && ! $user->resumeBasics()) {
-            return array_filter($items, fn ($item) => $item['name'] === 'basics');
+            return array_filter($items, fn ($item) => ($item['prevent_filter'] ?? false));
         }
 
         return $items;

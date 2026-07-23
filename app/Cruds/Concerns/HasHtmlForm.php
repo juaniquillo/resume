@@ -35,6 +35,8 @@ trait HasHtmlForm
 
     private string $formMethod = 'POST';
 
+    private string $saveButtonLabel = 'Save';
+
     /**
      * @return array<?InputInterface>
      */
@@ -57,8 +59,17 @@ trait HasHtmlForm
         return $this;
     }
 
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function setSaveButtonLabel(string $saveButtonLabel)
     {
+        $this->saveButtonLabel = $saveButtonLabel;
+
+        return $this;
+    }
+
+    public function saveButton(?string $label = null): BackendComponent|CompoundComponent
+    {
+        $label = $label ?? $this->saveButtonLabel;
+
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')

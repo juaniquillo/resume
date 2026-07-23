@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Cruds\Squema\ResumeExport\Inputs;
+namespace App\Cruds\Squema\CoverLetters\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Helpers\TableHelpers;
-use Illuminate\Database\Eloquent\Model;
+use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Squema\CoverLetters\CoverLettersCrud;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class AllowDownloadSwitchFactory
+class ContentFactory
 {
-    public const NAME = 'allow_download';
+    public const NAME = 'content';
 
-    public const LABEL = 'Allow Download on Web View';
+    public const LABEL = 'Cover Letter';
 
     public static function make(): InputInterface
     {
@@ -26,60 +25,48 @@ class AllowDownloadSwitchFactory
 
         self::form($input);
         self::validation($input);
-        self::table($input);
         self::factory($input);
 
         return $input;
-    }
-
-    public static function factory(InputInterface $input): void
-    {
-        $input->setRecipe(
-            new LaravelFactoryRecipe(callback: fn () => fake()->boolean())
-        );
     }
 
     public static function validation(InputInterface $input): void
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'sometimes',
-                'boolean',
+                'required',
+                'string',
             ]))
         );
     }
 
     public static function form(InputInterface $input): void
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes(self::NAME, CoverLettersCrud::getLivewireGroup());
+
         $input->setRecipe(
-            (new InputComponentRecipe(
-                checkable: true,
-            ))
+            (new InputComponentRecipe)
                 ->setComponentBag(
                     (new DefaultComponentBag)
-                        ->setInputType(FluxComponentEnum::SWITCH)
+                        ->setInputType(FluxComponentEnum::TEXTAREA)
                 )
                 ->setAttributeBag(
                     (new DefaultAttributeBag)
-                        ->setInputAttributes([
+                        ->setInputAttributes(array_merge([
                             'label' => self::LABEL,
                             'name' => $input->getName(),
-                            'align' => 'left',
-                            'value' => 1,
-                        ])
+                            'rows' => 15,
+                            'data-markdown' => 1,
+                            'description' => 'You can use Markdown to format the content',
+                        ], $livewireAttributes))
                 )
         );
     }
 
-    public static function table(InputInterface $input): void
+    public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
-                label: 'Allow Download',
-                value: function ($value, Model $model) {
-                    return TableHelpers::booleanBadge($value);
-                }
-            )
+            new LaravelFactoryRecipe(callback: fn () => fake()->paragraph())
         );
     }
 }
