@@ -4,8 +4,6 @@
     :minimal-view="true"
 >
     <div class="container mx-auto">
-        <div class="prose max-w-none">
-            {{ $coverLetter }}
-        </div>
+       {{ $coverLetter }}
     </div>
 </x-layouts.guest>

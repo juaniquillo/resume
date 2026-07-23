@@ -87,11 +87,6 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
-    public function coverLetterThemes(): array;
-
-    /**
-     * @return array<string, string|string[]>
-     */
     public function nameThemes(): array;
 
     /**

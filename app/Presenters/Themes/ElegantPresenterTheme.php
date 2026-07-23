@@ -218,7 +218,7 @@ final class ElegantPresenterTheme implements PresenterTheme
     public function coverLetterContainerThemes(): array
     {
         return [
-            'elegant' => 'section',
+            'elegant' => 'prose-stone',
         ];
     }
 

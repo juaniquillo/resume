@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * LEGEND
+ * 
+ * Main colors: text-gray-700 | dark:text-gray-300 | border-sky-600 | dark:hover:text-sky-400
+ * Text: text-gray-700 | dark:text-gray-300
+ * Title: text-3xl 2xl:text-4xl | font-bold | border-b-2 border-sky-600 | dark:text-white
+ * Links: text-gray-700 hover:text-sky-600 | dark:text-gray-400 dark:hover:text-sky-400 | underline
+ */
+
 return [
+    // cover letter
+    'cover-letter-container' => 'prose text-gray-700 dark:text-gray-300 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
+
     'container' => 'container mx-auto max-w-4xl 2xl:max-w-6xl p-8',
-
-    'cover-letter-container' => 'prose text-gray-900 dark:text-white prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0',
-
     'basics-container' => 'mb-12',
     'image' => 'w-32 h-32 2xl:w-40 2xl:h-40 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6 dark:border-sky-500',
     'name' => '[word-spacing:-.5rem] md:[word-spacing:-.8rem] text-5xl md:text-7xl 2xl:text-8xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',

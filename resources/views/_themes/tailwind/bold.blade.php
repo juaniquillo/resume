@@ -1,6 +1,17 @@
 <?php
 
+/*
+ * LEGEND
+ * 
+ * Main colors: text-white | text-yellow-400 | bg-black
+ * Text: text-zinc-300 | text-zinc-500
+ * Title: text-2xl md:text-5xl | font-black | uppercase
+ * Links: text-white hover:text-yellow-400 | underline
+ */
+
 return [
+    'cover-letter-container' => 'prose prose-invert prose-yellow max-w-none text-zinc-300 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-a:text-white prose-a:hover:text-yellow-400 prose-a:underline',
+
     'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-zinc-900 text-white shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] md:shadow-[20px_20px_0px_0px_rgba(255,255,0,1)] my-6 md:my-6 border-4 border-black dark:bg-black dark:border-zinc-800',
     
     'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-8 border-yellow-400 pb-12',

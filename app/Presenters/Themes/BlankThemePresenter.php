@@ -213,7 +213,9 @@ final class BlankThemePresenter implements PresenterTheme
 
     public function coverLetterContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => '',
+        ];
     }
 
     public function coverLetterThemes(): array

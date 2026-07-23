@@ -57,7 +57,7 @@ class ContentFactory
                             'name' => $input->getName(),
                             'rows' => 15,
                             'data-markdown' => 1,
-                            'description' => 'Markdown is available',
+                            'description' => 'You can use Markdown to format the content',
                         ], $livewireAttributes))
                 )
         );

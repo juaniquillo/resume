@@ -214,7 +214,7 @@ final class TerminalPresenterTheme implements PresenterTheme
     public function coverLetterContainerThemes(): array
     {
         return [
-            'terminal' => 'section',
+            'terminal' => 'prose-invert prose-emerald',
         ];
     }
 

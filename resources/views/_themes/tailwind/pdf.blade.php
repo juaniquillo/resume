@@ -1,6 +1,17 @@
 <?php
 
+/*
+ * LEGEND
+ * 
+ * Main colors: text-gray-900 | border-gray-100 | border-gray-200
+ * Text: text-gray-700 | text-gray-500 | text-gray-400
+ * Title: text-sm | font-bold | uppercase | tracking-[0.2em]
+ * Links: text-gray-900 | underline
+ */
+
 return [
+    'cover-letter-container' => 'prose max-w-none text-gray-700 prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-gray-900 prose-a:underline',
+    
     'container' => 'mx-auto max-w-[800px] my-2 px-10 py-10 bg-white text-gray-900 border-0',
     
     'basics-container' => 'mb-8 border-b-2 border-gray-100 pb-8',
