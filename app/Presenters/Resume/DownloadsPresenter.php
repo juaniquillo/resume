@@ -28,7 +28,7 @@ final class DownloadsPresenter
         if ($this->downloads->isEmpty()) {
             return null;
         }
-        
+
         $items = $this->downloads->map(function (ResumeExport $export) {
 
             /** @var ResumeExportType $enum */

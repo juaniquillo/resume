@@ -33,7 +33,7 @@ class ResumeExportDownloadController extends Controller
             return redirect()->back()->with('error', 'The exported file was not found.');
         }
 
-        /** @var ResumeExportType $enum  */
+        /** @var ResumeExportType $enum */
         $enum = $export->type;
 
         $filename = str_replace(' ', '-', strtolower($user->name)).'-resume.'.$enum->extension();

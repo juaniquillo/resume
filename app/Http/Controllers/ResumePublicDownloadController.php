@@ -26,7 +26,7 @@ class ResumePublicDownloadController extends Controller
             abort(404, 'The exported file was not found.');
         }
 
-         /** @var ResumeExportType $enum  */
+        /** @var ResumeExportType $enum */
         $enum = $export->type;
 
         $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
