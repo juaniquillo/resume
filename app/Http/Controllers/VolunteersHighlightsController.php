@@ -15,5 +15,4 @@ class VolunteersHighlightsController extends Controller
         return view('dashboard.volunteers.highlights.index')
             ->with('volunteer', $volunteer);
     }
-
 }

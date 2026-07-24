@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified'])
         Route::delete('volunteers/{id}', [VolunteersController::class, 'destroy'])->name('dashboard.volunteers.destroy');
 
         Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
- 
+
         /**
          * Education
          */
