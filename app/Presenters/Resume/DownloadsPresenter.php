@@ -30,14 +30,15 @@ final class DownloadsPresenter
         }
 
         $items = $this->downloads->map(function (ResumeExport $export) {
-            $extension = match ($export->type) {
-                ResumeExportType::COVER_LETTER_PDF => 'pdf',
-                default => $export->type->value,
-            };
+
+            /** @var ResumeExportType $enum */
+            $enum = $export->type;
+
+            $extension = $enum->extension();
             $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$extension;
 
             return $this->compose(ComponentEnum::LINK)
-                ->setAttribute('href', route('dashboard.resume.export.download', [
+                ->setAttribute('href', route('resume.download', [
                     'uuid' => $export->uuid,
                     'v' => md5($export->created_at),
                 ]))

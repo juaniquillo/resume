@@ -82,7 +82,8 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
                 $contents = [];
 
                 if ($export->status === ProcessStatus::COMPLETED) {
-                    $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$export->type->value;
+                    $enum = $export->type;
+                    $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
 
                     $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
                         ->setAttribute('href', route('dashboard.resume.export.download', [

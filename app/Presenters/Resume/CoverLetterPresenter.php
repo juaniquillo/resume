@@ -5,6 +5,7 @@ namespace App\Presenters\Resume;
 use App\Models\CoverLetter;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
+use Illuminate\Contracts\Support\Htmlable;
 use Juaniquillo\BackendComponents\Builders\LocalComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -19,7 +20,12 @@ final class CoverLetterPresenter
         private PresenterTheme $theme,
     ) {}
 
-    public function present(): BackendComponent|CompoundComponent|null
+    public function getTheme(): PresenterTheme
+    {
+        return $this->theme;
+    }
+
+    public function present(): BackendComponent|CompoundComponent|Htmlable|null
     {
         if (! $this->coverLetter || ! $this->coverLetter->content) {
             return null;
