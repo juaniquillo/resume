@@ -29,13 +29,12 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
 
     public const NAME = 'highlights';
 
-    private bool $isLivewire = false;
-
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
         protected ?string $baseRoute = null,
+        protected bool $isLivewire = false,
     ) {}
 
     public function setLivewire(bool $isLivewire = true): static
