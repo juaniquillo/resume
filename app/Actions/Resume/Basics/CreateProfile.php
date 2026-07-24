@@ -18,3 +18,6 @@ class CreateProfile
         return $this->basics->profiles()->create($this->data);
     }
 }
+
+
+

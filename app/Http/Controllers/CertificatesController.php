@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Certificate\UpdateCertificate;
-use App\Cruds\Squema\Certificates\CertificatesCrud;
+use App\Cruds\Schema\Certificates\CertificatesCrud;
 use App\Http\Requests\CertificatesFormRequest;
 use App\Models\Certificate;
 use App\Models\User;
@@ -100,3 +100,7 @@ class CertificatesController extends Controller
             ->with('success', 'Certificate deleted successfully.');
     }
 }
+
+
+
+

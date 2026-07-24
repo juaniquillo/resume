@@ -23,3 +23,6 @@ test('images are served with cache headers', function () {
     $response->assertSuccessful();
     $response->assertHeader('Cache-Control', 'max-age=31536000, public');
 });
+
+
+

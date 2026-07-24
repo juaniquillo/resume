@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Volunteers\VolunteersCrud;
+use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class VolunteerFactory extends Factory
         )->toArray();
     }
 }
+
+

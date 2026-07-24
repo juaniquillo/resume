@@ -24,3 +24,6 @@ class LaravelValidationMessagesRecipe implements RecipeInterface
         public ?string $name = null,
     ) {}
 }
+
+
+

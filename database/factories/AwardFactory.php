@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Awards\AwardsCrud;
+use App\Cruds\Schema\Awards\AwardsCrud;
 use App\Models\Award;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class AwardFactory extends Factory
         )->toArray();
     }
 }
+
+

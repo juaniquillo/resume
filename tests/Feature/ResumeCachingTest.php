@@ -71,3 +71,6 @@ test('updating a model invalidates the cache', function () {
     $this->get(route('resume', $user->slug))->assertSuccessful();
     expect(Cache::has($cacheKey))->toBeTrue();
 });
+
+
+

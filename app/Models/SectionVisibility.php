@@ -41,3 +41,6 @@ class SectionVisibility extends Model
         return (int) $this->user_id;
     }
 }
+
+
+

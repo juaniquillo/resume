@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Cruds\Schema\Skills\Inputs;
+
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\General\ModelToExportRecipe;
+use App\Cruds\Actions\General\NameValueRecipe;
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
+use App\Enums\SkillLevel;
+use App\Models\Skill;
+use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\DataContainer;
+use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+
+class LevelFactory
+{
+    const NAME = 'level';
+
+    const LABEL = 'Level';
+
+    const LIST_ID = 'skill_level_data';
+
+    public static function make(): InputInterface
+    {
+        $input = new DefaultInput(self::NAME, self::LABEL);
+
+        self::form($input);
+
+        self::validation($input);
+        self::factory($input);
+        self::table($input);
+        self::import($input);
+        self::export($input);
+
+        return $input;
+    }
+
+    public static function import(InputInterface $input): void
+    {
+        $input->setRecipe(new NameValueRecipe);
+    }
+
+    public static function validation(InputInterface $input): void
+    {
+        $input->setRecipe(
+            (new LaravelValidationRulesRecipe([
+                'required',
+                'string',
+                'max:191',
+            ]))
+        );
+    }
+
+    public static function form(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new InputComponentRecipe(
+                inputGroup: new SoleInputGroup,
+                attributeBag: (new DefaultAttributeBag)
+                    ->setInputAttributes([
+                        'label' => self::LABEL,
+                        'badge' => 'required',
+                        'list' => self::LIST_ID,
+                    ]),
+                hookBag: (new DefaultHookBag)
+                    ->setWrapperHook(function (CompoundComponent $component, InputInterface $input) {
+
+                        $component->setContent(
+                            LevelFactory::dataList()
+                        );
+
+                        return $component;
+                    })
+            )
+        );
+    }
+
+    public static function dataList(): BackendComponent|CompoundComponent
+    {
+        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+            ->setAttribute('id', self::LIST_ID)
+            ->setContents(self::options());
+
+        return $datalist;
+    }
+
+    public static function options(): array
+    {
+        $options = [];
+
+        foreach (SkillLevel::cases() as $level) {
+            $options[] = ComponentBuilder::make(ComponentEnum::OPTION)
+                ->setAttribute('value', $level->value);
+        }
+
+        return $options;
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{ $input->getName() } = $faker->randomElement(SkillLevel::cases())->value;
+                }
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (SkillLevel|string|null $value, Model|Skill $model) {
+                    if (! $value) {
+                        return '';
+                    }
+
+                    $color = 'zinc';
+                    $enum = SkillLevel::tryFrom($value);
+
+                    if ($enum) {
+                        $color = $enum->labelColor();
+                    }
+
+                    return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                        ->setAttributes([
+                            'color' => $color,
+                        ])
+                        ->setContent($value);
+
+                }
+            )
+        );
+    }
+
+    public static function export(InputInterface $input): void
+    {
+        $input->setRecipe(new ModelToExportRecipe(
+            key: self::NAME
+        ));
+    }
+}
+
+
+
+

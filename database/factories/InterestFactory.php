@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Interests\InterestsCrud;
+use App\Cruds\Schema\Interests\InterestsCrud;
 use App\Models\Interest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class InterestFactory extends Factory
         )->toArray();
     }
 }
+
+

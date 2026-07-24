@@ -18,3 +18,6 @@ class CreateCertificate
         return $this->user->certificates()->create($this->data);
     }
 }
+
+
+

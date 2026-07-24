@@ -18,3 +18,6 @@ class CreateSkill
         return $this->user->skills()->create($this->data);
     }
 }
+
+
+

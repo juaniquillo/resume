@@ -39,7 +39,7 @@ A cache strategy is implemented at the `ResumePresenter` level, utilizing a modu
 
 ### 6. Recent Architectural Improvements
 - **OG Image Versioning**: Implemented an `og_image_version` in `GeneralOption` to act as a manual/automatic cache buster for social sharing.
-- **Ultra-Wide Screen Support**: Standardized on the `2xl:` breakpoint across all themes and the landing page to provide a superior experience on displays larger than 1536px.
+- **Ultra-Wide Screen Support**: Standardized on the `3xl:` breakpoint across all themes and the landing page to provide a superior experience on displays larger than 1536px.
 - **Cascading Deletions & File Cleanup**: The `User` model includes a `deleting` hook that ensures all associated resume data and physical files (images, exports, imports) are purged from storage, preventing orphan data.
 
 ## 🛠️ Development Standards
@@ -66,7 +66,7 @@ A cache strategy is implemented at the `ResumePresenter` level, utilizing a modu
 
 ## 🎨 Design System
 Refer to `DESIGN.md` for the "Retro-Modern" aesthetic (Space Mono, Pixel Icons, specific hex palette).
-- **Breakpoint Policy**: `2xl:` is the primary target for large-screen layout enhancements (containers shift from `max-w-4xl` to `max-w-6xl`).
+- **Breakpoint Policy**: `3xl:` is the primary target for large-screen layout enhancements (containers shift from `max-w-4xl` to `max-w-6xl`).
 - **Font Policy**: All fonts MUST be served locally from `public/fonts/` as `.ttf` files to optimize LCP and ensure privacy.
 
 ---

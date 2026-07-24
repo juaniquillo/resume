@@ -33,3 +33,6 @@ class ResumeOgController extends Controller
         return response(Storage::get($path))->header('Content-Type', 'image/png');
     }
 }
+
+
+

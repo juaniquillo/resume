@@ -3,7 +3,7 @@
 namespace App\Livewire\Resume;
 
 use App\Actions\Resume\ResetResumeAction;
-use App\Cruds\Squema\ResumeReset\ResumeResetCrud;
+use App\Cruds\Schema\ResumeReset\ResumeResetCrud;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -38,3 +38,7 @@ class ResetResume extends Component
         ]);
     }
 }
+
+
+
+

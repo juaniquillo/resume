@@ -120,3 +120,6 @@ test('it fails when the imported file is not an image', function () {
     expect($import->status)->toBe(ProcessStatus::FAILED);
     expect($import->error)->toContain('The image field must be an image');
 });
+
+
+

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Locations\LocationsCrud;
+use App\Cruds\Schema\Locations\LocationsCrud;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -27,3 +27,5 @@ class LocationFactory extends Factory
 
     }
 }
+
+

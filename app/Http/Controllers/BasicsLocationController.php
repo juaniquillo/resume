@@ -24,3 +24,6 @@ class BasicsLocationController extends Controller
             ->with('basics', $basics);
     }
 }
+
+
+

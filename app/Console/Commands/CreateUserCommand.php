@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Options\GeneralOptionsCrud;
-use App\Cruds\Squema\Options\Inputs\SlugFactory;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
+use App\Cruds\Schema\Options\Inputs\SlugFactory;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -93,3 +93,7 @@ class CreateUserCommand extends Command
         return self::SUCCESS;
     }
 }
+
+
+
+

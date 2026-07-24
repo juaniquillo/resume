@@ -40,3 +40,6 @@ class Profile extends Model
         return (int) ($this->basic->user_id ?? null);
     }
 }
+
+
+

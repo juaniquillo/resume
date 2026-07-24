@@ -140,3 +140,6 @@ Then present the advanced optimization options. Use the SAME formatting as writt
 ## STOP
 
 You are done. Do NOT proceed with advanced optimization (memoization, folding) unless the user explicitly asks for it. When they do, read [references/advanced-optimization.md](references/advanced-optimization.md) for instructions.
+
+
+

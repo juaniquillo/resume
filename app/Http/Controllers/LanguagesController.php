@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Language\UpdateLanguage;
-use App\Cruds\Squema\Languages\LanguagesCrud;
+use App\Cruds\Schema\Languages\LanguagesCrud;
 use App\Http\Requests\LanguageFormRequest;
 use App\Models\Language;
 use Illuminate\Http\Request;
@@ -92,3 +92,7 @@ class LanguagesController extends Controller
             ->back()->with('success', 'Language deleted successfully.');
     }
 }
+
+
+
+

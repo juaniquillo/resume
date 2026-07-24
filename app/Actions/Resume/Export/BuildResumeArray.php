@@ -3,22 +3,22 @@
 namespace App\Actions\Resume\Export;
 
 use App\Cruds\Actions\General\ModelToExportAction;
-use App\Cruds\Squema\Awards\AwardsCrud;
-use App\Cruds\Squema\Basics\BasicsCrud;
-use App\Cruds\Squema\Basics\Inputs\EmailFactory;
-use App\Cruds\Squema\Basics\Inputs\NameFactory;
-use App\Cruds\Squema\Certificates\CertificatesCrud;
-use App\Cruds\Squema\Education\EducationCrud;
-use App\Cruds\Squema\Interests\InterestsCrud;
-use App\Cruds\Squema\Languages\LanguagesCrud;
-use App\Cruds\Squema\Locations\LocationsCrud;
-use App\Cruds\Squema\Profiles\ProfilesCrud;
-use App\Cruds\Squema\Projects\ProjectsCrud;
-use App\Cruds\Squema\Publications\PublicationsCrud;
-use App\Cruds\Squema\References\ReferencesCrud;
-use App\Cruds\Squema\Skills\SkillsCrud;
-use App\Cruds\Squema\Volunteers\VolunteersCrud;
-use App\Cruds\Squema\Works\WorksCrud;
+use App\Cruds\Schema\Awards\AwardsCrud;
+use App\Cruds\Schema\Basics\BasicsCrud;
+use App\Cruds\Schema\Basics\Inputs\EmailFactory;
+use App\Cruds\Schema\Basics\Inputs\NameFactory;
+use App\Cruds\Schema\Certificates\CertificatesCrud;
+use App\Cruds\Schema\Education\EducationCrud;
+use App\Cruds\Schema\Interests\InterestsCrud;
+use App\Cruds\Schema\Languages\LanguagesCrud;
+use App\Cruds\Schema\Locations\LocationsCrud;
+use App\Cruds\Schema\Profiles\ProfilesCrud;
+use App\Cruds\Schema\Projects\ProjectsCrud;
+use App\Cruds\Schema\Publications\PublicationsCrud;
+use App\Cruds\Schema\References\ReferencesCrud;
+use App\Cruds\Schema\Skills\SkillsCrud;
+use App\Cruds\Schema\Volunteers\VolunteersCrud;
+use App\Cruds\Schema\Works\WorksCrud;
 use App\Models\Basic;
 use App\Models\Education;
 use App\Models\Project;
@@ -161,3 +161,7 @@ class BuildResumeArray
         return $data;
     }
 }
+
+
+
+

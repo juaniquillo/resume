@@ -60,3 +60,6 @@ test('public resume shows allowed downloads', function () {
     $response->assertSee('Downloads');
     $response->assertSee('JSON Format');
 });
+
+
+

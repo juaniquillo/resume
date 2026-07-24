@@ -4,7 +4,7 @@ namespace App\Livewire\Resume\Works;
 
 use App\Actions\Resume\Work\CreateWork as CreateWorkAction;
 use App\Cruds\Actions\General\NameValueAction;
-use App\Cruds\Squema\Works\WorksCrud;
+use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
@@ -117,3 +117,7 @@ class CreateWork extends Component
             ->with('create', $this->getModal());
     }
 }
+
+
+
+

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\HighlightsCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
@@ -53,3 +53,7 @@ class HighlightsFormRequest extends FormRequest
         )->toArray();
     }
 }
+
+
+
+

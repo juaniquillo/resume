@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Resume;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
@@ -28,3 +28,7 @@ class ResumeExportFormRequest extends FormRequest
         )->toArray();
     }
 }
+
+
+
+

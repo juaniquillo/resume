@@ -3,7 +3,7 @@
 namespace App\Livewire\Options;
 
 use App\Actions\Options\UpdateGeneralOptions as UpdateAction;
-use App\Cruds\Squema\Options\GeneralOptionsCrud;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\GeneralOption;
 use App\Models\User;
@@ -83,3 +83,7 @@ class UpdateGeneralOptions extends Component
             ->with('form', $form);
     }
 }
+
+
+
+

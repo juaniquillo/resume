@@ -1,4 +1,4 @@
-<nav class="p-8 pb-0 flex justify-between items-center max-w-4xl 2xl:max-w-6xl mx-auto">
+<nav class="p-8 pb-0 flex justify-between items-center max-w-4xl 3xl:max-w-6xl mx-auto">
     <a href="{{ route('home') }}" class="text-sky-700 hover:text-sky-800 dark:text-sky-400 dark:hover:text-sky-300 font-bold">
         &larr; Home
     </a>

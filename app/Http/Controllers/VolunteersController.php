@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Volunteer\UpdateVolunteer;
-use App\Cruds\Squema\Volunteers\VolunteersCrud;
+use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Http\Requests\VolunteerFormRequest;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
@@ -92,3 +92,7 @@ class VolunteersController extends Controller
             ->back()->with('success', 'Volunteer entry deleted successfully.');
     }
 }
+
+
+
+

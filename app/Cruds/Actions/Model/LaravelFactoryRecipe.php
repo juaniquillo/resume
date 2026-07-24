@@ -18,3 +18,6 @@ class LaravelFactoryRecipe implements RecipeInterface
     ) {}
 
 }
+
+
+

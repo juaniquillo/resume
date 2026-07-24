@@ -26,3 +26,6 @@ class ResumePreview extends Controller
             ->with('resumeComponent', $presenter->presentCached());
     }
 }
+
+
+

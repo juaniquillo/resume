@@ -18,3 +18,6 @@ class CreateHighlight
         return $this->work->highlights()->create($this->data);
     }
 }
+
+
+

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Publications\PublicationsCrud;
+use App\Cruds\Schema\Publications\PublicationsCrud;
 use App\Models\Publication;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,3 +26,5 @@ class PublicationFactory extends Factory
         )->toArray();
     }
 }
+
+

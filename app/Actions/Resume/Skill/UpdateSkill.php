@@ -16,3 +16,6 @@ class UpdateSkill
         return $this->skill->update($this->data);
     }
 }
+
+
+

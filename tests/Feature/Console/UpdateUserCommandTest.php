@@ -42,3 +42,6 @@ test('it rejects taken slug', function () {
 
     expect($user2->fresh()->generalOptions?->slug)->not->toBe('taken-slug');
 });
+
+
+

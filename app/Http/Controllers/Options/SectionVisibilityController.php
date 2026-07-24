@@ -11,3 +11,6 @@ class SectionVisibilityController extends Controller
         return view('dashboard.options.visibility');
     }
 }
+
+
+

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Award\UpdateAward;
-use App\Cruds\Squema\Awards\AwardsCrud;
+use App\Cruds\Schema\Awards\AwardsCrud;
 use App\Http\Requests\AwardsFormRequest;
 use App\Models\Award;
 use Illuminate\Http\RedirectResponse;
@@ -91,3 +91,7 @@ class AwardsController extends Controller
             ->with('success', 'Award deleted successfully.');
     }
 }
+
+
+
+

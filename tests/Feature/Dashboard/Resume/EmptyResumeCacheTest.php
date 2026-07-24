@@ -1,6 +1,6 @@
 <?php
 
-use App\Cruds\Squema\Cache\EmptyResumeCacheCrud;
+use App\Cruds\Schema\Cache\EmptyResumeCacheCrud;
 use App\Models\User;
 use App\Presenters\ResumePresenter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -41,3 +41,7 @@ it('clears the cache via the EmptyResumeCacheCrud', function () {
 
     expect(Cache::has($cacheKey))->toBeFalse();
 });
+
+
+
+

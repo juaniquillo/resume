@@ -18,3 +18,6 @@ class CreatePublication
         return $this->user->publications()->create($this->data);
     }
 }
+
+
+

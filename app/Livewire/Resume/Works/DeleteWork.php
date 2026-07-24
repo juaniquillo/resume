@@ -52,3 +52,6 @@ class DeleteWork extends Component
             ->with('component', $this->getComponent());
     }
 }
+
+
+

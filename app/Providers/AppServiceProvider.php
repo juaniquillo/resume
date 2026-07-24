@@ -75,3 +75,6 @@ class AppServiceProvider extends ServiceProvider
         Blaze::optimize()->in(resource_path($path));
     }
 }
+
+
+

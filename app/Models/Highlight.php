@@ -35,3 +35,6 @@ class Highlight extends Model
         return (int) ($parent->user_id ?? null);
     }
 }
+
+
+

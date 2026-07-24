@@ -34,3 +34,6 @@ test('it renders the standard dashboard view when basics are present', function 
         ->assertSee('Resume Sections')
         ->assertDontSee('Welcome! Let\'s get started.');
 });
+
+
+

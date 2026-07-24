@@ -5,8 +5,8 @@ namespace App\Http\Requests;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Skills\Inputs\KeywordsFactory;
-use App\Cruds\Squema\Skills\SkillsCrud;
+use App\Cruds\Schema\Skills\Inputs\KeywordsFactory;
+use App\Cruds\Schema\Skills\SkillsCrud;
 use App\Support\RequestUtils;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -62,3 +62,7 @@ class SkillsFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 }
+
+
+
+

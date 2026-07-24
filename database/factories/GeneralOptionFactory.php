@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Options\GeneralOptionsCrud;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Models\GeneralOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class GeneralOptionFactory extends Factory
         )->toArray();
     }
 }
+
+

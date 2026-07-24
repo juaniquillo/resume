@@ -12,3 +12,6 @@ class ResumeOgManagementController extends Controller
         return view('dashboard.resume.og-image');
     }
 }
+
+
+

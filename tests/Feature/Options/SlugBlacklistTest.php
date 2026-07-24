@@ -35,3 +35,6 @@ test('valid slugs are accepted', function () {
 
     expect($user->fresh()->generalOptions->slug)->toBe('john-doe');
 });
+
+
+

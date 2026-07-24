@@ -27,3 +27,6 @@ trait PasswordValidationRules
         return ['required', 'string', 'current_password'];
     }
 }
+
+
+

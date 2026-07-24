@@ -11,3 +11,6 @@ class GeneralOptionsController extends Controller
         return view('dashboard.options.general');
     }
 }
+
+
+

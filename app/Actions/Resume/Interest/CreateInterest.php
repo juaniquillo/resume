@@ -18,3 +18,6 @@ class CreateInterest
         return $this->user->interests()->create($this->data);
     }
 }
+
+
+

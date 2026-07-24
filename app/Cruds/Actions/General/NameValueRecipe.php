@@ -20,3 +20,6 @@ class NameValueRecipe implements RecipeInterface
         public readonly ?Closure $callback = null,
     ) {}
 }
+
+
+

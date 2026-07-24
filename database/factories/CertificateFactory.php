@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Certificates\CertificatesCrud;
+use App\Cruds\Schema\Certificates\CertificatesCrud;
 use App\Models\Certificate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,3 +26,5 @@ class CertificateFactory extends Factory
         )->toArray();
     }
 }
+
+

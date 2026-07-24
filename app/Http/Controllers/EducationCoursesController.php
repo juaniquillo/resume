@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Common\UpdateCourse;
-use App\Cruds\Squema\Courses\CoursesCrud;
+use App\Cruds\Schema\Courses\CoursesCrud;
 use App\Http\Requests\CoursesFormRequest;
 use App\Models\Education;
 use Illuminate\Http\Request;
@@ -100,3 +100,7 @@ class EducationCoursesController extends Controller
             ->with('success', 'Course deleted successfully.');
     }
 }
+
+
+
+

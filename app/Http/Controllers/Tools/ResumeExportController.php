@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tools;
 
 use App\Actions\Resume\Export\CreateResumeExport;
-use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Http\Controllers\Controller;
@@ -92,3 +92,7 @@ class ResumeExportController extends Controller
             ->with('success', 'Resume export deleted successfully.');
     }
 }
+
+
+
+

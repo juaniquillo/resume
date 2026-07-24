@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Courses\CoursesCrud;
+use App\Cruds\Schema\Courses\CoursesCrud;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,3 +26,5 @@ class CourseFactory extends Factory
         )->toArray();
     }
 }
+
+

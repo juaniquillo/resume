@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Publication\UpdatePublication;
-use App\Cruds\Squema\Publications\PublicationsCrud;
+use App\Cruds\Schema\Publications\PublicationsCrud;
 use App\Http\Requests\PublicationsFormRequest;
 use App\Models\Publication;
 use App\Models\User;
@@ -100,3 +100,7 @@ class PublicationsController extends Controller
             ->with('success', 'Publication deleted successfully.');
     }
 }
+
+
+
+

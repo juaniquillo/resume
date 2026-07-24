@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Basics\UpdateProfile;
-use App\Cruds\Squema\Profiles\ProfilesCrud;
+use App\Cruds\Schema\Profiles\ProfilesCrud;
 use App\Http\Requests\ProfilesFormRequest;
 use App\Models\Basic;
 use App\Models\Profile;
@@ -139,3 +139,7 @@ class BasicsProfileController extends Controller
             ->with('success', 'Profile deleted successfully.');
     }
 }
+
+
+
+

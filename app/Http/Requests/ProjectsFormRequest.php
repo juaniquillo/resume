@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Projects\ProjectsCrud;
+use App\Cruds\Schema\Projects\ProjectsCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
@@ -57,3 +57,7 @@ class ProjectsFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
     }
 }
+
+
+
+

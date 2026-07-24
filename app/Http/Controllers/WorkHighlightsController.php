@@ -16,3 +16,6 @@ class WorkHighlightsController extends Controller
             ->with('model', $work);
     }
 }
+
+
+

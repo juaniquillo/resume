@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Interest\UpdateInterest;
-use App\Cruds\Squema\Interests\InterestsCrud;
+use App\Cruds\Schema\Interests\InterestsCrud;
 use App\Http\Requests\InterestFormRequest;
 use App\Models\Interest;
 use Illuminate\Http\Request;
@@ -100,3 +100,7 @@ class InterestsController extends Controller
             ->back()->with('success', 'Interest deleted successfully.');
     }
 }
+
+
+
+

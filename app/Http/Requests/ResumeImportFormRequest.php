@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsAction;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\ResumeImport\ResumeImportCrud;
+use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
@@ -52,3 +52,7 @@ class ResumeImportFormRequest extends FormRequest
         )->toArray();
     }
 }
+
+
+
+

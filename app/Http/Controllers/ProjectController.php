@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Project\UpdateProject;
-use App\Cruds\Squema\Projects\ProjectsCrud;
+use App\Cruds\Schema\Projects\ProjectsCrud;
 use App\Http\Requests\ProjectsFormRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -92,3 +92,7 @@ class ProjectController extends Controller
             ->back()->with('success', 'Project deleted successfully.');
     }
 }
+
+
+
+

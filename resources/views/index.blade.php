@@ -9,11 +9,11 @@
 
     {{-- Hero Section --}}
     <header class="py-20 md:py-32">
-        <div class="container mx-auto max-w-4xl 2xl:max-w-6xl px-8">
-            <h1 class="text-5xl md:text-7xl 2xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+        <div class="container mx-auto max-w-4xl 3xl:max-w-6xl px-8">
+            <h1 class="text-5xl md:text-7xl 3xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
                 Craft Your Professional Story<span class="text-sky-600">.</span>
             </h1>
-            <p class="text-2xl 2xl:text-3xl font-medium text-sky-600 dark:text-sky-400 mb-10 max-w-2xl 2xl:max-w-3xl">
+            <p class="text-2xl 3xl:text-3xl font-medium text-sky-600 dark:text-sky-400 mb-10 max-w-2xl 3xl:max-w-3xl">
                 Effortlessly manage your resume sections and export in industry-standard formats.
             </p>
             <div class="flex flex-wrap gap-4">
@@ -31,7 +31,7 @@
 
     {{-- Features Section --}}
     <section id="features" class="py-20">
-        <div class="container mx-auto max-w-4xl 2xl:max-w-6xl px-8">
+        <div class="container mx-auto max-w-4xl 3xl:max-w-6xl px-8">
             <h2 class="text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-12 uppercase tracking-wider dark:text-white dark:border-sky-500">
                 Full Control Over Your Profile
             </h2>
@@ -86,7 +86,7 @@
 
     {{-- Personal Section --}}
     <section id="about" class="py-20 bg-gray-50 dark:bg-zinc-900/50">
-        <div class="container mx-auto max-w-4xl 2xl:max-w-6xl px-8 text-center">
+        <div class="container mx-auto max-w-4xl 3xl:max-w-6xl px-8 text-center">
             <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 Why I Built This
             </h2>

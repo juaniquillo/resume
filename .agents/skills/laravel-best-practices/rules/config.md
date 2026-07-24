@@ -71,3 +71,6 @@ If the application already uses language files for localization, use `__()` for 
 // Only when lang files already exist in the project
 return back()->with('message', __('app.article_added'));
 ```
+
+
+

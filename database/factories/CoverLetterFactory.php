@@ -22,3 +22,4 @@ class CoverLetterFactory extends Factory
         ];
     }
 }
+

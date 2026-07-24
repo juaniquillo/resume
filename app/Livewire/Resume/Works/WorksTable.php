@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Works;
 
-use App\Cruds\Squema\Works\WorksCrud;
+use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -51,3 +51,7 @@ class WorksTable extends Component
             ->with(['table' => $this->table()]);
     }
 }
+
+
+
+

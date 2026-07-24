@@ -28,3 +28,6 @@ test('user model can access resume data through lazy loading accessor', function
     expect($basics2)->toBe($basics);
     expect(count(DB::getQueryLog()))->toBe($queriesAfterFirst);
 });
+
+
+

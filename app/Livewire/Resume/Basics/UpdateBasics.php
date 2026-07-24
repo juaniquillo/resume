@@ -3,8 +3,8 @@
 namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateBasics as UpdateAction;
-use App\Cruds\Squema\Basics\BasicsCrud;
-use App\Cruds\Squema\Basics\Inputs\ImageFactory;
+use App\Cruds\Schema\Basics\BasicsCrud;
+use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -81,3 +81,7 @@ class UpdateBasics extends Component
             ->with('form', $form);
     }
 }
+
+
+
+

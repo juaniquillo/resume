@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Tools;
 
 use App\Actions\Resume\Import\CreateResumeImport;
-use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
-use App\Cruds\Squema\ResumeImport\ResumeImportCrud;
+use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResumeImportFormRequest;
 use App\Jobs\ProcessResumeImport;
@@ -85,3 +85,7 @@ class ResumeImportController extends Controller
             ->with('success', 'Resume import deleted successfully.');
     }
 }
+
+
+
+

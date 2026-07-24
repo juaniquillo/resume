@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Education\EducationCrud;
+use App\Cruds\Schema\Education\EducationCrud;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class EducationFactory extends Factory
         )->toArray();
     }
 }
+
+

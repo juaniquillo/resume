@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Options;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Squema\Options\SectionVisibilityCrud;
+use App\Cruds\Schema\Options\SectionVisibilityCrud;
 use Illuminate\Foundation\Http\FormRequest;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 
@@ -28,3 +28,7 @@ class SectionVisibilityFormRequest extends FormRequest
         )->toArray();
     }
 }
+
+
+
+

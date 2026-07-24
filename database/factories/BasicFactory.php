@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Models\Basic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,3 +22,5 @@ class BasicFactory extends Factory
         )->toArray();
     }
 }
+
+

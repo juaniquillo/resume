@@ -104,3 +104,6 @@ public function scopeOrderByLastLogin($query): void
     );
 }
 ```
+
+
+

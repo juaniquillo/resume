@@ -19,3 +19,6 @@ class CreateCoverLetter
         return $this->user->coverLetters()->create($data);
     }
 }
+
+
+

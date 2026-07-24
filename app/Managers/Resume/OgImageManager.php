@@ -44,3 +44,6 @@ class OgImageManager
         return Storage::exists($this->getPath());
     }
 }
+
+
+

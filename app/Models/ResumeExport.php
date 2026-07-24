@@ -65,3 +65,6 @@ class ResumeExport extends Model
         });
     }
 }
+
+
+

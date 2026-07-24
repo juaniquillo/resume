@@ -43,3 +43,6 @@ class Publication extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+
+

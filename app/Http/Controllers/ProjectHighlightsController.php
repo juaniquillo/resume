@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Common\UpdateHighlight;
-use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\HighlightsCrud;
 use App\Http\Requests\HighlightsFormRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -100,3 +100,7 @@ class ProjectHighlightsController extends Controller
             ->with('success', 'Highlight deleted successfully.');
     }
 }
+
+
+
+

@@ -3,7 +3,7 @@
 namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateLocation as UpdateAction;
-use App\Cruds\Squema\Locations\LocationsCrud;
+use App\Cruds\Schema\Locations\LocationsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -82,3 +82,7 @@ class UpdateLocation extends Component
             ->with('form', $form);
     }
 }
+
+
+
+

@@ -37,3 +37,6 @@ Schedule::daily()
         Schedule::command('emails:prune');
     });
 ```
+
+
+

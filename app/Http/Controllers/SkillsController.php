@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Skill\UpdateSkill;
-use App\Cruds\Squema\Skills\SkillsCrud;
+use App\Cruds\Schema\Skills\SkillsCrud;
 use App\Http\Requests\SkillsFormRequest;
 use App\Models\Skill;
 use App\Models\User;
@@ -100,3 +100,7 @@ class SkillsController extends Controller
             ->with('success', 'Skill deleted successfully.');
     }
 }
+
+
+
+

@@ -209,3 +209,6 @@ Works because: `href` and `label` are passed through directly.
 - The project doesn't have measured performance issues — premature optimization
 - The component is frequently modified during development — folding requires `view:clear` after changes and adds cognitive overhead for developers
 - The component has complex internal logic — harder to reason about safety
+
+
+

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Highlights;
 
-use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\HighlightsCrud;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\Contracts\HighlightModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -62,3 +62,7 @@ class HighlightTable extends Component
             ->with('table', $this->table());
     }
 }
+
+
+
+

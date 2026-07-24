@@ -4,7 +4,7 @@ namespace App\Livewire\Resume\CoverLetters;
 
 use App\Actions\Resume\CoverLetter\SaveCoverLetter;
 use App\Cruds\Actions\General\NameValueAction;
-use App\Cruds\Squema\CoverLetters\CoverLettersCrud;
+use App\Cruds\Schema\CoverLetters\CoverLettersCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\CoverLetter;
 use App\Models\User;
@@ -89,3 +89,7 @@ class CoverLetterForm extends Component
             ->with('form', $this->getForm());
     }
 }
+
+
+
+

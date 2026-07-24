@@ -68,3 +68,6 @@ If Redis goes down, the app falls back to a secondary store automatically.
 ```php
 'failover' => ['driver' => 'failover', 'stores' => ['redis', 'database']],
 ```
+
+
+
