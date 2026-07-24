@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Livewire\Resume\Works;
+namespace App\Livewire\Resume\Volunteers;
 
-use App\Actions\Resume\Work\CreateWork as CreateWorkAction;
 use App\Cruds\Actions\General\NameValueAction;
-use App\Cruds\Schema\Works\WorksCrud;
+use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
@@ -14,19 +13,25 @@ use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class CreateWork extends Component
+class CreateVolunteer extends Component
 {
     use IsLivewireForm,
         IsLivewireModal;
 
-    public array $works = [];
+    public array $volunteers = [];
 
-    public function mount(): void
+    public function mount()
     {
         $this->refreshVariables();
+    }
+
+    private function crud()
+    {
+        return VolunteersCrud::build(
+            errors: $this->formErrors,
+        )->setLivewire();
     }
 
     public function createForm(): void
@@ -34,58 +39,41 @@ class CreateWork extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        $validator = $this->validateForm($this->crud()->make(), $this->works);
+        $validator = $this->validateForm($this->crud()->make(), $this->volunteers);
 
-        (new CreateWorkAction(
-            $validator->validated(),
-            $user
-        ))->handle();
+        $user->volunteers()->create($validator->validated());
 
-        session()->flash('success', 'Work created successfully.');
+        session()->flash('success', 'Volunteer entry created successfully.');
 
         $this->dispatch('resume-updated');
 
         $this->refreshVariables();
 
         (new FluxManager)->modal($this->getModalKey())->close();
-
-        // $this->redirect(route('dashboard.works'));
     }
 
-    #[Computed]
     public function refreshVariables(): void
     {
         $output = $this->crud()
             ->make()
             ->execute(
                 (new NameValueAction(values: []))
-                    ->setGlobalDefault('') // Set a global default value for all inputs
+                    ->setGlobalDefault('')
             );
 
-        $this->works = $output->toArray();
-    }
-
-    private function crud()
-    {
-        /** @var User $user */
-        $user = Auth::user();
-
-        return WorksCrud::build(
-            values: $this->works,
-            errors: $this->formErrors,
-        );
+        $this->volunteers = $output->toArray();
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
-            ->formNarrow()
+            ->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 
     public function getModalKey(): string
     {
-        return 'create-work';
+        return 'create-volunteer';
     }
 
     public function getModal(): BackendComponent|CompoundComponent
@@ -95,14 +83,12 @@ class CreateWork extends Component
 
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([
-                // From trait
                 'button' => $this->modalButton(
-                    label: 'Create Work',
+                    label: 'Create Volunteer',
                     id: $id,
                     variant: 'filled',
                     icon: self::CREATE_ICON,
                 ),
-                // From trait
                 'modal' => $this->modalComponent(
                     id: $id,
                     content: $form,
@@ -113,7 +99,7 @@ class CreateWork extends Component
 
     public function render()
     {
-        return view('livewire.resume.works.create-work')
+        return view('livewire.resume.volunteers.create-volunteer')
             ->with('create', $this->getModal());
     }
 }

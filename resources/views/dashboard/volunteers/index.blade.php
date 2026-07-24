@@ -2,15 +2,9 @@
 
     <flux:heading size="xl" level="1">{{ __("Volunteers") }}</flux:heading>
 
-    <div class="max-w-xl mt-6">
-        {{ $form }}
+     <div class="max-w-xl mt-6">
+        <livewire:resume.volunteers.create-volunteer />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
+    <livewire:resume.volunteers.volunteers-table/>
 </x-layouts::app>

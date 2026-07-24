@@ -10,6 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Volunteers\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Volunteers\Inputs\OrganizationFactory;
@@ -19,12 +20,15 @@ use App\Cruds\Schema\Volunteers\Inputs\SummaryFactory;
 use App\Cruds\Schema\Volunteers\Inputs\UrlFactory;
 use App\Cruds\Schema\Volunteers\Inputs\UserFactory;
 use App\Cruds\Schema\Volunteers\Inputs\UuidFactory;
+use App\Cruds\Schema\Volunteers\Renderers\VolunteersFormRenderer;
+use App\Cruds\Schema\Volunteers\Renderers\VolunteersTableRenderer;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\InputComponentAction\InputComponentAction;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -36,7 +40,15 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected bool $isLivewire = false,
     ) {}
+
+    public function setLivewire(bool $isLivewire = true): static
+    {
+        $this->isLivewire = $isLivewire;
+
+        return $this;
+    }
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
@@ -47,9 +59,14 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel('volunteers');
+    }
+
     public function inputsArray(): array
     {
-        return [
+        $inputs = [
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'organization' => OrganizationFactory::make(),
@@ -59,11 +76,28 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
             'url' => UrlFactory::make(),
             'summary' => SummaryFactory::make(),
         ];
+
+        if ($this->isLivewire) {
+            foreach ($inputs as $name => $input) {
+                /** @var InputComponentRecipe|null $recipe */
+                $recipe = $input->getRecipe(InputComponentAction::getIdentifier());
+
+                if ($recipe instanceof InputComponentRecipe && $recipe->getAttributeBag() !== null) {
+                    $attributes = LivewireHelpers::getLivewireAttributes($name, self::getLivewireGroup());
+                    $attributeBag = $recipe->getAttributeBag();
+
+                    $currentAttributes = $attributeBag->getInputAttributes();
+                    $attributeBag->setInputAttributes(array_merge($currentAttributes, $attributes));
+                }
+            }
+        }
+
+        return $inputs;
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['url', 'summary']);
+        return VolunteersFormRenderer::make()->renderFull($this, ['url', 'summary']);
     }
 
     protected function extraCells(TableRowsAction $action): void
@@ -85,25 +119,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Volunteer $volunteer */
-                $volunteer = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.volunteers.edit', [$volunteer->id])),
-                    $helper->deleteButton(route('dashboard.volunteers.destroy', [$volunteer->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => VolunteersTableRenderer::make()->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);
