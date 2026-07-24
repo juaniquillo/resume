@@ -11,6 +11,3 @@ test('it resolves values from name', function () {
 
     expect($result->get('name'))->toBe('John Doe');
 });
-
-
-

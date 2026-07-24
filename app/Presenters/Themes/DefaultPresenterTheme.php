@@ -327,6 +327,3 @@ final class DefaultPresenterTheme implements PresenterTheme
         return "'Space Mono', monospace";
     }
 }
-
-
-

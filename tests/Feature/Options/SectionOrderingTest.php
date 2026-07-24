@@ -96,6 +96,3 @@ test('changing section order invalidates resume cache', function () {
 
     expect(Cache::has($cacheKey))->toBeFalse();
 });
-
-
-

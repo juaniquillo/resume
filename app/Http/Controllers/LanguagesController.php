@@ -92,7 +92,3 @@ class LanguagesController extends Controller
             ->back()->with('success', 'Language deleted successfully.');
     }
 }
-
-
-
-

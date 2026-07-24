@@ -28,7 +28,3 @@ class SectionVisibilityFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

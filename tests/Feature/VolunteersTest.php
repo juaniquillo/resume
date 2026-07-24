@@ -120,6 +120,3 @@ it('deletes a volunteer record', function () {
         'id' => $volunteer->id,
     ]);
 });
-
-
-

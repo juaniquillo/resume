@@ -99,6 +99,3 @@ trait HasHtmlTable
 
     protected function tableOptions(TableRowsAction $action): void {}
 }
-
-
-

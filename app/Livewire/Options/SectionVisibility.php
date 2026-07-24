@@ -64,7 +64,3 @@ class SectionVisibility extends Component
             ->with('form', $form);
     }
 }
-
-
-
-

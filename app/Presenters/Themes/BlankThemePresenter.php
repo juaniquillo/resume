@@ -245,6 +245,3 @@ final class BlankThemePresenter implements PresenterTheme
         return "'Space Mono', monospace";
     }
 }
-
-
-

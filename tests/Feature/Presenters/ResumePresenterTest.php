@@ -458,6 +458,3 @@ test('it respects section visibility settings', function () {
     expect($html)->not->toContain('Company Inc');
     expect($html)->toContain('John Doe'); // Basics always visible
 });
-
-
-

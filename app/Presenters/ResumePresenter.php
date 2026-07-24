@@ -122,6 +122,3 @@ final class ResumePresenter
         return $this->cacheManager;
     }
 }
-
-
-

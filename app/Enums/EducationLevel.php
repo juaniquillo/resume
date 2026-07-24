@@ -27,6 +27,3 @@ enum EducationLevel: string
         };
     }
 }
-
-
-

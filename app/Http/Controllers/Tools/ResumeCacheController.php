@@ -26,7 +26,3 @@ class ResumeCacheController extends Controller
         return redirect()->back()->with('success', 'Cache cleared successfully.');
     }
 }
-
-
-
-

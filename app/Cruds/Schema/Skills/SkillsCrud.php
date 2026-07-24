@@ -91,7 +91,3 @@ final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 }
-
-
-
-

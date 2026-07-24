@@ -62,7 +62,3 @@ class HighlightTable extends Component
             ->with('table', $this->table());
     }
 }
-
-
-
-

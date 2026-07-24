@@ -375,7 +375,3 @@ test('the background job handles cases with no data correctly', function () {
     expect($export->file_path)->toBeNull();
     expect($export->error)->toBe(BasicsCrud::MISSING_BASICS_ERROR);
 });
-
-
-
-

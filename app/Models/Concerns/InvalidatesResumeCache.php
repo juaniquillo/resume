@@ -42,6 +42,3 @@ trait InvalidatesResumeCache
         return null;
     }
 }
-
-
-

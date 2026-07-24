@@ -120,7 +120,3 @@ class CreateHighlight extends Component
             ->with('create', $this->getModal());
     }
 }
-
-
-
-

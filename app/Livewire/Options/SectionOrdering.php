@@ -51,6 +51,3 @@ class SectionOrdering extends Component
         return view('livewire.options.section-ordering');
     }
 }
-
-
-

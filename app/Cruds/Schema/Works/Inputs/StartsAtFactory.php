@@ -111,7 +111,3 @@ class StartsAtFactory
         ));
     }
 }
-
-
-
-

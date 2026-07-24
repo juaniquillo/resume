@@ -14,6 +14,3 @@ interface HighlightModel
 
     public function getUserId(): int;
 }
-
-
-

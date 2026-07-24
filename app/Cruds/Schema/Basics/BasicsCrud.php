@@ -2,13 +2,10 @@
 
 namespace App\Cruds\Schema\Basics;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
-use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Basics\Inputs\EmailFactory;
 use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Cruds\Schema\Basics\Inputs\LabelFactory;
@@ -18,11 +15,11 @@ use App\Cruds\Schema\Basics\Inputs\SummaryFactory;
 use App\Cruds\Schema\Basics\Inputs\UrlFactory;
 use App\Cruds\Schema\Basics\Inputs\UserFactory;
 use App\Cruds\Schema\Basics\Inputs\UuidFactory;
+use App\Cruds\Schema\Basics\Renderers\BasicsFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Override;
 
 final class BasicsCrud implements CrudForm, CrudInterface
 {
@@ -63,9 +60,14 @@ final class BasicsCrud implements CrudForm, CrudInterface
         ];
     }
 
+    public function renderComposeForm(?array $inputs = null, ?array $themes = null): BackendComponent|CompoundComponent
+    {
+        return $this->composeForm($inputs, $themes);
+    }
+
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['summary']);
+        return BasicsFormRenderer::make()->renderFull($this, ['summary']);
     }
 
     public static function getLivewireGroup(): string
@@ -73,24 +75,8 @@ final class BasicsCrud implements CrudForm, CrudInterface
         return Str::camel(self::NAME);
     }
 
-    #[Override]
     public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
     {
-        $livewireAttributes = LivewireHelpers::getLivewireAttributes(ImageFactory::NAME, self::getLivewireGroup());
-
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('type', 'submit')
-            ->setAttribute('variant', 'primary')
-            ->setAttribute('color', 'blue')
-            ->setAttributes([
-                'wire:loading.attr' => 'disabled',
-                'wire:target' => $livewireAttributes['wire:model'],
-            ])
-            ->setTheme('cursor', 'pointer')
-            ->setContent(__($label));
+        return BasicsFormRenderer::make()->saveButton($this, $label);
     }
 }
-
-
-
-

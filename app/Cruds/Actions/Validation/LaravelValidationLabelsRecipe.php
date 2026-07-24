@@ -29,6 +29,3 @@ class LaravelValidationLabelsRecipe implements RecipeInterface
      */
     protected $action = LaravelValidationLabelsAction::class;
 }
-
-
-

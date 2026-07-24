@@ -34,6 +34,3 @@ interface CrudForm
 
     public function errorManager(): ?ErrorManager;
 }
-
-
-

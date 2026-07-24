@@ -16,6 +16,3 @@ class UpdateProject
         return $this->project->update($this->data);
     }
 }
-
-
-

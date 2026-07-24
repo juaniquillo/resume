@@ -83,7 +83,3 @@ class UpdateGeneralOptions extends Component
             ->with('form', $form);
     }
 }
-
-
-
-

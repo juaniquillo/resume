@@ -179,6 +179,3 @@ final class BasicsPresenter
         ];
     }
 }
-
-
-

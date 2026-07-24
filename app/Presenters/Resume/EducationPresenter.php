@@ -103,6 +103,3 @@ final class EducationPresenter
             ]));
     }
 }
-
-
-

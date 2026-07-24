@@ -20,6 +20,3 @@ enum SkillLevel: string
         };
     }
 }
-
-
-

@@ -91,6 +91,3 @@ final class ProjectsPresenter
             ]));
     }
 }
-
-
-

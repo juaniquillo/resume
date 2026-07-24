@@ -100,7 +100,3 @@ class PublicationsController extends Controller
             ->with('success', 'Publication deleted successfully.');
     }
 }
-
-
-
-

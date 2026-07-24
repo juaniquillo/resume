@@ -114,6 +114,3 @@ trait HasFluxCards
         return $links;
     }
 }
-
-
-

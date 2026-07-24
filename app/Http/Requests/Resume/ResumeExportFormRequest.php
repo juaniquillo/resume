@@ -28,7 +28,3 @@ class ResumeExportFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

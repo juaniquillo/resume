@@ -18,6 +18,3 @@ class CreateProject
         return $this->user->projects()->create($this->data);
     }
 }
-
-
-

@@ -64,6 +64,3 @@ class DeleteHighlight extends Component
             ->with('component', $this->getComponent());
     }
 }
-
-
-

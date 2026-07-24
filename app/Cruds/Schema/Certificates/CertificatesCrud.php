@@ -91,7 +91,3 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 }
-
-
-
-

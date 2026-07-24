@@ -18,6 +18,3 @@ class CreateAward
         return $this->user->awards()->create($this->data);
     }
 }
-
-
-

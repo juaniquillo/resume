@@ -113,6 +113,3 @@ it('deletes a certificate record', function () {
         'id' => $certificate->id,
     ]);
 });
-
-
-

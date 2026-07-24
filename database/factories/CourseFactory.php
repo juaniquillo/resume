@@ -26,5 +26,3 @@ class CourseFactory extends Factory
         )->toArray();
     }
 }
-
-

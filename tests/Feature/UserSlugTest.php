@@ -27,6 +27,3 @@ test('factory generates a slug by default', function () {
 
     expect($user->generalOptions->slug)->not->toBeNull();
 });
-
-
-

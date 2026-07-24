@@ -20,6 +20,3 @@ class UpdateWork
         return $this->work->update($data);
     }
 }
-
-
-

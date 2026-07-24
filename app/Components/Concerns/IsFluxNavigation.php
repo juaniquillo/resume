@@ -132,6 +132,3 @@ trait IsFluxNavigation
         return $isCurrent;
     }
 }
-
-
-

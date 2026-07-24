@@ -22,5 +22,3 @@ class BasicFactory extends Factory
         )->toArray();
     }
 }
-
-

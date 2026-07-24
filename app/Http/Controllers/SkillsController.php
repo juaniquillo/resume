@@ -100,7 +100,3 @@ class SkillsController extends Controller
             ->with('success', 'Skill deleted successfully.');
     }
 }
-
-
-
-

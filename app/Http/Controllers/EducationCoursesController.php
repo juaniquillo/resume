@@ -100,7 +100,3 @@ class EducationCoursesController extends Controller
             ->with('success', 'Course deleted successfully.');
     }
 }
-
-
-
-

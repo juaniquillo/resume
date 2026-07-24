@@ -57,7 +57,3 @@ class AwardsFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationMessagesAction)->toArray();
     }
 }
-
-
-
-

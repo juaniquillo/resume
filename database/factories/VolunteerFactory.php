@@ -22,5 +22,3 @@ class VolunteerFactory extends Factory
         )->toArray();
     }
 }
-
-

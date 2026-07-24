@@ -22,5 +22,3 @@ class ResumeImportFactory extends Factory
         )->toArray();
     }
 }
-
-

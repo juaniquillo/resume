@@ -128,7 +128,3 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 }
-
-
-
-

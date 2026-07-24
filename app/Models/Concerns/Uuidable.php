@@ -13,6 +13,3 @@ trait Uuidable
         });
     }
 }
-
-
-

@@ -117,7 +117,3 @@ class CreateWork extends Component
             ->with('create', $this->getModal());
     }
 }
-
-
-
-

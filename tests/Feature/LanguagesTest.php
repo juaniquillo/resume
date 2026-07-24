@@ -158,6 +158,3 @@ it('deletes a language record', function () {
         'id' => $language->id,
     ]);
 });
-
-
-

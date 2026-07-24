@@ -18,6 +18,3 @@ class CreateReference
         return $this->user->references()->create($this->data);
     }
 }
-
-
-

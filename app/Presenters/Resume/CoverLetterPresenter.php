@@ -39,6 +39,3 @@ final class CoverLetterPresenter
             );
     }
 }
-
-
-

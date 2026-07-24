@@ -189,6 +189,3 @@ enum Network: string
         };
     }
 }
-
-
-

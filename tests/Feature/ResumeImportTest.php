@@ -258,6 +258,3 @@ test('user cannot have more than 5 resume imports', function () {
     $response->assertSessionHas('error', 'You can only have up to 5 resume imports. Please delete an old one first.');
     $this->assertDatabaseCount('resume_imports', 5);
 });
-
-
-

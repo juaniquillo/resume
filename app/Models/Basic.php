@@ -66,6 +66,3 @@ class Basic extends Model
         return $this->hasMany(Profile::class);
     }
 }
-
-
-

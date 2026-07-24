@@ -99,6 +99,3 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
             ->render();
     }
 }
-
-
-

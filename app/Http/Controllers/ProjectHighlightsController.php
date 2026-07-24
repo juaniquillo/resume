@@ -100,7 +100,3 @@ class ProjectHighlightsController extends Controller
             ->with('success', 'Highlight deleted successfully.');
     }
 }
-
-
-
-

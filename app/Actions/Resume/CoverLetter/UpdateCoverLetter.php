@@ -19,6 +19,3 @@ class UpdateCoverLetter
         return $this->coverLetter->update($data);
     }
 }
-
-
-

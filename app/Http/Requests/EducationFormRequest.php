@@ -49,7 +49,3 @@ class EducationFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
     }
 }
-
-
-
-

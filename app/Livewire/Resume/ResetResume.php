@@ -38,7 +38,3 @@ class ResetResume extends Component
         ]);
     }
 }
-
-
-
-

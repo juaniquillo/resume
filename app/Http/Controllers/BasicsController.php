@@ -11,6 +11,3 @@ class BasicsController extends Controller
         return view('dashboard.basics.index');
     }
 }
-
-
-

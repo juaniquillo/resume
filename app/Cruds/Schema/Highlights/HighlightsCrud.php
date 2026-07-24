@@ -9,30 +9,27 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
-use App\Cruds\Concerns\IsLivewireForm;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Highlights\Inputs\HighlightFactory;
-use App\Livewire\Resume\Highlights\DeleteHighlight;
-use App\Livewire\Resume\Highlights\EditHighlight;
+use App\Cruds\Schema\Highlights\Renderers\HighlightsFormRenderer;
+use App\Cruds\Schema\Highlights\Renderers\HighlightsTableRenderer;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
 {
     use HasHtmlForm,
         HasHtmlTable,
-        IsCrud,
-        IsLivewireForm;
+        IsCrud;
 
     public const NAME = 'highlights';
+
+    private bool $isLivewire = false;
 
     public function __construct(
         protected array $values = [],
@@ -40,6 +37,13 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         protected ?Model $model = null,
         protected ?string $baseRoute = null,
     ) {}
+
+    public function setLivewire(bool $isLivewire = true): static
+    {
+        $this->isLivewire = $isLivewire;
+
+        return $this;
+    }
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null, ?string $baseRoute = null): static
     {
@@ -63,11 +67,12 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         return [
             'highlight' => HighlightFactory::make($this->isLivewire),
         ];
+
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['highlight']);
+        return HighlightsFormRenderer::make()->renderFull($this, ['highlight']);
     }
 
     /**
@@ -77,40 +82,7 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Highlight $highlight */
-                $highlight = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    // $this->tableEditButton($highlight),
-                    // $this->tableDeleteButton($highlight),
-
-                    $helper->liveWireComponent(
-                        component: EditHighlight::class,
-                        id: "edit-highlight-{$highlight->id}",
-                        params: [
-                            $highlight->id,
-                        ]
-                    ),
-                    $helper->liveWireComponent(
-                        component: DeleteHighlight::class,
-                        id: "delete-highlight-{$highlight->id}",
-                        params: [
-                            $highlight->id,
-                        ]
-                    ),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => HighlightsTableRenderer::make()->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);
@@ -130,7 +102,3 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         return Str::camel(self::NAME);
     }
 }
-
-
-
-

@@ -45,6 +45,3 @@ class ResumeApiController extends Controller
         }
     }
 }
-
-
-

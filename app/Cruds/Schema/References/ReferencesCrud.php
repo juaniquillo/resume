@@ -89,7 +89,3 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formFullSpanInputs(['reference']);
     }
 }
-
-
-
-

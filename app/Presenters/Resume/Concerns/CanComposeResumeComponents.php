@@ -30,6 +30,3 @@ trait CanComposeResumeComponents
         return $component;
     }
 }
-
-
-

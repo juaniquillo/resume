@@ -140,7 +140,3 @@ class EditHighlight extends Component
             ->with('update', $this->getModal());
     }
 }
-
-
-
-

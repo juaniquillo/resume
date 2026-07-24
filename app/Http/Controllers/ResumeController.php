@@ -57,6 +57,3 @@ class ResumeController extends Controller
         ]);
     }
 }
-
-
-

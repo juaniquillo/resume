@@ -100,7 +100,3 @@ class InterestsController extends Controller
             ->back()->with('success', 'Interest deleted successfully.');
     }
 }
-
-
-
-

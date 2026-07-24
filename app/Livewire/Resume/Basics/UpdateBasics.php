@@ -81,7 +81,3 @@ class UpdateBasics extends Component
             ->with('form', $form);
     }
 }
-
-
-
-

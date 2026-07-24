@@ -82,7 +82,3 @@ final class LanguagesCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 }
-
-
-
-

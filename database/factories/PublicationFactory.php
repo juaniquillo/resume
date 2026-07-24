@@ -26,5 +26,3 @@ class PublicationFactory extends Factory
         )->toArray();
     }
 }
-
-

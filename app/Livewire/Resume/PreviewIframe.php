@@ -23,6 +23,3 @@ class PreviewIframe extends Component
             ->with('src', route('dashboard.resume.preview', ['v' => $this->cacheBuster]));
     }
 }
-
-
-

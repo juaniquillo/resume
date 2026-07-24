@@ -116,7 +116,3 @@ class ReferenceFactory
         );
     }
 }
-
-
-
-

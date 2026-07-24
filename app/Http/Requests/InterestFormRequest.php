@@ -61,7 +61,3 @@ class InterestFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

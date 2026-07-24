@@ -109,7 +109,3 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 }
-
-
-
-

@@ -26,6 +26,3 @@ it('deletes a work record', function () {
         'id' => $work->id,
     ]);
 });
-
-
-

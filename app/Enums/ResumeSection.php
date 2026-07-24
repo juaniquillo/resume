@@ -48,6 +48,3 @@ enum ResumeSection: string
         return $labels;
     }
 }
-
-
-

@@ -71,6 +71,3 @@ test('it eventually increments views for anonymous visitors', function () {
     // for now we'll just check it increments via DB
     expect($user->generalOptions()->first()->fresh()->views)->toBe(1);
 });
-
-
-

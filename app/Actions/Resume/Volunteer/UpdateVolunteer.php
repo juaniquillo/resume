@@ -16,6 +16,3 @@ class UpdateVolunteer
         return $this->volunteer->update($this->data);
     }
 }
-
-
-

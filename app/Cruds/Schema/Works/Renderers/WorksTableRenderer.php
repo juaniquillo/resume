@@ -47,7 +47,3 @@ final class WorksTableRenderer
             ]);
     }
 }
-
-
-
-

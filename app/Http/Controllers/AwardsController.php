@@ -91,7 +91,3 @@ class AwardsController extends Controller
             ->with('success', 'Award deleted successfully.');
     }
 }
-
-
-
-

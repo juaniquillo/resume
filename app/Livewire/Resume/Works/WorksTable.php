@@ -51,7 +51,3 @@ class WorksTable extends Component
             ->with(['table' => $this->table()]);
     }
 }
-
-
-
-

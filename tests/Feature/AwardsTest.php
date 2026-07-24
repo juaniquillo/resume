@@ -116,6 +116,3 @@ it('deletes an award record', function () {
         'id' => $award->id,
     ]);
 });
-
-
-

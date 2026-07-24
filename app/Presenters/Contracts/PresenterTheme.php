@@ -226,6 +226,3 @@ interface PresenterTheme
 
     public function fontFamily(): string;
 }
-
-
-

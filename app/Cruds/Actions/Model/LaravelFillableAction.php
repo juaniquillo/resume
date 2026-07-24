@@ -42,6 +42,3 @@ class LaravelFillableAction extends Action implements ActionInterface
         return $output;
     }
 }
-
-
-

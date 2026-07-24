@@ -85,6 +85,3 @@ test('deleting a user cleans up polymorphic highlights', function () {
 
     expect(Highlight::count())->toBe(0);
 });
-
-
-

@@ -138,7 +138,3 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         return $status !== ProcessStatus::PENDING && $status !== ProcessStatus::PROCESSING;
     }
 }
-
-
-
-

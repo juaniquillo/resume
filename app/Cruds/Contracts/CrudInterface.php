@@ -27,6 +27,3 @@ interface CrudInterface
 
     public function getErrors(): array;
 }
-
-
-

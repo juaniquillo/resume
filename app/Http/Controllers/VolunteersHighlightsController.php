@@ -100,7 +100,3 @@ class VolunteersHighlightsController extends Controller
             ->with('success', 'Highlight deleted successfully.');
     }
 }
-
-
-
-

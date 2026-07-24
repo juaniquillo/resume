@@ -32,6 +32,3 @@ class ThemeFactory
         return $theme->instance();
     }
 }
-
-
-

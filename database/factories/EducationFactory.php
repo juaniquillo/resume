@@ -22,5 +22,3 @@ class EducationFactory extends Factory
         )->toArray();
     }
 }
-
-

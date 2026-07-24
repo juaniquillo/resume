@@ -89,7 +89,3 @@ final class InterestsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 }
-
-
-
-

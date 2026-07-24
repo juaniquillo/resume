@@ -58,6 +58,3 @@ class ToggleDraftState extends Component
         ]);
     }
 }
-
-
-

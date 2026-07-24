@@ -135,7 +135,3 @@ class EditWork extends Component
             ->with('update', $this->getModal());
     }
 }
-
-
-
-

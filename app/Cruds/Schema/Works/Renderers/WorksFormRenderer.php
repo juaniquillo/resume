@@ -19,13 +19,9 @@ final class WorksFormRenderer
             'forms' => 'one-column',
         ]);
     }
-    
+
     public function renderFull(WorksCrud $crud, array $fullSpanInputs): BackendComponent|CompoundComponent
     {
         return $crud->formFullSpanInputs($fullSpanInputs);
     }
 }
-
-
-
-

@@ -32,6 +32,3 @@ class UpdateUser implements UpdatesUserProfileInformation
         ];
     }
 }
-
-
-

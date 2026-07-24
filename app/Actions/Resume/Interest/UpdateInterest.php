@@ -16,6 +16,3 @@ class UpdateInterest
         return $this->interest->update($this->data);
     }
 }
-
-
-

@@ -63,6 +63,3 @@ final class CertificatesPresenter
         );
     }
 }
-
-
-

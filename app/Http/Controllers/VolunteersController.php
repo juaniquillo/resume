@@ -92,7 +92,3 @@ class VolunteersController extends Controller
             ->back()->with('success', 'Volunteer entry deleted successfully.');
     }
 }
-
-
-
-

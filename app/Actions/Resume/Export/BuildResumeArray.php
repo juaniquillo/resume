@@ -161,7 +161,3 @@ class BuildResumeArray
         return $data;
     }
 }
-
-
-
-

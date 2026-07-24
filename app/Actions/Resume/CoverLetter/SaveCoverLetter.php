@@ -22,6 +22,3 @@ class SaveCoverLetter
         return $coverLetter;
     }
 }
-
-
-

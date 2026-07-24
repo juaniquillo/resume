@@ -77,6 +77,3 @@ class EnumResolverValueManager implements ValueManager
         return $value;
     }
 }
-
-
-

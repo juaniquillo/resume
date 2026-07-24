@@ -100,7 +100,3 @@ class CertificatesController extends Controller
             ->with('success', 'Certificate deleted successfully.');
     }
 }
-
-
-
-

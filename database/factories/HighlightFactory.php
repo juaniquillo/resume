@@ -22,5 +22,3 @@ class HighlightFactory extends Factory
         )->toArray();
     }
 }
-
-

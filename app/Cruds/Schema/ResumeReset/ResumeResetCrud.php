@@ -47,7 +47,3 @@ final class ResumeResetCrud implements CrudForm, CrudInterface
             ->setContent(__($label));
     }
 }
-
-
-
-

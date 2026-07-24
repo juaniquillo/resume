@@ -98,7 +98,3 @@ class EndsAtFactory
         ));
     }
 }
-
-
-
-

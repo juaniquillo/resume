@@ -139,6 +139,3 @@ class TableComponentUtil
         return $component;
     }
 }
-
-
-

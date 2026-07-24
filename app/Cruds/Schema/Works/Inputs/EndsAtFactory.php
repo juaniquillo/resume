@@ -110,7 +110,3 @@ class EndsAtFactory
         ));
     }
 }
-
-
-
-

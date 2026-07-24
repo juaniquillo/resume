@@ -18,6 +18,3 @@ class CreateVolunteer
         return $this->user->volunteers()->create($this->data);
     }
 }
-
-
-

@@ -24,6 +24,3 @@ class HomeController extends Controller
             ->with('demo', $demo);
     }
 }
-
-
-

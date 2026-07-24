@@ -22,6 +22,3 @@ trait HasCourses
         return $this->morphMany(Course::class, 'courseable');
     }
 }
-
-
-

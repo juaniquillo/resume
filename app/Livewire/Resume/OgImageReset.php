@@ -87,6 +87,3 @@ class OgImageReset extends Component
         ]);
     }
 }
-
-
-

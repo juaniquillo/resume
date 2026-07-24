@@ -95,6 +95,3 @@ class ProcessPdfExport implements ShouldQueue
         ]);
     }
 }
-
-
-

@@ -253,6 +253,3 @@ final class BoldPresenterTheme implements PresenterTheme
         return "'Syne', sans-serif";
     }
 }
-
-
-

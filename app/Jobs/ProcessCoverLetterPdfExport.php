@@ -67,6 +67,3 @@ class ProcessCoverLetterPdfExport implements ShouldQueue
         }
     }
 }
-
-
-

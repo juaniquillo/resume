@@ -63,6 +63,3 @@ final class DownloadsPresenter
         return $this->section(__('Downloads'), $content);
     }
 }
-
-
-

@@ -22,5 +22,3 @@ class LanguageFactory extends Factory
         )->toArray();
     }
 }
-
-

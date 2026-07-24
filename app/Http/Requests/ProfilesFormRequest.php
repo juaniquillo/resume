@@ -51,7 +51,3 @@ class ProfilesFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

@@ -17,6 +17,3 @@ class CreateCourse
         return $this->education->courses()->create($this->data);
     }
 }
-
-
-

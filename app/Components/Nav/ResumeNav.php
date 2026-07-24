@@ -171,6 +171,3 @@ class ResumeNav
         return $items;
     }
 }
-
-
-

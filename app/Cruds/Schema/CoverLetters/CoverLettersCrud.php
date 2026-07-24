@@ -92,7 +92,3 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
             ]);
     }
 }
-
-
-
-

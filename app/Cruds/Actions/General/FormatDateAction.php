@@ -38,6 +38,3 @@ class FormatDateAction implements ActionInterface
 
     }
 }
-
-
-

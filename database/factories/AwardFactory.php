@@ -22,5 +22,3 @@ class AwardFactory extends Factory
         )->toArray();
     }
 }
-
-

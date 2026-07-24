@@ -83,7 +83,3 @@ class AllowDownloadSwitchFactory
         );
     }
 }
-
-
-
-

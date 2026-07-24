@@ -17,6 +17,3 @@ class ModelToExportRecipe implements RecipeInterface
         public readonly ?Closure $callback = null,
     ) {}
 }
-
-
-

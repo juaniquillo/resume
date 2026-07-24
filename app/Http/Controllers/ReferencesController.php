@@ -93,7 +93,3 @@ class ReferencesController extends Controller
             ->back()->with('success', 'Reference deleted successfully.');
     }
 }
-
-
-
-

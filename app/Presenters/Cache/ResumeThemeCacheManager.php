@@ -25,6 +25,3 @@ class ResumeThemeCacheManager
         return $this->themes[$user->id] ??= $theme;
     }
 }
-
-
-

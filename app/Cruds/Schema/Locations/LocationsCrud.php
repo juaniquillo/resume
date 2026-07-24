@@ -12,6 +12,7 @@ use App\Cruds\Schema\Locations\Inputs\CityFactory;
 use App\Cruds\Schema\Locations\Inputs\CountryCodeFactory;
 use App\Cruds\Schema\Locations\Inputs\PostalCodeFactory;
 use App\Cruds\Schema\Locations\Inputs\RegionFactory;
+use App\Cruds\Schema\Locations\Renderers\LocationsFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -52,7 +53,7 @@ final class LocationsCrud implements CrudForm, CrudInterface
 
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['region']);
+        return LocationsFormRenderer::make()->renderFull($this, ['region']);
     }
 
     public static function getLivewireGroup(): string
@@ -60,7 +61,3 @@ final class LocationsCrud implements CrudForm, CrudInterface
         return 'location';
     }
 }
-
-
-
-

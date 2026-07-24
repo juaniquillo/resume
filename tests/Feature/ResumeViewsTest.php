@@ -60,6 +60,3 @@ test('it does not increment the view counter if the resume is in draft state', f
 
     expect($user->generalOptions->fresh()->views)->toBe(0);
 });
-
-
-

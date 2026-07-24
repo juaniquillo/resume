@@ -23,6 +23,3 @@ final class LaravelValidationRulesRecipe implements RecipeInterface
         public readonly array|Closure $rules = []
     ) {}
 }
-
-
-

@@ -16,6 +16,3 @@ class UpdateEducation
         return $this->education->update($this->data);
     }
 }
-
-
-

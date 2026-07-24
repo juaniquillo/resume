@@ -33,6 +33,3 @@ class LivewireHelpers
         return "{$group}.{$name}";
     }
 }
-
-
-

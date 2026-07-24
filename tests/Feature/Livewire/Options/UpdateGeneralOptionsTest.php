@@ -111,6 +111,3 @@ test('authenticated user can update security options', function () {
     expect($options->hide_image)->toBeTrue();
     expect($options->hide_address)->toBeTrue();
 });
-
-
-

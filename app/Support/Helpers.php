@@ -43,6 +43,3 @@ class Helpers
         return 'data:image/svg+xml;base64,'.base64_encode($content);
     }
 }
-
-
-

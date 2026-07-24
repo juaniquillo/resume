@@ -33,6 +33,3 @@ trait IsLivewireForm
         return $validator;
     }
 }
-
-
-

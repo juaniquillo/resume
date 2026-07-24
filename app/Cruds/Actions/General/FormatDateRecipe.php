@@ -16,6 +16,3 @@ class FormatDateRecipe implements RecipeInterface
     ) {}
 
 }
-
-
-

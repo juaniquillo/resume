@@ -43,6 +43,3 @@ enum ResumeExportType: string
         };
     }
 }
-
-
-

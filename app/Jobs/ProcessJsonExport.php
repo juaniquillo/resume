@@ -78,6 +78,3 @@ class ProcessJsonExport implements ShouldQueue
         ]);
     }
 }
-
-
-

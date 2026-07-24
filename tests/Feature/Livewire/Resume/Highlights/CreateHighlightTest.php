@@ -34,6 +34,3 @@ it('creates a new highlight successfully', function () {
         'highlight' => 'Great achievement',
     ]);
 });
-
-
-

@@ -117,7 +117,3 @@ class ThemeSelectFactory
         return CrudAssistant::make($options);
     }
 }
-
-
-
-

@@ -50,6 +50,3 @@ it('validates required fields', function () {
         ->call('createForm')
         ->assertHasErrors(['name']);
 });
-
-
-

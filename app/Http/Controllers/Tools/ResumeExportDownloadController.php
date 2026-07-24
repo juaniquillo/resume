@@ -41,6 +41,3 @@ class ResumeExportDownloadController extends Controller
         return Storage::download($export->file_path, $filename);
     }
 }
-
-
-

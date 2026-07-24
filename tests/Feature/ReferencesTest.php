@@ -113,6 +113,3 @@ it('deletes a reference record', function () {
         'id' => $reference->id,
     ]);
 });
-
-
-

@@ -49,6 +49,3 @@ class ModelToExportAction extends Action implements ActionInterface
         return $output;
     }
 }
-
-
-

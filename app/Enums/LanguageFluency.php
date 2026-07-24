@@ -21,6 +21,3 @@ enum LanguageFluency: string
         };
     }
 }
-
-
-

@@ -3,25 +3,22 @@
 namespace App\Cruds\Schema\Profiles;
 
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Profiles\Inputs\BasicsFactory;
 use App\Cruds\Schema\Profiles\Inputs\NetworkFactory;
 use App\Cruds\Schema\Profiles\Inputs\UrlFactory;
 use App\Cruds\Schema\Profiles\Inputs\UsernameFactory;
 use App\Cruds\Schema\Profiles\Inputs\UuidFactory;
-use App\Models\Profile;
+use App\Cruds\Schema\Profiles\Renderers\ProfilesFormRenderer;
+use App\Cruds\Schema\Profiles\Renderers\ProfilesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -59,41 +56,11 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
 
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['url']);
+        return ProfilesFormRenderer::make()->renderFull($this, ['url']);
     }
 
-    /**
-     * Runs once after all inputs
-     * are processed
-     */
     protected function tableOptions(TableRowsAction $action): void
     {
-        $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Profile $profile */
-                $profile = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.basics.profiles.edit', [$profile->id])),
-                    $helper->deleteButton(route('dashboard.basics.profiles.destroy', [$profile->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
-        );
-
-        $action->setExtraCell('Settings', $recipe);
+        ProfilesTableRenderer::make()->tableOptions($action);
     }
 }
-
-
-
-

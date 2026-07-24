@@ -84,6 +84,3 @@ test('resume data loader supports granular lazy loading', function () {
     $loader->works($user);
     expect(count(DB::getQueryLog()))->toBe($queriesAfterWorks);
 });
-
-
-

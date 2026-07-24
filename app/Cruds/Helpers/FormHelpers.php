@@ -63,6 +63,3 @@ class FormHelpers
         return array_map(fn ($value) => $value === '' ? null : $value, $data);
     }
 }
-
-
-

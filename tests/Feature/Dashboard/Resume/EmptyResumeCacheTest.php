@@ -41,7 +41,3 @@ it('clears the cache via the EmptyResumeCacheCrud', function () {
 
     expect(Cache::has($cacheKey))->toBeFalse();
 });
-
-
-
-

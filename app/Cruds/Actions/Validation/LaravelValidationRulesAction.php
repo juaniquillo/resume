@@ -63,6 +63,3 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         return $output;
     }
 }
-
-
-

@@ -144,6 +144,3 @@ class TableRowsAction extends Action implements ActionInterface
         return $this;
     }
 }
-
-
-

@@ -57,7 +57,3 @@ class CertificatesFormRequest extends FormRequest
         return $this->crud->execute(new LaravelValidationLabelsAction)->toArray();
     }
 }
-
-
-
-

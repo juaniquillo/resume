@@ -53,7 +53,3 @@ class CoursesFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

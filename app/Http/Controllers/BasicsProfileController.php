@@ -139,7 +139,3 @@ class BasicsProfileController extends Controller
             ->with('success', 'Profile deleted successfully.');
     }
 }
-
-
-
-

@@ -11,6 +11,3 @@ interface CrudTable
 {
     public function makeTable(Collection|LengthAwarePaginator $collection): BackendComponent|CompoundComponent|null;
 }
-
-
-

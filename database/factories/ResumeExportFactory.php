@@ -22,5 +22,3 @@ class ResumeExportFactory extends Factory
         )->toArray();
     }
 }
-
-

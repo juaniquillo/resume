@@ -42,6 +42,3 @@ class LaravelValidationLabelsAction extends Action implements ActionInterface
         return $output;
     }
 }
-
-
-

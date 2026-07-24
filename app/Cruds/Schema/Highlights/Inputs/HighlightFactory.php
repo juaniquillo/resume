@@ -54,10 +54,9 @@ class HighlightFactory
 
     public static function form(InputInterface $input, bool $isLivewire = false): void
     {
-        $livewireAttributes = [];
-        if ($isLivewire) {
-            $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), HighlightsCrud::getLivewireGroup());
-        }
+        $livewireAttributes = $isLivewire
+            ? LivewireHelpers::getLivewireAttributes($input->getName(), HighlightsCrud::getLivewireGroup())
+            : [];
 
         $input->setRecipe(
             (new InputComponentRecipe)
@@ -115,7 +114,3 @@ class HighlightFactory
         );
     }
 }
-
-
-
-

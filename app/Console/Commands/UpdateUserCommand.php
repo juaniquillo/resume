@@ -90,7 +90,3 @@ class UpdateUserCommand extends Command
         return self::SUCCESS;
     }
 }
-
-
-
-

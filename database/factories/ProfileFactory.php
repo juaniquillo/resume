@@ -26,5 +26,3 @@ class ProfileFactory extends Factory
         )->toArray();
     }
 }
-
-

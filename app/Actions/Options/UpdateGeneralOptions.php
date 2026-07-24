@@ -30,6 +30,3 @@ class UpdateGeneralOptions
         );
     }
 }
-
-
-

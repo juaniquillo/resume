@@ -82,6 +82,3 @@ it('validates location data', function () {
         ->call('updateForm')
         ->assertHasErrors(['city', 'country_code']);
 });
-
-
-

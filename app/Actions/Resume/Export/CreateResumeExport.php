@@ -39,6 +39,3 @@ class CreateResumeExport
         return $export;
     }
 }
-
-
-

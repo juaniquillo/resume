@@ -11,6 +11,3 @@ class SectionOrderingController extends Controller
         return view('dashboard.options.ordering');
     }
 }
-
-
-

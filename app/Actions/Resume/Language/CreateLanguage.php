@@ -18,6 +18,3 @@ class CreateLanguage
         return $this->user->languages()->create($this->data);
     }
 }
-
-
-

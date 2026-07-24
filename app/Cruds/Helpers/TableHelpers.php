@@ -231,6 +231,3 @@ final class TableHelpers
 
     }
 }
-
-
-

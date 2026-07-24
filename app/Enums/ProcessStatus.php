@@ -34,6 +34,3 @@ enum ProcessStatus: string
         return ucfirst($this->value);
     }
 }
-
-
-

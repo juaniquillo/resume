@@ -53,7 +53,3 @@ class HighlightsFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

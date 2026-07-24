@@ -14,6 +14,3 @@ interface CacheManager
 
     public function clearCache(): void;
 }
-
-
-

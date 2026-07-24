@@ -16,6 +16,3 @@ class UpdateCourse
         return $this->course->update($this->data);
     }
 }
-
-
-

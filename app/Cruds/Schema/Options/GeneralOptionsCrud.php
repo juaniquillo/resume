@@ -85,7 +85,3 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
         return Str::camel(self::NAME);
     }
 }
-
-
-
-

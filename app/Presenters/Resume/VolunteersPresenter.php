@@ -94,6 +94,3 @@ final class VolunteersPresenter
             ]));
     }
 }
-
-
-

@@ -22,5 +22,3 @@ class InterestFactory extends Factory
         )->toArray();
     }
 }
-
-

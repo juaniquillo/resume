@@ -48,6 +48,3 @@ it('updates an existing cover letter successfully', function () {
     ]);
     $this->assertDatabaseCount('cover_letters', 1);
 });
-
-
-

@@ -89,7 +89,3 @@ class CoverLetterForm extends Component
             ->with('form', $this->getForm());
     }
 }
-
-
-
-

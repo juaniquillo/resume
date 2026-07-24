@@ -11,6 +11,3 @@ class CoverLettersController extends Controller
         return view('dashboard.cover-letters.index');
     }
 }
-
-
-

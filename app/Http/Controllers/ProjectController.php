@@ -92,7 +92,3 @@ class ProjectController extends Controller
             ->back()->with('success', 'Project deleted successfully.');
     }
 }
-
-
-
-

@@ -91,6 +91,3 @@ it('deletes an education course', function () {
         'id' => $course->id,
     ]);
 });
-
-
-

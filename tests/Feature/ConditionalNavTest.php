@@ -52,6 +52,3 @@ test('ResumeOptionNav items are not filtered when basics are present', function 
 
     expect(count($items))->toBeGreaterThan(1);
 });
-
-
-

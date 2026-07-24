@@ -18,6 +18,3 @@ class CreateEducation
         return $this->user->education()->create($this->data);
     }
 }
-
-
-

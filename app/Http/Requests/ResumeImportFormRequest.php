@@ -52,7 +52,3 @@ class ResumeImportFormRequest extends FormRequest
         )->toArray();
     }
 }
-
-
-
-

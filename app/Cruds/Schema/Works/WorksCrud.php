@@ -11,8 +11,6 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Helpers\TableHelpers;
-use App\Cruds\Schema\Works\Renderers\WorksFormRenderer;
-use App\Cruds\Schema\Works\Renderers\WorksTableRenderer;
 use App\Cruds\Schema\Works\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Works\Inputs\NameFactory;
 use App\Cruds\Schema\Works\Inputs\PositionFactory;
@@ -21,14 +19,13 @@ use App\Cruds\Schema\Works\Inputs\SummaryFactory;
 use App\Cruds\Schema\Works\Inputs\UrlFactory;
 use App\Cruds\Schema\Works\Inputs\UserFactory;
 use App\Cruds\Schema\Works\Inputs\UuidFactory;
+use App\Cruds\Schema\Works\Renderers\WorksFormRenderer;
+use App\Cruds\Schema\Works\Renderers\WorksTableRenderer;
 use App\Models\Work;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 final class WorksCrud implements CrudForm, CrudInterface, CrudTable
@@ -125,7 +122,3 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         return Str::camel(self::NAME);
     }
 }
-
-
-
-

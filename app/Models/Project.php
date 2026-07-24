@@ -49,6 +49,3 @@ class Project extends Model
         ];
     }
 }
-
-
-

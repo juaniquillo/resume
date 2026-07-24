@@ -22,5 +22,3 @@ class ProjectFactory extends Factory
         )->toArray();
     }
 }
-
-

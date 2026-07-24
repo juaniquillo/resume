@@ -54,6 +54,3 @@ trait IsCrud
         return $this->model ?? null;
     }
 }
-
-
-

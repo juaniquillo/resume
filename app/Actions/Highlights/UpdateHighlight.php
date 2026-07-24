@@ -30,6 +30,3 @@ class UpdateHighlight
         $highlight->update($this->data);
     }
 }
-
-
-

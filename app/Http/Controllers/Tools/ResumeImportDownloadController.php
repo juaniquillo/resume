@@ -28,6 +28,3 @@ class ResumeImportDownloadController extends Controller
         );
     }
 }
-
-
-

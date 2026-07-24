@@ -26,5 +26,3 @@ class CertificateFactory extends Factory
         )->toArray();
     }
 }
-
-

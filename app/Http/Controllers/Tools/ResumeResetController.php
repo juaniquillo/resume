@@ -11,6 +11,3 @@ class ResumeResetController extends Controller
         return view('dashboard.resume.reset');
     }
 }
-
-
-
