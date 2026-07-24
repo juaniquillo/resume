@@ -44,8 +44,11 @@ class ProcessCoverLetterPdfExport implements ShouldQueue
                 'theme' => $theme,
             ])->render();
 
-            $filename = 'exports/'.str_replace(' ', '-', strtolower($user->name)).'-cover-letter-'.$this->export->uuid.'.pdf';
-            $path = storage_path('app/private/'.$filename);
+            // $filename = 'exports/'.str_replace(' ', '-', strtolower($user->name)).'-cover-letter-'.$this->export->uuid.'.pdf';
+            // $path = storage_path('app/private/'.$filename);
+
+            $filename = "resume-export-cover-letter-{$this->export->id}-".now()->timestamp.'.pdf';
+            $path = "exports/cover-letters/{$filename}";
 
             Pdf::html($html)
                 ->margins(0, 0, 0, 0, 'mm')
@@ -54,7 +57,7 @@ class ProcessCoverLetterPdfExport implements ShouldQueue
 
             $this->export->update([
                 'status' => ProcessStatus::COMPLETED,
-                'file_path' => $filename,
+                'file_path' => $path,
             ]);
         } catch (\Throwable $e) {
             $this->export->update([

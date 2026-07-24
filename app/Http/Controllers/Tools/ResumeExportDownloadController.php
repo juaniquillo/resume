@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tools;
 
 use App\Enums\ProcessStatus;
+use App\Enums\ResumeExportType;
 use App\Http\Controllers\Controller;
 use App\Models\ResumeExport;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +33,10 @@ class ResumeExportDownloadController extends Controller
             return redirect()->back()->with('error', 'The exported file was not found.');
         }
 
-        $filename = str_replace(' ', '-', strtolower($user->name)).'-resume.'.$export->type->value;
+        /** @var ResumeExportType $enum  */
+        $enum = $export->type;
+
+        $filename = str_replace(' ', '-', strtolower($user->name)).'-resume.'.$enum->extension();
 
         return Storage::download($export->file_path, $filename);
     }

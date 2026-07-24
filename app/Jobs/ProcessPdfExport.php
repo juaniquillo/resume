@@ -56,7 +56,6 @@ class ProcessPdfExport implements ShouldQueue
                 'theme' => $presenter->getTheme(),
                 'resumeComponent' => $presenter->present()->toHtml(),
                 'minimalView' => true,
-                'showThemeToggle' => false,
             ])->render();
 
             $filename = "resume-export-{$this->export->id}-".now()->timestamp.'.pdf';

@@ -8,6 +8,14 @@ enum ResumeExportType: string
     case PDF = 'pdf';
     case COVER_LETTER_PDF = 'cover-letter-pdf';
 
+    public function extension(): string
+    {
+        return match ($this) {
+            self::JSON => 'json',
+            self::PDF, self::COVER_LETTER_PDF => 'pdf',
+        };
+    }
+
     public function label(): string
     {
         return match ($this) {
