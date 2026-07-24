@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\HighlightsCrud;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

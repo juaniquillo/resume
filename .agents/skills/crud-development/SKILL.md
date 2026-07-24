@@ -96,3 +96,6 @@ For detailed patterns and code examples, see:
 - [CRUD_SCHEMAS.md](references/CRUD_SCHEMAS.md)
 - [ACTIONS_AND_CONTROLLERS.md](references/ACTIONS_AND_CONTROLLERS.md)
 - [TESTING.md](references/TESTING.md)
+
+
+

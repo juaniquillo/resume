@@ -7,7 +7,7 @@ The CRUD Schema class orchestrates input factories and defines the visual struct
 ```php
 <?php
 
-namespace App\Cruds\Squema\MyEntity;
+namespace App\Cruds\Schema\MyEntity;
 
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
@@ -15,7 +15,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Squema\MyEntity\Inputs\NameFactory;
+use App\Cruds\Schema\MyEntity\Inputs\NameFactory;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
@@ -55,3 +55,17 @@ $this->fieldsetWrap([
 - `HasHtmlForm`: Orchestrates `BackendComponent` form generation.
 - `HasHtmlTable`: Orchestrates `BackendComponent` table generation.
 - `IsCrud`: Provides context (model, values, errors) to the schema.
+
+## CRUD Schema Renderers
+When building UI for your CRUD (specifically for forms and tables), use dedicated Renderer classes to keep your `*Crud.php` classes clean.
+
+- **Form Renderers (`*FormRenderer`)**: Responsible for constructing the form UI, specifically handling how inputs are spanned or arranged (e.g., `renderFull`).
+- **Table Renderers (`*TableRenderer`)**: Responsible for customizing table cell display, such as rendering complex settings or action buttons.
+
+```php
+// In HighlightsCrud.php
+public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
+{
+    return HighlightsFormRenderer::make()->renderFull($this, ['highlight']);
+}
+```

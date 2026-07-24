@@ -7,7 +7,7 @@ Input factories are the atomic unit of our CRUD system. They encapsulate field l
 ```php
 <?php
 
-namespace App\Cruds\Squema\MyEntity\Inputs;
+namespace App\Cruds\Schema\MyEntity\Inputs;
 
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
@@ -69,3 +69,7 @@ When dealing with dates, always use the project standard:
 - `ModelToExportRecipe`: Mapping for JSON resume export.
 - `LaravelFactoryRecipe`: Logic for Database Factories.
 - `TableRowsRecipe`: Rendering logic for dashboard tables.
+
+
+
+

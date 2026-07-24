@@ -187,3 +187,6 @@ After applying any advanced optimizations:
 - Folding components that access global state (auth, session, request, errors, time, CSRF) — produces stale HTML
 - Folding components where props drive internal logic without marking them `safe`
 - Forgetting to run `php artisan view:clear` after changes
+
+
+

@@ -3,7 +3,7 @@
 namespace App\Livewire\Options;
 
 use App\Actions\Options\UpdateSectionVisibility;
-use App\Cruds\Squema\Options\SectionVisibilityCrud;
+use App\Cruds\Schema\Options\SectionVisibilityCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

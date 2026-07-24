@@ -37,7 +37,7 @@ Controllers orchestration the CRUD schema and the Actions.
 
 namespace App\Http\Controllers;
 
-use App\Cruds\Squema\MyEntity\MyEntityCrud;
+use App\Cruds\Schema\MyEntity\MyEntityCrud;
 use App\Http\Requests\MyEntityFormRequest;
 use App\Actions\Resume\MyEntity\CreateMyEntity;
 
@@ -72,4 +72,8 @@ public function rules(): array
         ->toArray();
 }
 ```
+
+
+
+
 

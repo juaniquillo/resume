@@ -18,7 +18,7 @@
 - **Backend Components**: Dynamic HTML is built in PHP using `juaniquillo/laravel-backend-component`. Use `ComponentBuilder` for UI composition.
 - **Conventions**:
     - Descriptive naming (`isRegisteredForDiscounts`, not `discount()`).
-    - Standardize on `2xl:` breakpoint for large screens (`max-w-6xl` containers).
+    - Standardize on `3xl:` breakpoint for large screens (`max-w-6xl` containers).
     - Apply `InvalidatesResumeCache` trait to Models affecting public resumes.
     - Use FQCNs in PHPDoc tags.
 - **Development**: Project is optimized for Laravel Herd.

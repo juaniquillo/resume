@@ -3,7 +3,7 @@
 namespace App\Livewire\Resume\Highlights;
 
 use App\Actions\Highlights\UpdateHighlight;
-use App\Cruds\Squema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\HighlightsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;

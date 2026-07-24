@@ -7,7 +7,7 @@ The CRUD Schema class orchestrates input factories and defines the visual struct
 ```php
 <?php
 
-namespace App\Cruds\Squema\MyEntity;
+namespace App\Cruds\Schema\MyEntity;
 
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
@@ -15,7 +15,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Squema\MyEntity\Inputs\NameFactory;
+use App\Cruds\Schema\MyEntity\Inputs\NameFactory;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
@@ -55,3 +55,7 @@ $this->fieldsetWrap([
 - `HasHtmlForm`: Orchestrates `BackendComponent` form generation.
 - `HasHtmlTable`: Orchestrates `BackendComponent` table generation.
 - `IsCrud`: Provides context (model, values, errors) to the schema.
+
+
+
+

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Resume\Import;
 
-use App\Cruds\Squema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
 use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use App\Models\User;

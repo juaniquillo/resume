@@ -164,3 +164,6 @@ arch('controllers')
 - Deleting tests without approval
 - Forgetting `assertNoJavaScriptErrors()` in browser tests
 - Prefixing `Feature/` or `Unit/` in `{name}` when using `make:test`
+
+
+

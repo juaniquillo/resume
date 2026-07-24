@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\Skills\SkillsCrud;
+use App\Cruds\Schema\Skills\SkillsCrud;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

@@ -7,7 +7,7 @@
     </div>
     
     <div class="max-w-xl mt-4">
-        {{ $form }}
+        <livewire:resume.volunteers.highlights.edit-highlight :highlight="$highlight" />
     </div>
 
 </x-layouts::app>

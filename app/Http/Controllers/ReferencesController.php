@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Reference\UpdateReference;
-use App\Cruds\Squema\References\ReferencesCrud;
+use App\Cruds\Schema\References\ReferencesCrud;
 use App\Http\Requests\ReferenceFormRequest;
 use App\Models\Reference;
 use Illuminate\Http\Request;

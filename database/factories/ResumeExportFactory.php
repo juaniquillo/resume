@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\ResumeExport\ResumeExportCrud;
+use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

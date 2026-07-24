@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Cruds\Actions\Model\LaravelFactoryAction;
-use App\Cruds\Squema\References\ReferencesCrud;
+use App\Cruds\Schema\References\ReferencesCrud;
 use App\Models\Reference;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

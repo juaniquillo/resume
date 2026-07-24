@@ -42,3 +42,6 @@ More declarative than overriding `newCollection()`.
 #[CollectedBy(UserCollection::class)]
 class User extends Model {}
 ```
+
+
+

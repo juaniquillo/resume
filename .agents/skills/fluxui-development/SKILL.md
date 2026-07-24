@@ -79,3 +79,6 @@ php artisan flux:icon crown grip-vertical github
 - Not checking if a Flux component exists before creating custom implementations
 - Forgetting to use the `search-docs` tool for component-specific documentation
 - Not following existing project patterns for Flux usage
+
+
+

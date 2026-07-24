@@ -1,6 +1,6 @@
 <?php
 
-use App\Cruds\Squema\Basics\BasicsCrud;
+use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;

@@ -235,3 +235,6 @@ This works recursively for nested content, themes, settings, and Livewire state.
 - Always use `ComponentEnum` cases rather than raw strings when possible, to benefit from IDE autocompletion and type safety.
 - Do NOT use `echo` or `{!! !!}` for component output — components implement `Htmlable` so `{{ $component }}` is safe and correct.
 - For self-closing HTML elements (input, img, col), ensure the Blade template uses `/>` not `></tag>`.
+
+
+

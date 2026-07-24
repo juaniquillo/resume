@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Resume\Education\UpdateEducation;
-use App\Cruds\Squema\Education\EducationCrud;
+use App\Cruds\Schema\Education\EducationCrud;
 use App\Http\Requests\EducationFormRequest;
 use App\Models\Education;
 use Illuminate\Http\RedirectResponse;
