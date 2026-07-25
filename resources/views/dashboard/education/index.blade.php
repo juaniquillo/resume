@@ -3,13 +3,9 @@
     <flux:heading size="xl" level="1">{{ __("Education") }}</flux:heading>
 
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.education.create-education />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
+    <livewire:resume.education.education-table />
+
 </x-layouts::app>

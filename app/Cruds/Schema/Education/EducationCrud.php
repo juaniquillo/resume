@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Education;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,7 +10,7 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Education\Inputs\AreaFactory;
 use App\Cruds\Schema\Education\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Education\Inputs\InstitutionFactory;
@@ -22,12 +20,14 @@ use App\Cruds\Schema\Education\Inputs\StudyTypeFactory;
 use App\Cruds\Schema\Education\Inputs\UrlFactory;
 use App\Cruds\Schema\Education\Inputs\UserFactory;
 use App\Cruds\Schema\Education\Inputs\UuidFactory;
-use App\Models\Education;
+use App\Cruds\Schema\Education\Renderers\EducationFormRenderer;
+use App\Cruds\Schema\Education\Renderers\EducationTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\InputComponentAction\InputComponentAction;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 final class EducationCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -41,7 +41,15 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected bool $isLivewire = false,
     ) {}
+
+    public function setLivewire(bool $isLivewire = true): static
+    {
+        $this->isLivewire = $isLivewire;
+
+        return $this;
+    }
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
     {
@@ -52,9 +60,14 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         );
     }
 
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel('education');
+    }
+
     public function inputsArray(): array
     {
-        return [
+        $inputs = [
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'institution' => InstitutionFactory::make(),
@@ -65,33 +78,34 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
             'score' => ScoreFactory::make(),
             'url' => UrlFactory::make(),
         ];
+
+        if ($this->isLivewire) {
+            foreach ($inputs as $name => $input) {
+                /** @var InputComponentRecipe|null $recipe */
+                $recipe = $input->getRecipe(InputComponentAction::getIdentifier());
+
+                if ($recipe instanceof InputComponentRecipe && $recipe->getAttributeBag() !== null) {
+                    $attributes = LivewireHelpers::getLivewireAttributes($name, self::getLivewireGroup());
+                    $attributeBag = $recipe->getAttributeBag();
+
+                    $currentAttributes = $attributeBag->getInputAttributes();
+                    $attributeBag->setInputAttributes(array_merge($currentAttributes, $attributes));
+                }
+            }
+        }
+
+        return $inputs;
     }
 
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['url']);
+        return EducationFormRenderer::make()->renderFull($this, ['url']);
     }
 
     protected function extraCells(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Education $education */
-                $education = $model;
-
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setContent(
-                        FluxComponentBuilder::make('icon.building-library')
-                            ->setAttribute('variant', 'micro')
-                    )
-                    ->setContent('Courses')
-                    ->setTheme('cursor', 'pointer')
-                    ->setAttribute('variant', 'primary')
-                    ->setAttribute('color', 'blue')
-                    ->setAttribute('size', 'xs')
-                    ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
-            }
+            value: fn ($value, Model $model) => EducationTableRenderer::make()->renderCourses($model)
         );
 
         $action->setExtraCell('Courses', $recipe);
@@ -104,25 +118,7 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Education $education */
-                $education = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.education.edit', [$education->id])),
-                    $helper->deleteButton(route('dashboard.education.destroy', [$education->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => EducationTableRenderer::make()->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

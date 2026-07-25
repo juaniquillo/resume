@@ -1,37 +1,34 @@
 <?php
 
-namespace App\Livewire\Resume\Volunteers\Highlights;
+namespace App\Livewire\Resume\Education;
 
-use App\Cruds\Schema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Education\EducationCrud;
 use App\Livewire\Concerns\IsLivewireTable;
-use App\Models\Volunteer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class VolunteersHighlightsTable extends Component
+class EducationTable extends Component
 {
     use IsLivewireTable;
-
-    public Volunteer $volunteer;
-
-    public function mount(Volunteer $volunteer)
-    {
-        $this->volunteer = $volunteer;
-    }
 
     #[On('resume-updated')]
     #[Computed]
     public function getModels(): Collection
     {
-        return $this->volunteer->highlights()->latest()->get();
+        /** @var User $user */
+        $user = Auth::user();
+
+        return $user->education()->latest()->get();
     }
 
     private function crud()
     {
-        return HighlightsCrud::build(baseRoute: 'dashboard.volunteers.highlights');
+        return EducationCrud::build()->setLivewire();
     }
 
     private function table(): ?BackendComponent
@@ -46,7 +43,7 @@ class VolunteersHighlightsTable extends Component
 
     public function render()
     {
-        return view('livewire.resume.volunteers.highlights.highlights-table')
+        return view('livewire.resume.education.education-table')
             ->with(['table' => $this->table()]);
     }
 }

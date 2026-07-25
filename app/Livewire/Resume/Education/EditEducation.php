@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Livewire\Resume\Volunteers\Highlights;
+namespace App\Livewire\Resume\Education;
 
-use App\Actions\Highlights\UpdateHighlight;
-use App\Cruds\Schema\Highlights\HighlightsCrud;
+use App\Actions\Resume\Education\UpdateEducation;
+use App\Cruds\Actions\General\FormatDateAction;
+use App\Cruds\Schema\Education\EducationCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
-use App\Models\Highlight;
-use App\Models\Volunteer;
+use App\Models\Education;
+use App\Models\User;
 use Flux\FluxManager;
-use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -19,36 +20,34 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
-class EditHighlight extends Component
+class EditEducation extends Component
 {
     use IsLivewireForm,
         IsLivewireModal;
 
-    public array $highlights = [];
+    public array $education = [];
 
     #[Locked]
-    public int $highlightId;
+    public int $educationId;
 
-    public function mount(int $highlightId): void
+    public function mount(int $educationId): void
     {
-        $this->highlightId = $highlightId;
+        $this->educationId = $educationId;
         $this->refreshVariables();
     }
 
     public function updateForm(): void
     {
-        $highlight = $this->getModel();
-        $user = Auth::user();
+        $education = $this->getModel();
 
-        $validator = $this->validateForm($this->crud($highlight)->make(), $this->highlights);
+        $validator = $this->validateForm($this->crud($education)->make(), $this->education);
 
-        (new UpdateHighlight(
-            $user,
-            $highlight,
-            $validator->validate(),
+        (new UpdateEducation(
+            $validator->validated(),
+            $education
         ))->handle();
 
-        session()->flash('success', 'Highlight updated successfully.');
+        session()->flash('success', 'Education entry updated successfully.');
 
         $this->dispatch('resume-updated');
 
@@ -58,45 +57,49 @@ class EditHighlight extends Component
     #[Computed]
     public function refreshVariables(): void
     {
-        $this->highlights = $this->getModel()->toArray();
+        $education = $this->getModel();
+
+        $output = $this->crud($education)->make()->execute(
+            new FormatDateAction(
+                model: $education,
+            )
+        );
+
+        $this->education = $output->toArray();
     }
 
+    /** @throws ModelNotFoundException */
     #[Computed]
-    private function getModel(): Highlight
+    private function getModel(): Education
     {
+        /** @var User $user */
         $user = Auth::user();
-        $highlight = Highlight::findOrFail($this->highlightId);
 
-        /** @var Volunteer $parent */
-        $parent = $highlight->highlightable;
+        /** @var Education $education */
+        $education = $user->education()->findOrFail($this->educationId);
 
-        if ($parent->user_id !== $user->id) {
-            throw new AuthenticationException('You are not authorized to edit this highlight');
-        }
-
-        return $highlight;
+        return $education;
     }
 
-    private function crud(Highlight $highlight)
+    private function crud(Education $education)
     {
-        return HighlightsCrud::build(
-            values: $this->highlights,
+        return EducationCrud::build(
+            values: $this->education,
             errors: $this->formErrors,
-            model: $highlight,
-            baseRoute: 'dashboard.volunteers.highlights',
+            model: $education,
         )->setLivewire();
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formWithTextareaSpanFull()
+            ->formWithInputsSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
 
     public function getModalKey(): string
     {
-        return "edit-volunteer-highlight-{$this->highlightId}";
+        return "edit-education-{$this->educationId}";
     }
 
     public function getModal(): BackendComponent|CompoundComponent
@@ -122,7 +125,7 @@ class EditHighlight extends Component
 
     public function render()
     {
-        return view('livewire.resume.highlights.update_highlight')
+        return view('livewire.resume.education.edit-education')
             ->with('update', $this->getModal());
     }
 }
