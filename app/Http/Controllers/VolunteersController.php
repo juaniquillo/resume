@@ -10,14 +10,4 @@ class VolunteersController extends Controller
     {
         return view('dashboard.volunteers.index');
     }
-
-    public function destroy(Request $request, int $id)
-    {
-        $model = $request->user()->volunteers()->findOrFail($id);
-
-        $model->delete();
-
-        return redirect()
-            ->back()->with('success', 'Volunteer deleted successfully.');
-    }
 }

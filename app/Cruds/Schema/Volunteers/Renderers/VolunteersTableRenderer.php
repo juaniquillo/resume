@@ -3,6 +3,7 @@
 namespace App\Cruds\Schema\Volunteers\Renderers;
 
 use App\Cruds\Helpers\TableHelpers;
+use App\Livewire\Resume\Volunteers\DeleteVolunteer;
 use App\Livewire\Resume\Volunteers\EditVolunteer;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,11 @@ final class VolunteersTableRenderer
                 id: "edit-volunteer-{$volunteer->id}",
                 params: [$volunteer->id]
             ),
-            $helper->deleteButton(route('dashboard.volunteers.destroy', [$volunteer->id])),
+            $helper->liveWireComponent(
+                component: DeleteVolunteer::class,
+                id: "delete-volunteer-{$volunteer->id}",
+                params: [$volunteer->id]
+            ),
         ];
 
         return ComponentBuilder::make(ComponentEnum::DIV)

@@ -5,6 +5,7 @@ namespace App\Cruds\Schema\Education\Renderers;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Helpers\TableHelpers;
+use App\Livewire\Resume\Education\DeleteEducation;
 use App\Livewire\Resume\Education\EditEducation;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +34,11 @@ final class EducationTableRenderer
                 id: "edit-education-{$education->id}",
                 params: [$education->id]
             ),
-            $helper->deleteButton(route('dashboard.education.destroy', [$education->id])),
+            $helper->liveWireComponent(
+                component: DeleteEducation::class,
+                id: "delete-education-{$education->id}",
+                params: [$education->id]
+            ),
         ];
 
         return ComponentBuilder::make(ComponentEnum::DIV)

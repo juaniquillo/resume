@@ -77,7 +77,6 @@ Route::middleware(['auth', 'verified'])
          * Volunteers
          */
         Route::get('volunteers', [VolunteersController::class, 'index'])->name('dashboard.volunteers');
-        Route::delete('volunteers/{id}', [VolunteersController::class, 'destroy'])->name('dashboard.volunteers.destroy');
 
         Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
 
@@ -85,7 +84,6 @@ Route::middleware(['auth', 'verified'])
          * Education
          */
         Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
-        Route::delete('education/{id}', [EducationController::class, 'destroy'])->name('dashboard.education.destroy');
 
         Route::get('education/{id}/courses', [EducationCoursesController::class, 'index'])->name('dashboard.education.courses');
         Route::post('education/{id}/courses', [EducationCoursesController::class, 'store'])->name('dashboard.education.courses.store');
