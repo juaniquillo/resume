@@ -85,9 +85,6 @@ Route::middleware(['auth', 'verified'])
          * Education
          */
         Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
-        Route::post('education', [EducationController::class, 'store'])->name('dashboard.education.store');
-        Route::get('education/{id}/edit', [EducationController::class, 'edit'])->name('dashboard.education.edit');
-        Route::post('education/{id}', [EducationController::class, 'update'])->name('dashboard.education.update');
         Route::delete('education/{id}', [EducationController::class, 'destroy'])->name('dashboard.education.destroy');
 
         Route::get('education/{id}/courses', [EducationCoursesController::class, 'index'])->name('dashboard.education.courses');

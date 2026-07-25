@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Resume\Volunteers\Highlights\VolunteersHighlightsTable;
+use App\Livewire\Resume\Highlights\HighlightTable;
 use App\Models\User;
 use App\Models\Volunteer;
 use Livewire\Livewire;
@@ -15,7 +15,7 @@ beforeEach(function () {
 it('renders the volunteer highlights table component', function () {
     $this->actingAs($this->user);
 
-    Livewire::test(VolunteersHighlightsTable::class, ['volunteer' => $this->volunteer])
+    Livewire::test(HighlightTable::class, ['model' => $this->volunteer])
         ->assertSuccessful();
 });
 
@@ -26,7 +26,7 @@ it('displays volunteer highlights in the table', function () {
 
     $this->actingAs($this->user);
 
-    Livewire::test(VolunteersHighlightsTable::class, ['volunteer' => $this->volunteer])
+    Livewire::test(HighlightTable::class, ['model' => $this->volunteer])
         ->assertViewHas('table', function ($table) {
             return $table !== null;
         });

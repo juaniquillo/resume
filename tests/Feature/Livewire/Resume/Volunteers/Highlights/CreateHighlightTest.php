@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Resume\Volunteers\Highlights\CreateHighlight;
+use App\Livewire\Resume\Highlights\CreateHighlight;
 use App\Models\User;
 use App\Models\Volunteer;
 use Livewire\Livewire;
@@ -15,14 +15,14 @@ beforeEach(function () {
 it('renders the create volunteer highlight component', function () {
     $this->actingAs($this->user);
 
-    Livewire::test(CreateHighlight::class, ['volunteer' => $this->volunteer])
+    Livewire::test(CreateHighlight::class, ['model' => $this->volunteer])
         ->assertSuccessful();
 });
 
 it('creates a new volunteer highlight successfully', function () {
     $this->actingAs($this->user);
 
-    Livewire::test(CreateHighlight::class, ['volunteer' => $this->volunteer])
+    Livewire::test(CreateHighlight::class, ['model' => $this->volunteer])
         ->set('highlights.highlight', 'Volunteer achievement')
         ->call('createForm')
         ->assertHasNoErrors()

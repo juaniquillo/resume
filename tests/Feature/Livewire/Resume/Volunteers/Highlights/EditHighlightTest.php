@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Resume\Volunteers\Highlights\EditHighlight;
+use App\Livewire\Resume\Highlights\EditHighlight;
 use App\Models\Highlight;
 use App\Models\User;
 use App\Models\Volunteer;
