@@ -111,6 +111,7 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
                     ->setAttribute('variant', 'primary')
                     ->setAttribute('color', 'blue')
                     ->setAttribute('size', 'xs')
+                    ->setAttribute('wire:navigate', '')
                     ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
             }
         );

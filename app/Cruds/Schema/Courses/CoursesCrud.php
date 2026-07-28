@@ -10,14 +10,15 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Courses\Inputs\CourseFactory;
-use App\Models\Course;
+use App\Cruds\Schema\Courses\Renderers\CoursesFormRenderer;
+use App\Cruds\Schema\Courses\Renderers\CoursesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -32,15 +33,25 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
         protected array $errors = [],
         protected ?Model $model = null,
         protected ?string $baseRoute = null,
+        protected FormRenderer $formRenderer = new CoursesFormRenderer,
+        protected TableRenderer $tableRenderer = new CoursesTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null, ?string $baseRoute = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?string $baseRoute = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
             baseRoute: $baseRoute,
+            formRenderer: $formRenderer ?? new CoursesFormRenderer,
+            tableRenderer: $tableRenderer ?? new CoursesTableRenderer,
         );
     }
 
@@ -51,6 +62,11 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
         return $this;
     }
 
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
+    }
+
     public function inputsArray(): array
     {
         return [
@@ -58,9 +74,19 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['course']);
+        return $this->form();
     }
 
     /**
@@ -70,25 +96,7 @@ final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Course $course */
-                $course = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route($this->baseRoute.'.edit', [$course->courseable_id, $course->id])),
-                    $helper->deleteButton(route($this->baseRoute.'.destroy', [$course->courseable_id, $course->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);
