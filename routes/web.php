@@ -95,10 +95,6 @@ Route::middleware(['auth', 'verified'])
          * Awards
          */
         Route::get('awards', [AwardsController::class, 'index'])->name('dashboard.awards');
-        Route::post('awards', [AwardsController::class, 'store'])->name('dashboard.awards.store');
-        Route::get('awards/{id}/edit', [AwardsController::class, 'edit'])->name('dashboard.awards.edit');
-        Route::post('awards/{id}', [AwardsController::class, 'update'])->name('dashboard.awards.update');
-        Route::delete('awards/{id}', [AwardsController::class, 'destroy'])->name('dashboard.awards.destroy');
 
         /**
          * Certificates
