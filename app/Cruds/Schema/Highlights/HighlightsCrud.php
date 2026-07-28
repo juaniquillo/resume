@@ -12,6 +12,8 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Highlights\Inputs\HighlightFactory;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsFormRenderer;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsTableRenderer;
@@ -34,23 +36,25 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
         protected array $errors = [],
         protected ?Model $model = null,
         protected ?string $baseRoute = null,
-        protected bool $isLivewire = false,
+        protected FormRenderer $formRenderer = new HighlightsFormRenderer,
+        protected TableRenderer $tableRenderer = new HighlightsTableRenderer,
     ) {}
 
-    public function setLivewire(bool $isLivewire = true): static
-    {
-        $this->isLivewire = $isLivewire;
-
-        return $this;
-    }
-
-    public static function build(array $values = [], array $errors = [], ?Model $model = null, ?string $baseRoute = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?string $baseRoute = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
             baseRoute: $baseRoute,
+            formRenderer: $formRenderer ?? new HighlightsFormRenderer,
+            tableRenderer: $tableRenderer ?? new HighlightsTableRenderer,
         );
     }
 
@@ -64,14 +68,19 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            'highlight' => HighlightFactory::make($this->isLivewire),
+            'highlight' => HighlightFactory::make(),
         ];
 
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return HighlightsFormRenderer::make()->renderFull($this, ['highlight']);
+        return $this->form();
     }
 
     /**

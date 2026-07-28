@@ -5,6 +5,7 @@ namespace App\Livewire\Resume\Highlights;
 use App\Actions\Highlights\CreateHighlight as CreateHighlightAction;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\Renderers\HighlightsLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
@@ -40,6 +41,7 @@ class CreateHighlight extends Component
         return HighlightsCrud::build(
             [],
             errors: $this->formErrors,
+            formRenderer: HighlightsLivewireFormRenderer::make(),
         );
     }
 
@@ -81,8 +83,7 @@ class CreateHighlight extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
-            ->setLivewire()
-            ->formWithTextareaSpanFull()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 

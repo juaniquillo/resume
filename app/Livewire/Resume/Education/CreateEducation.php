@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Education;
 
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Education\EducationCrud;
+use App\Cruds\Schema\Education\Renderers\EducationLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
@@ -31,7 +32,8 @@ class CreateEducation extends Component
     {
         return EducationCrud::build(
             errors: $this->formErrors,
-        )->setLivewire();
+            formRenderer: EducationLivewireFormRenderer::make(),
+        );
     }
 
     public function createForm(): void
@@ -67,7 +69,7 @@ class CreateEducation extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
-            ->formWithInputsSpanFull()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 

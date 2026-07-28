@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Cruds\Schema\Volunteers\Renderers;
+namespace App\Cruds\Schema\Education\Renderers;
 
 use App\Cruds\Concerns\HasLivewireFormAttributes;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\FormRenderer;
-use App\Cruds\Schema\Volunteers\VolunteersCrud;
+use App\Cruds\Schema\Education\EducationCrud;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class VolunteersFormRenderer implements FormRenderer
+final class EducationLivewireFormRenderer implements FormRenderer
 {
     use HasLivewireFormAttributes;
 
@@ -20,8 +20,9 @@ final class VolunteersFormRenderer implements FormRenderer
 
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
+        /** @var EducationCrud $crud */
         $inputs = $crud->inputsArray();
-        $this->addLivewireAttributes($inputs, VolunteersCrud::getLivewireGroup());
+        $this->addLivewireAttributes($inputs, EducationCrud::getLivewireGroup());
 
         return $crud->composeForm(
             inputs: $inputs,

@@ -7,9 +7,7 @@ use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Helpers\TableHelpers;
-use App\Cruds\Schema\Works\WorksCrud;
 use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -53,8 +51,6 @@ class PositionFactory
 
     public static function form(InputInterface $input): void
     {
-        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), WorksCrud::getLivewireGroup());
-
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setAttributeBag(
@@ -62,7 +58,6 @@ class PositionFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'badge' => 'required',
-                            ...$livewireAttributes,
                         ])
                 )
         );

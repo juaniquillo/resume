@@ -9,7 +9,7 @@ use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class VolunteersFormRenderer implements FormRenderer
+final class VolunteersLivewireFormRenderer implements FormRenderer
 {
     use HasLivewireFormAttributes;
 
@@ -20,6 +20,7 @@ final class VolunteersFormRenderer implements FormRenderer
 
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
+        /** @var VolunteersCrud $crud */
         $inputs = $crud->inputsArray();
         $this->addLivewireAttributes($inputs, VolunteersCrud::getLivewireGroup());
 

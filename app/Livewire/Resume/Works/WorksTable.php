@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Resume\Works;
 
+use App\Cruds\Schema\Works\Renderers\WorksLivewireTableRenderer;
 use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\User;
@@ -32,7 +33,9 @@ class WorksTable extends Component
 
     private function crud()
     {
-        return WorksCrud::build();
+        return WorksCrud::build(
+            tableRenderer: WorksLivewireTableRenderer::make(),
+        );
     }
 
     private function table(): ?BackendComponent

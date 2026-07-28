@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Highlights;
 
 use App\Actions\Highlights\UpdateHighlight;
 use App\Cruds\Schema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\Renderers\HighlightsLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
@@ -95,14 +96,14 @@ class EditHighlight extends Component
             values: $this->highlights,
             errors: $this->formErrors,
             model: $highlight,
-        )
-            ->setLivewire();
+            formRenderer: HighlightsLivewireFormRenderer::make(),
+        );
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formWithTextareaSpanFull()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Resume\Education;
 
 use App\Cruds\Schema\Education\EducationCrud;
+use App\Cruds\Schema\Education\Renderers\EducationLivewireTableRenderer;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,7 +29,9 @@ class EducationTable extends Component
 
     private function crud()
     {
-        return EducationCrud::build()->setLivewire();
+        return EducationCrud::build(
+            tableRenderer: EducationLivewireTableRenderer::make(),
+        );
     }
 
     private function table(): ?BackendComponent

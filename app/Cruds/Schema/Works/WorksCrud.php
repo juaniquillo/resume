@@ -10,6 +10,8 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Works\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Works\Inputs\NameFactory;
@@ -40,14 +42,23 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new WorksFormRenderer,
+        protected TableRenderer $tableRenderer = new WorksTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new WorksFormRenderer,
+            tableRenderer: $tableRenderer ?? new WorksTableRenderer,
         );
     }
 
@@ -73,14 +84,19 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
     public function formNarrow(): BackendComponent|CompoundComponent
     {
-        return WorksFormRenderer::make()->renderNarrow($this);
+        return $this->form();
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return WorksFormRenderer::make()->renderFull($this, [SummaryFactory::NAME]);
+        return $this->form();
     }
 
     protected function extraCells(TableRowsAction $action): void
@@ -90,15 +106,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 /** @var Work $work */
                 $work = $model;
 
-                $helper = TableHelpers::make();
-
                 return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
-
-                // return $helper->liveWireComponent(
-                //     component: Highlights::class,
-                //     id: "work-highlights-{$work->id}",
-                //     params: [$work->id]
-                // );
 
             },
         ));

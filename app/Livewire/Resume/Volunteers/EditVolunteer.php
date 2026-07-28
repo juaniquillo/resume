@@ -87,14 +87,14 @@ class EditVolunteer extends Component
             values: $this->volunteers,
             errors: $this->formErrors,
             model: $volunteer,
-        )->setLivewire();
+        );
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'updateForm()');
+            ->form()
+            ->setAttribute('wire:submit.prevent', 'updateForm');
     }
 
     public function getModalKey(): string

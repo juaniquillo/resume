@@ -10,7 +10,8 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Volunteers\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Volunteers\Inputs\OrganizationFactory;
@@ -27,8 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\InputComponentAction\InputComponentAction;
-use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Override;
 
 final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -40,22 +40,23 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-        protected bool $isLivewire = false,
+        protected FormRenderer $formRenderer = new VolunteersFormRenderer,
+        protected TableRenderer $tableRenderer = new VolunteersTableRenderer,
     ) {}
 
-    public function setLivewire(bool $isLivewire = true): static
-    {
-        $this->isLivewire = $isLivewire;
-
-        return $this;
-    }
-
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new VolunteersFormRenderer,
+            tableRenderer: $tableRenderer ?? new VolunteersTableRenderer,
         );
     }
 
@@ -66,7 +67,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
 
     public function inputsArray(): array
     {
-        $inputs = [
+        return [
             'uuid' => UuidFactory::make(),
             'user' => UserFactory::make(),
             'organization' => OrganizationFactory::make(),
@@ -76,28 +77,17 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
             'url' => UrlFactory::make(),
             'summary' => SummaryFactory::make(),
         ];
-
-        if ($this->isLivewire) {
-            foreach ($inputs as $name => $input) {
-                /** @var InputComponentRecipe|null $recipe */
-                $recipe = $input->getRecipe(InputComponentAction::getIdentifier());
-
-                if ($recipe instanceof InputComponentRecipe && $recipe->getAttributeBag() !== null) {
-                    $attributes = LivewireHelpers::getLivewireAttributes($name, self::getLivewireGroup());
-                    $attributeBag = $recipe->getAttributeBag();
-
-                    $currentAttributes = $attributeBag->getInputAttributes();
-                    $attributeBag->setInputAttributes(array_merge($currentAttributes, $attributes));
-                }
-            }
-        }
-
-        return $inputs;
     }
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return VolunteersFormRenderer::make()->renderFull($this, ['url', 'summary']);
+        return $this->formRenderer->getForm($this);
+    }
+
+    #[Override]
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
     }
 
     protected function extraCells(TableRowsAction $action): void
@@ -119,7 +109,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: fn ($value, Model $model) => VolunteersTableRenderer::make()->renderSettings($model)
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

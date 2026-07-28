@@ -31,7 +31,7 @@ class CreateVolunteer extends Component
     {
         return VolunteersCrud::build(
             errors: $this->formErrors,
-        )->setLivewire();
+        );
     }
 
     public function createForm(): void
@@ -66,9 +66,8 @@ class CreateVolunteer extends Component
 
     public function getForm(): BackendComponent|CompoundComponent
     {
-        return $this->crud()
-            ->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'createForm()');
+        return $this->crud()->form()
+            ->setAttribute('wire:submit.prevent', 'createForm');
     }
 
     public function getModalKey(): string

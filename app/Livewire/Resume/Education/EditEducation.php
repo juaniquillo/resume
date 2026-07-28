@@ -5,6 +5,7 @@ namespace App\Livewire\Resume\Education;
 use App\Actions\Resume\Education\UpdateEducation;
 use App\Cruds\Actions\General\FormatDateAction;
 use App\Cruds\Schema\Education\EducationCrud;
+use App\Cruds\Schema\Education\Renderers\EducationLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Education;
@@ -87,13 +88,14 @@ class EditEducation extends Component
             values: $this->education,
             errors: $this->formErrors,
             model: $education,
-        )->setLivewire();
+            formRenderer: EducationLivewireFormRenderer::make(),
+        );
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formWithInputsSpanFull()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
 
