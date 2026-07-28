@@ -78,7 +78,7 @@ Incorrect:
 public function store(Request $request): RedirectResponse
 {
     $validated = $request->validate([
-        'title' => ['required', 'max:255'],
+        'title' => ['required', 'max:191'],
         'body' => ['required'],
     ]);
 
