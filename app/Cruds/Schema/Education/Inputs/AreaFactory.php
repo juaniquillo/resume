@@ -47,6 +47,8 @@ class AreaFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
+                'string',
+                'max:191',
             ]))
         );
     }

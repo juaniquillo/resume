@@ -42,6 +42,8 @@ class OrganizationFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
+                'string',
+                'max:191',
             ]))
         );
     }
