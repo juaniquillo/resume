@@ -6,6 +6,8 @@
 
 A professional resume management system designed to help you take full control of your career narrative. Built with care for those who want to showcase their professional journey on their own terms.
 
+🚀 **[View Live Demo](https://resume-manager.laravel.cloud/)**
+
 ## ✨ Core Features
 
 * **Comprehensive Career Tracking**: Manage every aspect of your professional profile, including work history, education, volunteer work, and certifications.
