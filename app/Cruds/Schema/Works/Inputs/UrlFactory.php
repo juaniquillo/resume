@@ -61,6 +61,7 @@ class UrlFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
+                            'type' => 'url',
                         ])
                 )
         );
