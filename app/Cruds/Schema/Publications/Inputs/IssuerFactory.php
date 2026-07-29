@@ -44,6 +44,8 @@ class IssuerFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
+                'string',
+                'max:191',
             ]))
         );
     }

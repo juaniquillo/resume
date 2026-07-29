@@ -1,17 +1,11 @@
-<x-layouts::app :title="__('Dashboard')">
-
-    <flux:heading size="xl" level="1">{{ __("Create Your Publication") }}</flux:heading>
-
+<x-layouts::app :title="__('Publications')">
+    
+    <flux:heading size="xl" level="1">{{ __("Publications") }}</flux:heading>
+    
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.publications.create-publication />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
-
+    <livewire:resume.publications.publications-table />
+    
 </x-layouts::app>
