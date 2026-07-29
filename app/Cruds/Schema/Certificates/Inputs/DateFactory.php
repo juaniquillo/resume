@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Schema\Certificates\Inputs;
 
+use App\Cruds\Actions\General\FormatDateRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -29,7 +30,14 @@ class DateFactory
         self::factory($input);
         self::table($input);
 
+        self::dateFormat($input);
+
         return $input;
+    }
+
+    public static function dateFormat(InputInterface $input): void
+    {
+        $input->setRecipe(new FormatDateRecipe(isDate: true));
     }
 
     public static function validation(InputInterface $input): void
