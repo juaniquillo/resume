@@ -3,7 +3,6 @@
 namespace App\Livewire\Resume\Skills;
 
 use App\Actions\Resume\Skill\UpdateSkill;
-use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Skills\Inputs\KeywordsFactory;
 use App\Cruds\Schema\Skills\Renderers\SkillsLivewireFormRenderer;
 use App\Cruds\Schema\Skills\SkillsCrud;
@@ -70,14 +69,7 @@ class EditSkill extends Component
     #[Computed]
     public function refreshVariables(): void
     {
-        $output = $this->crud($this->getModel())
-            ->make()
-            ->execute(
-                (new NameValueAction(values: $this->getModel()->toArray()))
-                    ->setGlobalDefault('')
-            );
-
-        $this->skills = $output->toArray();
+        $this->skills = $this->getModel()->toArray();
     }
 
     /** @throws ModelNotFoundException */
