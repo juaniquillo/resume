@@ -42,9 +42,10 @@ class CreateSkill extends Component
         /** Convert keywords to array */
         $keywordsName = KeywordsFactory::NAME;
         $keywords = $values[$keywordsName] ?? null;
-        $processedKeywords = RequestUtils::commaSeparatedToArray($keywords);
-
-        $values[$keywordsName] = $processedKeywords;
+        if (! is_array($keywords)) {
+            $processedKeywords = RequestUtils::commaSeparatedToArray($keywords);
+            $values[$keywordsName] = $processedKeywords;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $values);
 
