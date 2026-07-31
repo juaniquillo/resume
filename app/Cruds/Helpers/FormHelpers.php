@@ -60,6 +60,6 @@ class FormHelpers
     public static function convertEmptyStringToNull(array $data): array
     {
         /** Brings back null for empty strings for Livewire forms */
-        return array_map(fn ($value) => $value === '' ? null : $value, $data);
+        return array_map(fn ($value) => $value === '' ? null : trim($value), $data);
     }
 }
