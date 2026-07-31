@@ -10,17 +10,18 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\References\Inputs\NameFactory;
 use App\Cruds\Schema\References\Inputs\ReferenceFactory;
 use App\Cruds\Schema\References\Inputs\UserFactory;
 use App\Cruds\Schema\References\Inputs\UuidFactory;
-use App\Models\Reference;
+use App\Cruds\Schema\References\Renderers\ReferencesFormRenderer;
+use App\Cruds\Schema\References\Renderers\ReferencesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -28,19 +29,35 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'references';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new ReferencesFormRenderer,
+        protected TableRenderer $tableRenderer = new ReferencesTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new ReferencesFormRenderer,
+            tableRenderer: $tableRenderer ?? new ReferencesTableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -53,6 +70,21 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
+    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->formFullSpanInputs(['reference']);
+    }
+
     /**
      * Runs once after all inputs
      * are processed
@@ -60,32 +92,9 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Reference $reference */
-                $reference = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.references.edit', [$reference->id])),
-                    $helper->deleteButton(route('dashboard.references.destroy', [$reference->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
-    {
-        return $this->formFullSpanInputs(['reference']);
     }
 }

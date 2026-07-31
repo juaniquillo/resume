@@ -1,16 +1,11 @@
-<x-layouts::app :title="__('Dashboard')">
+<x-layouts::app :title="__('References')">
 
     <flux:heading size="xl" level="1">{{ __("References") }}</flux:heading>
     
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.references.create-reference />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
+    <livewire:resume.references.references-table />
 
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
 </x-layouts::app>
