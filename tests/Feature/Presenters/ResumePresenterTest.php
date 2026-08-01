@@ -19,6 +19,7 @@ use App\Models\Work;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\ResumePresenter;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
 
 test('it can present a resume for a user', function () {
     $user = User::factory()->create();
@@ -193,7 +194,7 @@ test('it can use a custom theme', function () {
     {
         public function containerThemes(): array
         {
-            return ['default' => 'cover-letter-container'];
+            return ['spacing' => 'p-xs'];
         }
 
         public function basicsContainerThemes(): array
@@ -278,7 +279,7 @@ test('it can use a custom theme', function () {
 
         public function sectionThemes(): array
         {
-            return ['default' => 'container'];
+            return ['spacing' => 'm-bottom-xs'];
         }
 
         public function sectionTitleThemes(): array
@@ -417,13 +418,14 @@ test('it can use a custom theme', function () {
         }
     };
 
-    $presenter = new ResumePresenter($user, $customTheme);
+    $presenter = (new ResumePresenter($user, $customTheme))
+        ->setThemeManager(new LocalThemeManager);
     $html = (string) $presenter->present()->toHtml();
 
-    // 'p-xs' is defined in default.blade.php as 'prose'
-    expect($html)->toContain('prose');
-    // 'm-bottom-xs' is defined in default.blade.php as 'text-gray-700'
-    expect($html)->toContain('text-gray-700');
+    // 'p-xs' is defined in spacing.blade.php as 'p-2'
+    expect($html)->toContain('p-2');
+    // 'm-bottom-xs' is defined in spacing.blade.php as 'mb-1'
+    expect($html)->toContain('mb-1');
 });
 
 test('it respects section visibility settings', function () {

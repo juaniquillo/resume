@@ -9,7 +9,6 @@ use App\Models\GeneralOption;
 use App\Models\Profile;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
-use App\Presenters\ResumePresenter;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -67,12 +66,14 @@ final class BasicsPresenter
     {
         $info = [];
 
+        $themeManager = $this->getThemeManager();
+
         if ($basics->email && ! ($options !== null && $options->hide_email)) {
             $info['email'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->emailThemes())
                 ->setContents([
                     'icon' => FluxComponentBuilder::make('icon.envelope')
-                        ->setThemeManager(ResumePresenter::getThemeManager())
+                        ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
                     'link' => $this->compose(ComponentEnum::LINK)
@@ -87,7 +88,7 @@ final class BasicsPresenter
                 ->setThemes($this->theme->phoneThemes())
                 ->setContents([
                     'icon' => FluxComponentBuilder::make('icon.phone')
-                        ->setThemeManager(ResumePresenter::getThemeManager())
+                        ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
                     'text' => $this->compose(ComponentEnum::SPAN)
@@ -100,7 +101,7 @@ final class BasicsPresenter
                 ->setThemes($this->theme->urlThemes())
                 ->setContents([
                     'icon' => FluxComponentBuilder::make('icon.link')
-                        ->setThemeManager(ResumePresenter::getThemeManager())
+                        ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
                     'link' => $this->compose(ComponentEnum::LINK)
@@ -125,7 +126,7 @@ final class BasicsPresenter
                 ->setThemes($this->theme->locationThemes())
                 ->setContents([
                     'icon' => FluxComponentBuilder::make('icon.map-pin')
-                        ->setThemeManager(ResumePresenter::getThemeManager())
+                        ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
                     'text' => $this->compose(ComponentEnum::SPAN)
@@ -148,7 +149,7 @@ final class BasicsPresenter
                         'title' => $network,
                     ])
                 : FluxComponentBuilder::make('icon.globe-alt')
-                    ->setThemeManager(ResumePresenter::getThemeManager())
+                    ->setThemeManager($themeManager)
                     ->setThemes($this->theme->iconThemes())
                     ->setAttribute('variant', 'outline');
 
