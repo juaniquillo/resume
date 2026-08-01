@@ -193,7 +193,7 @@ test('it can use a custom theme', function () {
     {
         public function containerThemes(): array
         {
-            return ['spacing' => 'p-xs'];
+            return ['default' => 'cover-letter-container'];
         }
 
         public function basicsContainerThemes(): array
@@ -278,7 +278,7 @@ test('it can use a custom theme', function () {
 
         public function sectionThemes(): array
         {
-            return ['spacing' => 'm-bottom-xs'];
+            return ['default' => 'container'];
         }
 
         public function sectionTitleThemes(): array
@@ -420,10 +420,10 @@ test('it can use a custom theme', function () {
     $presenter = new ResumePresenter($user, $customTheme);
     $html = (string) $presenter->present()->toHtml();
 
-    // 'p-xs' is defined in spacing.blade.php as 'p-2'
-    expect($html)->toContain('p-2');
-    // 'm-bottom-xs' is defined in spacing.blade.php as 'mb-1'
-    expect($html)->toContain('mb-1');
+    // 'p-xs' is defined in default.blade.php as 'prose'
+    expect($html)->toContain('prose');
+    // 'm-bottom-xs' is defined in default.blade.php as 'text-gray-700'
+    expect($html)->toContain('text-gray-700');
 });
 
 test('it respects section visibility settings', function () {

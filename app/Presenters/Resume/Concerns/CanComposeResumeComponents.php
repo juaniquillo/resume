@@ -2,10 +2,12 @@
 
 namespace App\Presenters\Resume\Concerns;
 
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 
 trait CanComposeResumeComponents
 {
@@ -24,9 +26,15 @@ trait CanComposeResumeComponents
 
     private function compose(ComponentEnum|string $case): CompoundComponent
     {
-        /** @var CompoundComponent $component */
-        $component = LocalThemeComponentBuilder::make($case);
+        $themeManager = self::getThemeManager();
+        $component = new MainBackendComponent($case, $themeManager);
 
         return $component;
+    }
+
+    public static function getThemeManager(): ThemeManager
+    {
+        return (new DefaultThemeManager)
+            ->setDefaultPath(resource_path('views/_themes/tailwind/resume/'));
     }
 }
