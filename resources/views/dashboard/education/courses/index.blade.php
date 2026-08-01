@@ -7,17 +7,9 @@
     </div>
     
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.education.courses.create-course :educationId="$education->id" />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-        <div class="px-5 py-2 bg-gray-100 dark:bg-back-table border border-gray-300 dark:border-slate-700 rounded-lg mt-6 shadow">
-            {{ $table }}
+    <livewire:resume.education.courses.courses-table :educationId="$education->id" />
 
-            <div class="py-2">
-                {{ $paginator->links() }}
-            </div>
-        </div>
-    @endif
 </x-layouts::app>

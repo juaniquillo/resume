@@ -10,18 +10,19 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Certificates\Inputs\DateFactory;
 use App\Cruds\Schema\Certificates\Inputs\NameFactory;
 use App\Cruds\Schema\Certificates\Inputs\UrlFactory;
 use App\Cruds\Schema\Certificates\Inputs\UserFactory;
 use App\Cruds\Schema\Certificates\Inputs\UuidFactory;
-use App\Models\Certificate;
+use App\Cruds\Schema\Certificates\Renderers\CertificatesFormRenderer;
+use App\Cruds\Schema\Certificates\Renderers\CertificatesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -29,19 +30,35 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'certificates';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new CertificatesFormRenderer,
+        protected TableRenderer $tableRenderer = new CertificatesTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new CertificatesFormRenderer,
+            tableRenderer: $tableRenderer ?? new CertificatesTableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -55,9 +72,19 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->formFullSpanInputs(['url']);
+        return $this->form();
     }
 
     /**
@@ -67,25 +94,7 @@ final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Certificate $certificate */
-                $certificate = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.certificates.edit', [$certificate->id])),
-                    $helper->deleteButton(route('dashboard.certificates.destroy', [$certificate->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

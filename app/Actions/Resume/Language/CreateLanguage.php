@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Language;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Language;
 use App\Models\User;
 
@@ -14,7 +15,9 @@ class CreateLanguage
 
     public function handle(): Language
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         /** @var Language */
-        return $this->user->languages()->create($this->data);
+        return $this->user->languages()->create($data);
     }
 }

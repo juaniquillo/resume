@@ -3,14 +3,9 @@
     <flux:heading size="xl" level="1">{{ __("Awards") }}</flux:heading>
     
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.awards.create-award />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
+    <livewire:resume.awards.awards-table />
     
 </x-layouts::app>

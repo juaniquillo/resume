@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Interest;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Interest;
 use App\Models\User;
 
@@ -14,7 +15,9 @@ class CreateInterest
 
     public function handle(): Interest
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         /** @var Interest */
-        return $this->user->interests()->create($this->data);
+        return $this->user->interests()->create($data);
     }
 }

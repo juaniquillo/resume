@@ -47,6 +47,8 @@ class InstitutionFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
+                'string',
+                'max:191',
             ]))
         );
     }

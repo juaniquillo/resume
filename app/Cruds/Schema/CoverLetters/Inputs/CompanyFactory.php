@@ -39,7 +39,7 @@ class CompanyFactory
             (new LaravelValidationRulesRecipe([
                 'nullable',
                 'string',
-                'max:255',
+                'max:191',
             ]))
         );
     }

@@ -1,16 +1,11 @@
-<x-layouts::app :title="__('Dashboard')">
-
-    <flux:heading size="xl" level="1">{{ __("Create Your Certificate") }}</flux:heading>
-
+<x-layouts::app :title="__('Certificates')">
+    
+    <flux:heading size="xl" level="1">{{ __("Certificates") }}</flux:heading>
+    
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.certificates.create-certificate />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
-
+    <livewire:resume.certificates.certificates-table />
+    
 </x-layouts::app>

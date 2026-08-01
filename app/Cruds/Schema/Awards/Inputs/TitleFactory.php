@@ -42,6 +42,7 @@ class TitleFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'required',
+                'max:191',
             ]))
         );
     }

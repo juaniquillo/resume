@@ -73,7 +73,7 @@ class OtherFieldHelper
             new LaravelValidationRulesRecipe([
                 'nullable',
                 'string',
-                'max:255',
+                'max:191',
                 'required_if:'.$relatedName.','.$value,
             ])
         );

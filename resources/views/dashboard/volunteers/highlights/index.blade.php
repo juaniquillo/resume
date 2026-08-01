@@ -7,9 +7,9 @@
     </div>
     
     <div class="max-w-xl mt-6">
-        <livewire:resume.volunteers.highlights.create-highlight :volunteer="$volunteer" />
+        <livewire:resume.highlights.create-highlight :model="$volunteer" />
     </div>
 
-    <livewire:resume.volunteers.highlights.volunteers-highlights-table :volunteer="$volunteer" />
+    <livewire:resume.highlights.highlight-table :model="$volunteer" />
     
 </x-layouts::app>

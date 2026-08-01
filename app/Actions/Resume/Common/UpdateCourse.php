@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Common;
 
+use App\Cruds\Helpers\FormHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 class UpdateCourse
@@ -13,6 +14,8 @@ class UpdateCourse
 
     public function handle(): bool
     {
-        return $this->course->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->course->update($data);
     }
 }

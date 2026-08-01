@@ -45,6 +45,8 @@ class ScoreFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
+                'string',
+                'max:191',
             ]))
         );
     }

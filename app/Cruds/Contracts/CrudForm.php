@@ -18,6 +18,8 @@ interface CrudForm
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent;
 
+    public function composeForm(?array $inputs = null, ?array $themes = null): BackendComponent|CompoundComponent;
+
     public function inputs(?array $inputs = null): array;
 
     public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent;

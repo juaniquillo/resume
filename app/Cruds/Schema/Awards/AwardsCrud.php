@@ -10,19 +10,20 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Awards\Inputs\AwardedAtFactory;
 use App\Cruds\Schema\Awards\Inputs\AwarderFactory;
 use App\Cruds\Schema\Awards\Inputs\SummaryFactory;
 use App\Cruds\Schema\Awards\Inputs\TitleFactory;
 use App\Cruds\Schema\Awards\Inputs\UserFactory;
 use App\Cruds\Schema\Awards\Inputs\UuidFactory;
-use App\Models\Award;
+use App\Cruds\Schema\Awards\Renderers\AwardsFormRenderer;
+use App\Cruds\Schema\Awards\Renderers\AwardsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -30,19 +31,35 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'awards';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new AwardsFormRenderer,
+        protected TableRenderer $tableRenderer = new AwardsTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new AwardsFormRenderer,
+            tableRenderer: $tableRenderer ?? new AwardsTableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -57,20 +74,19 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        $inputs = $this->inputsArray();
-        $summary = $inputs['summary'] ?? null;
-
-        if ($summary) {
-            $inputs['summary'] = $this->spanFullContainer([
-                $summary,
-            ]);
-        }
-
-        return $this->form(
-            inputs: $inputs,
-        );
+        return $this->form();
     }
 
     /**
@@ -80,25 +96,7 @@ final class AwardsCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Award $award */
-                $award = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.awards.edit', [$award->id])),
-                    $helper->deleteButton(route('dashboard.awards.destroy', [$award->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

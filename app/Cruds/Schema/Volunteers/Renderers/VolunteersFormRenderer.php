@@ -2,19 +2,30 @@
 
 namespace App\Cruds\Schema\Volunteers\Renderers;
 
+use App\Cruds\Concerns\HasLivewireFormAttributes;
+use App\Cruds\Contracts\CrudForm;
+use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class VolunteersFormRenderer
+final class VolunteersFormRenderer implements FormRenderer
 {
+    use HasLivewireFormAttributes;
+
     public static function make(): static
     {
         return new self;
     }
 
-    public function renderFull(VolunteersCrud $crud, array $fullSpanInputs): BackendComponent|CompoundComponent
+    public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
-        return $crud->formFullSpanInputs($fullSpanInputs);
+        $inputs = $crud->inputsArray();
+        $this->addLivewireAttributes($inputs, VolunteersCrud::getLivewireGroup());
+
+        return $crud->composeForm(
+            inputs: $inputs,
+            themes: ['forms' => 'one-column']
+        );
     }
 }

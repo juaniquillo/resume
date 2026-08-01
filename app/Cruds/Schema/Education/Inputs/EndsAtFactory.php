@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Schema\Education\Inputs;
 
+use App\Cruds\Actions\General\FormatDateRecipe;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
@@ -35,7 +36,14 @@ class EndsAtFactory
         self::import($input);
         self::export($input);
 
+        self::dateFormat($input);
+
         return $input;
+    }
+
+    public static function dateFormat(InputInterface $input): void
+    {
+        $input->setRecipe(new FormatDateRecipe(isDate: true));
     }
 
     public static function form(InputInterface $input): void

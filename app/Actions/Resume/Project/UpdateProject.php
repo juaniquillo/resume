@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Project;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Project;
 
 class UpdateProject
@@ -13,6 +14,9 @@ class UpdateProject
 
     public function handle(): bool
     {
-        return $this->project->update($this->data);
+        /** Brings back null for empty strings and trims whitespace for Livewire forms */
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->project->update($data);
     }
 }

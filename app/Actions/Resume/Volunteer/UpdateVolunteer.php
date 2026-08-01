@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Volunteer;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Volunteer;
 
 class UpdateVolunteer
@@ -13,6 +14,8 @@ class UpdateVolunteer
 
     public function handle(): bool
     {
-        return $this->volunteer->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->volunteer->update($data);
     }
 }

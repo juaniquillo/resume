@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Works;
 
 use App\Actions\Resume\Work\CreateWork as CreateWorkAction;
 use App\Cruds\Actions\General\NameValueAction;
+use App\Cruds\Schema\Works\Renderers\WorksLivewireFormRenderer;
 use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
@@ -73,13 +74,14 @@ class CreateWork extends Component
         return WorksCrud::build(
             values: $this->works,
             errors: $this->formErrors,
+            formRenderer: WorksLivewireFormRenderer::make(),
         );
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
-            ->formNarrow()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 

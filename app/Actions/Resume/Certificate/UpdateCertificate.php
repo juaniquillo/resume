@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Certificate;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Certificate;
 
 class UpdateCertificate
@@ -13,6 +14,8 @@ class UpdateCertificate
 
     public function handle(): bool
     {
-        return $this->certificate->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->certificate->update($data);
     }
 }

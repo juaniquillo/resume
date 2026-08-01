@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Resume\Volunteers;
 
+use App\Cruds\Schema\Volunteers\Renderers\VolunteersLivewireTableRenderer;
 use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\User;
@@ -28,7 +29,9 @@ class VolunteersTable extends Component
 
     private function crud()
     {
-        return VolunteersCrud::build();
+        return VolunteersCrud::build(
+            tableRenderer: VolunteersLivewireTableRenderer::make(),
+        );
     }
 
     private function table(): ?BackendComponent

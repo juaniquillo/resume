@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Works;
 
 use App\Actions\Resume\Work\UpdateWork;
 use App\Cruds\Actions\General\FormatDateAction;
+use App\Cruds\Schema\Works\Renderers\WorksLivewireFormRenderer;
 use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
@@ -91,13 +92,14 @@ class EditWork extends Component
             values: $this->works,
             errors: $this->formErrors,
             model: $work,
+            formRenderer: WorksLivewireFormRenderer::make(),
         );
     }
 
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
-            ->formNarrow()
+            ->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }
 

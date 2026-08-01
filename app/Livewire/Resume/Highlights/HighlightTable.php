@@ -3,6 +3,7 @@
 namespace App\Livewire\Resume\Highlights;
 
 use App\Cruds\Schema\Highlights\HighlightsCrud;
+use App\Cruds\Schema\Highlights\Renderers\HighlightsLivewireTableRenderer;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\Contracts\HighlightModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,7 +42,7 @@ class HighlightTable extends Component
 
     private function crud()
     {
-        return HighlightsCrud::build([], [], baseRoute: 'dashboard.works.highlights');
+        return HighlightsCrud::build([], [], baseRoute: 'dashboard.works.highlights', tableRenderer: HighlightsLivewireTableRenderer::make());
     }
 
     private function table(): ?BackendComponent

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Skill;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Skill;
 
 class UpdateSkill
@@ -13,6 +14,8 @@ class UpdateSkill
 
     public function handle(): bool
     {
-        return $this->skill->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->skill->update($data);
     }
 }

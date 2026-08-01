@@ -2,9 +2,8 @@
 
 namespace App\Cruds\Schema\Highlights\Renderers;
 
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
-use App\Livewire\Resume\Highlights\DeleteHighlight;
-use App\Livewire\Resume\Highlights\EditHighlight;
 use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -12,7 +11,7 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
-final class HighlightsTableRenderer
+final class HighlightsTableRenderer implements TableRenderer
 {
     public static function make(): static
     {
@@ -27,16 +26,8 @@ final class HighlightsTableRenderer
         $helper = TableHelpers::make();
 
         $contents = [
-            $helper->liveWireComponent(
-                component: EditHighlight::class,
-                id: "edit-highlight-{$highlight->id}",
-                params: [$highlight->id]
-            ),
-            $helper->liveWireComponent(
-                component: DeleteHighlight::class,
-                id: "delete-highlight-{$highlight->id}",
-                params: [$highlight->id]
-            ),
+            $helper->editButton(route('dashboard.certificates.edit', [$highlight->id])),
+            $helper->deleteButton(route('dashboard.certificates.destroy', [$highlight->id])),
         ];
 
         return ComponentBuilder::make(ComponentEnum::DIV)

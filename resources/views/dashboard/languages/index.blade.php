@@ -1,16 +1,11 @@
-<x-layouts::app :title="__('Dashboard')">
-
+<x-layouts::app :title="__('Languages')">
+    
     <flux:heading size="xl" level="1">{{ __("Languages") }}</flux:heading>
     
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.languages.create-language />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
+    <livewire:resume.languages.languages-table />
+    
 </x-layouts::app>

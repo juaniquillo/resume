@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Interest;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Interest;
 
 class UpdateInterest
@@ -13,6 +14,8 @@ class UpdateInterest
 
     public function handle(): bool
     {
-        return $this->interest->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->interest->update($data);
     }
 }

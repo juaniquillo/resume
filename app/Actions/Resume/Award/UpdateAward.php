@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Award;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Award;
 
 class UpdateAward
@@ -13,6 +14,8 @@ class UpdateAward
 
     public function handle(): bool
     {
-        return $this->award->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->award->update($data);
     }
 }

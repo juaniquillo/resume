@@ -16,7 +16,7 @@ class HideImageFactory
 {
     public const NAME = 'hide_image';
 
-    public const LABEL = 'Hide Image';
+    public const LABEL = 'Hide Photo';
 
     public static function make(): InputInterface
     {

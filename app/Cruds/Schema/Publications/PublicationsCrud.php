@@ -10,17 +10,20 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Publications\Inputs\DateFactory;
 use App\Cruds\Schema\Publications\Inputs\IssuerFactory;
 use App\Cruds\Schema\Publications\Inputs\NameFactory;
 use App\Cruds\Schema\Publications\Inputs\UrlFactory;
 use App\Cruds\Schema\Publications\Inputs\UserFactory;
 use App\Cruds\Schema\Publications\Inputs\UuidFactory;
-use App\Models\Publication;
+use App\Cruds\Schema\Publications\Renderers\PublicationsFormRenderer;
+use App\Cruds\Schema\Publications\Renderers\PublicationsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Illuminate\Support\Str;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -28,19 +31,35 @@ final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'publications';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new PublicationsFormRenderer,
+        protected TableRenderer $tableRenderer = new PublicationsTableRenderer,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? new PublicationsFormRenderer,
+            tableRenderer: $tableRenderer ?? new PublicationsTableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -55,6 +74,21 @@ final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     /**
      * Runs once after all inputs
      * are processed
@@ -62,25 +96,7 @@ final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-
-                /** @var Publication $publication */
-                $publication = $model;
-
-                $helper = TableHelpers::make();
-
-                $contents = [
-                    $helper->editButton(route('dashboard.publications.edit', [$publication->id])),
-                    $helper->deleteButton(route('dashboard.publications.destroy', [$publication->id])),
-                ];
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

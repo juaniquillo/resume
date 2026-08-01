@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Language;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Language;
 
 class UpdateLanguage
@@ -13,6 +14,8 @@ class UpdateLanguage
 
     public function handle(): bool
     {
-        return $this->language->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->language->update($data);
     }
 }
