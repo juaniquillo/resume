@@ -2,93 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Resume\Project\UpdateProject;
-use App\Cruds\Schema\Projects\ProjectsCrud;
-use App\Http\Requests\ProjectsFormRequest;
-use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
-        $projects = $request->user()
-            ->projects()
-            ->latest()
-            ->paginate(10);
-
-        $values = $request->old();
-        $errors = $request->session()->get('errors')?->toArray() ?? [];
-        $table = null;
-
-        $crud = ProjectsCrud::build(
-            values: $values,
-            errors: $errors,
-        );
-
-        $crud->setFormAction(route('dashboard.projects.store'));
-
-        $form = $crud->formWithTextareaSpanFull();
-
-        if (! $projects->isEmpty()) {
-            $table = $crud->makeTable($projects);
-        }
-
-        return view('dashboard.projects.index')
-            ->with('form', $form)
-            ->with('table', $table)
-            ->with('paginator', $projects);
-    }
-
-    public function store(ProjectsFormRequest $request)
-    {
-        $validated = $request->validated();
-
-        $request->user()->projects()->create($validated);
-
-        return redirect()
-            ->back()->with('success', 'Project created successfully.');
-    }
-
-    public function edit(Request $request, int $id)
-    {
-        $model = $request->user()->projects()->findOrFail($id);
-
-        $values = $request->old();
-        $errors = $request->session()->get('errors')?->toArray() ?? [];
-
-        $crud = ProjectsCrud::build(
-            values: $values,
-            errors: $errors,
-            model: $model,
-        );
-
-        $crud->setFormAction(route('dashboard.projects.update', $id));
-
-        $form = $crud->formWithTextareaSpanFull();
-
-        return view('dashboard.projects.edit')
-            ->with('form', $form);
-    }
-
-    public function update(ProjectsFormRequest $request, int $id)
-    {
-        /** @var Project $model */
-        $model = $request->user()->projects()->findOrFail($id);
-
-        (new UpdateProject($request->validated(), $model))->handle();
-
-        return redirect()
-            ->back()->with('success', 'Project updated successfully.');
-    }
-
-    public function destroy(Request $request, int $id)
-    {
-        $model = $request->user()->projects()->findOrFail($id);
-
-        $model->delete();
-
-        return redirect()
-            ->back()->with('success', 'Project deleted successfully.');
+        return view('dashboard.projects.index');
     }
 }
