@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Basics;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Profile;
 
 class UpdateProfile
@@ -13,6 +14,8 @@ class UpdateProfile
 
     public function handle(): bool
     {
-        return $this->profile->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->profile->update($data);
     }
 }

@@ -29,8 +29,8 @@ class FormatDateAction implements ActionInterface
         $value = $this->model->{$name};
 
         if ($recipe && $isDate) {
-            $setValue = !$value ? null : DateHelpers::formatDateOutput($value);
-            
+            $setValue = ! $value ? null : DateHelpers::formatDateOutput($value);
+
             $output->set($name, $setValue);
         } elseif (! $this->onlyDates) {
             $output->set($name, $value);

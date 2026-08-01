@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Work;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Highlight;
 use App\Models\Work;
 
@@ -14,7 +15,9 @@ class CreateHighlight
 
     public function handle(): Highlight
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         /** @var Highlight */
-        return $this->work->highlights()->create($this->data);
+        return $this->work->highlights()->create($data);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Publication;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Publication;
 
 class UpdatePublication
@@ -13,6 +14,8 @@ class UpdatePublication
 
     public function handle(): bool
     {
-        return $this->publication->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->publication->update($data);
     }
 }

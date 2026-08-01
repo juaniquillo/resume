@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Volunteer;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\User;
 use App\Models\Volunteer;
 
@@ -14,7 +15,9 @@ class CreateVolunteer
 
     public function handle(): Volunteer
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         /** @var Volunteer */
-        return $this->user->volunteers()->create($this->data);
+        return $this->user->volunteers()->create($data);
     }
 }

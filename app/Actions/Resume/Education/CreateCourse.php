@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Education;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,8 @@ class CreateCourse
 
     public function handle(): Model
     {
-        return $this->education->courses()->create($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->education->courses()->create($data);
     }
 }

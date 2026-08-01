@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Common;
 
+use App\Cruds\Helpers\FormHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 class UpdateHighlight
@@ -13,6 +14,8 @@ class UpdateHighlight
 
     public function handle(): bool
     {
-        return $this->highlight->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->highlight->update($data);
     }
 }

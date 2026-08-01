@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Education;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Education;
 
 class UpdateEducation
@@ -13,6 +14,8 @@ class UpdateEducation
 
     public function handle(): bool
     {
-        return $this->education->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->education->update($data);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Publication;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Publication;
 use App\Models\User;
 
@@ -14,7 +15,9 @@ class CreatePublication
 
     public function handle(): Publication
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         /** @var Publication */
-        return $this->user->publications()->create($this->data);
+        return $this->user->publications()->create($data);
     }
 }

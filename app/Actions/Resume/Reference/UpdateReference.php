@@ -2,6 +2,7 @@
 
 namespace App\Actions\Resume\Reference;
 
+use App\Cruds\Helpers\FormHelpers;
 use App\Models\Reference;
 
 class UpdateReference
@@ -13,6 +14,8 @@ class UpdateReference
 
     public function handle(): bool
     {
-        return $this->reference->update($this->data);
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
+        return $this->reference->update($data);
     }
 }
