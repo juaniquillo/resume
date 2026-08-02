@@ -14,7 +14,7 @@ class ResumeOgController extends Controller
         return view('pages.resume-og', [
             'user' => $user,
             'basics' => $user->resumeBasics(),
-            'hideImage' =>  $user->generalOptions?->hide_image,
+            'hideImage' => $user->generalOptions?->hide_image,
         ]);
     }
 
