@@ -9,7 +9,7 @@
  * Links: text-gray-700 hover:text-sky-600 | dark:text-gray-400 dark:hover:text-sky-400 | underline
  */
 
-return [
+return array_merge(require __DIR__.'/shared.blade.php', [
     // cover letter
     'cover-letter-container' => 'prose text-gray-700 dark:text-gray-300 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
 
@@ -55,13 +55,4 @@ return [
     'social-badge' => 'group inline-flex items-center gap-2 px-3 py-1 text-sm 3xl:text-base font-bold rounded-xl bg-gray-100 text-gray-700 border-2 border-gray-200 transition-all duration-300 hover:bg-sky-600 hover:text-white hover:border-sky-700 hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-sky-500 dark:hover:text-white dark:hover:border-sky-400',
     'date' => 'text-gray-500 font-normal dark:text-gray-500',
     'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',
-    
-    // Spacing utility fallbacks if needed
-    'p-md' => 'p-8',
-    'm-bottom-lg' => 'mb-12',
-    'm-bottom-md' => 'mb-8',
-    'm-bottom-sm' => 'mb-4',
-    'm-bottom-xs' => 'mb-2',
-    'm-right-sm' => 'mr-4',
-    'm-top-sm' => 'mt-4',
-];
+]);
