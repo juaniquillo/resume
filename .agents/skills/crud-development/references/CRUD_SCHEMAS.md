@@ -1,6 +1,6 @@
 # CRUD Schemas
 
-The CRUD Schema class orchestrates input factories and defines the visual structure of forms and tables using the `BackendComponent` system.
+The CRUD Schema class orchestrates input factories and defines the visual structure of forms and tables using the `BackendComponent` system and Livewire form renderers.
 
 ## Implementation
 
@@ -16,12 +16,27 @@ use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Schema\MyEntity\Inputs\NameFactory;
+use App\Cruds\Schema\MyEntity\Renderers\MyEntityLivewireFormRenderer;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
 final class MyEntityCrud implements CrudForm, CrudInterface, CrudTable
 {
     use HasHtmlForm, HasHtmlTable, IsCrud;
+
+    public function __construct(
+        protected ?array $values = null,
+        protected ?array $errors = null,
+        protected mixed $formRenderer = null,
+    ) {}
+
+    public static function build(
+        ?array $values = null,
+        ?array $errors = null,
+        mixed $formRenderer = null,
+    ): self {
+        return new self($values, $errors, $formRenderer ?? MyEntityLivewireFormRenderer::make());
+    }
 
     public function inputsArray(): array
     {
@@ -32,7 +47,10 @@ final class MyEntityCrud implements CrudForm, CrudInterface, CrudTable
 
     public function form(?array $inputs = null): BackendComponent|CompoundComponent
     {
-        // Use formFullSpanInputs to make specific fields take the full width
+        if ($this->formRenderer) {
+            return $this->formRenderer->renderFull($this, ['description']);
+        }
+
         return $this->formFullSpanInputs(['description']);
     }
 }
@@ -56,16 +74,5 @@ $this->fieldsetWrap([
 - `HasHtmlTable`: Orchestrates `BackendComponent` table generation.
 - `IsCrud`: Provides context (model, values, errors) to the schema.
 
-## CRUD Schema Renderers
-When building UI for your CRUD (specifically for forms and tables), use dedicated Renderer classes to keep your `*Crud.php` classes clean.
-
-- **Form Renderers (`*FormRenderer`)**: Responsible for constructing the form UI, specifically handling how inputs are spanned or arranged (e.g., `renderFull`).
-- **Table Renderers (`*TableRenderer`)**: Responsible for customizing table cell display, such as rendering complex settings or action buttons.
-
-```php
-// In HighlightsCrud.php
-public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
-{
-    return HighlightsFormRenderer::make()->renderFull($this, ['highlight']);
-}
-```
+## CRUD Schema Renderers & Livewire Integration
+When building Livewire CRUDs, use dedicated Livewire Form Renderers (`*LivewireFormRenderer`) and constructor factories (`build()`) to pass form values and validation errors directly to the schema for reactive rendering.

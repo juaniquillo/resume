@@ -52,5 +52,5 @@
 49. ✅ Add the JSON export to the downloads' section.
 50. ✅ Refactor HasHtmlTable trait to make it Livewire aware.
 51. ◻️ Add own "custom general" options to exports.
-52. ◻️ Update CRUD AI guides and skills with the way to create/refactor CRUDs to Livewire.
+52. ✅ Update CRUD AI guides and skills with the way to create/refactor CRUDs to Livewire.
 53. ✅ Check if general_options->hide_image is enable on OG images.

@@ -1,10 +1,10 @@
 # Actions & Controllers
 
-We follow the "Thick Actions, Thin Controllers" pattern to ensure business logic is reusable and testable.
+We follow the "Thick Actions, Thin Controllers & Livewire Components" pattern to ensure business logic is reusable and testable.
 
 ## Actions
 
-Place actions in `app/Actions/Resume/{Entity}/`. Use PHP 8.4 property promotion.
+Place actions in `app/Actions/Resume/{Entity}/`. Use PHP 8.4 property promotion and `FormHelpers::convertEmptyStringToNull()` when handling user input.
 
 ```php
 <?php
@@ -28,52 +28,29 @@ class CreateMyEntity
 }
 ```
 
-## Controllers
+## Controllers (Thin Dashboard Controllers)
 
-Controllers orchestration the CRUD schema and the Actions.
+Controllers in modern Livewire CRUD modules are extremely thin, serving only to render the dashboard container view hosting the Livewire components.
 
 ```php
 <?php
 
 namespace App\Http\Controllers;
 
-use App\Cruds\Schema\MyEntity\MyEntityCrud;
-use App\Http\Requests\MyEntityFormRequest;
-use App\Actions\Resume\MyEntity\CreateMyEntity;
-
 class MyEntityController extends Controller
 {
-    public function index(Request $request)
+    public function __invoke()
     {
-        $crud = MyEntityCrud::build();
-        return view('dashboard.my-entities.index', [
-            'form' => $crud->form(),
-            'table' => $crud->makeTable($request->user()->myEntities),
-        ]);
-    }
-
-    public function store(MyEntityFormRequest $request)
-    {
-        (new CreateMyEntity($request->validated(), $request->user()))->handle();
-        return back()->with('notify', ['message' => 'Created successfully!']);
+        return view('dashboard.my-entities.index');
     }
 }
 ```
 
-## Form Requests
+## Livewire Integration for Forms & Validation
 
-Generate validation logic directly from the CRUD schema.
+Instead of traditional FormRequests, validation is handled in Livewire components using `IsLivewireForm` and the CRUD schema:
 
 ```php
-public function rules(): array
-{
-    return MyEntityCrud::build()->make()
-        ->execute(new LaravelValidationRulesAction)
-        ->toArray();
-}
+$validator = $this->validateForm($this->crud()->make(), $this->values);
+$data = FormHelpers::convertEmptyStringToNull($validator->validated());
 ```
-
-
-
-
-
