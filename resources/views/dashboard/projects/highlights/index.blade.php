@@ -1,23 +1,16 @@
 <x-layouts::app :title="__('Dashboard')">
 
     <flux:heading size="xl" level="1">{{ __("Project Highlights") }}</flux:heading>
-    
+
     <div class="mt-6">
-        <flux:button variant="primary" size="xs" :href="route('dashboard.projects')">Go back to Projects</flux:button>
+        <flux:button variant="primary" size="xs" :href="route('dashboard.projects')" wire:navigate >Go back to Projects</flux:button>
     </div>
-
+    
     <div class="max-w-xl mt-6">
-        {{ $form }}
+        <livewire:resume.highlights.create-highlight :model="$model" />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
-        <div class="px-5 py-2 bg-gray-100 dark:bg-back-table border border-gray-300 dark:border-slate-700 rounded-lg mt-6 shadow">
-            {{ $table }}
+    <livewire:resume.highlights.highlight-table :model="$model" />
+    
 
-            <div class="py-2">
-                {{ $paginator->links() }}
-            </div>
-        </div>
-    @endif
 </x-layouts::app>
