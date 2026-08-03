@@ -60,7 +60,8 @@
 </head>
 <body>
     <div class="card">
-        @if($basics?->image)
+
+        @if($basics?->image && ! $hideImage)
             <img src="{{ route('image.serve', $basics->uuid) }}" class="avatar">
         @else
             <div class="avatar flex items-center justify-center bg-sky-100 text-sky-600 text-9xl font-bold">

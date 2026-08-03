@@ -19,6 +19,7 @@ use App\Models\Work;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\ResumePresenter;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
 
 test('it can present a resume for a user', function () {
     $user = User::factory()->create();
@@ -417,7 +418,8 @@ test('it can use a custom theme', function () {
         }
     };
 
-    $presenter = new ResumePresenter($user, $customTheme);
+    $presenter = (new ResumePresenter($user, $customTheme))
+        ->setThemeManager(new LocalThemeManager);
     $html = (string) $presenter->present()->toHtml();
 
     // 'p-xs' is defined in spacing.blade.php as 'p-2'

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasHighlights;
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
+use App\Models\Contracts\HighlightModel;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Highlight> $highlights
  */
 #[Guarded([])]
-class Project extends Model
+class Project extends Model implements HighlightModel
 {
     /** @use HasFactory<ProjectFactory> */
     use HasFactory,

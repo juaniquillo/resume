@@ -9,12 +9,11 @@
  * Links: text-gray-700 hover:text-sky-600 | dark:text-gray-400 dark:hover:text-sky-400 | underline
  */
 
-return [
+return array_merge(require __DIR__.'/shared.blade.php', [
     // cover letter
     'cover-letter-container' => 'prose text-gray-700 dark:text-gray-300 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
 
     'container' => 'container mx-auto max-w-4xl 3xl:max-w-6xl p-8',
-    'basics-container' => 'mb-12',
     'image' => 'w-32 h-32 3xl:w-40 3xl:h-40 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mb-6 dark:border-sky-500',
     'name' => '[word-spacing:-.5rem] md:[word-spacing:-.8rem] text-4xl md:text-6xl 3xl:text-8xl font-bold tracking-tight text-gray-900 mb-2 dark:text-white',
     'label' => 'text-2xl 3xl:text-3xl font-medium text-sky-600 mb-6 3xl:mb-10 dark:text-sky-400',
@@ -24,9 +23,10 @@ return [
     'contact-item' => 'flex items-center text-gray-600 font-bold dark:text-gray-400',
     'icon' => 'size-4 3xl:size-5 inline-block shrink-0 object-contain aspect-square group-hover:bg-white!',
     
-    'section' => 'mb-12 3xl:mb-16',
+    'section' => 'mt-12 3xl:mt-16',
     'section-title' => 'text-3xl 3xl:text-4xl font-bold border-b-2 border-sky-600 pb-2 mb-6 3xl:mb-8 uppercase tracking-wider dark:text-white dark:border-sky-500',
     
+    'basics-container' => 'mt-4',
     'summary-container' => '',
     'work-container' => '',
     'volunteers-container' => '',
@@ -55,13 +55,4 @@ return [
     'social-badge' => 'group inline-flex items-center gap-2 px-3 py-1 text-sm 3xl:text-base font-bold rounded-xl bg-gray-100 text-gray-700 border-2 border-gray-200 transition-all duration-300 hover:bg-sky-600 hover:text-white hover:border-sky-700 hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-sky-500 dark:hover:text-white dark:hover:border-sky-400',
     'date' => 'text-gray-500 font-normal dark:text-gray-500',
     'subtitle' => 'text-gray-900 font-semibold dark:text-gray-200',
-    
-    // Spacing utility fallbacks if needed
-    'p-md' => 'p-8',
-    'm-bottom-lg' => 'mb-12',
-    'm-bottom-md' => 'mb-8',
-    'm-bottom-sm' => 'mb-4',
-    'm-bottom-xs' => 'mb-2',
-    'm-right-sm' => 'mr-4',
-    'm-top-sm' => 'mt-4',
-];
+]);

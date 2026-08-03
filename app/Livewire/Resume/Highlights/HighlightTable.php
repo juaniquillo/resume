@@ -42,7 +42,10 @@ class HighlightTable extends Component
 
     private function crud()
     {
-        return HighlightsCrud::build([], [], baseRoute: 'dashboard.works.highlights', tableRenderer: HighlightsLivewireTableRenderer::make());
+        return HighlightsCrud::build(
+            baseRoute: 'dashboard.works.highlights',
+            tableRenderer: HighlightsLivewireTableRenderer::make()
+        );
     }
 
     private function table(): ?BackendComponent

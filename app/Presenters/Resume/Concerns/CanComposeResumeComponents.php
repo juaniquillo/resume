@@ -2,13 +2,33 @@
 
 namespace App\Presenters\Resume\Concerns;
 
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use App\Presenters\Resume\ResumeThemeManager;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\MainBackendComponent;
 
 trait CanComposeResumeComponents
 {
+    private ?ThemeManager $themeManager = null;
+
+    public function getThemeManager(): ThemeManager
+    {
+        if ($this->themeManager) {
+            return $this->themeManager;
+        }
+
+        return new ResumeThemeManager;
+    }
+
+    public function setThemeManager(?ThemeManager $themeManager = null): static
+    {
+        $this->themeManager = $themeManager;
+
+        return $this;
+    }
+
     private function section(string $title, BackendComponent|CompoundComponent $content): BackendComponent|CompoundComponent
     {
         return $this->compose(ComponentEnum::DIV)
@@ -24,8 +44,8 @@ trait CanComposeResumeComponents
 
     private function compose(ComponentEnum|string $case): CompoundComponent
     {
-        /** @var CompoundComponent $component */
-        $component = LocalThemeComponentBuilder::make($case);
+        $themeManager = $this->getThemeManager();
+        $component = new MainBackendComponent($case, $themeManager);
 
         return $component;
     }

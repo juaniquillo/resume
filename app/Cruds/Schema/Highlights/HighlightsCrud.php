@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Highlights;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -17,7 +15,6 @@ use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\Highlights\Inputs\HighlightFactory;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsFormRenderer;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsTableRenderer;
-use App\Models\Highlight;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -90,19 +87,10 @@ final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: fn ($value, Model $model) => HighlightsTableRenderer::make()->renderSettings($model)
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);
-    }
-
-    public function tableEditButton(Highlight $highlight): BackendComponent|CompoundComponent
-    {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route($this->baseRoute.'.edit', [$highlight->highlightable_id, $highlight->id]))
-            ->setContent('Edit')
-            ->setAttribute('size', 'xs')
-            ->setTheme('cursor', 'pointer');
     }
 
     public static function getLivewireGroup(): string

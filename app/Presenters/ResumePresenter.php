@@ -51,19 +51,57 @@ final class ResumePresenter
 
         // Build the pool of available sections (excluding fixed ones)
         $pool = [
-            'summary' => (! ($settings['summary'] ?? false)) ? (new SummaryPresenter($data->basics, $this->theme))->present() : null,
-            'work' => (! ($settings['work'] ?? false)) ? (new WorkPresenter($data->works, $this->theme))->present() : null,
-            'volunteers' => (! ($settings['volunteers'] ?? false)) ? (new VolunteersPresenter($data->volunteers, $this->theme))->present() : null,
-            'education' => (! ($settings['education'] ?? false)) ? (new EducationPresenter($data->education, $this->theme))->present() : null,
-            'awards' => (! ($settings['awards'] ?? false)) ? (new AwardsPresenter($data->awards, $this->theme))->present() : null,
-            'certificates' => (! ($settings['certificates'] ?? false)) ? (new CertificatesPresenter($data->certificates, $this->theme))->present() : null,
-            'publications' => (! ($settings['publications'] ?? false)) ? (new PublicationsPresenter($data->publications, $this->theme))->present() : null,
-            'skills' => (! ($settings['skills'] ?? false)) ? (new SkillsPresenter($data->skills, $this->theme))->present() : null,
-            'languages' => (! ($settings['languages'] ?? false)) ? (new LanguagesPresenter($data->languages, $this->theme))->present() : null,
-            'interests' => (! ($settings['interests'] ?? false)) ? (new InterestsPresenter($data->interests, $this->theme))->present() : null,
-            'references' => (! ($settings['references'] ?? false)) ? (new ReferencesPresenter($data->references, $this->theme))->present() : null,
-            'projects' => (! ($settings['projects'] ?? false)) ? (new ProjectsPresenter($data->projects, $this->theme))->present() : null,
-            'downloads' => (! $this->isPdf && ! ($settings['downloads'] ?? false)) ? (new DownloadsPresenter($data->downloads, $this->theme))->present() : null,
+            'summary' => (! ($settings['summary'] ?? false)) ?
+                (new SummaryPresenter($data->basics, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'work' => (! ($settings['work'] ?? false))
+                ? (new WorkPresenter($data->works, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'volunteers' => (! ($settings['volunteers'] ?? false))
+                ? (new VolunteersPresenter($data->volunteers, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'education' => (! ($settings['education'] ?? false))
+                ? (new EducationPresenter($data->education, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'awards' => (! ($settings['awards'] ?? false))
+                ? (new AwardsPresenter($data->awards, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'certificates' => (! ($settings['certificates'] ?? false))
+                ? (new CertificatesPresenter($data->certificates, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'publications' => (! ($settings['publications'] ?? false))
+                ? (new PublicationsPresenter($data->publications, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'skills' => (! ($settings['skills'] ?? false))
+                ? (new SkillsPresenter($data->skills, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'languages' => (! ($settings['languages'] ?? false))
+                ? (new LanguagesPresenter($data->languages, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'interests' => (! ($settings['interests'] ?? false))
+                ? (new InterestsPresenter($data->interests, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'references' => (! ($settings['references'] ?? false))
+                ? (new ReferencesPresenter($data->references, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'projects' => (! ($settings['projects'] ?? false))
+                ? (new ProjectsPresenter($data->projects, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
+
+            'downloads' => (! $this->isPdf && ! ($settings['downloads'] ?? false))
+                ? (new DownloadsPresenter($data->downloads, $this->theme))->setThemeManager($this->getThemeManager())->present()
+                : null,
         ];
 
         // Get custom order or use default enum order
@@ -78,7 +116,13 @@ final class ResumePresenter
 
         // Reconstruct sections array in order
         $sections = [
-            'basics' => (new BasicsPresenter($data->basics, $this->theme, $generalOptions))->present(),
+            'basics' => (
+                new BasicsPresenter(
+                    $data->basics,
+                    $this->theme,
+                    $generalOptions,
+                )
+            )->present(),
         ];
 
         foreach ($orderedKeys as $key) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Managers\Resume\OgImageManager;
+use App\Models\GeneralOption;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Spatie\LaravelScreenshot\Facades\Screenshot;
@@ -11,9 +12,13 @@ class ResumeOgController extends Controller
 {
     public function show(User $user)
     {
+        /** @var ?GeneralOption $generalOptions */
+        $generalOptions = $user->generalOptions;
+
         return view('pages.resume-og', [
             'user' => $user,
             'basics' => $user->resumeBasics(),
+            'hideImage' => $generalOptions->hide_image ?? false,
         ]);
     }
 
