@@ -2,10 +2,13 @@
 
 namespace App\Cruds\Schema\Locations;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Locations\Inputs\AddressFactory;
 use App\Cruds\Schema\Locations\Inputs\BasicsFactory;
 use App\Cruds\Schema\Locations\Inputs\CityFactory;
@@ -13,6 +16,7 @@ use App\Cruds\Schema\Locations\Inputs\CountryCodeFactory;
 use App\Cruds\Schema\Locations\Inputs\PostalCodeFactory;
 use App\Cruds\Schema\Locations\Inputs\RegionFactory;
 use App\Cruds\Schema\Locations\Renderers\LocationsFormRenderer;
+use App\Cruds\Schema\Locations\Renderers\LocationsLivewireFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -28,14 +32,20 @@ final class LocationsCrud implements CrudForm, CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected mixed $formRenderer = null,
     ) {}
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        mixed $formRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer ?? LocationsLivewireFormRenderer::make(),
         );
     }
 
@@ -53,11 +63,31 @@ final class LocationsCrud implements CrudForm, CrudInterface
 
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
+        if ($this->formRenderer instanceof LocationsLivewireFormRenderer) {
+            return $this->formRenderer->getForm($this);
+        }
+
         return LocationsFormRenderer::make()->renderFull($this, ['region']);
     }
 
     public static function getLivewireGroup(): string
     {
         return 'location';
+    }
+
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes('city', self::getLivewireGroup());
+
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('type', 'submit')
+            ->setAttribute('variant', 'primary')
+            ->setAttribute('color', 'blue')
+            ->setAttributes([
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $livewireAttributes['wire:model'] ?? 'updateForm',
+            ])
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__($label));
     }
 }

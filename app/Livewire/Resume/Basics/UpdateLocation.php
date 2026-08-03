@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Basics;
 
 use App\Actions\Resume\Basics\UpdateLocation as UpdateAction;
 use App\Cruds\Schema\Locations\LocationsCrud;
+use App\Cruds\Schema\Locations\Renderers\LocationsLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,7 @@ class UpdateLocation extends Component
             values: $this->location,
             errors: $this->formErrors,
             model: $user->resumeBasics()?->location,
+            formRenderer: LocationsLivewireFormRenderer::make(),
         );
     }
 
@@ -75,7 +77,7 @@ class UpdateLocation extends Component
     {
         $crud = $this->crud();
 
-        $form = $crud->formWithInputsSpanFull()
+        $form = $crud->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
         return view('livewire.resume.basics.update-location')
