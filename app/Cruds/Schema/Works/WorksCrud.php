@@ -107,7 +107,6 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
                 $work = $model;
 
                 return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
-
             },
         ));
     }
