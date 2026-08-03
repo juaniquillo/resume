@@ -2,21 +2,28 @@
 
 namespace App\Cruds\Schema\Profiles;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Profiles\Inputs\BasicsFactory;
 use App\Cruds\Schema\Profiles\Inputs\NetworkFactory;
 use App\Cruds\Schema\Profiles\Inputs\UrlFactory;
 use App\Cruds\Schema\Profiles\Inputs\UsernameFactory;
 use App\Cruds\Schema\Profiles\Inputs\UuidFactory;
-use App\Cruds\Schema\Profiles\Renderers\ProfilesFormRenderer;
-use App\Cruds\Schema\Profiles\Renderers\ProfilesTableRenderer;
+use App\Cruds\Schema\Profiles\Renderers\ProfilesLivewireFormRenderer;
+use App\Cruds\Schema\Profiles\Renderers\ProfilesLivewireTableRenderer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
@@ -32,15 +39,32 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    ) {}
+        protected ?FormRenderer $formRenderer = null,
+        protected ?TableRenderer $tableRenderer = null,
+    ) {
+        $this->formRenderer = $formRenderer ?? ProfilesLivewireFormRenderer::make();
+        $this->tableRenderer = $tableRenderer ?? ProfilesLivewireTableRenderer::make();
+    }
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer,
+            tableRenderer: $tableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -54,13 +78,43 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
     {
-        return ProfilesFormRenderer::make()->renderFull($this, ['url']);
+        return $this->form();
     }
 
     protected function tableOptions(TableRowsAction $action): void
     {
-        ProfilesTableRenderer::make()->tableOptions($action);
+        $recipe = new TableRowsRecipe(
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
+        );
+
+        $action->setExtraCell('Settings', $recipe);
+    }
+
+    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes('network', self::getLivewireGroup());
+
+        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            ->setAttribute('type', 'submit')
+            ->setAttribute('variant', 'primary')
+            ->setAttribute('color', 'blue')
+            ->setAttributes([
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $livewireAttributes['wire:model'] ?? 'createForm',
+            ])
+            ->setTheme('cursor', 'pointer')
+            ->setContent(__($label));
     }
 }
