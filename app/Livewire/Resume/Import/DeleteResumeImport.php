@@ -5,6 +5,7 @@ namespace App\Livewire\Resume\Import;
 use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use App\Livewire\Concerns\IsLivewireForm;
+use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -28,6 +29,7 @@ class DeleteResumeImport extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+        /** @var ResumeImport $import */
         $import = $user->resumeImports()->findOrFail($this->resumeImportId);
 
         if (! ResumeImportCrud::canShowDeleteButton($import->status)) {

@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Livewire\Attributes\Computed;
@@ -32,8 +33,9 @@ class ResumeImportsTable extends Component
     #[Computed]
     public function hasActiveImports(): bool
     {
-        return $this->getModels()->contains(function (ResumeImport $import) {
-            return in_array($import->status, [ProcessStatus::PENDING, ProcessStatus::PROCESSING]);
+        return $this->getModels()->contains(function (Model $import) {
+            /** @var ResumeImport $import */
+            return \in_array($import->status, [ProcessStatus::PENDING, ProcessStatus::PROCESSING]);
         });
     }
 
