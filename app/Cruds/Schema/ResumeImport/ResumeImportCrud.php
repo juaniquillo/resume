@@ -12,16 +12,17 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
+use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
+use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireTableRenderer;
 use App\Enums\ProcessStatus;
-use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -29,19 +30,38 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'resume_import';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    ) {}
+        protected ?FormRenderer $formRenderer = null,
+        protected ?TableRenderer $tableRenderer = null,
+    ) {
+        $this->formRenderer = $formRenderer ?? ResumeImportLivewireFormRenderer::make();
+        $this->tableRenderer = $tableRenderer ?? ResumeImportLivewireTableRenderer::make();
+    }
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer,
+            tableRenderer: $tableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
@@ -51,86 +71,57 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
+    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function tableOptions(TableRowsAction $action): void
     {
-        $action->setExtraCell('Resume JSON File', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeImport $import */
-                $import = $model;
+        /** @var ResumeImportLivewireTableRenderer $renderer */
+        $renderer = $this->tableRenderer;
 
-                return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                    ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
-                    ->setContent($import->file_name)
-                    ->setAttribute('variant', 'ghost')
-                    ->setAttribute('size', 'sm')
-                    ->setAttribute('icon', 'document-arrow-down')
-                    ->setTheme('cursor', 'pointer');
-            }
+        $action->setExtraCell('Resume JSON File', new TableRowsRecipe(
+            value: fn ($value, Model $model) => $renderer->renderFileCell($model)
         ));
 
         $action->setExtraCell('Status', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeImport $import */
-                $import = $model;
-
-                return TableHelpers::statusBadge($import->status);
-            }
+            value: fn ($value, Model $model) => $renderer->renderStatusCell($model)
         ));
 
         $action->setExtraCell('Date', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeImport $model */
-                return $model->created_at->diffForHumans();
-            }
+            value: fn ($value, Model $model) => $renderer->renderDateCell($model)
         ));
 
         $action->setExtraCell('Actions', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeImport $import */
-                $import = $model;
-
-                $contents = [];
-
-                if ($import->status === ProcessStatus::FAILED && $import->error) {
-                    $contents[] = TableHelpers::tableModal(
-                        id: "error-modal-{$import->id}",
-                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
-                            ->setContent($import->error)
-                            ->setTheme('spacing', 'p-top-sm')
-                            ->setTheme('text', 'nl2br'),
-                        heading: 'Import Error Details',
-                        triggerType: 'danger',
-                        buttonLabel: 'Error Info'
-                    );
-                }
-
-                if (self::canShowDeleteButton($import->status)) {
-                    $contents[] = TableHelpers::deleteButton(route('dashboard.resume.import.destroy', $import->id));
-                }
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setThemes([
-                        'display' => 'flex',
-                        'flex' => ['gap-sm'],
-                    ]);
-            }
+            value: fn ($value, Model $model) => $renderer->renderSettings($model)
         ));
     }
 
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function saveButton(string $label = 'Start New Import'): BackendComponent|CompoundComponent
     {
+        $livewireAttributes = LivewireHelpers::getLivewireAttributes(JsonFileFactory::NAME, self::getLivewireGroup());
+
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
+            ->setAttributes([
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $livewireAttributes['wire:model'] ?? 'createForm',
+            ])
             ->setTheme('cursor', 'pointer')
-            ->setContent(__('Start New Import'));
-    }
-
-    public function formWithUploadSpanFull(?array $inputs = null): BackendComponent|CompoundComponent
-    {
-        return $this->formFullSpanInputs([JsonFileFactory::NAME]);
+            ->setContent(__($label));
     }
 
     public static function canShowDeleteButton(ProcessStatus $status): bool

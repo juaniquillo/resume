@@ -166,8 +166,6 @@ Route::middleware(['auth', 'verified'])
          * Tools
          */
         Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
-        Route::post('resume/import', [ResumeImportController::class, 'store'])->name('dashboard.resume.import.store');
-        Route::delete('resume/import/{id}', [ResumeImportController::class, 'destroy'])->name('dashboard.resume.import.destroy');
         Route::get('resume/import/{id}/download', ResumeImportDownloadController::class)->name('dashboard.resume.import.download');
 
         Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');

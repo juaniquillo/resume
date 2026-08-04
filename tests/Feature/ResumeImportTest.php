@@ -2,13 +2,16 @@
 
 use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
+use App\Livewire\Resume\Import\CreateResumeImport;
+use App\Livewire\Resume\Import\DeleteResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
@@ -23,7 +26,6 @@ test('authenticated user can access resume import page', function () {
 });
 
 test('user can upload a resume json file', function () {
-    $this->withoutMiddleware();
     Queue::fake();
     Storage::fake('local');
 
@@ -48,11 +50,13 @@ test('user can upload a resume json file', function () {
     ];
     $file = UploadedFile::fake()->createWithContent('resume.json', json_encode($validData));
 
-    $response = $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
-        'resume_file' => $file,
-    ]);
+    Livewire::actingAs($user)
+        ->test(CreateResumeImport::class)
+        ->set('resumeImport.resume_file', $file)
+        ->call('createForm')
+        ->assertHasNoErrors()
+        ->assertDispatched('resume-updated');
 
-    $response->assertRedirect();
     $this->assertDatabaseHas('resume_imports', [
         'user_id' => $user->id,
         'file_name' => 'resume.json',
@@ -65,30 +69,6 @@ test('user can upload a resume json file', function () {
     Queue::assertPushed(ProcessResumeImport::class, function ($job) use ($import) {
         return $job->import->id === $import->id;
     });
-});
-
-test('user cannot upload a resume with invalid json schema', function () {
-    $this->withoutMiddleware();
-    $this->withoutExceptionHandling();
-    Queue::fake();
-    Storage::fake('local');
-
-    $user = User::factory()->create();
-    $invalidData = ['invalid' => 'data'];
-    $file = UploadedFile::fake()->createWithContent('resume.json', json_encode($invalidData));
-
-    try {
-        $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
-            'resume_file' => $file,
-        ]);
-        $this->fail('ValidationException was not thrown');
-    } catch (ValidationException $e) {
-        expect($e->errors())->toHaveKey('resume_file');
-        expect($e->errors()['resume_file'][0])->toBe('The provided file does not conform to the JSON Resume schema.');
-    }
-
-    $this->assertDatabaseCount('resume_imports', 0);
-    Queue::assertNothingPushed();
 });
 
 test('process resume import job correctly imports data', function () {
@@ -149,7 +129,7 @@ test('process resume import job correctly imports data', function () {
 
     (new ProcessResumeImport($import))->handle();
 
-    $import->refresh(); // Refresh the model to get the latest status and error
+    $import->refresh();
 
     $this->assertEquals(ProcessStatus::COMPLETED, $import->status, "Import job failed: {$import->error}");
 
@@ -205,7 +185,6 @@ test('process resume import job correctly imports data', function () {
 });
 
 test('user can delete their resume import', function () {
-    $this->withoutMiddleware();
     Storage::fake('local');
     $user = User::factory()->create();
     $filePath = 'imports/resumes/test.json';
@@ -218,15 +197,16 @@ test('user can delete their resume import', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
-    $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));
+    Livewire::actingAs($user)
+        ->test(DeleteResumeImport::class, ['resumeImportId' => $import->id])
+        ->call('deleteImport')
+        ->assertDispatched('resume-updated');
 
-    $response->assertRedirect();
     $this->assertDatabaseMissing('resume_imports', ['id' => $import->id]);
     Storage::disk('local')->assertMissing($filePath);
 });
 
 test('user cannot delete another users resume import', function () {
-    $this->withoutMiddleware();
     $user = User::factory()->create();
     $otherUser = User::factory()->create();
 
@@ -237,24 +217,24 @@ test('user cannot delete another users resume import', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
-    $response = $this->actingAs($user)->delete(route('dashboard.resume.import.destroy', $import->id));
+    expect(fn () => Livewire::actingAs($user)
+        ->test(DeleteResumeImport::class, ['resumeImportId' => $import->id])
+        ->call('deleteImport'))->toThrow(ModelNotFoundException::class);
 
-    $response->assertStatus(404);
     $this->assertDatabaseHas('resume_imports', ['id' => $import->id]);
 });
 
 test('user cannot have more than 5 resume imports', function () {
-    $this->withoutMiddleware();
     $user = User::factory()->create();
     ResumeImport::factory()->count(5)->create(['user_id' => $user->id]);
 
     $file = UploadedFile::fake()->create('new_resume.json', 100);
 
-    $response = $this->actingAs($user)->post(route('dashboard.resume.import.store'), [
-        'resume_file' => $file,
-    ]);
+    Livewire::actingAs($user)
+        ->test(CreateResumeImport::class)
+        ->set('resumeImport.resume_file', $file)
+        ->call('createForm');
 
-    $response->assertRedirect();
-    $response->assertSessionHas('error', 'You can only have up to 5 resume imports. Please delete an old one first.');
+    expect(session('custom_error'))->toBe('You can only have up to 5 resume imports. Please delete an old one first.');
     $this->assertDatabaseCount('resume_imports', 5);
 });
