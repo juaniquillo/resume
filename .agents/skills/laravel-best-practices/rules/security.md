@@ -196,6 +196,3 @@ class Integration extends Model
     }
 }
 ```
-
-
-

@@ -53,7 +53,7 @@ Post::create($request->validated());
 
 ```php
 'company_name' => [
-    Rule::when($this->account_type === 'business', ['required', 'string', 'max:191']),
+    Rule::when($this->account_type === 'business', ['required', 'string', 'max:255']),
 ],
 ```
 
@@ -73,6 +73,3 @@ public function after(): array
     ];
 }
 ```
-
-
-

@@ -142,6 +142,3 @@ Use Laravel Horizon when you need monitoring, auto-scaling, failure tracking, or
     ],
 ],
 ```
-
-
-

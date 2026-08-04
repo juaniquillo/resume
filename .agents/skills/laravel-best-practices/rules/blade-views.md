@@ -34,6 +34,3 @@ return view('dashboard', compact('users'))
 ## Use `@aware` for Deeply Nested Component Props
 
 Avoids re-passing parent props through every level of nested components.
-
-
-

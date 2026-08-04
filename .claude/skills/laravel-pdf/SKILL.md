@@ -314,6 +314,3 @@ To render background colors in the PDF, add this CSS:
     }
 </style>
 ```
-
-
-

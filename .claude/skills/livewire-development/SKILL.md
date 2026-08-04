@@ -173,6 +173,3 @@ Livewire::test(Counter::class)
 - Unclosed component tags → syntax errors in v4
 - Using deprecated config keys or JS hooks
 - Including Alpine.js separately (already bundled in Livewire 4)
-
-
-
