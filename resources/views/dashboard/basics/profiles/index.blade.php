@@ -1,26 +1,15 @@
-<x-layouts::app :title="__('Dashboard')">
+<x-layouts::app :title="__('Profiles')">
 
-    <flux:heading size="xl" level="1">{{  __("Create Your Profile") }}</flux:heading>
+    <flux:heading size="xl" level="1">{{ __("Create Your Profile") }}</flux:heading>
 
     @if ($basics)
-        
         <div class="max-w-xl mt-6">
-            {{ $form }}
+            <livewire:resume.profiles.create-profile />
         </div>
-        
-        @if ($table ?? null)
-            <flux:separator variant="subtle" class="mt-6" />
-            <div class="px-5 py-2 bg-gray-100 dark:bg-back-table border border-gray-300 dark:border-slate-700 rounded-lg mt-6 shadow">
-                {{ $table }}
 
-                <div class="py-2">
-                    {{ $paginator->links() }}
-                </div>
-            </div>
-        @endif
-
+        <livewire:resume.profiles.profiles-table />
     @else
         <p class="mt-6">{{ __('basics.errors.basics_not_found') }}</p>
     @endif
-    
+
 </x-layouts::app>
