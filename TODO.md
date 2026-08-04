@@ -54,3 +54,8 @@
 51. ◻️ Add own "custom general" options to exports.
 52. ✅ Update CRUD AI guides and skills with the way to create/refactor CRUDs to Livewire.
 53. ✅ Check if general_options->hide_image is enable on OG images.
+54. ◻️ Refactor import to livewire form and table, with pulling for the status buttons and edit form for the "Allow Download" option.
+55. ◻️ Refactor export to livewire form and table, with pulling for the status buttons and edit form for the "Allow Download" option.
+56. ◻️ Consider adding limits to resume section records and revise the ones on import/export.
+57. ◻️ Add new "Name" input to the import/export CRUDs.
+58. ◻️ Create new "Professional" resume theme with two columns.
