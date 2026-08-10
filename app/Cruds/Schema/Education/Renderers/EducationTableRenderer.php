@@ -42,7 +42,6 @@ final class EducationTableRenderer implements TableRenderer
             ]);
     }
 
-    
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
@@ -66,7 +65,7 @@ final class EducationTableRenderer implements TableRenderer
                         ->setAttribute('wire:navigate', '')
                         ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
                 }
-            )
+            ),
         ];
     }
 }

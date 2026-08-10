@@ -38,7 +38,6 @@ final class CertificatesTableRenderer implements TableRenderer
             ]);
     }
 
-    
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells

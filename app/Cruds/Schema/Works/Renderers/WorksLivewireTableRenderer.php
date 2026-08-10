@@ -48,7 +48,7 @@ final class WorksLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
@@ -60,7 +60,7 @@ final class WorksLivewireTableRenderer implements TableRenderer
 
                     return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
                 },
-            )
+            ),
         ];
     }
 }

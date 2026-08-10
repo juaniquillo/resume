@@ -40,7 +40,6 @@ final class CoursesTableRenderer implements TableRenderer
             ]);
     }
 
-    
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells

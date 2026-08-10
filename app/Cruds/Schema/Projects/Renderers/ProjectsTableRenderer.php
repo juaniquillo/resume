@@ -38,7 +38,7 @@ final class ProjectsTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
@@ -50,7 +50,7 @@ final class ProjectsTableRenderer implements TableRenderer
 
                     return TableHelpers::highlightsButton(route('dashboard.projects.highlights', [$project->id]));
                 },
-            )
+            ),
         ];
     }
 }

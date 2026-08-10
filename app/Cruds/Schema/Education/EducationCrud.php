@@ -23,7 +23,6 @@ use App\Cruds\Schema\Education\Inputs\UserFactory;
 use App\Cruds\Schema\Education\Inputs\UuidFactory;
 use App\Cruds\Schema\Education\Renderers\EducationFormRenderer;
 use App\Cruds\Schema\Education\Renderers\EducationTableRenderer;
-use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;

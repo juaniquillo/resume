@@ -50,7 +50,7 @@ final class EducationLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         return [
@@ -73,7 +73,7 @@ final class EducationLivewireTableRenderer implements TableRenderer
                         ->setAttribute('wire:navigate', '')
                         ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
                 }
-            )
+            ),
         ];
     }
 }

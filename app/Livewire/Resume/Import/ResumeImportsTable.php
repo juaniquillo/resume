@@ -53,7 +53,9 @@ class ResumeImportsTable extends Component
             return null;
         }
 
-        return $this->crud()->makeTable($models);
+        return $this
+            ->crud()
+            ->makeTable($models);
     }
 
     public function render()

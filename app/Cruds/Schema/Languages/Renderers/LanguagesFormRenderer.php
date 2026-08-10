@@ -18,8 +18,6 @@ final class LanguagesFormRenderer implements FormRenderer
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
         /** @var LanguagesCrud $crud */
-        return $crud->form(
-            inputs: $crud->inputsArray(),
-        );
+        return $crud->form();
     }
 }

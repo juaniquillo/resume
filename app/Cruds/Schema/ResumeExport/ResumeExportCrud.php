@@ -106,13 +106,14 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         /** @var ResumeExportLivewireTableRenderer $renderer */
         $renderer = $this->tableRenderer;
 
-        $action->setExtraCell('Date', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderDateCell($model)
-        ));
-
         $action->setExtraCell('Actions', new TableRowsRecipe(
             value: fn ($value, Model $model) => $renderer->renderSettings($model)
         ));
+    }
+
+    public function extraCells(TableRowsAction $action): void
+    {
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     public function saveButton(string $label = 'Start New Export'): BackendComponent|CompoundComponent

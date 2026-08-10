@@ -3,7 +3,6 @@
 namespace App\Livewire\Resume\Export;
 
 use App\Actions\Resume\Export\CreateResumeExport as CreateResumeExportAction;
-use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Enums\ResumeExportType;
@@ -45,12 +44,7 @@ class CreateResumeExport extends Component
 
         $validatedData = $validator->validated();
 
-        $export = (new CreateResumeExportAction)->handle($user, [
-            'name' => $validatedData['name'] ?? null,
-            'type' => $validatedData['type'] ?? ResumeExportType::PDF->value,
-            'theme' => ! empty($validatedData['theme']) ? $validatedData['theme'] : null,
-            'allow_download' => (bool) ($validatedData['allow_download'] ?? $this->resumeExport['allow_download'] ?? false),
-        ]);
+        $export = (new CreateResumeExportAction)->handle($user, $validatedData);
 
         match ($export->type) {
             ResumeExportType::JSON => ProcessJsonExport::dispatch($export),
@@ -69,15 +63,7 @@ class CreateResumeExport extends Component
     #[Computed]
     public function refreshVariables(): void
     {
-        $output = $this->crud()
-            ->make()
-            ->execute(
-                (new NameValueAction(values: []))
-                    ->setGlobalDefault('')
-            );
-
-        $this->resumeExport = $output->toArray();
-        $this->resumeExport['allow_download'] = (bool) ($this->resumeExport['allow_download'] ?? false);
+        $this->resumeExport = [];
     }
 
     private function crud()
@@ -99,6 +85,6 @@ class CreateResumeExport extends Component
     public function render()
     {
         return view('livewire.resume.export.create-resume-export')
-            ->with('form', $this->getForm());
+            ->with('create', $this->getForm());
     }
 }

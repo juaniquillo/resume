@@ -48,7 +48,7 @@ final class VolunteersLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
@@ -60,7 +60,7 @@ final class VolunteersLivewireTableRenderer implements TableRenderer
 
                     return TableHelpers::highlightsButton(route('dashboard.volunteers.highlights', [$volunteer->id]));
                 },
-            )
+            ),
         ];
     }
 }

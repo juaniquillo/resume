@@ -48,7 +48,7 @@ final class ProfilesLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
@@ -60,7 +60,7 @@ final class ProfilesLivewireTableRenderer implements TableRenderer
 
                     return TableHelpers::highlightsButton(route('dashboard.profiles.highlights', [$profile->id]));
                 },
-            )
+            ),
         ];
     }
 }

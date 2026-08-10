@@ -93,7 +93,7 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
 
     protected function extraCells(TableRowsAction $action): void
     {
-        
+
         $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 

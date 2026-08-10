@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
@@ -49,15 +50,15 @@ class TableRowsAction extends Action implements ActionInterface
         return $this;
     }
 
-    public function setExtraCell(string $identifier, TableRowsRecipe $recipe)
+    public function setExtraCell(string $identifier, TableRowsRecipe|RecipeInterface $recipe)
     {
         $this->extraCells[$identifier] = $recipe;
 
         return $this;
     }
 
-    /** 
-     * @param array<string, TableRowsRecipe|RecipeInterface> $extraCells 
+    /**
+     * @param  array<string, TableRowsRecipe|RecipeInterface>  $extraCells
      */
     public function setExtraCells(array $extraCells): static
     {

@@ -50,9 +50,7 @@ final class EmptyResumeCacheCrud implements CrudForm, CrudInterface
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return $this->form(
-            inputs: $this->inputsArray(),
-        );
+        return $this->form();
     }
 
     public function saveButton(string $label = 'Clear Cache'): BackendComponent|CompoundComponent

@@ -4,6 +4,7 @@ namespace App\Cruds\Schema\ResumeExport\Renderers;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ProcessStatus;
@@ -91,10 +92,20 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
-        return [];
+        return [
+            'Created' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var ResumeExport $export */
+                    $export = $model;
+
+                    return ComponentBuilder::make(ComponentEnum::SPAN)
+                        ->setContent($export->created_at->diffForHumans());
+                },
+            ),
+        ];
     }
 }

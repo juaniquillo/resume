@@ -16,8 +16,6 @@ use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
-use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
-use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireTableRenderer;
 use App\Enums\ProcessStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -38,10 +36,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         protected ?Model $model = null,
         protected ?FormRenderer $formRenderer = null,
         protected ?TableRenderer $tableRenderer = null,
-    ) {
-        $this->formRenderer = $formRenderer ?? ResumeImportLivewireFormRenderer::make();
-        $this->tableRenderer = $tableRenderer ?? ResumeImportLivewireTableRenderer::make();
-    }
+    ) {}
 
     public static function build(
         array $values = [],
@@ -76,36 +71,18 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formRenderer->getForm($this);
     }
 
-    public function formNarrow(): BackendComponent|CompoundComponent
-    {
-        return $this->form();
-    }
-
-    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
-    {
-        return $this->form();
-    }
-
     public function tableOptions(TableRowsAction $action): void
     {
-        /** @var ResumeImportLivewireTableRenderer $renderer */
-        $renderer = $this->tableRenderer;
+        $recipe = new TableRowsRecipe(
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
+        );
 
-        $action->setExtraCell('Resume JSON File', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderFileCell($model)
-        ));
+        $action->setExtraCell('Settings', $recipe);
+    }
 
-        $action->setExtraCell('Status', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderStatusCell($model)
-        ));
-
-        $action->setExtraCell('Date', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderDateCell($model)
-        ));
-
-        $action->setExtraCell('Actions', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderSettings($model)
-        ));
+    protected function extraCells(TableRowsAction $action): void
+    {
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     public function saveButton(string $label = 'Start New Import'): BackendComponent|CompoundComponent

@@ -27,8 +27,6 @@ final class AwardsFormRenderer implements FormRenderer
             ]);
         }
 
-        return $crud->form(
-            inputs: $inputs,
-        );
+        return $crud->form();
     }
 }

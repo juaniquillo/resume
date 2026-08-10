@@ -2,8 +2,7 @@
 
 namespace App\Cruds\Schema\ResumeImport\Renderers;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ProcessStatus;
@@ -22,35 +21,6 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
     {
         return new self;
     }
-
-    // public function renderFileCell(Model $model): BackendComponent|CompoundComponent
-    // {
-    //     /** @var ResumeImport $import */
-    //     $import = $model;
-
-    //     return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-    //         ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
-    //         ->setContent($import->file_name)
-    //         ->setAttribute('variant', 'ghost')
-    //         ->setAttribute('size', 'sm')
-    //         ->setAttribute('icon', 'document-arrow-down')
-    //         ->setTheme('cursor', 'pointer');
-    // }
-
-    // public function renderStatusCell(Model $model): BackendComponent|CompoundComponent
-    // {
-    //     /** @var ResumeImport $import */
-    //     $import = $model;
-
-    //     return TableHelpers::statusBadge($import->status);
-    // }
-
-    // public function renderDateCell(Model $model): BackendComponent|CompoundComponent
-    // {
-    //     /** @var ResumeImport $model */
-    //     return ComponentBuilder::make(ComponentEnum::SPAN)
-    //         ->setContent($model->created_at->diffForHumans());
-    // }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent
     {
@@ -89,11 +59,28 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
-    
+
     public function renderExtraCells(): array
     {
         // Implementation for rendering extra cells
         return [
+            'Highlights' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var ResumeImport $import */
+                    $import = $model;
+
+                    return TableHelpers::statusBadge($import->status);
+                },
+            ),
+            'Created' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var ResumeImport $import */
+                    $import = $model;
+
+                    return ComponentBuilder::make(ComponentEnum::SPAN)
+                        ->setContent($import->created_at->diffForHumans());
+                },
+            ),
 
         ];
     }

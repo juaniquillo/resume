@@ -50,7 +50,7 @@ final class ProfilesTableRenderer implements TableRenderer
 
                     return TableHelpers::highlightsButton(route('dashboard.profiles.highlights', [$profile->id]));
                 },
-            )
+            ),
         ];
     }
 }
