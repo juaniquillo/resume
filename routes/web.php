@@ -92,70 +92,37 @@ Route::middleware(['auth', 'verified'])
          * Certificates
          */
         Route::get('certificates', [CertificatesController::class, 'index'])->name('dashboard.certificates');
-        Route::post('certificates', [CertificatesController::class, 'store'])->name('dashboard.certificates.store');
-        Route::get('certificates/{id}/edit', [CertificatesController::class, 'edit'])->name('dashboard.certificates.edit');
-        Route::post('certificates/{id}', [CertificatesController::class, 'update'])->name('dashboard.certificates.update');
-        Route::delete('certificates/{id}', [CertificatesController::class, 'destroy'])->name('dashboard.certificates.destroy');
 
         /**
          * Publications
          */
         Route::get('publications', [PublicationsController::class, 'index'])->name('dashboard.publications');
-        Route::post('publications', [PublicationsController::class, 'store'])->name('dashboard.publications.store');
-        Route::get('publications/{id}/edit', [PublicationsController::class, 'edit'])->name('dashboard.publications.edit');
-        Route::post('publications/{id}', [PublicationsController::class, 'update'])->name('dashboard.publications.update');
-        Route::delete('publications/{id}', [PublicationsController::class, 'destroy'])->name('dashboard.publications.destroy');
 
         /**
          * Skills
          */
         Route::get('skills', [SkillsController::class, 'index'])->name('dashboard.skills');
-        Route::post('skills', [SkillsController::class, 'store'])->name('dashboard.skills.store');
-        Route::get('skills/{id}/edit', [SkillsController::class, 'edit'])->name('dashboard.skills.edit');
-        Route::post('skills/{id}', [SkillsController::class, 'update'])->name('dashboard.skills.update');
-        Route::delete('skills/{id}', [SkillsController::class, 'destroy'])->name('dashboard.skills.destroy');
 
         /**
          * Languages
          */
         Route::get('languages', [LanguagesController::class, 'index'])->name('dashboard.languages');
-        Route::post('languages', [LanguagesController::class, 'store'])->name('dashboard.languages.store');
-        Route::get('languages/{id}/edit', [LanguagesController::class, 'edit'])->name('dashboard.languages.edit');
-        Route::post('languages/{id}', [LanguagesController::class, 'update'])->name('dashboard.languages.update');
-        Route::delete('languages/{id}', [LanguagesController::class, 'destroy'])->name('dashboard.languages.destroy');
 
         /**
          * Interests
          */
         Route::get('interests', [InterestsController::class, 'index'])->name('dashboard.interests');
-        Route::post('interests', [InterestsController::class, 'store'])->name('dashboard.interests.store');
-        Route::get('interests/{id}/edit', [InterestsController::class, 'edit'])->name('dashboard.interests.edit');
-        Route::post('interests/{id}', [InterestsController::class, 'update'])->name('dashboard.interests.update');
-        Route::delete('interests/{id}', [InterestsController::class, 'destroy'])->name('dashboard.interests.destroy');
 
         /**
          * References
          */
         Route::get('references', [ReferencesController::class, 'index'])->name('dashboard.references');
-        Route::post('references', [ReferencesController::class, 'store'])->name('dashboard.references.store');
-        Route::get('references/{id}/edit', [ReferencesController::class, 'edit'])->name('dashboard.references.edit');
-        Route::post('references/{id}', [ReferencesController::class, 'update'])->name('dashboard.references.update');
-        Route::delete('references/{id}', [ReferencesController::class, 'destroy'])->name('dashboard.references.destroy');
 
         /**
          * Projects
          */
         Route::get('projects', [ProjectController::class, 'index'])->name('dashboard.projects');
-        Route::post('projects', [ProjectController::class, 'store'])->name('dashboard.projects.store');
-        Route::get('projects/{id}/edit', [ProjectController::class, 'edit'])->name('dashboard.projects.edit');
-        Route::post('projects/{id}', [ProjectController::class, 'update'])->name('dashboard.projects.update');
-        Route::delete('projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
-
         Route::get('projects/{id}/highlights', [ProjectHighlightsController::class, 'index'])->name('dashboard.projects.highlights');
-        Route::post('projects/{id}/highlights', [ProjectHighlightsController::class, 'store'])->name('dashboard.projects.highlights.store');
-        Route::get('projects/{id}/highlights/{highlightId}/edit', [ProjectHighlightsController::class, 'edit'])->name('dashboard.projects.highlights.edit');
-        Route::post('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'update'])->name('dashboard.projects.highlights.update');
-        Route::delete('projects/{id}/highlights/{highlightId}', [ProjectHighlightsController::class, 'destroy'])->name('dashboard.projects.highlights.destroy');
 
         /**
          * Cover Letters
