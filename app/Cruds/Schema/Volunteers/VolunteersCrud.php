@@ -83,7 +83,7 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
     }
 
     #[Override]
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formRenderer->getForm($this);
     }

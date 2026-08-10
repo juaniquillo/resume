@@ -16,7 +16,7 @@ interface CrudForm
 
     public function setFormAction(string $action): static;
 
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent;
+    public function form(): BackendComponent|CompoundComponent;
 
     public function composeForm(?array $inputs = null, ?array $themes = null): BackendComponent|CompoundComponent;
 

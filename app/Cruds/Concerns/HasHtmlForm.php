@@ -78,9 +78,9 @@ trait HasHtmlForm
             ->setContent(__($label));
     }
 
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
-        return $this->composeForm($inputs);
+        return $this->composeForm($this->inputsArray());
     }
 
     /** @param array<int|string, string> $fullSpanInputs */
