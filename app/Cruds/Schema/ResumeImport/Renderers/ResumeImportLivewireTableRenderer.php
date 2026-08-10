@@ -7,6 +7,7 @@ use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ProcessStatus;
 use App\Livewire\Resume\Import\DeleteResumeImport;
+use App\Livewire\Resume\Import\EditResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -43,6 +44,12 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
                 buttonLabel: 'Error Info'
             );
         }
+
+        $contents[] = $helper->liveWireComponent(
+            component: EditResumeImport::class,
+            id: "edit-resume-import-{$import->id}",
+            params: [$import->id]
+        );
 
         if ($import->status !== ProcessStatus::PENDING && $import->status !== ProcessStatus::PROCESSING) {
             $contents[] = $helper->liveWireComponent(

@@ -4,6 +4,7 @@ use App\Enums\ProcessStatus;
 use App\Jobs\ProcessResumeImport;
 use App\Livewire\Resume\Import\CreateResumeImport;
 use App\Livewire\Resume\Import\DeleteResumeImport;
+use App\Livewire\Resume\Import\EditResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -237,4 +238,24 @@ test('user cannot have more than 5 resume imports', function () {
 
     expect(session('custom_error'))->toBe('You can only have up to 5 resume imports. Please delete an old one first.');
     $this->assertDatabaseCount('resume_imports', 5);
+});
+
+test('user can edit name on an import', function () {
+    $user = User::factory()->create();
+    $import = ResumeImport::create([
+        'user_id' => $user->id,
+        'file_path' => 'path.json',
+        'file_name' => 'test.json',
+        'status' => ProcessStatus::COMPLETED,
+        'name' => 'Old Name',
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(EditResumeImport::class, ['resumeImportId' => $import->id])
+        ->set('resumeImport.name', 'New Name')
+        ->call('updateForm')
+        ->assertHasNoErrors()
+        ->assertDispatched('resume-updated');
+
+    expect($import->fresh()->name)->toBe('New Name');
 });

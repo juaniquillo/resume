@@ -9,7 +9,7 @@ use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 
-final class ResumeImportLivewireFormRenderer implements FormRenderer
+final class ResumeImportUpdateLivewireFormRenderer implements FormRenderer
 {
     use HasLivewireFormAttributes;
 
@@ -21,20 +21,12 @@ final class ResumeImportLivewireFormRenderer implements FormRenderer
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
         /** @var ResumeImportCrud $crud */
-        $inputs = $crud->inputsArray();
+        $inputs = $crud->inputsUpdateArray();
         $this->addLivewireAttributes($inputs, ResumeImportCrud::getLivewireGroup());
-
-        $fileInput = $inputs['json_file'] ?? null;
-
-        if ($fileInput) {
-            $inputs['json_file'] = $crud->spanFullContainer([
-                $fileInput,
-            ]);
-        }
 
         return $crud->composeForm(
             inputs: $inputs,
-            themes: ['forms' => 'two-column']
+            themes: ['forms' => 'one-column'],
         );
     }
 }

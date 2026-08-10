@@ -16,6 +16,9 @@ use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\Inputs\NameFactory;
+use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
+use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireTableRenderer;
 use App\Enums\ProcessStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -36,7 +39,10 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         protected ?Model $model = null,
         protected ?FormRenderer $formRenderer = null,
         protected ?TableRenderer $tableRenderer = null,
-    ) {}
+    ) {
+        $this->formRenderer = $formRenderer ?? ResumeImportLivewireFormRenderer::make();
+        $this->tableRenderer = $tableRenderer ?? ResumeImportLivewireTableRenderer::make();
+    }
 
     public static function build(
         array $values = [],
@@ -62,7 +68,15 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
+            'name' => NameFactory::make(),
             JsonFileFactory::NAME => JsonFileFactory::make(),
+        ];
+    }
+
+    public function inputsUpdateArray(): array
+    {
+        return [
+            'name' => NameFactory::make(),
         ];
     }
 
