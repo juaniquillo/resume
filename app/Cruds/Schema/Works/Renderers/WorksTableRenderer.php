@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Schema\Works\Renderers;
 
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Work;
@@ -36,5 +37,20 @@ final class WorksTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
+    }
+    
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [
+            'Highlights' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var Work $work */
+                    $work = $model;
+
+                    return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
+                },
+            )
+        ];
     }
 }

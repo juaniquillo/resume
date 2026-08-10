@@ -12,7 +12,6 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
-use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Works\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Works\Inputs\NameFactory;
 use App\Cruds\Schema\Works\Inputs\PositionFactory;
@@ -23,7 +22,6 @@ use App\Cruds\Schema\Works\Inputs\UserFactory;
 use App\Cruds\Schema\Works\Inputs\UuidFactory;
 use App\Cruds\Schema\Works\Renderers\WorksFormRenderer;
 use App\Cruds\Schema\Works\Renderers\WorksTableRenderer;
-use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -101,14 +99,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 
     protected function extraCells(TableRowsAction $action): void
     {
-        $action->setExtraCell('Highlights', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var Work $work */
-                $work = $model;
-
-                return TableHelpers::highlightsButton(route('dashboard.works.highlights', [$work->id]));
-            },
-        ));
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     /**
@@ -118,7 +109,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
     protected function tableOptions(TableRowsAction $action): void
     {
         $recipe = new TableRowsRecipe(
-            value: fn ($value, Model $model) => WorksTableRenderer::make()->renderSettings($model)
+            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
         );
 
         $action->setExtraCell('Settings', $recipe);

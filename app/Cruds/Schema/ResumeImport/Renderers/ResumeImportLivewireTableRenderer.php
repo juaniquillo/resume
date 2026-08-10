@@ -23,34 +23,34 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
         return new self;
     }
 
-    public function renderFileCell(Model $model): BackendComponent|CompoundComponent
-    {
-        /** @var ResumeImport $import */
-        $import = $model;
+    // public function renderFileCell(Model $model): BackendComponent|CompoundComponent
+    // {
+    //     /** @var ResumeImport $import */
+    //     $import = $model;
 
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
-            ->setContent($import->file_name)
-            ->setAttribute('variant', 'ghost')
-            ->setAttribute('size', 'sm')
-            ->setAttribute('icon', 'document-arrow-down')
-            ->setTheme('cursor', 'pointer');
-    }
+    //     return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+    //         ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
+    //         ->setContent($import->file_name)
+    //         ->setAttribute('variant', 'ghost')
+    //         ->setAttribute('size', 'sm')
+    //         ->setAttribute('icon', 'document-arrow-down')
+    //         ->setTheme('cursor', 'pointer');
+    // }
 
-    public function renderStatusCell(Model $model): BackendComponent|CompoundComponent
-    {
-        /** @var ResumeImport $import */
-        $import = $model;
+    // public function renderStatusCell(Model $model): BackendComponent|CompoundComponent
+    // {
+    //     /** @var ResumeImport $import */
+    //     $import = $model;
 
-        return TableHelpers::statusBadge($import->status);
-    }
+    //     return TableHelpers::statusBadge($import->status);
+    // }
 
-    public function renderDateCell(Model $model): BackendComponent|CompoundComponent
-    {
-        /** @var ResumeImport $model */
-        return ComponentBuilder::make(ComponentEnum::SPAN)
-            ->setContent($model->created_at->diffForHumans());
-    }
+    // public function renderDateCell(Model $model): BackendComponent|CompoundComponent
+    // {
+    //     /** @var ResumeImport $model */
+    //     return ComponentBuilder::make(ComponentEnum::SPAN)
+    //         ->setContent($model->created_at->diffForHumans());
+    // }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent
     {
@@ -88,5 +88,13 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
+    }
+    
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [
+
+        ];
     }
 }

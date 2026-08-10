@@ -2,6 +2,9 @@
 
 namespace App\Cruds\Schema\Education\Renderers;
 
+use App\Components\Builders\FluxComponentBuilder;
+use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Education;
@@ -37,5 +40,33 @@ final class EducationTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
+    }
+
+    
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [
+            'Courses' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+
+                    /** @var Education $education */
+                    $education = $model;
+
+                    return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setContent(
+                            FluxComponentBuilder::make('icon.building-library')
+                                ->setAttribute('variant', 'micro')
+                        )
+                        ->setContent('Courses')
+                        ->setTheme('cursor', 'pointer')
+                        ->setAttribute('variant', 'primary')
+                        ->setAttribute('color', 'blue')
+                        ->setAttribute('size', 'xs')
+                        ->setAttribute('wire:navigate', '')
+                        ->setAttribute('href', route('dashboard.education.courses', [$education->id]));
+                }
+            )
+        ];
     }
 }

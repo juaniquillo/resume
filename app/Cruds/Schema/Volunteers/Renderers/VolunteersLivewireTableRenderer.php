@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Schema\Volunteers\Renderers;
 
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Livewire\Resume\Volunteers\DeleteVolunteer;
@@ -46,5 +47,20 @@ final class VolunteersLivewireTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
+    }
+    
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [
+            'Highlights' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var Volunteer $volunteer */
+                    $volunteer = $model;
+
+                    return TableHelpers::highlightsButton(route('dashboard.volunteers.highlights', [$volunteer->id]));
+                },
+            )
+        ];
     }
 }

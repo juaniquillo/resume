@@ -37,4 +37,10 @@ final class HighlightsTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
+
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [];
+    }
 }
