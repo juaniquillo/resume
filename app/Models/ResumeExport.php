@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property-read int $id
  * @property-read string $uuid
  * @property-read int $user_id
+ * @property-read string|null $name
  * @property-read ResumeExportType $type
  * @property-read ResumeTheme|null $theme
  * @property-read bool $allow_download
@@ -39,6 +40,7 @@ class ResumeExport extends Model
         'type',
         'theme',
         'allow_download',
+        'name',
     ];
 
     protected $casts = [
