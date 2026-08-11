@@ -57,5 +57,5 @@
 54. ✅ Refactor import to livewire form and table, with polling for the status buttons.
 55. ✅ Refactor export to livewire form and table, with polling for the status buttons and edit form for the "Allow Download" option.
 56. ◻️ Consider adding limits to resume section records and revise the ones for import/export.
-57. ◻️ Add new "Name" input to the import/export CRUDs.
+57. ✅ Add new "Name" input to the import/export CRUDs.
 58. ◻️ Create new "Professional" resume theme with two columns.
