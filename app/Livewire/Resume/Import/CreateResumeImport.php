@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Import;
 
-use App\Actions\Resume\Import\CreateResumeImport as CreateResumeImportAction;
+use App\Actions\Resume\Import\StoreResumeImport;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
 use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
@@ -44,7 +44,7 @@ class CreateResumeImport extends Component
 
         $validatedData = $validator->validated();
 
-        $import = (new CreateResumeImportAction)->handle($user, [
+        $import = (new StoreResumeImport)->handle($user, [
             JsonFileFactory::NAME => $validatedData[JsonFileFactory::NAME] ?? null,
         ]);
 

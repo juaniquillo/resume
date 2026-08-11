@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Education\Courses;
 
-use App\Actions\Resume\Education\CreateCourse as CreateCourseAction;
+use App\Actions\Resume\Education\StoreCourse;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Courses\CoursesCrud;
 use App\Cruds\Schema\Courses\Renderers\CoursesLivewireFormRenderer;
@@ -44,7 +44,7 @@ class CreateCourse extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->courses);
 
-        (new CreateCourseAction(
+        (new StoreCourse(
             $validator->validated(),
             $education
         ))->handle();

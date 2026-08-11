@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Works;
 
-use App\Actions\Resume\Work\CreateWork as CreateWorkAction;
+use App\Actions\Resume\Work\StoreWork;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Works\Renderers\WorksLivewireFormRenderer;
 use App\Cruds\Schema\Works\WorksCrud;
@@ -37,7 +37,7 @@ class CreateWork extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->works);
 
-        (new CreateWorkAction(
+        (new StoreWork(
             $validator->validated(),
             $user
         ))->handle();

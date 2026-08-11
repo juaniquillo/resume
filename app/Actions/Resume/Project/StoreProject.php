@@ -6,7 +6,7 @@ use App\Cruds\Helpers\FormHelpers;
 use App\Models\Project;
 use App\Models\User;
 
-class CreateProject
+class StoreProject
 {
     public function __construct(
         private array $data,

@@ -8,7 +8,7 @@ use App\Enums\ResumeExportType;
 use App\Models\ResumeExport;
 use App\Models\User;
 
-class CreateResumeExport
+class StoreResumeExport
 {
     /**
      * @param  array{type: string, name: ?string, theme: ?string, allow_download: bool}  $data

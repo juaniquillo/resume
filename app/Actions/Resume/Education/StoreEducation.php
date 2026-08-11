@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Actions\Resume\Award;
+namespace App\Actions\Resume\Education;
 
 use App\Cruds\Helpers\FormHelpers;
-use App\Models\Award;
+use App\Models\Education;
 use App\Models\User;
 
-class CreateAward
+class StoreEducation
 {
     public function __construct(
         private array $data,
         private User $user
     ) {}
 
-    public function handle(): Award
+    public function handle(): Education
     {
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Award */
-        return $this->user->awards()->create($data);
+        /** @var Education */
+        return $this->user->education()->create($data);
     }
 }

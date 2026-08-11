@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Actions\Resume\Interest;
+namespace App\Actions\Resume\Certificate;
 
 use App\Cruds\Helpers\FormHelpers;
-use App\Models\Interest;
+use App\Models\Certificate;
 use App\Models\User;
 
-class CreateInterest
+class StoreCertificate
 {
     public function __construct(
         private array $data,
         private User $user
     ) {}
 
-    public function handle(): Interest
+    public function handle(): Certificate
     {
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Interest */
-        return $this->user->interests()->create($data);
+        /** @var Certificate */
+        return $this->user->certificates()->create($data);
     }
 }

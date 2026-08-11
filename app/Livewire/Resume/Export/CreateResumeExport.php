@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Export;
 
-use App\Actions\Resume\Export\CreateResumeExport as CreateResumeExportAction;
+use App\Actions\Resume\Export\StoreResumeExport;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Enums\ResumeExportType;
@@ -42,7 +42,7 @@ class CreateResumeExport extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->resumeExport);
 
-        $export = (new CreateResumeExportAction)->handle($user, $validator->validated());
+        $export = (new StoreResumeExport)->handle($user, $validator->validated());
 
         match ($export->type) {
             ResumeExportType::JSON => ProcessJsonExport::dispatch($export),

@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Actions\Resume\Education;
+namespace App\Actions\Resume\CoverLetter;
 
 use App\Cruds\Helpers\FormHelpers;
-use App\Models\Education;
 use App\Models\User;
 
-class CreateEducation
+class StoreCoverLetter
 {
     public function __construct(
         private array $data,
         private User $user
     ) {}
 
-    public function handle(): Education
+    public function handle()
     {
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Education */
-        return $this->user->education()->create($data);
+        return $this->user->coverLetters()->create($data);
     }
 }

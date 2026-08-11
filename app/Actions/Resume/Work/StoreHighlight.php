@@ -3,22 +3,21 @@
 namespace App\Actions\Resume\Work;
 
 use App\Cruds\Helpers\FormHelpers;
-use App\Models\User;
+use App\Models\Highlight;
 use App\Models\Work;
 
-class CreateWork
+class StoreHighlight
 {
     public function __construct(
         private array $data,
-        private User $user
+        private Work $work
     ) {}
 
-    public function handle(): Work
+    public function handle(): Highlight
     {
-        /** Brings back null for empty strings for Livewire forms */
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Work */
-        return $this->user->works()->create($data);
+        /** @var Highlight */
+        return $this->work->highlights()->create($data);
     }
 }

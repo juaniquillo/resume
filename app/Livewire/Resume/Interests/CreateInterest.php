@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Interests;
 
-use App\Actions\Resume\Interest\CreateInterest as CreateInterestAction;
+use App\Actions\Resume\Interest\StoreInterest;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Interests\Inputs\KeywordsFactory;
 use App\Cruds\Schema\Interests\InterestsCrud;
@@ -49,7 +49,7 @@ class CreateInterest extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $values);
 
-        (new CreateInterestAction(
+        (new StoreInterest(
             $validator->validated(),
             $user
         ))->handle();

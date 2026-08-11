@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Highlights;
 
-use App\Actions\Highlights\CreateHighlight as CreateHighlightAction;
+use App\Actions\Highlights\StoreHighlight;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Highlights\HighlightsCrud;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsLivewireFormRenderer;
@@ -52,7 +52,7 @@ class CreateHighlight extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->highlights);
 
-        (new CreateHighlightAction(
+        (new StoreHighlight(
             $user,
             $this->model,
             $validator->validated(),

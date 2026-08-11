@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Publications;
 
-use App\Actions\Resume\Publication\CreatePublication as CreatePublicationAction;
+use App\Actions\Resume\Publication\StorePublication;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Publications\PublicationsCrud;
 use App\Cruds\Schema\Publications\Renderers\PublicationsLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreatePublication extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->publications);
 
-        (new CreatePublicationAction(
+        (new StorePublication(
             $validator->validated(),
             $user
         ))->handle();

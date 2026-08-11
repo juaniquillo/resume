@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Actions\Resume\Volunteer;
+namespace App\Actions\Resume\Skill;
 
 use App\Cruds\Helpers\FormHelpers;
+use App\Models\Skill;
 use App\Models\User;
-use App\Models\Volunteer;
 
-class CreateVolunteer
+class StoreSkill
 {
     public function __construct(
         private array $data,
         private User $user
     ) {}
 
-    public function handle(): Volunteer
+    public function handle(): Skill
     {
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Volunteer */
-        return $this->user->volunteers()->create($data);
+        /** @var Skill */
+        return $this->user->skills()->create($data);
     }
 }

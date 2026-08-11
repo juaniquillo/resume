@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Actions\Resume\Language;
+namespace App\Actions\Resume\Volunteer;
 
 use App\Cruds\Helpers\FormHelpers;
-use App\Models\Language;
 use App\Models\User;
+use App\Models\Volunteer;
 
-class CreateLanguage
+class StoreVolunteer
 {
     public function __construct(
         private array $data,
         private User $user
     ) {}
 
-    public function handle(): Language
+    public function handle(): Volunteer
     {
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
-        /** @var Language */
-        return $this->user->languages()->create($data);
+        /** @var Volunteer */
+        return $this->user->volunteers()->create($data);
     }
 }

@@ -6,7 +6,7 @@ use App\Cruds\Helpers\FormHelpers;
 use App\Models\Basic;
 use App\Models\Profile;
 
-class CreateProfile
+class StoreProfile
 {
     public function __construct(
         private array $data,

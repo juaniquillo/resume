@@ -6,7 +6,7 @@ use App\Cruds\Helpers\FormHelpers;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
 
-class CreateCourse
+class StoreCourse
 {
     public function __construct(
         private array $data,

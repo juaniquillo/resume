@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Projects;
 
-use App\Actions\Resume\Project\CreateProject as CreateProjectAction;
+use App\Actions\Resume\Project\StoreProject;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Projects\ProjectsCrud;
 use App\Cruds\Schema\Projects\Renderers\ProjectsLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreateProject extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->projects);
 
-        (new CreateProjectAction(
+        (new StoreProject(
             $validator->validated(),
             $user
         ))->handle();

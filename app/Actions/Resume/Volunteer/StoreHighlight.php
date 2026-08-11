@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Actions\Resume\Work;
+namespace App\Actions\Resume\Volunteer;
 
 use App\Cruds\Helpers\FormHelpers;
 use App\Models\Highlight;
-use App\Models\Work;
+use App\Models\Volunteer;
 
-class CreateHighlight
+class StoreHighlight
 {
     public function __construct(
         private array $data,
-        private Work $work
+        private Volunteer $volunteer
     ) {}
 
     public function handle(): Highlight
@@ -18,6 +18,6 @@ class CreateHighlight
         $data = FormHelpers::convertEmptyStringToNull($this->data);
 
         /** @var Highlight */
-        return $this->work->highlights()->create($data);
+        return $this->volunteer->highlights()->create($data);
     }
 }

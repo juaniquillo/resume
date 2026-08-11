@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
 
-class CreateHighlight
+class StoreHighlight
 {
     public function __construct(
         private User $user,

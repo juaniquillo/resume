@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
 use JustSteveKing\Resume\Factories\ResumeFactory;
 
-class CreateResumeImport
+class StoreResumeImport
 {
     /**
      * @param  array{resume_file: UploadedFile}  $data
