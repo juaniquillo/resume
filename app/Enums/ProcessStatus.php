@@ -35,4 +35,19 @@ enum ProcessStatus: string
     {
         return Str::title($this->value);
     }
+
+    public function processing(): bool
+    {
+        return $this === self::PENDING || $this === self::PROCESSING;
+    }
+
+    public function completed(): bool
+    {
+        return $this === self::COMPLETED;
+    }
+
+    public function failed(): bool
+    {
+        return $this === self::FAILED;
+    }
 }

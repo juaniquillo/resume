@@ -22,7 +22,7 @@ interface CrudForm
 
     public function inputs(?array $inputs = null): array;
 
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent;
+    public function saveButton(): BackendComponent|CompoundComponent;
 
     public function spanFullContainer(array $contents): InputCollectionInterface;
 

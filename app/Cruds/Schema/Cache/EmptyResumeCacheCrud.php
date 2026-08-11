@@ -53,7 +53,7 @@ final class EmptyResumeCacheCrud implements CrudForm, CrudInterface
         return $this->form();
     }
 
-    public function saveButton(string $label = 'Clear Cache'): BackendComponent|CompoundComponent
+    public function saveButton(): BackendComponent|CompoundComponent
     {
         $message = __('Are you sure you want to clear the cache?');
 
@@ -63,6 +63,6 @@ final class EmptyResumeCacheCrud implements CrudForm, CrudInterface
             ->setAttribute('color', 'blue')
             ->setAttribute('onclick', "return confirm('{$message}')")
             ->setTheme('cursor', 'pointer')
-            ->setContent($label);
+            ->setContent(__('Clear Cache'));
     }
 }

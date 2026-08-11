@@ -76,17 +76,15 @@ trait HasHtmlForm
         return $this;
     }
 
-    public function saveButton(?string $label = null): BackendComponent|CompoundComponent
+    public function saveButton(): BackendComponent|CompoundComponent
     {
-        $label = $label ?? $this->saveButtonLabel;
-
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
             ->setTheme('cursor', 'pointer')
             ->setAttributes($this->saveButtonAttributes)
-            ->setContent(__($label));
+            ->setContent(__($this->saveButtonLabel));
     }
 
     public function form(): BackendComponent|CompoundComponent

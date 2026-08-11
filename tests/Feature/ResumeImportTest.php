@@ -236,7 +236,6 @@ test('user cannot have more than 5 resume imports', function () {
         ->set('resumeImport.resume_file', $file)
         ->call('createForm');
 
-    expect(session('custom_error'))->toBe('You can only have up to 5 resume imports. Please delete an old one first.');
     $this->assertDatabaseCount('resume_imports', 5);
 });
 

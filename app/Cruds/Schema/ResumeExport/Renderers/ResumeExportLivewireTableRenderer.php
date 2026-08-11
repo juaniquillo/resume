@@ -7,7 +7,6 @@ use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
-use App\Enums\ProcessStatus;
 use App\Livewire\Resume\Export\DeleteResumeExport;
 use App\Livewire\Resume\Export\EditResumeExport;
 use App\Models\ResumeExport;
@@ -47,7 +46,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
             params: [$export->id]
         );
 
-        if ($export->status === ProcessStatus::COMPLETED) {
+        if ($export->status->completed()) {
             $enum = $export->type;
             $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
 
@@ -64,7 +63,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
                 ->setTheme('cursor', 'pointer');
         }
 
-        if ($export->status === ProcessStatus::FAILED && $export->error) {
+        if ($export->status->failed() && $export->error) {
             $contents[] = TableHelpers::tableModal(
                 id: "error-modal-{$export->id}",
                 content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
@@ -77,7 +76,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
             );
         }
 
-        if (in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
+        if (! $export->status->processing()) {
             $contents[] = $helper->liveWireComponent(
                 component: DeleteResumeExport::class,
                 id: "delete-resume-export-{$export->id}",

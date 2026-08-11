@@ -37,13 +37,13 @@ final class ResumeResetCrud implements CrudForm, CrudInterface
         return [];
     }
 
-    public function saveButton(string $label = 'Reset Everything'): BackendComponent|CompoundComponent
+    public function saveButton(): BackendComponent|CompoundComponent
     {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'danger')
             ->setTheme('cursor', 'pointer')
             ->setAttribute('onclick', "return confirm('Are you sure you want to reset your resume? This action cannot be undone.')")
-            ->setContent(__($label));
+            ->setContent(__('Reset Everything'));
     }
 }

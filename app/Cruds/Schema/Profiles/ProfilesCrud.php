@@ -102,9 +102,11 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCell('Settings', $recipe);
     }
 
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function saveButton(): BackendComponent|CompoundComponent
     {
         $livewireAttributes = LivewireHelpers::getLivewireAttributes('network', self::getLivewireGroup());
+
+        $label = $this->saveButtonLabel;
 
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')

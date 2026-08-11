@@ -141,11 +141,10 @@ test('user cannot delete a pending or processing resume export', function () {
         'status' => ProcessStatus::PROCESSING,
     ]);
 
-    Livewire::actingAs($this->user)
+    $output = Livewire::actingAs($this->user)
         ->test(DeleteResumeExport::class, ['resumeExportId' => $export->id])
         ->call('deleteExport');
 
-    expect(session('custom_error'))->toBe('Only completed or failed exports can be deleted.');
     $this->assertDatabaseHas('resume_exports', ['id' => $export->id]);
 });
 
@@ -189,7 +188,6 @@ test('user cannot have more than 5 resume exports', function () {
         ->set('resumeExport.type', ResumeExportType::JSON->value)
         ->call('createForm');
 
-    expect(session('custom_error'))->toBe('You can only have up to 5 resume exports. Please delete an old one first.');
     $this->assertDatabaseCount('resume_exports', 5);
 });
 

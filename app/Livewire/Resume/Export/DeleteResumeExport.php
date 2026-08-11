@@ -3,7 +3,6 @@
 namespace App\Livewire\Resume\Export;
 
 use App\Cruds\Helpers\TableHelpers;
-use App\Enums\ProcessStatus;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\ResumeExport;
 use App\Models\User;
@@ -32,7 +31,7 @@ class DeleteResumeExport extends Component
         /** @var ResumeExport $export */
         $export = $user->resumeExports()->findOrFail($this->resumeExportId);
 
-        if (! \in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
+        if ($export->status->processing()) {
             session()->flash('custom_error', __('Only completed or failed exports can be deleted.'));
 
             return;
