@@ -4,7 +4,6 @@ namespace App\Livewire\Resume\Import;
 
 use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireTableRenderer;
 use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
-use App\Enums\ProcessStatus;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -35,7 +34,7 @@ class ResumeImportsTable extends Component
     {
         return $this->getModels()->contains(function (Model $import) {
             /** @var ResumeImport $import */
-            return \in_array($import->status, [ProcessStatus::PENDING, ProcessStatus::PROCESSING]);
+            return $import->status->processing();
         });
     }
 

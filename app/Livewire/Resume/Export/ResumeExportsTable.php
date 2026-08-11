@@ -4,7 +4,6 @@ namespace App\Livewire\Resume\Export;
 
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireTableRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
-use App\Enums\ProcessStatus;
 use App\Livewire\Concerns\IsLivewireTable;
 use App\Models\ResumeExport;
 use App\Models\User;
@@ -35,7 +34,7 @@ class ResumeExportsTable extends Component
     {
         return $this->getModels()->contains(function (Model $export) {
             /** @var ResumeExport $export */
-            return \in_array($export->status, [ProcessStatus::PENDING, ProcessStatus::PROCESSING]);
+            return $export->status->processing();
         });
     }
 

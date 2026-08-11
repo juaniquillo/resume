@@ -3,6 +3,7 @@
 namespace App\Livewire\Resume\Export;
 
 use App\Actions\Resume\Export\StoreResumeExport;
+use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Enums\ResumeExportType;
@@ -61,7 +62,14 @@ class CreateResumeExport extends Component
     #[Computed]
     public function refreshVariables(): void
     {
-        $this->resumeExport = [];
+        $output = $this->crud()
+            ->make()
+            ->execute(
+                (new NameValueAction(values: []))
+                    ->setGlobalDefault('')
+            );
+
+        $this->resumeExport = $output->toArray();
     }
 
     private function crud()
