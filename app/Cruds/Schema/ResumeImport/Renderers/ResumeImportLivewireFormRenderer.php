@@ -34,7 +34,7 @@ final class ResumeImportLivewireFormRenderer implements FormRenderer
 
         return $crud->composeForm(
             inputs: $inputs,
-            themes: ['forms' => 'two-column']
+            themes: ['forms' => 'one-column']
         );
     }
 }

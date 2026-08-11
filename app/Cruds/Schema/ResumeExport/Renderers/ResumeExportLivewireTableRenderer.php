@@ -102,8 +102,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
                     /** @var ResumeExport $export */
                     $export = $model;
 
-                    return ComponentBuilder::make(ComponentEnum::SPAN)
-                        ->setContent($export->created_at->diffForHumans());
+                    return $export->created_at->diffForHumans();
                 },
             ),
         ];

@@ -93,6 +93,7 @@ class EditResumeImport extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
+            ->setSaveButtonLabel('Update Import Name')
             ->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }

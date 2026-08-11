@@ -88,6 +88,7 @@ class EditResumeExport extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud($this->getModel())
+            ->setSaveButtonLabel('Update Export')
             ->form()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
     }

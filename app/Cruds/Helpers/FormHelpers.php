@@ -14,6 +14,10 @@ use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 
 class FormHelpers
 {
+    public const FORM_WRAPPER_TYPE = 'form-wrapper';
+
+    public const FORM_WRAPPER_SEPARATOR_TYPE = 'form-wrapper-separator';
+
     public static function errorAlertComponent(ThemeManager $manager): BackendComponent|CompoundComponent
     {
         return (new MainBackendComponent(ComponentEnum::DIV, $manager))

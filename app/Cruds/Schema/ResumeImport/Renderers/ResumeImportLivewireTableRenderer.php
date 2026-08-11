@@ -71,7 +71,7 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
     {
         // Implementation for rendering extra cells
         return [
-            'Highlights' => new TableRowsRecipe(
+            'Status' => new TableRowsRecipe(
                 value: function ($value, Model $model) {
                     /** @var ResumeImport $import */
                     $import = $model;
@@ -84,8 +84,7 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
                     /** @var ResumeImport $import */
                     $import = $model;
 
-                    return ComponentBuilder::make(ComponentEnum::SPAN)
-                        ->setContent($import->created_at->diffForHumans());
+                    return $import->created_at->diffForHumans();
                 },
             ),
 

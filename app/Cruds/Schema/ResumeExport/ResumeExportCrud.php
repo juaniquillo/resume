@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -14,7 +12,6 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
-use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportThemeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportTypeSelectFactory;
@@ -114,22 +111,6 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
     public function extraCells(TableRowsAction $action): void
     {
         $action->setExtraCells($this->tableRenderer->renderExtraCells());
-    }
-
-    public function saveButton(string $label = 'Start New Export'): BackendComponent|CompoundComponent
-    {
-        $livewireAttributes = LivewireHelpers::getLivewireAttributes('type', self::getLivewireGroup());
-
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('type', 'submit')
-            ->setAttribute('variant', 'primary')
-            ->setAttribute('color', 'blue')
-            ->setAttributes([
-                'wire:loading.attr' => 'disabled',
-                'wire:target' => $livewireAttributes['wire:model'] ?? 'createForm',
-            ])
-            ->setTheme('cursor', 'pointer')
-            ->setContent(__($label));
     }
 
     public function formThemes(): array

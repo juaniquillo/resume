@@ -99,8 +99,9 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
-    public function saveButton(string $label = 'Start New Import'): BackendComponent|CompoundComponent
+    public function saveButton(string $label = ''): BackendComponent|CompoundComponent
     {
+        $label = !$label ? $this->saveButtonLabel : $label;
         $livewireAttributes = LivewireHelpers::getLivewireAttributes(JsonFileFactory::NAME, self::getLivewireGroup());
 
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)

@@ -42,9 +42,7 @@ class CreateResumeExport extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->resumeExport);
 
-        $validatedData = $validator->validated();
-
-        $export = (new CreateResumeExportAction)->handle($user, $validatedData);
+        $export = (new CreateResumeExportAction)->handle($user, $validator->validated());
 
         match ($export->type) {
             ResumeExportType::JSON => ProcessJsonExport::dispatch($export),
@@ -78,6 +76,7 @@ class CreateResumeExport extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
+            ->setSaveButtonLabel('Start New Export')
             ->form()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }

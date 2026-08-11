@@ -82,6 +82,7 @@ class CreateResumeImport extends Component
     public function getForm(): BackendComponent|CompoundComponent
     {
         return $this->crud()
+            ->setSaveButtonLabel('Start New Import')
             ->form()
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
