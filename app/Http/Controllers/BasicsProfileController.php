@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class BasicsProfileController extends Controller
 {
-    public function index(Request $request): View
+    public function __invoke(Request $request): View
     {
         /** @var User|null $user */
         $user = $request->user();

@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class EducationCoursesController extends Controller
 {
-    public function index(Request $request, int $id): View
+    public function __invoke(Request $request, int $id): View
     {
         /** @var Education $education */
         $education = $request->user()->education()->findOrFail($id);

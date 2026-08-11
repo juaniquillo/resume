@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ProjectHighlightsController extends Controller
 {
-    public function index(Request $request, int $id)
+    public function __invoke(Request $request, int $id)
     {
         /** @var Project $project */
         $project = $request->user()->projects()->findOrFail($id);

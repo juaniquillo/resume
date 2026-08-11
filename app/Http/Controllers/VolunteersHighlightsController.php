@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class VolunteersHighlightsController extends Controller
 {
-    public function index(Request $request, int $id)
+    public function __invoke(Request $request, int $id)
     {
         /** @var Volunteer $volunteer */
         $volunteer = $request->user()->volunteers()->findOrFail($id);

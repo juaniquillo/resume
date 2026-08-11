@@ -60,82 +60,82 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('basics/locations', BasicsLocationController::class)->name('dashboard.basics.location');
 
-        Route::get('basics/profiles', [BasicsProfileController::class, 'index'])->name('dashboard.basics.profiles');
+        Route::get('basics/profiles', BasicsProfileController::class)->name('dashboard.basics.profiles');
 
         /**
          * Works
          */
-        Route::get('works', [WorkController::class, 'index'])->name('dashboard.works');
+        Route::get('works', WorkController::class)->name('dashboard.works');
 
-        Route::get('works/{id}/highlights', [WorkHighlightsController::class, 'index'])->name('dashboard.works.highlights');
+        Route::get('works/{id}/highlights', WorkHighlightsController::class)->name('dashboard.works.highlights');
 
         /**
          * Volunteers
          */
-        Route::get('volunteers', [VolunteersController::class, 'index'])->name('dashboard.volunteers');
+        Route::get('volunteers', VolunteersController::class)->name('dashboard.volunteers');
 
-        Route::get('volunteers/{id}/highlights', [VolunteersHighlightsController::class, 'index'])->name('dashboard.volunteers.highlights');
+        Route::get('volunteers/{id}/highlights', VolunteersHighlightsController::class)->name('dashboard.volunteers.highlights');
 
         /**
          * Education
          */
-        Route::get('education', [EducationController::class, 'index'])->name('dashboard.education');
+        Route::get('education', EducationController::class)->name('dashboard.education');
 
-        Route::get('education/{id}/courses', [EducationCoursesController::class, 'index'])->name('dashboard.education.courses');
+        Route::get('education/{id}/courses', EducationCoursesController::class)->name('dashboard.education.courses');
 
         /**
          * Awards
          */
-        Route::get('awards', [AwardsController::class, 'index'])->name('dashboard.awards');
+        Route::get('awards', AwardsController::class)->name('dashboard.awards');
 
         /**
          * Certificates
          */
-        Route::get('certificates', [CertificatesController::class, 'index'])->name('dashboard.certificates');
+        Route::get('certificates', CertificatesController::class)->name('dashboard.certificates');
 
         /**
          * Publications
          */
-        Route::get('publications', [PublicationsController::class, 'index'])->name('dashboard.publications');
+        Route::get('publications', PublicationsController::class)->name('dashboard.publications');
 
         /**
          * Skills
          */
-        Route::get('skills', [SkillsController::class, 'index'])->name('dashboard.skills');
+        Route::get('skills', SkillsController::class)->name('dashboard.skills');
 
         /**
          * Languages
          */
-        Route::get('languages', [LanguagesController::class, 'index'])->name('dashboard.languages');
+        Route::get('languages', LanguagesController::class)->name('dashboard.languages');
 
         /**
          * Interests
          */
-        Route::get('interests', [InterestsController::class, 'index'])->name('dashboard.interests');
+        Route::get('interests', InterestsController::class)->name('dashboard.interests');
 
         /**
          * References
          */
-        Route::get('references', [ReferencesController::class, 'index'])->name('dashboard.references');
+        Route::get('references', ReferencesController::class)->name('dashboard.references');
 
         /**
          * Projects
          */
-        Route::get('projects', [ProjectController::class, 'index'])->name('dashboard.projects');
-        Route::get('projects/{id}/highlights', [ProjectHighlightsController::class, 'index'])->name('dashboard.projects.highlights');
+        Route::get('projects', ProjectController::class)->name('dashboard.projects');
+        Route::get('projects/{id}/highlights', ProjectHighlightsController::class)->name('dashboard.projects.highlights');
 
         /**
          * Cover Letters
          */
-        Route::get('cover-letters', [CoverLettersController::class, 'index'])->name('dashboard.cover-letters');
+        Route::get('cover-letters', CoverLettersController::class)->name('dashboard.cover-letters');
 
         /**
          * Tools
          */
-        Route::get('resume/import', [ResumeImportController::class, 'index'])->name('dashboard.resume.import');
+        Route::get('resume/import', ResumeImportController::class)->name('dashboard.resume.import');
         Route::get('resume/import/{id}/download', ResumeImportDownloadController::class)->name('dashboard.resume.import.download');
 
-        Route::get('resume/export', [ResumeExportController::class, 'index'])->name('dashboard.resume.export');
+        Route::get('resume/export', ResumeExportController::class)->name('dashboard.resume.export');
         Route::get('resume/export/{uuid}/download', ResumeExportDownloadController::class)->name('dashboard.resume.export.download');
 
         Route::get('resume/preview', ResumePreview::class)->name('dashboard.resume.preview');
@@ -143,7 +143,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('resume/cache/clear', [ResumeCacheController::class, 'index'])->name('dashboard.resume.cache.clear');
         Route::post('resume/cache/clear', [ResumeCacheController::class, 'store'])->name('dashboard.resume.cache.store');
 
-        Route::get('resume/og', [ResumeOgManagementController::class, 'index'])->name('dashboard.resume.og');
+        Route::get('resume/og', ResumeOgManagementController::class)->name('dashboard.resume.og');
 
         Route::get('resume/reset', ResumeResetController::class)->name('dashboard.resume.reset');
 
