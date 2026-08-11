@@ -18,10 +18,10 @@ trait HasLivewireFormAttributes
 
             if ($input->getType() === FormHelpers::FORM_WRAPPER_TYPE) {
                 foreach ($input->getSubElements() as $child) {
-                    if($child->getType() === FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE) {
+                    if ($child->getType() === FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE) {
                         continue;
                     }
-                    
+
                     $this->addLivewireAttributes([$child->getName() => $child], $livewireGroup);
                 }
             }

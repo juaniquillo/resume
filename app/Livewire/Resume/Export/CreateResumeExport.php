@@ -35,7 +35,7 @@ class CreateResumeExport extends Component
         $user = Auth::user();
 
         if ($user->resumeExports()->count() >= 5) {
-            session()->put('custom_error', __('You can only have up to 5 resume exports. Please delete an old one first.'));
+            session()->flash('custom_error', __('You can only have up to 5 resume exports. Please delete an old one first.'));
 
             return;
         }

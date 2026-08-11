@@ -85,7 +85,7 @@ trait HasHtmlForm
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
             ->setTheme('cursor', 'pointer')
-            ->setAttributes($this->saveButtonAttributes)    
+            ->setAttributes($this->saveButtonAttributes)
             ->setContent(__($label));
     }
 
@@ -228,7 +228,7 @@ trait HasHtmlForm
                             ])
                     )
 
-        );
+            );
 
         $fieldset->setSubElements(CrudAssistant::make($inputs));
 
@@ -241,14 +241,13 @@ trait HasHtmlForm
 
         $separator->setType(FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE)
             ->setRecipe(
-            (new InputComponentRecipe)
-                ->setComponentBag(
-                    (new DefaultComponentBag)
-                        ->setInputType(FluxComponentEnum::SEPARATOR)
-                )
-        );
+                (new InputComponentRecipe)
+                    ->setComponentBag(
+                        (new DefaultComponentBag)
+                            ->setInputType(FluxComponentEnum::SEPARATOR)
+                    )
+            );
 
         return $separator;
     }
-
 }

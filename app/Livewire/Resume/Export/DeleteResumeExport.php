@@ -33,7 +33,7 @@ class DeleteResumeExport extends Component
         $export = $user->resumeExports()->findOrFail($this->resumeExportId);
 
         if (! \in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
-            session()->put('custom_error', __('Only completed or failed exports can be deleted.'));
+            session()->flash('custom_error', __('Only completed or failed exports can be deleted.'));
 
             return;
         }
