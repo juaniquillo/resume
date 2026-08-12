@@ -26,11 +26,11 @@ class ResumeExportDownloadController extends Controller
             ->firstOrFail();
 
         if ($export->status !== ProcessStatus::COMPLETED || ! $export->file_path) {
-            return redirect()->back()->with('error', 'The export is not ready for download.');
+            return back()->with('error', 'The export is not ready for download.');
         }
 
         if (! Storage::exists($export->file_path)) {
-            return redirect()->back()->with('error', 'The exported file was not found.');
+            return back()->with('error', 'The exported file was not found.');
         }
 
         /** @var ResumeExportType $enum */

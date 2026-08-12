@@ -22,78 +22,78 @@ trait HasResumeData
 {
     public function resumeBasics(): ?Basic
     {
-        return app(ResumeDataLoader::class)->basics($this);
+        return resolve(ResumeDataLoader::class)->basics($this);
     }
 
     /** @return Collection<int, Work> */
     public function resumeWorks(): Collection
     {
-        return app(ResumeDataLoader::class)->works($this);
+        return resolve(ResumeDataLoader::class)->works($this);
     }
 
     /** @return Collection<int, Volunteer> */
     public function resumeVolunteers(): Collection
     {
-        return app(ResumeDataLoader::class)->volunteers($this);
+        return resolve(ResumeDataLoader::class)->volunteers($this);
     }
 
     /** @return Collection<int, Education> */
     public function resumeEducation(): Collection
     {
-        return app(ResumeDataLoader::class)->education($this);
+        return resolve(ResumeDataLoader::class)->education($this);
     }
 
     /** @return Collection<int, Award> */
     public function resumeAwards(): Collection
     {
-        return app(ResumeDataLoader::class)->awards($this);
+        return resolve(ResumeDataLoader::class)->awards($this);
     }
 
     /** @return Collection<int, Certificate> */
     public function resumeCertificates(): Collection
     {
-        return app(ResumeDataLoader::class)->certificates($this);
+        return resolve(ResumeDataLoader::class)->certificates($this);
     }
 
     /** @return Collection<int, Publication> */
     public function resumePublications(): Collection
     {
-        return app(ResumeDataLoader::class)->publications($this);
+        return resolve(ResumeDataLoader::class)->publications($this);
     }
 
     /** @return Collection<int, Skill> */
     public function resumeSkills(): Collection
     {
-        return app(ResumeDataLoader::class)->skills($this);
+        return resolve(ResumeDataLoader::class)->skills($this);
     }
 
     /** @return Collection<int, Language> */
     public function resumeLanguages(): Collection
     {
-        return app(ResumeDataLoader::class)->languages($this);
+        return resolve(ResumeDataLoader::class)->languages($this);
     }
 
     /** @return Collection<int, Interest> */
     public function resumeInterests(): Collection
     {
-        return app(ResumeDataLoader::class)->interests($this);
+        return resolve(ResumeDataLoader::class)->interests($this);
     }
 
     /** @return Collection<int, Reference> */
     public function resumeReferences(): Collection
     {
-        return app(ResumeDataLoader::class)->references($this);
+        return resolve(ResumeDataLoader::class)->references($this);
     }
 
     /** @return Collection<int, Project> */
     public function resumeProjects(): Collection
     {
-        return app(ResumeDataLoader::class)->projects($this);
+        return resolve(ResumeDataLoader::class)->projects($this);
     }
 
     /** @return Collection<int, ResumeExport> */
     public function resumeDownloads(): Collection
     {
-        return app(ResumeDataLoader::class)->downloads($this);
+        return resolve(ResumeDataLoader::class)->downloads($this);
     }
 }

@@ -37,7 +37,7 @@ class ResumePresenterCacheManager implements CacheManager
 
     public function getCacheKey(): string
     {
-        $theme = $this->theme ?? app(ResumeThemeCacheManager::class)->getThemePresenter($this->user);
+        $theme = $this->theme ?? resolve(ResumeThemeCacheManager::class)->getThemePresenter($this->user);
         $themeHash = md5(get_class($theme));
 
         return "resume:{$this->user->id}:{$themeHash}";

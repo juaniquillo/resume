@@ -78,7 +78,7 @@ class ProcessResumeImport implements ShouldQueue
      */
     public function handle(): void
     {
-        app(ResumeDataLoader::class)->clearCache($this->import->user_id);
+        resolve(ResumeDataLoader::class)->clearCache($this->import->user_id);
 
         $this->import->update(['status' => ProcessStatus::PROCESSING]);
 

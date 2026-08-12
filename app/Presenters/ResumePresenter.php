@@ -45,7 +45,7 @@ final class ResumePresenter
     {
         /** @var array<string, bool> $settings */
         $settings = (array) ($this->user->sectionVisibility->settings ?? []);
-        $data = app(ResumeDataLoader::class)->load($this->user);
+        $data = resolve(ResumeDataLoader::class)->load($this->user);
         /** @var ?GeneralOption $generalOptions */
         $generalOptions = $this->user->generalOptions;
 

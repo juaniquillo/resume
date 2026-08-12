@@ -30,7 +30,7 @@ class ResumeController extends Controller
             Helpers::incrementViews($options);
         }
 
-        $theme = app(ResumeThemeCacheManager::class)->getThemePresenter($user);
+        $theme = resolve(ResumeThemeCacheManager::class)->getThemePresenter($user);
 
         $presenter = new ResumePresenter($user, $theme);
 

@@ -71,7 +71,7 @@ class NameFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->name;
+                    $output->{ $input->getName() } = $faker->name();
                 }
             )
         );

@@ -72,7 +72,7 @@ class UrlFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->url;
+                    $output->{ $input->getName() } = $faker->url();
                 }
             )
         );

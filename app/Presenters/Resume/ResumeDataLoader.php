@@ -80,7 +80,7 @@ final class ResumeDataLoader
                 return $user->works;
             }
 
-            return $user->works()->with('highlights')->orderByDesc('starts_at')->get();
+            return $user->works()->with('highlights')->latest('starts_at')->get();
         });
     }
 
@@ -92,7 +92,7 @@ final class ResumeDataLoader
                 return $user->volunteers;
             }
 
-            return $user->volunteers()->with('highlights')->orderByDesc('starts_at')->get();
+            return $user->volunteers()->with('highlights')->latest('starts_at')->get();
         });
     }
 
@@ -104,7 +104,7 @@ final class ResumeDataLoader
                 return $user->education;
             }
 
-            return $user->education()->with('courses')->orderByDesc('starts_at')->get();
+            return $user->education()->with('courses')->latest('starts_at')->get();
         });
     }
 
@@ -116,7 +116,7 @@ final class ResumeDataLoader
                 return $user->awards;
             }
 
-            return $user->awards()->orderByDesc('awarded_at')->get();
+            return $user->awards()->latest('awarded_at')->get();
         });
     }
 
@@ -200,7 +200,7 @@ final class ResumeDataLoader
                 return $user->projects;
             }
 
-            return $user->projects()->with('highlights')->orderByDesc('start_date')->get();
+            return $user->projects()->with('highlights')->latest('start_date')->get();
         });
     }
 

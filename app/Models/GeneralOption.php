@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ResumeTheme;
 use App\Models\Concerns\InvalidatesResumeCache;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,23 +26,22 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $updated_at
  * @property-read User $user
  */
+#[Fillable([
+    'user_id',
+    'slug',
+    'theme',
+    'is_draft',
+    'hide_phone',
+    'hide_email',
+    'hide_image',
+    'hide_address',
+    'views',
+    'og_image_version',
+])]
 class GeneralOption extends Model
 {
     use HasFactory;
     use InvalidatesResumeCache;
-
-    protected $fillable = [
-        'user_id',
-        'slug',
-        'theme',
-        'is_draft',
-        'hide_phone',
-        'hide_email',
-        'hide_image',
-        'hide_address',
-        'views',
-        'og_image_version',
-    ];
 
     protected function casts(): array
     {

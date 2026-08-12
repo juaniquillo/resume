@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\InvalidatesResumeCache;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -15,14 +16,13 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon|null $updated_at
  * @property-read User $user
  */
+#[Fillable([
+    'user_id',
+    'settings',
+])]
 class SectionVisibility extends Model
 {
     use InvalidatesResumeCache;
-
-    protected $fillable = [
-        'user_id',
-        'settings',
-    ];
 
     protected function casts(): array
     {
