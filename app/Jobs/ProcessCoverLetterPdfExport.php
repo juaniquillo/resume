@@ -8,11 +8,12 @@ use App\Models\ResumeExport;
 use App\Presenters\Resume\CoverLetterPresenter;
 use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Spatie\LaravelPdf\Facades\Pdf;
 
 class ProcessCoverLetterPdfExport implements ShouldQueue
 {
-    use \Illuminate\Foundation\Queue\Queueable;
+    use Queueable;
 
     public function __construct(public ResumeExport $export) {}
 
