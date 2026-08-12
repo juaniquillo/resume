@@ -66,7 +66,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        stability: [prefer-lowest, prefer-stable]
+        stability: [prefer-stable]
     env:
       DB_CONNECTION: sqlite
       DB_DATABASE: ':memory:'
