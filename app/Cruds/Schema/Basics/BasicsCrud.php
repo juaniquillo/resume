@@ -6,6 +6,7 @@ use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
+use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Schema\Basics\Inputs\EmailFactory;
 use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Cruds\Schema\Basics\Inputs\LabelFactory;
@@ -34,6 +35,7 @@ final class BasicsCrud implements CrudForm, CrudInterface
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
+        protected FormRenderer $formRenderer = new BasicsFormRenderer,
     ) {}
 
     public static function build(array $values = [], array $errors = [], ?Model $model = null): static
@@ -67,16 +69,11 @@ final class BasicsCrud implements CrudForm, CrudInterface
 
     public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
     {
-        return BasicsFormRenderer::make()->renderFull($this, ['summary']);
+        return $this->formRenderer->getForm($this);
     }
 
     public static function getLivewireGroup(): string
     {
         return Str::camel(self::NAME);
-    }
-
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
-    {
-        return BasicsFormRenderer::make()->saveButton($this, $label);
     }
 }

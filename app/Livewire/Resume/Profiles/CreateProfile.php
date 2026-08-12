@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Profiles;
 
-use App\Actions\Resume\Basics\CreateProfile as CreateProfileAcn;
+use App\Actions\Resume\Basics\StoreProfile as StoreProfileAcn;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Profiles\ProfilesCrud;
 use App\Cruds\Schema\Profiles\Renderers\ProfilesLivewireFormRenderer;
@@ -44,7 +44,7 @@ class CreateProfile extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->profiles);
 
-        (new CreateProfileAcn(
+        (new StoreProfileAcn(
             $validator->validated(),
             $basics
         ))->handle();

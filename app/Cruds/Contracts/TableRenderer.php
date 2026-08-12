@@ -9,4 +9,6 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 interface TableRenderer
 {
     public function renderSettings(Model $model): BackendComponent|CompoundComponent;
+
+    public function renderExtraCells(): array;
 }

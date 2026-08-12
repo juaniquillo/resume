@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\References;
 
-use App\Actions\Resume\Reference\CreateReference as CreateReferenceAction;
+use App\Actions\Resume\Reference\StoreReference;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\References\ReferencesCrud;
 use App\Cruds\Schema\References\Renderers\ReferencesLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreateReference extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->references);
 
-        (new CreateReferenceAction(
+        (new StoreReference(
             $validator->validated(),
             $user
         ))->handle();

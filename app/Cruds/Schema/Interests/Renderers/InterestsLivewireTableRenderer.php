@@ -47,4 +47,9 @@ final class InterestsLivewireTableRenderer implements TableRenderer
                 'gap-sm',
             ]);
     }
+
+    public function renderExtraCells(): array
+    {
+        return [];
+    }
 }

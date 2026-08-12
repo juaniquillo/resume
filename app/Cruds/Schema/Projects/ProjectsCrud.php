@@ -12,7 +12,6 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
-use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Projects\Inputs\DescriptionFactory;
 use App\Cruds\Schema\Projects\Inputs\EndDateFactory;
 use App\Cruds\Schema\Projects\Inputs\NameFactory;
@@ -22,7 +21,6 @@ use App\Cruds\Schema\Projects\Inputs\UserFactory;
 use App\Cruds\Schema\Projects\Inputs\UuidFactory;
 use App\Cruds\Schema\Projects\Renderers\ProjectsFormRenderer;
 use App\Cruds\Schema\Projects\Renderers\ProjectsTableRenderer;
-use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -78,7 +76,7 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formRenderer->getForm($this);
     }
@@ -95,14 +93,8 @@ final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
 
     protected function extraCells(TableRowsAction $action): void
     {
-        $action->setExtraCell('Highlights', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var Project $project */
-                $project = $model;
 
-                return TableHelpers::highlightsButton(route('dashboard.projects.highlights', [$project->id]));
-            },
-        ));
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     /**

@@ -2,14 +2,20 @@
 
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
+use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Enums\ProcessStatus;
+use App\Models\ResumeImport;
+use BackedEnum;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Stringable;
 
 class JsonFileFactory
 {
@@ -24,6 +30,7 @@ class JsonFileFactory
         self::form($input);
         self::validation($input);
         self::factory($input);
+        self::table($input);
 
         return $input;
     }
@@ -62,6 +69,26 @@ class JsonFileFactory
                             'accept' => '.json',
                         ])
                 )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new TableRowsRecipe(
+                value: function (Stringable|BackedEnum|string|array|null $value, Model $model) {
+                    /** @var ResumeImport $import */
+                    $import = $model;
+
+                    return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
+                        ->setContent($import->file_name)
+                        ->setAttribute('variant', 'ghost')
+                        ->setAttribute('size', 'sm')
+                        ->setAttribute('icon', 'document-arrow-down')
+                        ->setTheme('cursor', 'pointer');
+                }
+            )
         );
     }
 }

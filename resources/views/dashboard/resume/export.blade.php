@@ -7,14 +7,9 @@
             {{ __("Export your resume in JSON or PDF format. The process will run in the background, and you will be able to download the file once it's completed. You can keep up to five exports at a time.") }}
         </flux:text>
 
-         {{ $form }}
+        <livewire:resume.export.create-resume-export />
     </div>
 
-    @if ($table ?? null)
-        <flux:separator variant="subtle" class="mt-6" />
+    <livewire:resume.export.resume-exports-table />
 
-        <x-table-container :paginator="$paginator">
-            {{ $table }}
-        </x-table-container>
-    @endif
 </x-layouts::app>

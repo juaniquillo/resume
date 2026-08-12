@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Certificates;
 
-use App\Actions\Resume\Certificate\CreateCertificate as CreateCertificateAction;
+use App\Actions\Resume\Certificate\StoreCertificate;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Certificates\CertificatesCrud;
 use App\Cruds\Schema\Certificates\Renderers\CertificatesLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreateCertificate extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->certificates);
 
-        (new CreateCertificateAction(
+        (new StoreCertificate(
             $validator->validated(),
             $user
         ))->handle();

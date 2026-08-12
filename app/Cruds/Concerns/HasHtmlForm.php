@@ -5,6 +5,7 @@ namespace App\Cruds\Concerns;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\InputGroups\LabelInputGroup;
 use App\Cruds\Managers\EnumResolverValueManager;
 use BackedEnum;
@@ -37,6 +38,8 @@ trait HasHtmlForm
 
     private string $saveButtonLabel = 'Save';
 
+    private array $saveButtonAttributes = [];
+
     /**
      * @return array<?InputInterface>
      */
@@ -59,28 +62,34 @@ trait HasHtmlForm
         return $this;
     }
 
-    public function setSaveButtonLabel(string $saveButtonLabel)
+    public function setSaveButtonLabel(string $saveButtonLabel): static
     {
         $this->saveButtonLabel = $saveButtonLabel;
 
         return $this;
     }
 
-    public function saveButton(?string $label = null): BackendComponent|CompoundComponent
+    public function setSaveButtonAttributes(array $attributes): static
     {
-        $label = $label ?? $this->saveButtonLabel;
+        $this->saveButtonAttributes = $attributes;
 
+        return $this;
+    }
+
+    public function saveButton(): BackendComponent|CompoundComponent
+    {
         return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
             ->setTheme('cursor', 'pointer')
-            ->setContent(__($label));
+            ->setAttributes($this->saveButtonAttributes)
+            ->setContent(__($this->saveButtonLabel));
     }
 
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
-        return $this->composeForm($inputs);
+        return $this->composeForm($this->inputsArray());
     }
 
     /** @param array<int|string, string> $fullSpanInputs */
@@ -161,21 +170,6 @@ trait HasHtmlForm
         return new DefaultErrorManager;
     }
 
-    public function separator(int|string $key): InputInterface
-    {
-        $separator = new DefaultInput("fieldset_wrap_{$key}");
-
-        $separator->setRecipe(
-            (new InputComponentRecipe)
-                ->setComponentBag(
-                    (new DefaultComponentBag)
-                        ->setInputType(FluxComponentEnum::SEPARATOR)
-                )
-        );
-
-        return $separator;
-    }
-
     public function composeForm(?array $inputs = null, ?array $themes = null): BackendComponent|CompoundComponent
     {
         $themes ??= $this->formThemes();
@@ -205,36 +199,53 @@ trait HasHtmlForm
     {
         $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
 
-        $fieldset->setRecipe(
-            (new InputComponentRecipe)
-                ->setInputGroup(new LabelInputGroup)
-                ->setComponentBag(
-                    (new DefaultComponentBag)
-                        ->setWrapperComponent(
-                            fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
-                        )
-                        ->setLabelComponent(
-                            fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
-                        )
-                        ->setInputComponent(
-                            fn (BackedEnum|string $type, ThemeManager $manager) => (new MainBackendComponent($type, $manager))
-                                ->setTheme('forms', 'fieldset-spacing')
-                        )
-                        ->setWrapperType(FluxComponentEnum::FIELDSET)
-                        ->setLabelType(FluxComponentEnum::LEGEND)
-                        ->setInputType(ComponentEnum::DIV)
-                )
-                ->setThemeBag(
-                    (new DefaultThemeBag)
-                        ->setWrapperTheme([
-                            'forms' => 'column-span-full',
-                        ])
-                )
+        $fieldset->setType(FormHelpers::FORM_WRAPPER_TYPE)
+            ->setRecipe(
+                (new InputComponentRecipe)
+                    ->setInputGroup(new LabelInputGroup)
+                    ->setComponentBag(
+                        (new DefaultComponentBag)
+                            ->setWrapperComponent(
+                                fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
+                            )
+                            ->setLabelComponent(
+                                fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
+                            )
+                            ->setInputComponent(
+                                fn (BackedEnum|string $type, ThemeManager $manager) => (new MainBackendComponent($type, $manager))
+                                    ->setTheme('forms', 'fieldset-spacing')
+                            )
+                            ->setWrapperType(FluxComponentEnum::FIELDSET)
+                            ->setLabelType(FluxComponentEnum::LEGEND)
+                            ->setInputType(ComponentEnum::DIV)
+                    )
+                    ->setThemeBag(
+                        (new DefaultThemeBag)
+                            ->setWrapperTheme([
+                                'forms' => 'column-span-full',
+                            ])
+                    )
 
-        );
+            );
 
         $fieldset->setSubElements(CrudAssistant::make($inputs));
 
         return $fieldset;
+    }
+
+    public function separator(int|string $key): InputInterface
+    {
+        $separator = new DefaultInput("fieldset_wrap_{$key}");
+
+        $separator->setType(FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE)
+            ->setRecipe(
+                (new InputComponentRecipe)
+                    ->setComponentBag(
+                        (new DefaultComponentBag)
+                            ->setInputType(FluxComponentEnum::SEPARATOR)
+                    )
+            );
+
+        return $separator;
     }
 }

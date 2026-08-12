@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Languages;
 
-use App\Actions\Resume\Language\CreateLanguage as CreateLanguageAction;
+use App\Actions\Resume\Language\StoreLanguage;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Languages\LanguagesCrud;
 use App\Cruds\Schema\Languages\Renderers\LanguagesLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreateLanguage extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->languages);
 
-        (new CreateLanguageAction(
+        (new StoreLanguage(
             $validator->validated(),
             $user
         ))->handle();

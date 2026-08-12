@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class WorkHighlightsController extends Controller
 {
-    public function index(Request $request, int $id)
+    public function __invoke(Request $request, int $id)
     {
         /** @var Work $work */
         $work = $request->user()->works()->findOrFail($id);

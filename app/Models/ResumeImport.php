@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * @property-read int $id
  * @property-read int $user_id
+ * @property-read string|null $name
  * @property-read string $file_path
  * @property-read string $file_name
  * @property-read ProcessStatus $status
@@ -26,6 +27,7 @@ class ResumeImport extends Model
 
     protected $fillable = [
         'user_id',
+        'name',
         'file_path',
         'file_name',
         'status',

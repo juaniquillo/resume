@@ -62,9 +62,10 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
     }
 
     #[Override]
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function saveButton(): BackendComponent|CompoundComponent
     {
         $livewireAttributes = LivewireHelpers::getLivewireAttributes(ContentFactory::NAME, self::getLivewireGroup());
+        $label = $this->saveButtonLabel;
 
         return ComponentBuilder::make(ComponentEnum::DIV)
             ->setThemes([
@@ -84,7 +85,7 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
                         'wire:target' => $livewireAttributes['wire:model'],
                     ])
                     ->setTheme('cursor', 'pointer')
-                    ->setContent(__('Save')),
+                    ->setContent(__($label)),
             ])
             ->setThemes([
                 'display' => 'flex',

@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use Illuminate\Support\Str;
+
 enum ProcessStatus: string
 {
     case PENDING = 'pending';
@@ -31,6 +33,21 @@ enum ProcessStatus: string
 
     public function label(): string
     {
-        return ucfirst($this->value);
+        return Str::title($this->value);
+    }
+
+    public function processing(): bool
+    {
+        return $this === self::PENDING || $this === self::PROCESSING;
+    }
+
+    public function completed(): bool
+    {
+        return $this === self::COMPLETED;
+    }
+
+    public function failed(): bool
+    {
+        return $this === self::FAILED;
     }
 }

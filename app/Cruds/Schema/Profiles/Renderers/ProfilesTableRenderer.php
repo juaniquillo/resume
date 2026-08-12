@@ -2,44 +2,55 @@
 
 namespace App\Cruds\Schema\Profiles\Renderers;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
-final class ProfilesTableRenderer
+final class ProfilesTableRenderer implements TableRenderer
 {
     public static function make(): static
     {
         return new self;
     }
 
-    public function tableOptions(TableRowsAction $action): void
+    public function renderSettings(Model $model): BackendComponent|CompoundComponent
     {
-        $recipe = new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var Profile $profile */
-                $profile = $model;
+        /** @var Profile $profile */
+        $profile = $model;
 
-                $helper = TableHelpers::make();
+        $helper = TableHelpers::make();
 
-                $contents = [
-                    $helper->editButton(route('dashboard.basics.profiles.edit', [$profile->id])),
-                    $helper->deleteButton(route('dashboard.basics.profiles.destroy', [$profile->id])),
-                ];
+        $contents = [
+            $helper->editButton(route('dashboard.basics.profiles.edit', [$profile->id])),
+            $helper->deleteButton(route('dashboard.basics.profiles.destroy', [$profile->id])),
+        ];
 
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setTheme('display', 'flex')
-                    ->setTheme('flex', [
-                        'gap-sm',
-                    ]);
-            }
-        );
+        return ComponentBuilder::make(ComponentEnum::DIV)
+            ->setContents($contents)
+            ->setTheme('display', 'flex')
+            ->setTheme('flex', [
+                'gap-sm',
+            ]);
+    }
 
-        $action->setExtraCell('Settings', $recipe);
+    public function renderExtraCells(): array
+    {
+        // Implementation for rendering extra cells
+        return [
+            'Highlights' => new TableRowsRecipe(
+                value: function ($value, Model $model) {
+                    /** @var Profile $profile */
+                    $profile = $model;
+
+                    return TableHelpers::highlightsButton(route('dashboard.profiles.highlights', [$profile->id]));
+                },
+            ),
+        ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Skills;
 
-use App\Actions\Resume\Skill\CreateSkill as CreateSkillAction;
+use App\Actions\Resume\Skill\StoreSkill;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Skills\Inputs\KeywordsFactory;
 use App\Cruds\Schema\Skills\Renderers\SkillsLivewireFormRenderer;
@@ -49,7 +49,7 @@ class CreateSkill extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $values);
 
-        (new CreateSkillAction(
+        (new StoreSkill(
             $validator->validated(),
             $user
         ))->handle();

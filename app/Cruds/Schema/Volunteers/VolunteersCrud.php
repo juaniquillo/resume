@@ -12,7 +12,6 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
-use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Volunteers\Inputs\EndsAtFactory;
 use App\Cruds\Schema\Volunteers\Inputs\OrganizationFactory;
 use App\Cruds\Schema\Volunteers\Inputs\PositionFactory;
@@ -23,7 +22,6 @@ use App\Cruds\Schema\Volunteers\Inputs\UserFactory;
 use App\Cruds\Schema\Volunteers\Inputs\UuidFactory;
 use App\Cruds\Schema\Volunteers\Renderers\VolunteersFormRenderer;
 use App\Cruds\Schema\Volunteers\Renderers\VolunteersTableRenderer;
-use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -85,21 +83,14 @@ final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable
     }
 
     #[Override]
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formRenderer->getForm($this);
     }
 
     protected function extraCells(TableRowsAction $action): void
     {
-        $action->setExtraCell('Highlights', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var Volunteer $volunteer */
-                $volunteer = $model;
-
-                return TableHelpers::highlightsButton(route('dashboard.volunteers.highlights', [$volunteer->id]));
-            },
-        ));
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     /**

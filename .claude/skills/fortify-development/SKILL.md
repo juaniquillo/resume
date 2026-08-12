@@ -149,6 +149,3 @@ Configure via `fortify.limiters.login` in config. Default configuration throttle
 | Passkey Options        | GET      | `/user/passkeys/options`                    |
 | Register Passkey       | POST     | `/user/passkeys`                            |
 | Delete Passkey         | DELETE   | `/user/passkeys/{passkey}`                  |
-
-
-

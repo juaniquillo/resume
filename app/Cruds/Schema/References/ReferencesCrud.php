@@ -70,7 +70,7 @@ final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
         ];
     }
 
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formRenderer->getForm($this);
     }

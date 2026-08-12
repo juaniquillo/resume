@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
@@ -12,18 +10,19 @@ use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
-use App\Cruds\Helpers\TableHelpers;
+use App\Cruds\Contracts\FormRenderer;
+use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Schema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportThemeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportTypeSelectFactory;
-use App\Enums\ProcessStatus;
-use App\Models\ResumeExport;
+use App\Cruds\Schema\ResumeExport\Inputs\NameFactory;
+use App\Cruds\Schema\ResumeExport\Inputs\StatusFactory;
+use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
+use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireTableRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -31,108 +30,87 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         HasHtmlTable,
         IsCrud;
 
+    public const NAME = 'resume_export';
+
     public function __construct(
         protected array $values = [],
         protected array $errors = [],
         protected ?Model $model = null,
-    ) {}
+        protected ?FormRenderer $formRenderer = null,
+        protected ?TableRenderer $tableRenderer = null,
+    ) {
+        $this->formRenderer = $formRenderer ?? ResumeExportLivewireFormRenderer::make();
+        $this->tableRenderer = $tableRenderer ?? ResumeExportLivewireTableRenderer::make();
+    }
 
-    public static function build(array $values = [], array $errors = [], ?Model $model = null): static
-    {
+    public static function build(
+        array $values = [],
+        array $errors = [],
+        ?Model $model = null,
+        ?FormRenderer $formRenderer = null,
+        ?TableRenderer $tableRenderer = null,
+    ): static {
         return new self(
             values: $values,
             errors: $errors,
             model: $model,
+            formRenderer: $formRenderer,
+            tableRenderer: $tableRenderer,
         );
+    }
+
+    public static function getLivewireGroup(): string
+    {
+        return Str::camel(self::NAME);
     }
 
     public function inputsArray(): array
     {
         return [
+            'name' => NameFactory::make(),
             'type' => ExportTypeSelectFactory::make(),
             'theme' => ExportThemeSelectFactory::make(),
+            'allow_download' => AllowDownloadSwitchFactory::make(),
+            'status' => StatusFactory::make(),
+        ];
+    }
+
+    public function inputsUpdateArray(): array
+    {
+        return [
+            'name' => NameFactory::make(),
             'allow_download' => AllowDownloadSwitchFactory::make(),
         ];
     }
 
+    public function form(): BackendComponent|CompoundComponent
+    {
+        return $this->formRenderer->getForm($this);
+    }
+
+    public function formNarrow(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
+    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
+    {
+        return $this->form();
+    }
+
     public function tableOptions(TableRowsAction $action): void
     {
-
-        $action->setExtraCell('Status', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeExport $export */
-                $export = $model;
-
-                return TableHelpers::statusBadge($export->status);
-            }
-        ));
-
-        $action->setExtraCell('Date', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeExport $model */
-                return $model->created_at->diffForHumans();
-            }
-        ));
+        /** @var ResumeExportLivewireTableRenderer $renderer */
+        $renderer = $this->tableRenderer;
 
         $action->setExtraCell('Actions', new TableRowsRecipe(
-            value: function ($value, Model $model) {
-                /** @var ResumeExport $export */
-                $export = $model;
-
-                $contents = [];
-
-                if ($export->status === ProcessStatus::COMPLETED) {
-                    $enum = $export->type;
-                    $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
-
-                    $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-                        ->setAttribute('href', route('dashboard.resume.export.download', [
-                            'uuid' => $export->uuid,
-                            'v' => md5($export->created_at),
-                        ]))
-                        ->setAttribute('download', $filename)
-                        ->setContent(__('Download'))
-                        ->setAttribute('size', 'xs')
-                        ->setAttribute('variant', 'primary')
-                        ->setAttribute('icon', 'arrow-down-on-square')
-                        ->setTheme('cursor', 'pointer');
-                }
-
-                if ($export->status === ProcessStatus::FAILED && $export->error) {
-                    $contents[] = TableHelpers::tableModal(
-                        id: "error-modal-{$export->id}",
-                        content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
-                            ->setContent($export->error)
-                            ->setTheme('spacing', 'p-top-sm')
-                            ->setTheme('text', 'nl2br'),
-                        heading: 'Export Error Details',
-                        triggerType: 'danger',
-                        buttonLabel: 'Error Info'
-                    );
-                }
-
-                if (in_array($export->status, [ProcessStatus::COMPLETED, ProcessStatus::FAILED])) {
-                    $contents[] = TableHelpers::deleteButton(route('dashboard.resume.export.destroy', $export->id));
-                }
-
-                return ComponentBuilder::make(ComponentEnum::DIV)
-                    ->setContents($contents)
-                    ->setThemes([
-                        'display' => 'flex',
-                        'flex' => ['gap-sm'],
-                    ]);
-            }
+            value: fn ($value, Model $model) => $renderer->renderSettings($model)
         ));
     }
 
-    public function saveButton(string $label = 'Save'): BackendComponent|CompoundComponent
+    public function extraCells(TableRowsAction $action): void
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
-            ->setAttribute('type', 'submit')
-            ->setAttribute('variant', 'primary')
-            ->setAttribute('color', 'blue')
-            ->setTheme('cursor', 'pointer')
-            ->setContent(__('Start New Export'));
+        $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
     public function formThemes(): array

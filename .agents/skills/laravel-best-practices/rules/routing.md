@@ -78,7 +78,7 @@ Incorrect:
 public function store(Request $request): RedirectResponse
 {
     $validated = $request->validate([
-        'title' => ['required', 'max:191'],
+        'title' => ['required', 'max:255'],
         'body' => ['required'],
     ]);
 
@@ -97,6 +97,3 @@ public function store(StorePostRequest $request): RedirectResponse
     return redirect()->route('posts.index');
 }
 ```
-
-
-

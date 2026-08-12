@@ -75,7 +75,7 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
     }
 
     #[Override]
-    public function form(?array $inputs = null): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formFullSpanInputs([IsDraftFactory::NAME]);
     }

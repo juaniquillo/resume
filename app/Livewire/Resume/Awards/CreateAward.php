@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Awards;
 
-use App\Actions\Resume\Award\CreateAward as CreateAwardAction;
+use App\Actions\Resume\Award\StoreAward;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\Awards\AwardsCrud;
 use App\Cruds\Schema\Awards\Renderers\AwardsLivewireFormRenderer;
@@ -37,7 +37,7 @@ class CreateAward extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->awards);
 
-        (new CreateAwardAction(
+        (new StoreAward(
             $validator->validated(),
             $user
         ))->handle();

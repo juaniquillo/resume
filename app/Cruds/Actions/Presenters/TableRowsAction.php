@@ -50,9 +50,21 @@ class TableRowsAction extends Action implements ActionInterface
         return $this;
     }
 
-    public function setExtraCell(string $identifier, TableRowsRecipe $recipe)
+    public function setExtraCell(string $identifier, TableRowsRecipe|RecipeInterface $recipe)
     {
         $this->extraCells[$identifier] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * @param  array<string, TableRowsRecipe|RecipeInterface>  $extraCells
+     */
+    public function setExtraCells(array $extraCells): static
+    {
+        foreach ($extraCells as $identifier => $recipe) {
+            $this->setExtraCell($identifier, $recipe);
+        }
 
         return $this;
     }

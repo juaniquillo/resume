@@ -105,6 +105,11 @@ class ExportThemeSelectFactory
     {
         $options = [];
 
+        $options[] = [
+            'name' => '',
+            'label' => 'Choose a theme...',
+        ];
+
         foreach (ResumeTheme::cases() as $value) {
             $options[] = [
                 'name' => $value->value,

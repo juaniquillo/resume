@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request): View
+    public function __invoke(Request $request): View
     {
         return view('dashboard.projects.index');
     }
