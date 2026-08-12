@@ -80,6 +80,8 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Generate App Key
         run: php artisan key:generate
       - name: Run Pest Tests
