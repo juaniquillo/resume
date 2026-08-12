@@ -6,6 +6,7 @@ use App\Actions\Resume\UpdateSectionOrder;
 use App\Enums\ResumeSection;
 use App\Models\SectionOrder;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class SectionOrdering extends Component
 
         (new UpdateSectionOrder)->handle($user, $section, $position);
 
-        session()->flash('success', __('Section order updated successfully.'));
+        Flux::toast(text: __('Section order updated successfully.'), variant: 'success');
     }
 
     #[Computed]

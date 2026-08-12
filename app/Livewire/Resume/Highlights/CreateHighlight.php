@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +59,7 @@ class CreateHighlight extends Component
             $validator->validated(),
         ))->handle();
 
-        session()->flash('success', 'Work created successfully.');
+        Flux::toast(text: 'Work created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Models\Volunteer;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class EditVolunteer extends Component
             $volunteer
         ))->handle();
 
-        session()->flash('success', 'Volunteer entry updated successfully.');
+        Flux::toast(text: 'Volunteer entry updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

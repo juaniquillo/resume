@@ -8,6 +8,7 @@ use App\Cruds\Schema\Education\Renderers\EducationLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -45,7 +46,7 @@ class CreateEducation extends Component
 
         $user->education()->create($validator->validated());
 
-        session()->flash('success', 'Education entry created successfully.');
+        Flux::toast(text: 'Education entry created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

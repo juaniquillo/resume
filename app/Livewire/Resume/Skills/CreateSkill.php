@@ -11,6 +11,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Support\RequestUtils;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -54,7 +55,7 @@ class CreateSkill extends Component
             $user
         ))->handle();
 
-        session()->flash('success', 'Skill created successfully.');
+        Flux::toast(text: 'Skill created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

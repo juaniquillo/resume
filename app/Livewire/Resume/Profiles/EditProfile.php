@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Profile;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class EditProfile extends Component
             $profile
         ))->handle();
 
-        session()->flash('success', 'Profile updated successfully.');
+        Flux::toast(text: 'Profile updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

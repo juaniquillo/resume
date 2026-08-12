@@ -11,6 +11,7 @@ use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Interest;
 use App\Models\User;
 use App\Support\RequestUtils;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,7 @@ class EditInterest extends Component
             $interest
         ))->handle();
 
-        session()->flash('success', 'Interest updated successfully.');
+        Flux::toast(text: 'Interest updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

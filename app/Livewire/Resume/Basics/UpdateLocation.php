@@ -7,6 +7,7 @@ use App\Cruds\Schema\Locations\LocationsCrud;
 use App\Cruds\Schema\Locations\Renderers\LocationsLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -31,7 +32,7 @@ class UpdateLocation extends Component
         $basics = $user->resumeBasics();
 
         if (! $basics) {
-            session()->flash('custom_error', __('basics.errors.basics_not_found'));
+            Flux::toast(heading: __('Error'), text: __('basics.errors.basics_not_found'), variant: 'danger');
 
             return;
         }
@@ -43,7 +44,7 @@ class UpdateLocation extends Component
             $basics
         ))->handle();
 
-        session()->flash('success', 'Location updated successfully.');
+        Flux::toast(text: 'Location updated successfully.', variant: 'success');
 
         $this->redirect(route('dashboard.basics.location'));
     }

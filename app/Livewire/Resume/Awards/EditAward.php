@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Award;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class EditAward extends Component
             $award
         ))->handle();
 
-        session()->flash('success', 'Award updated successfully.');
+        Flux::toast(text: 'Award updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

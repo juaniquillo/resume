@@ -111,6 +111,10 @@
 
         {{ $slot }}
 
+        @persist('toast')
+            <flux:toast />
+        @endpersist
+
         @fluxScripts
 
         @stack('down')

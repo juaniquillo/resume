@@ -6,6 +6,7 @@ use App\Actions\Options\UpdateSectionVisibility;
 use App\Cruds\Schema\Options\SectionVisibilityCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -48,7 +49,7 @@ class SectionVisibility extends Component
 
         $this->dispatch('resume-updated');
 
-        session()->flash('success', 'Section visibility updated successfully.');
+        Flux::toast(text: 'Section visibility updated successfully.', variant: 'success');
 
         $this->redirect(route('dashboard.resume.visibility'), true);
     }

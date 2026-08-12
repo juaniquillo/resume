@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\ResumeImport;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class EditResumeImport extends Component
             $import
         ))->handle();
 
-        session()->flash('success', __('Resume import updated successfully.'));
+        Flux::toast(text: __('Resume import updated successfully.'), variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\ResumeExport;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class EditResumeExport extends Component
             $export
         ))->handle();
 
-        session()->flash('success', __('Resume export updated successfully.'));
+        Flux::toast(text: __('Resume export updated successfully.'), variant: 'success');
 
         $this->dispatch('resume-updated');
 

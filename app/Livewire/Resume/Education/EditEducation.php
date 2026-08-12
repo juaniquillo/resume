@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Education;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class EditEducation extends Component
             $education
         ))->handle();
 
-        session()->flash('success', 'Education entry updated successfully.');
+        Flux::toast(text: 'Education entry updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

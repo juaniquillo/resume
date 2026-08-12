@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Project;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class EditProject extends Component
             $project
         ))->handle();
 
-        session()->flash('success', 'Project updated successfully.');
+        Flux::toast(text: 'Project updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -8,6 +8,7 @@ use App\Cruds\Schema\CoverLetters\CoverLettersCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\CoverLetter;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -31,13 +32,13 @@ class CoverLetterForm extends Component
 
         (new SaveCoverLetter)->handle($validator->validated());
 
-        session()->flash('success', 'Cover letter saved successfully.');
+        Flux::toast(text: 'Cover letter saved successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
         $this->dispatch('cover-letter-updated');
         // $this->refreshVariables();
 
-        session()->flash('success', 'The Cover Letter updated successfully.');
+        Flux::toast(text: 'The Cover Letter updated successfully.', variant: 'success');
 
         // $this->redirect(route('dashboard.cover-letters'));
     }

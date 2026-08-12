@@ -9,6 +9,7 @@ use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -42,7 +43,7 @@ class CreateWork extends Component
             $user
         ))->handle();
 
-        session()->flash('success', 'Work created successfully.');
+        Flux::toast(text: 'Work created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

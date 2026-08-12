@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Course;
 use App\Models\Education;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class EditCourse extends Component
             $course
         ))->handle();
 
-        session()->flash('success', 'Course updated successfully.');
+        Flux::toast(text: 'Course updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 
