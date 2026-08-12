@@ -65,7 +65,7 @@ class PositionFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->jobTitle;
+                    $output->{ $input->getName() } = $faker->jobTitle();
                 }
             )
         );

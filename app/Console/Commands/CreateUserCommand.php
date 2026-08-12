@@ -7,27 +7,18 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Cruds\Schema\Options\Inputs\SlugFactory;
 use App\Models\User;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+#[Description('Create a new user. Pass email as argument, --name, --password, and --slug as options.')]
+#[Signature('user:make-user {email : User email} {--name= : User name} {--password= : User password} {--slug= : User slug}')]
 class CreateUserCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'user:make-user {email : User email} {--name= : User name} {--password= : User password} {--slug= : User slug}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Create a new user. Pass email as argument, --name, --password, and --slug as options.';
-
     /**
      * Execute the console command.
      */
@@ -66,7 +57,7 @@ class CreateUserCommand extends Command
 
         if ($validator->fails()) {
             $this->error(
-                array_first($validator->errors()->all())
+                Arr::first($validator->errors()->all())
             );
 
             return self::FAILURE;

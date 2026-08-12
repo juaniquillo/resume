@@ -25,7 +25,7 @@ class OgImageReset extends Component
     {
         $this->test = $test;
 
-        $this->slug = $this->getUser()->getSlugAttribute();
+        $this->slug = $this->getUser()->slug ?? '';
 
         $this->width = (string) OgManager::WIDTH;
         $this->height = (string) OgManager::HEIGHT;

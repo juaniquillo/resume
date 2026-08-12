@@ -46,9 +46,9 @@ class CreateResumeExport extends Component
         $export = (new StoreResumeExport)->handle($user, $validator->validated());
 
         match ($export->type) {
-            ResumeExportType::JSON => ProcessJsonExport::dispatch($export),
-            ResumeExportType::PDF => ProcessPdfExport::dispatch($export),
-            ResumeExportType::COVER_LETTER_PDF => ProcessCoverLetterPdfExport::dispatch($export),
+            ResumeExportType::JSON => dispatch(new ProcessJsonExport($export)),
+            ResumeExportType::PDF => dispatch(new ProcessPdfExport($export)),
+            ResumeExportType::COVER_LETTER_PDF => dispatch(new ProcessCoverLetterPdfExport($export)),
         };
 
         session()->flash('success', __('Resume export started successfully. It will be processed in the background.'));

@@ -48,7 +48,7 @@ class CreateResumeImport extends Component
             JsonFileFactory::NAME => $validatedData[JsonFileFactory::NAME] ?? null,
         ]);
 
-        ProcessResumeImport::dispatch($import);
+        dispatch(new ProcessResumeImport($import));
 
         session()->flash('success', __('Resume import started successfully. It will be processed in the background.'));
 

@@ -31,6 +31,7 @@
         "spatie/laravel-screenshot": "^1.2"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.5",
         "fakerphp/faker": "^1.24.1",
         "fruitcake/laravel-debugbar": "^4.4",
         "larastan/larastan": "^3.10.0",
@@ -72,6 +73,12 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
         ],
+        "rector": [
+            "vendor/bin/rector process"
+        ],
+        "rector:dry-run": [
+            "vendor/bin/rector process --dry-run"
+        ],
         "lint": [
             "pint --parallel"
         ],
@@ -90,6 +97,7 @@
         ],
         "qa": [
             "@php artisan config:clear --ansi",
+            "@composer rector",
             "@composer lint",
             "@composer phpstan",
             "@php artisan test --parallel"

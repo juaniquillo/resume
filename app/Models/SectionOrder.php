@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\InvalidatesResumeCache;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,15 +14,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read int $sort_order
  * @property-read User $user
  */
+#[Fillable([
+    'user_id',
+    'section',
+    'sort_order',
+])]
 class SectionOrder extends Model
 {
     use InvalidatesResumeCache;
-
-    protected $fillable = [
-        'user_id',
-        'section',
-        'sort_order',
-    ];
 
     /**
      * @return BelongsTo<User, $this>

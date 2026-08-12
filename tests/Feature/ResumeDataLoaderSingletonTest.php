@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 pest()->group('fast');
 
 test('resume data loader is a singleton in the container', function () {
-    $instance1 = app(ResumeDataLoader::class);
-    $instance2 = app(ResumeDataLoader::class);
+    $instance1 = resolve(ResumeDataLoader::class);
+    $instance2 = resolve(ResumeDataLoader::class);
 
     expect($instance1)->toBe($instance2);
 });
@@ -19,7 +19,7 @@ test('resume data loader caches data per request', function () {
     $user = User::factory()->create();
     Basic::factory()->for($user)->create();
 
-    $loader = app(ResumeDataLoader::class);
+    $loader = resolve(ResumeDataLoader::class);
 
     DB::enableQueryLog();
 
@@ -42,7 +42,7 @@ test('resume data loader caches separately for different users', function () {
     $user2 = User::factory()->create();
     Basic::factory()->for($user2)->create();
 
-    $loader = app(ResumeDataLoader::class);
+    $loader = resolve(ResumeDataLoader::class);
 
     DB::enableQueryLog();
 
@@ -62,7 +62,7 @@ test('resume data loader supports granular lazy loading', function () {
     Basic::factory()->for($user)->create();
     Work::factory()->count(2)->for($user)->create();
 
-    $loader = app(ResumeDataLoader::class);
+    $loader = resolve(ResumeDataLoader::class);
 
     DB::enableQueryLog();
 

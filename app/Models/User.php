@@ -7,6 +7,7 @@ use App\Models\Concerns\HasResumeData;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -80,12 +81,14 @@ class User extends Authenticatable
         return $options?->slug;
     }
 
-    public function getSlugAttribute(): ?string
+    protected function slug(): Attribute
     {
-        /** @var GeneralOption|null $options */
-        $options = $this->generalOptions;
+        return Attribute::make(get: function () {
+            /** @var GeneralOption|null $options */
+            $options = $this->generalOptions;
 
-        return $options?->slug;
+            return $options?->slug;
+        });
     }
 
     public function resolveRouteBinding($value, $field = null)

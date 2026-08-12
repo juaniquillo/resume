@@ -23,6 +23,6 @@ class ResumeCacheController extends Controller
         $crud = EmptyResumeCacheCrud::build();
         $crud->handleCacheClear();
 
-        return redirect()->back()->with('success', 'Cache cleared successfully.');
+        return back()->with('success', 'Cache cleared successfully.');
     }
 }

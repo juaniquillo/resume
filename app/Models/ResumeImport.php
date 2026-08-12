@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProcessStatus;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,22 +22,17 @@ use Illuminate\Support\Facades\Storage;
  * @property-read Carbon|null $updated_at
  * @property-read User $user
  */
+#[Fillable([
+    'user_id',
+    'name',
+    'file_path',
+    'file_name',
+    'status',
+    'error',
+])]
 class ResumeImport extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'user_id',
-        'name',
-        'file_path',
-        'file_name',
-        'status',
-        'error',
-    ];
-
-    protected $casts = [
-        'status' => ProcessStatus::class,
-    ];
 
     public function user(): BelongsTo
     {
@@ -50,5 +46,12 @@ class ResumeImport extends Model
                 Storage::delete($import->file_path);
             }
         });
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => ProcessStatus::class,
+        ];
     }
 }

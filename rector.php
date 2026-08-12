@@ -3,10 +3,26 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use RectorLaravel\Set\LaravelLevelSetList;
+use RectorLaravel\Set\LaravelSetList;
 use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
-    ->withPaths([__DIR__ . '/app'])
-    // Automatically detects your installed Laravel package versions
-    ->withSetProviders([LaravelSetProvider::class])
-    ->withComposerBased(laravel: true);
+    ->withPaths([
+        __DIR__.'/app',
+        __DIR__.'/config',
+        __DIR__.'/database',
+        __DIR__.'/routes',
+        __DIR__.'/tests',
+    ])
+    ->withSkip([
+        __DIR__.'/bootstrap/cache',
+        __DIR__.'/storage',
+    ])
+    // These still resolve perfectly using driftingly/rector-laravel
+    ->withSetProviders(LaravelSetProvider::class)
+    ->withComposerBased(laravel: true)
+    ->withSets([
+        LaravelLevelSetList::UP_TO_LARAVEL_110, // Set your target version
+        LaravelSetList::LARAVEL_CODE_QUALITY,
+    ]);

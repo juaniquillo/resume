@@ -37,7 +37,7 @@ class BuildResumeArray
 
     public function handle(): array
     {
-        app(ResumeDataLoader::class)->clearCache($this->user->id);
+        resolve(ResumeDataLoader::class)->clearCache($this->user->id);
 
         /** @var Basic|null $basics */
         $basics = $this->user->resumeBasics();

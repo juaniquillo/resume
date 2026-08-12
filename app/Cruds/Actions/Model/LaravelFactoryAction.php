@@ -48,7 +48,7 @@ class LaravelFactoryAction extends Action implements ActionInterface
             $type = $recipe->type;
 
             if ($type) {
-                $output->$name = $faker->{ $type };
+                $output->$name = $faker->{$type}();
 
                 return $output;
             }

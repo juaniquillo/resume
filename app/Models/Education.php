@@ -7,6 +7,7 @@ use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
 use Database\Factories\EducationFactory;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,12 +31,11 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Course> $courses
  */
 #[Guarded([])]
+#[Table(name: 'education')]
 class Education extends Model
 {
     /** @use HasFactory<EducationFactory> */
     use HasCourses, HasFactory, InvalidatesResumeCache, Uuidable;
-
-    protected $table = 'education';
 
     protected function casts(): array
     {

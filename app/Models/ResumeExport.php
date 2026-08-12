@@ -7,6 +7,7 @@ use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;
 use App\Models\Concerns\InvalidatesResumeCache;
 use App\Models\Concerns\Uuidable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,27 +29,19 @@ use Illuminate\Support\Facades\Storage;
  * @property-read Carbon|null $updated_at
  * @property-read User $user
  */
+#[Fillable([
+    'user_id',
+    'file_path',
+    'status',
+    'error',
+    'type',
+    'theme',
+    'allow_download',
+    'name',
+])]
 class ResumeExport extends Model
 {
     use HasFactory, InvalidatesResumeCache, Uuidable;
-
-    protected $fillable = [
-        'user_id',
-        'file_path',
-        'status',
-        'error',
-        'type',
-        'theme',
-        'allow_download',
-        'name',
-    ];
-
-    protected $casts = [
-        'type' => ResumeExportType::class,
-        'theme' => ResumeTheme::class,
-        'status' => ProcessStatus::class,
-        'allow_download' => 'boolean',
-    ];
 
     /**
      * @return BelongsTo<User, $this>
@@ -65,5 +58,15 @@ class ResumeExport extends Model
                 Storage::delete($export->file_path);
             }
         });
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'type' => ResumeExportType::class,
+            'theme' => ResumeTheme::class,
+            'status' => ProcessStatus::class,
+            'allow_download' => 'boolean',
+        ];
     }
 }

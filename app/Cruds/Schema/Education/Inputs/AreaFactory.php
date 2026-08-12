@@ -71,7 +71,7 @@ class AreaFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->word;
+                    $output->{ $input->getName() } = $faker->word();
                 }
             )
         );
