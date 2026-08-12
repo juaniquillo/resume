@@ -1,8 +1,6 @@
 # Resume Manager
 
-[![Lint](https://github.com/juaniquillo/resume/actions/workflows/lint.yml/badge.svg)](https://github.com/juaniquillo/resume/actions/workflows/lint.yml) 
-[![PHPStan](https://github.com/juaniquillo/resume/actions/workflows/phpstan.yml/badge.svg)](https://github.com/juaniquillo/resume/actions/workflows/phpstan.yml) 
-[![Tests](https://github.com/juaniquillo/resume/actions/workflows/tests.yml/badge.svg?event=pull_request)](https://github.com/juaniquillo/resume/actions/workflows/tests.yml)
+[![Code Quality](https://github.com/juaniquillo/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/juaniquillo/resume/actions/workflows/ci.yml)
 
 A professional resume management system designed to help you take full control of your career narrative. Built with care for those who want to showcase their professional journey on their own terms.
 
