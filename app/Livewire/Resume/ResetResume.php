@@ -5,6 +5,7 @@ namespace App\Livewire\Resume;
 use App\Actions\Resume\ResetResumeAction;
 use App\Cruds\Schema\ResumeReset\ResumeResetCrud;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -19,7 +20,7 @@ class ResetResume extends Component
 
         (new ResetResumeAction($user))->handle();
 
-        session()->flash('success', __('Your resume has been completely reset.'));
+        Flux::toast(text: __('Your resume has been completely reset.'), variant: 'success');
 
         $this->confirming = false;
 

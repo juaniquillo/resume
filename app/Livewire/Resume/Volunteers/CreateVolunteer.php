@@ -7,6 +7,7 @@ use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -43,7 +44,7 @@ class CreateVolunteer extends Component
 
         $user->volunteers()->create($validator->validated());
 
-        session()->flash('success', 'Volunteer entry created successfully.');
+        Flux::toast(text: 'Volunteer entry created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -7,6 +7,7 @@ use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\ResumeImport;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -33,7 +34,7 @@ class DeleteResumeImport extends Component
         $import = $user->resumeImports()->findOrFail($this->resumeImportId);
 
         if (! ResumeImportCrud::canShowDeleteButton($import->status)) {
-            session()->flash('custom_error', 'You cannot delete a resume import that is pending or processing.');
+            Flux::toast(heading: __('Error'), text: 'You cannot delete a resume import that is pending or processing.', variant: 'danger');
 
             return;
         }

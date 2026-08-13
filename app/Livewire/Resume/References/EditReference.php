@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Reference;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class EditReference extends Component
             $reference
         ))->handle();
 
-        session()->flash('success', 'Reference updated successfully.');
+        Flux::toast(text: 'Reference updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

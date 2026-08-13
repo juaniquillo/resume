@@ -12,6 +12,7 @@ use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -36,7 +37,7 @@ class CreateResumeExport extends Component
         $user = Auth::user();
 
         if ($user->resumeExports()->count() >= 5) {
-            session()->flash('custom_error', __('You can only have up to 5 resume exports. Please delete an old one first.'));
+            Flux::toast(heading: __('Error'), text: __('You can only have up to 5 resume exports. Please delete an old one first.'), variant: 'danger');
 
             return;
         }
@@ -51,7 +52,7 @@ class CreateResumeExport extends Component
             ResumeExportType::COVER_LETTER_PDF => dispatch(new ProcessCoverLetterPdfExport($export)),
         };
 
-        session()->flash('success', __('Resume export started successfully. It will be processed in the background.'));
+        Flux::toast(text: __('Resume export started successfully. It will be processed in the background.'), variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Publication;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class EditPublication extends Component
             $publication
         ))->handle();
 
-        session()->flash('success', 'Publication updated successfully.');
+        Flux::toast(text: 'Publication updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

@@ -9,6 +9,7 @@ use App\Cruds\Schema\Profiles\Renderers\ProfilesLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -37,7 +38,7 @@ class CreateProfile extends Component
         $basics = $user->resumeBasics();
 
         if (! $basics) {
-            session()->flash('custom_error', __('basics.errors.basics_not_found'));
+            Flux::toast(heading: __('Error'), text: __('basics.errors.basics_not_found'), variant: 'danger');
 
             return;
         }
@@ -49,7 +50,7 @@ class CreateProfile extends Component
             $basics
         ))->handle();
 
-        session()->flash('success', 'Profile created successfully.');
+        Flux::toast(text: 'Profile created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

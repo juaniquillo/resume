@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
 use App\Models\Highlight;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +53,7 @@ class EditHighlight extends Component
             $validator->validate(),
         ))->handle();
 
-        session()->flash('success', 'Work updated successfully.');
+        Flux::toast(text: 'Work updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

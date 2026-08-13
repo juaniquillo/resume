@@ -7,6 +7,7 @@ use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\GeneralOption;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -37,7 +38,7 @@ class UpdateGeneralOptions extends Component
         $this->dispatch('resume-updated');
         $this->dispatch('resume-visibility-updated');
 
-        session()->flash('success', 'Section visibility updated successfully.');
+        Flux::toast(text: 'Section visibility updated successfully.', variant: 'success');
 
         $this->redirect(route('dashboard.resume.general'), true);
     }

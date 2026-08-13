@@ -6,6 +6,7 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\ResumeExport;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
@@ -32,7 +33,7 @@ class DeleteResumeExport extends Component
         $export = $user->resumeExports()->findOrFail($this->resumeExportId);
 
         if ($export->status->processing()) {
-            session()->flash('custom_error', __('Only completed or failed exports can be deleted.'));
+            Flux::toast(heading: __('Error'), text: __('Only completed or failed exports can be deleted.'), variant: 'danger');
 
             return;
         }

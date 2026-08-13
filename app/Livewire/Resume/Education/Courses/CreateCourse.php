@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Education;
 use App\Models\User;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
@@ -49,7 +50,7 @@ class CreateCourse extends Component
             $education
         ))->handle();
 
-        session()->flash('success', 'Course created successfully.');
+        Flux::toast(text: 'Course created successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 

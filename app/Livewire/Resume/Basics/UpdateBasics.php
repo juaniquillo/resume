@@ -7,6 +7,7 @@ use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -42,7 +43,7 @@ class UpdateBasics extends Component
             $this->basics[ImageFactory::NAME] ?? null
         ))->handle();
 
-        session()->flash('success', 'Basics information updated successfully.');
+        Flux::toast(text: 'Basics information updated successfully.', variant: 'success');
 
         $this->redirect(route('dashboard.basics'));
     }

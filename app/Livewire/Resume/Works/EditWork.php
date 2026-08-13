@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Models\Work;
+use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class EditWork extends Component
             $work
         ))->handle();
 
-        session()->flash('success', 'Work updated successfully.');
+        Flux::toast(text: 'Work updated successfully.', variant: 'success');
 
         $this->dispatch('resume-updated');
 
