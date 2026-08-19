@@ -11,7 +11,8 @@ use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\AwardsPresenter;
 use App\Presenters\Resume\BasicsPresenter;
 use App\Presenters\Resume\CertificatesPresenter;
-use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
+use App\Presenters\Resume\Concerns\HasThemeManager;
+use App\Presenters\Resume\ContainerPresenter;
 use App\Presenters\Resume\DownloadsPresenter;
 use App\Presenters\Resume\EducationPresenter;
 use App\Presenters\Resume\InterestsPresenter;
@@ -28,12 +29,11 @@ use App\Presenters\Themes\DefaultPresenterTheme;
 use Illuminate\Contracts\Support\Htmlable;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
 final class ResumePresenter
 {
-    use CanComposeResumeComponents;
-
+    use HasThemeManager;
+    
     public function __construct(
         private User $user,
         private ?PresenterTheme $theme = new DefaultPresenterTheme,
@@ -131,9 +131,10 @@ final class ResumePresenter
             }
         }
 
-        return $this->compose(ComponentEnum::DIV)
-            ->setThemes($this->theme->containerThemes())
-            ->setContents(array_filter($sections));
+        return (new ContainerPresenter($this->theme))
+            ->setThemeManager($this->getThemeManager())
+            ->present(array_filter($sections));
+
     }
 
     public function getTheme(): PresenterTheme

@@ -2,32 +2,14 @@
 
 namespace App\Presenters\Resume\Concerns;
 
-use App\Presenters\Resume\ResumeThemeManager;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 
 trait CanComposeResumeComponents
 {
-    private ?ThemeManager $themeManager = null;
-
-    public function getThemeManager(): ThemeManager
-    {
-        if ($this->themeManager) {
-            return $this->themeManager;
-        }
-
-        return new ResumeThemeManager;
-    }
-
-    public function setThemeManager(?ThemeManager $themeManager = null): static
-    {
-        $this->themeManager = $themeManager;
-
-        return $this;
-    }
+    use HasThemeManager;
 
     private function section(string $title, BackendComponent|CompoundComponent $content): BackendComponent|CompoundComponent
     {
