@@ -33,7 +33,7 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 final class ResumePresenter
 {
     use HasThemeManager;
-    
+
     public function __construct(
         private User $user,
         private ?PresenterTheme $theme = new DefaultPresenterTheme,

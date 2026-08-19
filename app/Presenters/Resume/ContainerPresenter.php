@@ -23,7 +23,6 @@ class ContainerPresenter
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->containerThemes())
             ->setContents($contents);
-    
-    }
 
+    }
 }

@@ -8,7 +8,7 @@ use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 trait HasThemeManager
 {
     private ?ThemeManager $themeManager = null;
-    
+
     public function getThemeManager(): ThemeManager
     {
         if ($this->themeManager) {
