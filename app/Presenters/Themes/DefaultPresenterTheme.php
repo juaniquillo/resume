@@ -190,7 +190,9 @@ final class DefaultPresenterTheme implements PresenterTheme
 
     public function contactInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'contact-container',
+        ];
     }
 
     public function contactItemThemes(): array

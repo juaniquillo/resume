@@ -132,7 +132,7 @@ final class PdfPresenterTheme implements PresenterTheme
 
     public function contactInnerContainerThemes(): array
     {
-        return [];
+        return ['pdf' => 'contact-container'];
     }
 
     public function contactItemThemes(): array

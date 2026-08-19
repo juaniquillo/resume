@@ -132,7 +132,7 @@ final class ElegantPresenterTheme implements PresenterTheme
 
     public function contactInnerContainerThemes(): array
     {
-        return [];
+        return ['elegant' => 'contact-container'];
     }
 
     public function contactItemThemes(): array

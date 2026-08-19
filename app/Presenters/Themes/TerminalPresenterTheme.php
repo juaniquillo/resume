@@ -128,7 +128,7 @@ final class TerminalPresenterTheme implements PresenterTheme
 
     public function contactInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'contact-container'];
     }
 
     public function contactItemThemes(): array

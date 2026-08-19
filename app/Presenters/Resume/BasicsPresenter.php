@@ -172,10 +172,10 @@ final class BasicsPresenter
 
         return [
             'info' => $this->compose(ComponentEnum::SPAN)
-                ->setThemes($this->theme->contactContainerThemes())
+                ->setThemes($this->theme->contactInnerContainerThemes())
                 ->setContents($info),
             'profiles' => $this->compose(ComponentEnum::SPAN)
-                ->setThemes($this->theme->contactContainerThemes())
+                ->setThemes($this->theme->contactInnerContainerThemes())
                 ->setContents($profiles),
         ];
     }

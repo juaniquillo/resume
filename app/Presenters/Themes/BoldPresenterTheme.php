@@ -132,7 +132,7 @@ final class BoldPresenterTheme implements PresenterTheme
 
     public function contactInnerContainerThemes(): array
     {
-        return [];
+        return ['bold' => 'contact-container'];
     }
 
     public function contactItemThemes(): array
