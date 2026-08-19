@@ -21,6 +21,7 @@ return [
     'label' => 'text-sm font-sans tracking-[0.25em] uppercase text-gray-400 mb-10 font-medium dark:text-gray-500',
     
     'contact-container' => 'flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm font-sans text-gray-500 dark:text-gray-400 border-t border-b border-gray-50 py-6 w-full dark:border-gray-800/50',
+    'contact-inner-container' => '',
     'links' => 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 border-b border-gray-200 hover:border-gray-900 dark:border-gray-700 dark:hover:border-white',
     'contact-item' => 'flex items-center gap-2 font-medium',
     'icon' => 'size-3.5 text-gray-300 dark:text-gray-600',

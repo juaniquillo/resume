@@ -21,6 +21,7 @@ return [
     'label' => 'text-lg md:text-2xl font-bold bg-yellow-400 text-black px-4 py-1 inline-block uppercase italic tracking-widest mt-2 mb-6',
     
     'contact-container' => 'flex flex-wrap gap-x-4 md:gap-x-6 gap-y-4 text-base md:text-lg font-bold mt-2',
+    'contact-inner-container' => '',
     'links' => 'text-white hover:text-yellow-400 transition-colors decoration-2 md:decoration-4 underline underline-offset-8 decoration-yellow-400',
     'contact-item' => 'flex items-center gap-2 font-bold',
     'icon' => 'size-4 text-yellow-400',

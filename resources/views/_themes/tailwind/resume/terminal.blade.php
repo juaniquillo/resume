@@ -21,6 +21,7 @@ return [
     'label' => 'text-lg md:text-2xl font-bold text-cyan-400 px-2 py-0.5 inline-block uppercase tracking-wider mt-2 mb-6 border border-cyan-500 bg-cyan-950/20 print:text-black print:border-black print:bg-white',
     
     'contact-container' => 'flex flex-wrap gap-x-4 md:gap-x-6 gap-y-4 text-base md:text-lg font-bold mt-2 print:text-black',
+    'contact-inner-container' => '',
     'links' => 'text-cyan-400 hover:text-green-400 transition-colors underline decoration-1 underline-offset-4 decoration-cyan-500 hover:decoration-green-500 print:text-black print:no-underline',
     'contact-item' => 'flex items-center gap-2 font-bold text-green-400 print:text-black',
     

@@ -19,6 +19,7 @@ return array_merge(require __DIR__.'/shared.blade.php', [
     'label' => 'text-2xl 3xl:text-3xl font-medium text-sky-600 mb-6 3xl:mb-10 dark:text-sky-400',
     
     'contact-container' => 'flex flex-wrap gap-4 text-md 3xl:text-lg font-medium',
+    'contact-inner-container' => '',
     'links' => 'flex items-center text-gray-600 underline font-bold transition-colors dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400',
     'contact-item' => 'flex items-center text-gray-600 font-bold dark:text-gray-400',
     'icon' => 'size-4 3xl:size-5 inline-block shrink-0 object-contain aspect-square group-hover:bg-white!',

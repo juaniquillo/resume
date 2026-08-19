@@ -21,6 +21,7 @@ return [
     'label' => 'text-xl font-medium text-gray-600 mb-4',
     
     'contact-container' => 'flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600',
+    'contact-inner-container' => '',
     'links' => 'text-gray-900 hover:text-black transition-colors underline decoration-gray-200',
     'contact-item' => 'flex items-center gap-1.5',
     'icon' => 'size-3 text-gray-400',
