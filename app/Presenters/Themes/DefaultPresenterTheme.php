@@ -188,6 +188,11 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function contactInnerContainerThemes(): array
+    {
+        return [];
+    }
+
     public function contactItemThemes(): array
     {
         return [

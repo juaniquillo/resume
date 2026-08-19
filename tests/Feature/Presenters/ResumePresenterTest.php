@@ -312,6 +312,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function contactInnerContainerThemes(): array
+        {
+            return [];
+        }
+
         public function contactItemThemes(): array
         {
             return [];

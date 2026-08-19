@@ -126,6 +126,11 @@ final class BlankThemePresenter implements PresenterTheme
         return [];
     }
 
+    public function contactInnerContainerThemes(): array
+    {
+        return [];
+    }
+
     public function contactItemThemes(): array
     {
         return [];

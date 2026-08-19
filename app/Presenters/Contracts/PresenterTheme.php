@@ -132,6 +132,11 @@ interface PresenterTheme
     /**
      * @return array<string, string|string[]>
      */
+    public function contactInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
     public function contactItemThemes(): array;
 
     /**
