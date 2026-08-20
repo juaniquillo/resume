@@ -33,7 +33,8 @@ return [
     
     'section' => 'mb-14 md:mb-24 last:mb-0 print:mb-12',
     'section-title' => 'text-2xl md:text-4xl font-bold uppercase tracking-wide mb-8 md:mb-12 text-green-400 border-b border-green-500/30 pb-2 before:content-["guest@resume:~$_cat_"] before:text-green-500 before:font-normal after:content-["_.txt"] after:text-green-500 after:font-normal print:text-black print:border-black',
-    
+    'section-inner' => '',
+
     'summary-container' => 'border-l-2 border-green-500 pl-6 md:pl-8 print:border-black',
     'summary' => 'text-lg md:text-xl leading-relaxed text-green-300 max-w-4xl whitespace-pre-wrap print:text-black',
     
@@ -49,6 +50,21 @@ return [
     'references-container' => '',
     'projects-container' => '',
     'downloads-container' => 'flex flex-wrap gap-4',
+    
+    'basics-inner-container' => '',
+    'summary-inner-container' => '',
+    'work-inner-container' => '',
+    'volunteers-inner-container' => '',
+    'education-inner-container' => '',
+    'awards-inner-container' => '',
+    'certificates-inner-container' => '',
+    'publications-inner-container' => '',
+    'skills-inner-container' => '',
+    'languages-inner-container' => '',
+    'interests-inner-container' => '',
+    'references-inner-container' => '',
+    'projects-inner-container' => '',
+    'downloads-inner-container' => '',
 
     'item-container' => 'mb-10 md:mb-12 last:mb-0 relative group',
     'item-title' => 'text-xl md:text-2xl font-bold uppercase tracking-tight text-green-400 mb-2 group-hover:text-cyan-400 transition-colors break-words print:text-black',

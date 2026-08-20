@@ -28,7 +28,8 @@ return [
     
     'section' => 'mb-16 last:mb-0',
     'section-title' => 'text-xs font-sans font-bold text-gray-400 mb-8 uppercase tracking-[0.3em] flex items-center gap-4 after:content-[""] after:h-px after:flex-1 after:bg-gray-100 dark:after:bg-gray-800',
-    
+    'section-inner' => '',
+
     'summary-container' => '',
     'summary' => 'text-xl leading-relaxed text-gray-700 dark:text-gray-300 font-serif italic mb-12 whitespace-pre-wrap',
     
@@ -43,6 +44,22 @@ return [
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
+    'downloads-container' => '',
+    
+    'basics-inner-container' => '',
+    'summary-inner-container' => '',
+    'work-inner-container' => '',
+    'volunteers-inner-container' => '',
+    'education-inner-container' => '',
+    'awards-inner-container' => '',
+    'certificates-inner-container' => '',
+    'publications-inner-container' => '',
+    'skills-inner-container' => '',
+    'languages-inner-container' => '',
+    'interests-inner-container' => '',
+    'references-inner-container' => '',
+    'projects-inner-container' => '',
+    'downloads-inner-container' => '',
 
     'item-container' => 'mb-12 last:mb-0 group',
     'item-title' => 'text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2 group-hover:text-sky-900 dark:group-hover:text-sky-400 transition-colors',

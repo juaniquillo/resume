@@ -28,7 +28,8 @@ return [
     
     'section' => 'mb-16 md:mb-24 last:mb-0',
     'section-title' => 'text-2xl md:text-5xl font-black uppercase tracking-tighter mb-8 md:mb-12 bg-white text-black px-4 md:px-6 py-2 inline-block transform -rotate-2',
-    
+    'section-inner' => '',
+
     'summary-container' => 'border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
     'summary' => 'text-xl md:text-2xl leading-tight font-medium text-zinc-300 max-w-4xl whitespace-pre-wrap',
     
@@ -43,6 +44,22 @@ return [
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
+    'downloads-container' => '',
+    
+    'basics-inner-container' => '',
+    'summary-inner-container' => '',
+    'work-inner-container' => '',
+    'volunteers-inner-container' => '',
+    'education-inner-container' => '',
+    'awards-inner-container' => '',
+    'certificates-inner-container' => '',
+    'publications-inner-container' => '',
+    'skills-inner-container' => '',
+    'languages-inner-container' => '',
+    'interests-inner-container' => '',
+    'references-inner-container' => '',
+    'projects-inner-container' => '',
+    'downloads-inner-container' => '',
 
     'item-container' => 'mb-12 md:mb-16 last:mb-0 relative group',
     'item-title' => 'text-2xl md:text-4xl font-extrabold uppercase tracking-tight text-white mb-2 group-hover:text-yellow-400 transition-colors break-words',

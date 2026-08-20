@@ -35,7 +35,7 @@ final class BasicsPresenter
         $imageUrl = ($image && ! $hideImage) ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
-            ->setThemes($this->theme->basicsContainerThemes())
+            ->setThemes($this->theme->basicsInnerContainerThemes())
             ->setContents(array_filter([
                 'image' => ($image && ! $hideImage) ? $this->compose(ComponentEnum::SPAN)
                     ->setThemes($this->theme->imageContainerThemes())
@@ -56,7 +56,8 @@ final class BasicsPresenter
                 'contact' => $this->compose(ComponentEnum::DIV)
                     ->setThemes($this->theme->contactContainerThemes())
                     ->setContents($this->basicsContactItems($this->basics, $options)),
-            ]));
+            ])
+        )->setThemes($this->theme->basicsContainerThemes());
     }
 
     /**

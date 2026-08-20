@@ -78,6 +78,76 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function downloadsContainerThemes(): array;
+    
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function basicsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function summaryInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function workInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function volunteersInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function educationInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function awardsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function certificatesInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function publicationsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function skillsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function languagesInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function interestsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function referencesInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function projectsInnerContainerThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function downloadsInnerContainerThemes(): array;
 
     /**
      * @return array<string, string|string[]>
@@ -98,12 +168,17 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function sectionThemes(): array;
+    
+    /**
+     * @return array<string, string|string[]>
+    */
+    public function sectionTitleThemes(): array;
 
     /**
      * @return array<string, string|string[]>
      */
-    public function sectionTitleThemes(): array;
-
+    public function sectionInnerThemes(): array;
+    
     /**
      * @return array<string, string|string[]>
      */

@@ -111,6 +111,76 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function basicsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function summaryInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function workInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function volunteersInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function educationInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function awardsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function certificatesInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function publicationsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function skillsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function languagesInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function interestsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function referencesInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function projectsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
+    public function downloadsInnerContainerThemes(): array
+    {
+        return [];
+    }
+
     public function coverLetterContainerThemes(): array
     {
         return [
@@ -151,6 +221,11 @@ final class DefaultPresenterTheme implements PresenterTheme
         return [
             'default' => 'section-title',
         ];
+    }
+
+    public function sectionInnerThemes(): array
+    {
+        return [];
     }
 
     public function itemTitleThemes(): array
