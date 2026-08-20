@@ -17,7 +17,7 @@
         "barryvdh/laravel-dompdf": "^3.1.2",
         "juaniquillo/crud-assistant": "^0.1.0",
         "juaniquillo/input-component-action": "dev-main",
-        "juaniquillo/laravel-backend-component": "^0.5.5",
+        "juaniquillo/laravel-backend-component": "^0.7.0",
         "juststeveking/resume-php": "^1.0",
         "laravel/fortify": "^1.37.3",
         "laravel/framework": "^13.23",
