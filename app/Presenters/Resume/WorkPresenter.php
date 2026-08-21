@@ -36,13 +36,12 @@ final class WorkPresenter
 
         return $this->section('Experience',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->workContainerThemes())
+                ->setThemes($this->theme->workInnerContainerThemes())
                 ->setContent(
                     $this->compose(ComponentEnum::DIV)
-                        ->setThemes($this->theme->workInnerContainerThemes())
                         ->setContents($items)
                 )
-        );
+        )->setThemes($this->theme->workContainerThemes());
     }
 
     private function presentWorkEntry(Work $work): BackendComponent|CompoundComponent
