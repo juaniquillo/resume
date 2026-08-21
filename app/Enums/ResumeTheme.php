@@ -8,6 +8,7 @@ use App\Presenters\Themes\BoldPresenterTheme;
 use App\Presenters\Themes\DefaultPresenterTheme;
 use App\Presenters\Themes\ElegantPresenterTheme;
 use App\Presenters\Themes\PdfPresenterTheme;
+use App\Presenters\Themes\ProfessionalPresenterTheme;
 use App\Presenters\Themes\TerminalPresenterTheme;
 
 enum ResumeTheme: string
@@ -18,6 +19,7 @@ enum ResumeTheme: string
     case BOLD = 'bold';
     case PDF = 'pdf';
     case TERMINAL = 'terminal';
+    case PROFESSIONAL = 'professional';
 
     public function label(): string
     {
@@ -28,6 +30,7 @@ enum ResumeTheme: string
             self::BOLD => 'Modern & Bold',
             self::PDF => 'PDF Optimized',
             self::TERMINAL => 'Terminal Console',
+            self::PROFESSIONAL => 'Professional Layout',
         };
     }
 
@@ -40,6 +43,7 @@ enum ResumeTheme: string
             self::BOLD => new BoldPresenterTheme,
             self::PDF => new PdfPresenterTheme,
             self::TERMINAL => new TerminalPresenterTheme,
+            self::PROFESSIONAL => new ProfessionalPresenterTheme,
         };
     }
 }

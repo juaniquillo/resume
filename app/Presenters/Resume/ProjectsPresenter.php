@@ -36,10 +36,9 @@ final class ProjectsPresenter
 
         return $this->section('Projects',
             $this->compose(ComponentEnum::DIV)
-
+                ->setThemes($this->theme->projectsInnerContainerThemes())
                 ->setContent(
                     $this->compose(ComponentEnum::DIV)
-                        ->setThemes($this->theme->projectsInnerContainerThemes())
                         ->setContents($items)
 
                 )
