@@ -312,6 +312,11 @@ test('it can use a custom theme', function () {
             return [];
         }
 
+        public function contactInnerContainerThemes(): array
+        {
+            return [];
+        }
+
         public function contactItemThemes(): array
         {
             return [];
@@ -343,6 +348,86 @@ test('it can use a custom theme', function () {
         }
 
         public function listItemThemes(): array
+        {
+            return [];
+        }
+
+        public function badgeContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function basicsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function summaryInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function workInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function volunteersInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function educationInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function awardsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function certificatesInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function publicationsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function skillsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function languagesInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function interestsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function referencesInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function projectsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function downloadsInnerContainerThemes(): array
+        {
+            return [];
+        }
+
+        public function sectionInnerThemes(): array
         {
             return [];
         }

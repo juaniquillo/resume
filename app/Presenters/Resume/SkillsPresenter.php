@@ -28,7 +28,7 @@ final class SkillsPresenter
 
         return $this->section('Skills',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->skillsContainerThemes())
+                ->setThemes($this->theme->skillsInnerContainerThemes())
                 ->setContents(
                     $this->skills->map(function (Model $model) {
                         /** @var Skill $skill */
@@ -55,12 +55,12 @@ final class SkillsPresenter
                                     ])),
                                 'keywords' => ! empty($keywords)
                                     ? $this->compose(ComponentEnum::DIV)
-                                        ->setThemes($this->theme->contactContainerThemes()) // Use contact container for flex-wrap badges
+                                        ->setThemes($this->theme->badgeContainerThemes())
                                         ->setContents($keywords)
                                     : null,
                             ]));
                     })->toArray()
                 )
-        );
+        )->setThemes($this->theme->skillsContainerThemes());
     }
 }

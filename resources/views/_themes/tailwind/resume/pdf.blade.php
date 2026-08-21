@@ -21,13 +21,15 @@ return [
     'label' => 'text-xl font-medium text-gray-600 mb-4',
     
     'contact-container' => 'flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600',
+    'contact-inner-container' => '',
     'links' => 'text-gray-900 hover:text-black transition-colors underline decoration-gray-200',
     'contact-item' => 'flex items-center gap-1.5',
     'icon' => 'size-3 text-gray-400',
     
     'section' => 'mb-8 last:mb-0',
     'section-title' => 'text-sm font-bold text-gray-900 mb-4 uppercase tracking-[0.2em] border-b border-gray-200 pb-2',
-    
+    'section-inner' => '',
+
     'summary-container' => '',
     'summary' => 'text-[15px] leading-relaxed text-gray-700 whitespace-pre-wrap',
     
@@ -38,10 +40,26 @@ return [
     'certificates-container' => '',
     'publications-container' => '',
     'skills-container' => '',
-    'languages-container' => 'flex flex-wrap gap-4',
+    'languages-container' => '',
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
+    'downloads-container' => '',
+    
+    'basics-inner-container' => '',
+    'summary-inner-container' => '',
+    'work-inner-container' => '',
+    'volunteers-inner-container' => '',
+    'education-inner-container' => '',
+    'awards-inner-container' => '',
+    'certificates-inner-container' => '',
+    'publications-inner-container' => '',
+    'skills-inner-container' => '',
+    'languages-inner-container' => 'flex flex-wrap gap-4',
+    'interests-inner-container' => '',
+    'references-inner-container' => '',
+    'projects-inner-container' => '',
+    'downloads-inner-container' => '',
 
     'item-container' => 'mb-6 last:mb-0',
     'item-title' => 'text-[16px] font-bold text-gray-900 mb-0.5',
@@ -50,6 +68,7 @@ return [
     'list' => 'space-y-1.5 text-gray-700 text-[14px] list-disc list-inside leading-snug',
     'list-item' => 'pl-2',
     
+    'badge-container' => 'flex flex-wrap gap-1',
     'badge' => 'inline-block text-[13px] font-medium text-gray-700 mr-2',
     'social-badge' => 'inline-flex items-center gap-1.5 text-sm text-gray-600',
     'date' => 'text-gray-400 font-normal',

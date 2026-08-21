@@ -74,14 +74,112 @@ final class PdfPresenterTheme implements PresenterTheme
     public function projectsContainerThemes(): array
     {
         return [
-            'default' => 'projects-container',
+            'pdf' => 'projects-container',
         ];
     }
 
     public function downloadsContainerThemes(): array
     {
         return [
-            'default' => 'downloads-container',
+            'pdf' => 'downloads-container',
+        ];
+    }
+
+    public function basicsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'basics-inner-container',
+        ];
+    }
+
+    public function summaryInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'summary-inner-container',
+        ];
+    }
+
+    public function workInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'work-inner-container',
+        ];
+    }
+
+    public function volunteersInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'volunteers-inner-container',
+        ];
+    }
+
+    public function educationInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'education-inner-container',
+        ];
+    }
+
+    public function awardsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'awards-inner-container',
+        ];
+    }
+
+    public function certificatesInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'certificates-inner-container',
+        ];
+    }
+
+    public function publicationsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'publications-inner-container',
+        ];
+    }
+
+    public function skillsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'skills-inner-container',
+        ];
+    }
+
+    public function languagesInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'languages-inner-container',
+        ];
+    }
+
+    public function interestsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'interests-inner-container',
+        ];
+    }
+
+    public function referencesInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'references-inner-container',
+        ];
+    }
+
+    public function projectsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'projects-inner-container',
+        ];
+    }
+
+    public function downloadsInnerContainerThemes(): array
+    {
+        return [
+            'pdf' => 'downloads-inner-container',
         ];
     }
 
@@ -105,6 +203,11 @@ final class PdfPresenterTheme implements PresenterTheme
         return ['pdf' => 'section-title'];
     }
 
+    public function sectionInnerThemes(): array
+    {
+        return [];
+    }
+
     public function itemTitleThemes(): array
     {
         return ['pdf' => 'item-title'];
@@ -126,6 +229,16 @@ final class PdfPresenterTheme implements PresenterTheme
     }
 
     public function contactContainerThemes(): array
+    {
+        return ['pdf' => 'contact-container'];
+    }
+
+    public function badgeContainerThemes(): array
+    {
+        return ['pdf' => 'badge-container'];
+    }
+
+    public function contactInnerContainerThemes(): array
     {
         return ['pdf' => 'contact-container'];
     }

@@ -28,7 +28,7 @@ final class ReferencesPresenter
 
         return $this->section('References',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->referencesContainerThemes())
+                ->setThemes($this->theme->referencesInnerContainerThemes())
                 ->setContents(
                     $this->references->map(function (Model $model) {
                         /** @var Reference $ref */
@@ -48,6 +48,6 @@ final class ReferencesPresenter
                             ]));
                     })->toArray()
                 )
-        );
+        )->setThemes($this->theme->referencesContainerThemes());
     }
 }

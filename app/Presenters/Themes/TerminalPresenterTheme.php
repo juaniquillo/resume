@@ -81,6 +81,76 @@ final class TerminalPresenterTheme implements PresenterTheme
         return ['terminal' => 'downloads-container'];
     }
 
+    public function basicsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'basics-inner-container'];
+    }
+
+    public function summaryInnerContainerThemes(): array
+    {
+        return ['terminal' => 'summary-inner-container'];
+    }
+
+    public function workInnerContainerThemes(): array
+    {
+        return ['terminal' => 'work-inner-container'];
+    }
+
+    public function volunteersInnerContainerThemes(): array
+    {
+        return ['terminal' => 'volunteers-inner-container'];
+    }
+
+    public function educationInnerContainerThemes(): array
+    {
+        return ['terminal' => 'education-inner-container'];
+    }
+
+    public function awardsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'awards-inner-container'];
+    }
+
+    public function certificatesInnerContainerThemes(): array
+    {
+        return ['terminal' => 'certificates-inner-container'];
+    }
+
+    public function publicationsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'publications-inner-container'];
+    }
+
+    public function skillsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'skills-inner-container'];
+    }
+
+    public function languagesInnerContainerThemes(): array
+    {
+        return ['terminal' => 'languages-inner-container'];
+    }
+
+    public function interestsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'interests-inner-container'];
+    }
+
+    public function referencesInnerContainerThemes(): array
+    {
+        return ['terminal' => 'references-inner-container'];
+    }
+
+    public function projectsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'projects-inner-container'];
+    }
+
+    public function downloadsInnerContainerThemes(): array
+    {
+        return ['terminal' => 'downloads-inner-container'];
+    }
+
     public function nameThemes(): array
     {
         return ['terminal' => 'name'];
@@ -99,6 +169,11 @@ final class TerminalPresenterTheme implements PresenterTheme
     public function sectionTitleThemes(): array
     {
         return ['terminal' => 'section-title'];
+    }
+
+    public function sectionInnerThemes(): array
+    {
+        return [];
     }
 
     public function itemTitleThemes(): array
@@ -122,6 +197,16 @@ final class TerminalPresenterTheme implements PresenterTheme
     }
 
     public function contactContainerThemes(): array
+    {
+        return ['terminal' => 'contact-container'];
+    }
+
+    public function badgeContainerThemes(): array
+    {
+        return ['terminal' => 'badge-container'];
+    }
+
+    public function contactInnerContainerThemes(): array
     {
         return ['terminal' => 'contact-container'];
     }

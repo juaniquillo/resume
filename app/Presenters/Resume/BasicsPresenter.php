@@ -50,13 +50,18 @@ final class BasicsPresenter
                 'name' => $this->compose(ComponentEnum::H1)
                     ->setThemes($this->theme->nameThemes())
                     ->setContent($this->basics->name),
-                'label' => $this->compose(ComponentEnum::H2)
-                    ->setThemes($this->theme->labelThemes())
-                    ->setContent($this->basics->label),
-                'contact' => $this->compose(ComponentEnum::DIV)
-                    ->setThemes($this->theme->contactContainerThemes())
-                    ->setContents($this->basicsContactItems($this->basics, $options)),
-            ]));
+                'inner' => $this->compose(ComponentEnum::DIV)
+                    ->setThemes($this->theme->basicsInnerContainerThemes())
+                    ->setContents([
+                        'label' => $this->compose(ComponentEnum::H2)
+                            ->setThemes($this->theme->labelThemes())
+                            ->setContent($this->basics->label),
+                        'contact' => $this->compose(ComponentEnum::DIV)
+                            ->setThemes($this->theme->contactContainerThemes())
+                            ->setContents($this->basicsContactItems($this->basics, $options)),
+                    ]),
+            ])
+            );
     }
 
     /**
@@ -172,10 +177,10 @@ final class BasicsPresenter
 
         return [
             'info' => $this->compose(ComponentEnum::SPAN)
-                ->setThemes($this->theme->contactContainerThemes())
+                ->setThemes($this->theme->contactInnerContainerThemes())
                 ->setContents($info),
             'profiles' => $this->compose(ComponentEnum::SPAN)
-                ->setThemes($this->theme->contactContainerThemes())
+                ->setThemes($this->theme->contactInnerContainerThemes())
                 ->setContents($profiles),
         ];
     }
