@@ -27,18 +27,23 @@ final class ProjectsPresenter
             return null;
         }
 
+        $items = $this->projects->map(function (Model $model) {
+            /** @var Project $project */
+            $project = $model;
+
+            return $this->presentProjectEntry($project);
+        })->toArray();
+
         return $this->section('Projects',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->projectsContainerThemes())
-                ->setContents(
-                    $this->projects->map(function (Model $model) {
-                        /** @var Project $project */
-                        $project = $model;
 
-                        return $this->presentProjectEntry($project);
-                    })->toArray()
+                ->setContent(
+                    $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->projectsInnerContainerThemes())
+                        ->setContents($items)
+
                 )
-        );
+        )->setThemes($this->theme->projectsContainerThemes());
     }
 
     private function presentProjectEntry(Project $project): BackendComponent|CompoundComponent

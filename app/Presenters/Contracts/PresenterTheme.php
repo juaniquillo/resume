@@ -78,7 +78,7 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function downloadsContainerThemes(): array;
-    
+
     /**
      * @return array<string, string|string[]>
      */
@@ -168,17 +168,17 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function sectionThemes(): array;
-    
+
     /**
      * @return array<string, string|string[]>
-    */
+     */
     public function sectionTitleThemes(): array;
 
     /**
      * @return array<string, string|string[]>
      */
     public function sectionInnerThemes(): array;
-    
+
     /**
      * @return array<string, string|string[]>
      */
@@ -243,6 +243,11 @@ interface PresenterTheme
      * @return array<string, string|string[]>
      */
     public function listItemThemes(): array;
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    public function badgeContainerThemes(): array;
 
     /**
      * @return array<string, string|string[]>

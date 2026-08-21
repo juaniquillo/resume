@@ -56,8 +56,11 @@ final class AwardsPresenter
 
         return $this->section('Awards',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->awardsContainerThemes())
-                ->setContents($items)
-        );
+                ->setContent(
+                    $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->awardsInnerContainerThemes())
+                        ->setContents($items)
+                )
+        )->setThemes($this->theme->awardsContainerThemes());
     }
 }

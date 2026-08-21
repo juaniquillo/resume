@@ -36,9 +36,9 @@ final class EducationPresenter
 
         return $this->section('Education',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->educationContainerThemes())
+                ->setThemes($this->theme->educationInnerContainerThemes())
                 ->setContents($items)
-        );
+        )->setThemes($this->theme->educationContainerThemes());
     }
 
     private function presentEducationEntry(Model $model): BackendComponent|CompoundComponent

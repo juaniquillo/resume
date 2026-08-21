@@ -201,6 +201,11 @@ final class BlankThemePresenter implements PresenterTheme
         return [];
     }
 
+    public function badgeContainerThemes(): array
+    {
+        return [];
+    }
+
     public function contactInnerContainerThemes(): array
     {
         return [];

@@ -11,7 +11,7 @@ trait CanComposeResumeComponents
 {
     use HasThemeManager;
 
-    private function section(string $title, BackendComponent|CompoundComponent $content): BackendComponent|CompoundComponent
+    private function section(string $title, BackendComponent|CompoundComponent $content): CompoundComponent
     {
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->sectionThemes())

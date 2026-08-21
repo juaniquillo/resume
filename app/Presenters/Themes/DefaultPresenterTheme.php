@@ -113,72 +113,100 @@ final class DefaultPresenterTheme implements PresenterTheme
 
     public function basicsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'basics-inner-container',
+        ];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'summary-inner-container',
+        ];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'work-inner-container',
+        ];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'volunteers-inner-container',
+        ];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'education-inner-container',
+        ];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'awards-inner-container',
+        ];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'certificates-inner-container',
+        ];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'publications-inner-container',
+        ];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'skills-inner-container',
+        ];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'languages-inner-container',
+        ];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'interests-inner-container',
+        ];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'references-inner-container',
+        ];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'projects-inner-container',
+        ];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'downloads-inner-container',
+        ];
     }
 
     public function coverLetterContainerThemes(): array
@@ -263,10 +291,17 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function badgeContainerThemes(): array
+    {
+        return [
+            'default' => 'badge-container',
+        ];
+    }
+
     public function contactInnerContainerThemes(): array
     {
         return [
-            'default' => 'contact-container',
+            'default' => 'contact-inner-container',
         ];
     }
 

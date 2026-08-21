@@ -61,8 +61,8 @@ final class PublicationsPresenter
 
         return $this->section('Publications',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->publicationsContainerThemes())
+                ->setThemes($this->theme->publicationsInnerContainerThemes())
                 ->setContents($items)
-        );
+        )->setThemes($this->theme->publicationsContainerThemes());
     }
 }

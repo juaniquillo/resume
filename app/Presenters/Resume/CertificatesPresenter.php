@@ -58,8 +58,11 @@ final class CertificatesPresenter
 
         return $this->section('Certificates',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->certificatesContainerThemes())
-                ->setContents($items)
-        );
+                ->setContent(
+                    $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->certificatesInnerContainerThemes())
+                        ->setContents($items)
+                )
+        )->setThemes($this->theme->certificatesContainerThemes());
     }
 }

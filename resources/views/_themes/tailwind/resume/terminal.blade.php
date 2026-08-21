@@ -73,6 +73,7 @@ return [
     'list' => 'space-y-2 text-green-300 font-medium text-base md:text-lg leading-relaxed list-none print:text-black',
     'list-item' => 'before:content-[">_"] before:text-green-500 before:mr-2 print:before:content-["•_"] print:before:text-black',
     
+    'badge-container' => 'flex flex-wrap gap-2',
     'badge' => 'px-2 py-0.5 text-xs font-bold uppercase tracking-wider bg-green-950/40 text-green-400 border border-green-500 hover:bg-green-500 hover:text-black transition-colors print:bg-white print:text-black print:border-black',
     'keyword-badge' => 'px-2 py-0.5 text-xs font-bold uppercase tracking-wider bg-cyan-950/40 text-cyan-400 border border-cyan-500 hover:bg-cyan-500 hover:text-black transition-colors print:bg-white print:text-black print:border-black',
     'social-badge' => 'inline-flex items-center gap-2 px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-black text-green-400 border border-green-500 hover:bg-green-600 hover:text-black transition-all duration-300 before:content-["[profile]_"] before:text-cyan-400 print:bg-white print:text-black print:border-black',

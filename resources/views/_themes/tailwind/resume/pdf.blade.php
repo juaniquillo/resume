@@ -68,6 +68,7 @@ return [
     'list' => 'space-y-1.5 text-gray-700 text-[14px] list-disc list-inside leading-snug',
     'list-item' => 'pl-2',
     
+    'badge-container' => 'flex flex-wrap gap-1',
     'badge' => 'inline-block text-[13px] font-medium text-gray-700 mr-2',
     'social-badge' => 'inline-flex items-center gap-1.5 text-sm text-gray-600',
     'date' => 'text-gray-400 font-normal',

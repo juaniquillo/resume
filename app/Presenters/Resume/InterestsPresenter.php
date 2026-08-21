@@ -28,7 +28,7 @@ final class InterestsPresenter
 
         return $this->section('Interests',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->interestsContainerThemes())
+                ->setThemes($this->theme->interestsInnerContainerThemes())
                 ->setContents(
                     $this->interests->map(function (Model $model) {
                         /** @var Interest $interest */
@@ -46,12 +46,12 @@ final class InterestsPresenter
                                     ->setContent($interest->name),
                                 'keywords' => ! empty($keywords)
                                     ? $this->compose(ComponentEnum::DIV)
-                                        ->setThemes($this->theme->contactContainerThemes())
+                                        ->setThemes($this->theme->badgeContainerThemes())
                                         ->setContents($keywords)
                                     : null,
                             ]));
                     })->toArray()
                 )
-        );
+        )->setThemes($this->theme->interestsContainerThemes());
     }
 }

@@ -60,6 +60,7 @@ return [
     'list' => 'list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-zinc-300 mt-2',
     'list-item' => '',
     
+    'badge-container' => 'flex flex-wrap gap-1.5',
     'badge' => 'inline-block px-2 py-0.5 text-xs font-semibold rounded bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300 mr-1.5 mb-1.5',
     'keyword-badge' => 'inline-block px-2 py-0.5 text-xs font-semibold rounded bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 mr-1.5 mb-1.5',
     'social-badge' => 'inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-700 hover:bg-sky-600 hover:text-white transition-colors dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-sky-500',

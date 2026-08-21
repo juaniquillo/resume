@@ -37,7 +37,11 @@ final class WorkPresenter
         return $this->section('Experience',
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->workContainerThemes())
-                ->setContents($items)
+                ->setContent(
+                    $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->workInnerContainerThemes())
+                        ->setContents($items)
+                )
         );
     }
 

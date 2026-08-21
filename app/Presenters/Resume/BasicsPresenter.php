@@ -35,7 +35,7 @@ final class BasicsPresenter
         $imageUrl = ($image && ! $hideImage) ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
-            ->setThemes($this->theme->basicsInnerContainerThemes())
+            ->setThemes($this->theme->basicsContainerThemes())
             ->setContents(array_filter([
                 'image' => ($image && ! $hideImage) ? $this->compose(ComponentEnum::SPAN)
                     ->setThemes($this->theme->imageContainerThemes())
@@ -50,14 +50,18 @@ final class BasicsPresenter
                 'name' => $this->compose(ComponentEnum::H1)
                     ->setThemes($this->theme->nameThemes())
                     ->setContent($this->basics->name),
-                'label' => $this->compose(ComponentEnum::H2)
-                    ->setThemes($this->theme->labelThemes())
-                    ->setContent($this->basics->label),
-                'contact' => $this->compose(ComponentEnum::DIV)
-                    ->setThemes($this->theme->contactContainerThemes())
-                    ->setContents($this->basicsContactItems($this->basics, $options)),
+                'inner' => $this->compose(ComponentEnum::DIV)
+                    ->setThemes($this->theme->basicsInnerContainerThemes())
+                    ->setContents([
+                        'label' => $this->compose(ComponentEnum::H2)
+                            ->setThemes($this->theme->labelThemes())
+                            ->setContent($this->basics->label),
+                        'contact' => $this->compose(ComponentEnum::DIV)
+                            ->setThemes($this->theme->contactContainerThemes())
+                            ->setContents($this->basicsContactItems($this->basics, $options)),
+                    ]),
             ])
-        )->setThemes($this->theme->basicsContainerThemes());
+            );
     }
 
     /**

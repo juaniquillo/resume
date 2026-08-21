@@ -68,6 +68,7 @@ return [
     'list' => 'space-y-3 md:space-y-4 text-zinc-400 font-medium text-lg md:text-xl leading-snug list-none',
     'list-item' => 'before:content-["▶"] before:text-yellow-400 before:mr-3 md:before:mr-4',
     
+    'badge-container' => 'flex flex-wrap gap-2',
     'badge' => 'px-3 md:px-4 py-1 text-xs md:text-sm font-black uppercase tracking-widest bg-zinc-800 text-white border-2 border-zinc-700 hover:border-yellow-400 transition-colors',
     'social-badge' => 'inline-flex items-center gap-2 md:gap-2.5 px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-black uppercase tracking-widest bg-white text-black border-2 md:border-4 border-black hover:bg-yellow-400 transition-all transform hover:-translate-y-1 hover:translate-x-1 hover:shadow-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
     'date' => 'text-zinc-500 font-bold',

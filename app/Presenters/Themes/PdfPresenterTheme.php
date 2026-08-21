@@ -205,6 +205,11 @@ final class PdfPresenterTheme implements PresenterTheme
         return ['pdf' => 'contact-container'];
     }
 
+    public function badgeContainerThemes(): array
+    {
+        return ['pdf' => 'badge-container'];
+    }
+
     public function contactInnerContainerThemes(): array
     {
         return ['pdf' => 'contact-container'];

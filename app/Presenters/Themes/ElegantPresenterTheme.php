@@ -87,72 +87,100 @@ final class ElegantPresenterTheme implements PresenterTheme
 
     public function basicsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'basics-inner-container',
+        ];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'summary-inner-container',
+        ];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'work-inner-container',
+        ];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'volunteers-inner-container',
+        ];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'education-inner-container',
+        ];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'awards-inner-container',
+        ];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'certificates-inner-container',
+        ];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'publications-inner-container',
+        ];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'skills-inner-container',
+        ];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'languages-inner-container',
+        ];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'interests-inner-container',
+        ];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'references-inner-container',
+        ];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'projects-inner-container',
+        ];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'elegant' => 'downloads-inner-container',
+        ];
     }
 
     public function nameThemes(): array
@@ -205,9 +233,14 @@ final class ElegantPresenterTheme implements PresenterTheme
         return ['elegant' => 'contact-container'];
     }
 
+    public function badgeContainerThemes(): array
+    {
+        return ['elegant' => 'badge-container'];
+    }
+
     public function contactInnerContainerThemes(): array
     {
-        return ['elegant' => 'contact-container'];
+        return ['elegant' => 'contact-inner-container'];
     }
 
     public function contactItemThemes(): array

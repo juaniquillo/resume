@@ -28,7 +28,7 @@ final class LanguagesPresenter
 
         return $this->section('Languages',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->languagesContainerThemes())
+                ->setThemes($this->theme->languagesInnerContainerThemes())
                 ->setContents(
                     $this->languages->map(function (Model $model) {
                         /** @var Language $lang */
@@ -46,6 +46,6 @@ final class LanguagesPresenter
                             ]);
                     })->toArray()
                 )
-        );
+        )->setThemes($this->theme->languagesContainerThemes());
     }
 }

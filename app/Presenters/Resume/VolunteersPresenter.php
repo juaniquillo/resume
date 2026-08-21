@@ -36,9 +36,9 @@ final class VolunteersPresenter
 
         return $this->section('Volunteering',
             $this->compose(ComponentEnum::DIV)
-                ->setThemes($this->theme->volunteersContainerThemes())
+                ->setThemes($this->theme->volunteersInnerContainerThemes())
                 ->setContents($items)
-        );
+        )->setThemes($this->theme->volunteersContainerThemes());
     }
 
     private function presentVolunteerEntry(Volunteer $volunteer): BackendComponent|CompoundComponent

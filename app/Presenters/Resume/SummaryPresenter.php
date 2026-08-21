@@ -33,6 +33,6 @@ final class SummaryPresenter
                         ->setContent($this->basics->summary),
                 ])
         )
-        ->setThemes($this->theme->summaryContainerThemes());
+            ->setThemes($this->theme->summaryContainerThemes());
     }
 }
