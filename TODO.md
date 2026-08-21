@@ -58,6 +58,7 @@
 55. ✅ Refactor export to livewire form and table, with polling for the status buttons and edit form for the "Allow Download" option.
 56. ◻️ Consider adding limits to resume section records and revise the ones for import/export.
 57. ✅ Add new "Name" input to the import/export CRUDs.
-58. ◻️ Create new "Professional" resume theme with two columns.
+58. ✅ Create new "Professional" resume theme with two columns.
 59. ◻️ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch
-60. ◻️ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view. 
+60. ◻️ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view.
+61. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
