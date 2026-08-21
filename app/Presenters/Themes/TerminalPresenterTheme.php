@@ -83,72 +83,72 @@ final class TerminalPresenterTheme implements PresenterTheme
 
     public function basicsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'basics-inner-container'];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'summary-inner-container'];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'work-inner-container'];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'volunteers-inner-container'];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'education-inner-container'];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'awards-inner-container'];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'certificates-inner-container'];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'publications-inner-container'];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'skills-inner-container'];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'languages-inner-container'];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'interests-inner-container'];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'references-inner-container'];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'projects-inner-container'];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return [];
+        return ['terminal' => 'downloads-inner-container'];
     }
 
     public function nameThemes(): array

@@ -14,7 +14,6 @@ return [
 
     'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-zinc-900 text-white shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] md:shadow-[20px_20px_0px_0px_rgba(255,255,0,1)] my-6 md:my-6 border-4 border-black dark:bg-black dark:border-zinc-800',
     
-    'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-8 border-yellow-400 pb-12',
     'image-container' => 'mb-8 md:mb-12',
     'image' => 'w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 grayscale hover:grayscale-0 transition-all duration-500 border-4 border-white object-cover shadow-[6px_6px_0px_0px_rgba(255,255,0,1)] md:shadow-[10px_10px_0px_0px_rgba(255,255,0,1)] max-w-full',
     'name' => 'text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-2 break-words',
@@ -30,9 +29,10 @@ return [
     'section-title' => 'text-2xl md:text-5xl font-black uppercase tracking-tighter mb-8 md:mb-12 bg-white text-black px-4 md:px-6 py-2 inline-block transform -rotate-2',
     'section-inner' => '',
 
-    'summary-container' => 'border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
     'summary' => 'text-xl md:text-2xl leading-tight font-medium text-zinc-300 max-w-4xl whitespace-pre-wrap',
-    
+
+    'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-8 border-yellow-400 pb-12',
+    'summary-container' => '',
     'work-container' => '',
     'volunteers-container' => '',
     'education-container' => '',
@@ -40,14 +40,14 @@ return [
     'certificates-container' => '',
     'publications-container' => '',
     'skills-container' => '',
-    'languages-container' => 'flex flex-wrap gap-4 md:gap-6',
+    'languages-container' => '',
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
     'downloads-container' => '',
     
     'basics-inner-container' => '',
-    'summary-inner-container' => '',
+    'summary-inner-container' => 'border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
     'work-inner-container' => '',
     'volunteers-inner-container' => '',
     'education-inner-container' => '',
@@ -55,7 +55,7 @@ return [
     'certificates-inner-container' => '',
     'publications-inner-container' => '',
     'skills-inner-container' => '',
-    'languages-inner-container' => '',
+    'languages-inner-container' => 'flex flex-wrap gap-4 md:gap-6',
     'interests-inner-container' => '',
     'references-inner-container' => '',
     'projects-inner-container' => '',

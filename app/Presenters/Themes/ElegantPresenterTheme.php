@@ -74,14 +74,14 @@ final class ElegantPresenterTheme implements PresenterTheme
     public function projectsContainerThemes(): array
     {
         return [
-            'default' => 'projects-container',
+            'elegant' => 'projects-container',
         ];
     }
 
     public function downloadsContainerThemes(): array
     {
         return [
-            'default' => 'downloads-container',
+            'elegant' => 'downloads-container',
         ];
     }
 

@@ -14,7 +14,6 @@ return [
     
     'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-black text-green-400 border-2 border-green-500 rounded-lg shadow-[0_0_30px_rgba(34,197,94,0.25)] my-6 md:my-6 font-[IBM_Plex_Mono] relative pt-[3.5rem] overflow-hidden before:content-["●_●_●__bash_-_guest@resume:~"] before:absolute before:top-0 before:left-0 before:right-0 before:h-[2.2rem] before:bg-[#161616] before:text-[#888888] before:text-[0.8rem] before:leading-[2.2rem] before:pl-[1rem] before:border-b-2 before:border-green-500 before:font-[IBM_Plex_Mono] before:tracking-[0.05em] before:z-20 after:content-[""] after:absolute after:inset-0 after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] after:bg-[length:100%_4px] after:z-10 after:pointer-events-none after:opacity-[0.15] print:bg-white print:text-black print:border-0 print:shadow-none print:my-0 print:py-0 print:px-0',
     
-    'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-2 border-green-500 pb-12 print:border-b-2 print:border-black',
     'image-container' => 'mb-8 md:mb-12',
     'image' => 'w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 border-2 border-green-500 object-cover shadow-[4px_4px_0px_rgba(34,197,94,0.3)] max-w-full print:border-black print:shadow-none',
     'name' => 'text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight mb-2 break-words text-green-400 print:text-black',
@@ -35,9 +34,10 @@ return [
     'section-title' => 'text-2xl md:text-4xl font-bold uppercase tracking-wide mb-8 md:mb-12 text-green-400 border-b border-green-500/30 pb-2 before:content-["guest@resume:~$_cat_"] before:text-green-500 before:font-normal after:content-["_.txt"] after:text-green-500 after:font-normal print:text-black print:border-black',
     'section-inner' => '',
 
-    'summary-container' => 'border-l-2 border-green-500 pl-6 md:pl-8 print:border-black',
     'summary' => 'text-lg md:text-xl leading-relaxed text-green-300 max-w-4xl whitespace-pre-wrap print:text-black',
     
+    'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-2 border-green-500 pb-12 print:border-b-2 print:border-black',
+    'summary-container' => '',
     'work-container' => '',
     'volunteers-container' => '',
     'education-container' => '',
@@ -45,14 +45,14 @@ return [
     'certificates-container' => '',
     'publications-container' => '',
     'skills-container' => '',
-    'languages-container' => 'flex flex-wrap gap-4 md:gap-6',
+    'languages-container' => '',
     'interests-container' => '',
     'references-container' => '',
     'projects-container' => '',
-    'downloads-container' => 'flex flex-wrap gap-4',
+    'downloads-container' => '',
     
     'basics-inner-container' => '',
-    'summary-inner-container' => '',
+    'summary-inner-container' => 'border-l-2 border-green-500 pl-6 md:pl-8 print:border-black',
     'work-inner-container' => '',
     'volunteers-inner-container' => '',
     'education-inner-container' => '',
@@ -60,11 +60,11 @@ return [
     'certificates-inner-container' => '',
     'publications-inner-container' => '',
     'skills-inner-container' => '',
-    'languages-inner-container' => '',
+    'languages-inner-container' => 'flex flex-wrap gap-4 md:gap-6',
     'interests-inner-container' => '',
     'references-inner-container' => '',
     'projects-inner-container' => '',
-    'downloads-inner-container' => '',
+    'downloads-inner-container' => 'flex flex-wrap gap-4',
 
     'item-container' => 'mb-10 md:mb-12 last:mb-0 relative group',
     'item-title' => 'text-xl md:text-2xl font-bold uppercase tracking-tight text-green-400 mb-2 group-hover:text-cyan-400 transition-colors break-words print:text-black',

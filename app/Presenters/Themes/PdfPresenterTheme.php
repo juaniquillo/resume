@@ -74,85 +74,113 @@ final class PdfPresenterTheme implements PresenterTheme
     public function projectsContainerThemes(): array
     {
         return [
-            'default' => 'projects-container',
+            'pdf' => 'projects-container',
         ];
     }
 
     public function downloadsContainerThemes(): array
     {
         return [
-            'default' => 'downloads-container',
+            'pdf' => 'downloads-container',
         ];
     }
 
     public function basicsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'basics-inner-container',
+        ];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'summary-inner-container',
+        ];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'work-inner-container',
+        ];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'volunteers-inner-container',
+        ];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'education-inner-container',
+        ];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'awards-inner-container',
+        ];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'certificates-inner-container',
+        ];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'publications-inner-container',
+        ];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'skills-inner-container',
+        ];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'languages-inner-container',
+        ];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'interests-inner-container',
+        ];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'references-inner-container',
+        ];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'projects-inner-container',
+        ];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'pdf' => 'downloads-inner-container',
+        ];
     }
 
     public function nameThemes(): array

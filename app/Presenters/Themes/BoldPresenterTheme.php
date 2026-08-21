@@ -74,85 +74,113 @@ final class BoldPresenterTheme implements PresenterTheme
     public function projectsContainerThemes(): array
     {
         return [
-            'default' => 'projects-container',
+            'bold' => 'projects-container',
         ];
     }
 
     public function downloadsContainerThemes(): array
     {
         return [
-            'default' => 'downloads-container',
+            'bold' => 'downloads-container',
         ];
     }
 
     public function basicsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'basics-inner-container',
+        ];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'summary-inner-container',
+        ];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'work-inner-container',
+        ];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'volunteers-inner-container',
+        ];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'education-inner-container',
+        ];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'awards-inner-container',
+        ];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'certificates-inner-container',
+        ];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'publications-inner-container',
+        ];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'skills-inner-container',
+        ];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'languages-inner-container',
+        ];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'interests-inner-container',
+        ];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'references-inner-container',
+        ];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'projects-inner-container',
+        ];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return [];
+        return [
+            'bold' => 'downloads-inner-container',
+        ];
     }
 
     public function nameThemes(): array
@@ -310,7 +338,7 @@ final class BoldPresenterTheme implements PresenterTheme
     public function coverLetterThemes(): array
     {
         return [
-            'default' => 'summary',
+            'bold' => 'summary',
         ];
     }
 
