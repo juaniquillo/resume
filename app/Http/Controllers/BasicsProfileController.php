@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Basic;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -18,6 +19,7 @@ class BasicsProfileController extends Controller
         $basics = $user?->resumeBasics();
 
         return view('dashboard.basics.profiles.index')
-            ->with('basics', $basics);
+            ->with('basics', $basics)
+            ->with('limit', ResumeLimit::PROFILES);
     }
 }

@@ -7,6 +7,9 @@
     </div>
     
     <div class="max-w-xl mt-6">
+        <flux:text class="mb-4">
+            {{ __("You can keep up to :limit highlights at a time.", ['limit' => $limit]) }}
+        </flux:text>
         <livewire:resume.highlights.create-highlight :model="$model" />
     </div>
 

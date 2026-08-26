@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Work;
+use App\Support\ResumeLimit;
 use Illuminate\Http\Request;
 
 class WorkHighlightsController extends Controller
@@ -13,6 +14,7 @@ class WorkHighlightsController extends Controller
         $work = $request->user()->works()->findOrFail($id);
 
         return view('dashboard.works.highlights.index')
-            ->with('model', $work);
+            ->with('model', $work)
+            ->with('limit', ResumeLimit::HIGHLIGHTS);
     }
 }
