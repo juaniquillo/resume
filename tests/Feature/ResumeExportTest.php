@@ -16,6 +16,7 @@ use App\Models\ResumeExport;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Work;
+use App\Support\ResumeLimit;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -178,8 +179,8 @@ test('user cannot delete another users resume export', function () {
     $this->assertDatabaseHas('resume_exports', ['id' => $export->id]);
 });
 
-test('user cannot have more than 5 resume exports', function () {
-    ResumeExport::factory()->count(5)->create(['user_id' => $this->user->id]);
+test('resume exports have a limit', function () {
+    ResumeExport::factory()->count(ResumeLimit::EXPORTS)->create(['user_id' => $this->user->id]);
 
     Basic::factory()->create(['user_id' => $this->user->id]);
 
@@ -188,7 +189,7 @@ test('user cannot have more than 5 resume exports', function () {
         ->set('resumeExport.type', ResumeExportType::JSON->value)
         ->call('createForm');
 
-    $this->assertDatabaseCount('resume_exports', 5);
+    $this->assertDatabaseCount('resume_exports', ResumeLimit::EXPORTS);
 });
 
 test('it can download a completed export', function () {

@@ -9,6 +9,7 @@ use App\Cruds\Schema\Projects\Renderers\ProjectsLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,12 @@ class CreateProject extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->projects()->count() >= ResumeLimit::PROJECTS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('projects'), ResumeLimit::PROJECTS), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->projects);
 

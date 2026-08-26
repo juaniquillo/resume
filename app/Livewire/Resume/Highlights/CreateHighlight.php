@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Contracts\HighlightModel;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,12 @@ class CreateHighlight extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($this->model && $this->model->highlights()->count() >= ResumeLimit::HIGHLIGHTS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('highlights'), ResumeLimit::HIGHLIGHTS), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->highlights);
 

@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\References\CreateReference;
+use App\Models\Reference;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -31,4 +33,16 @@ it('creates a new reference record successfully', function () {
         'user_id' => $this->user->id,
         'name' => 'Jane Doe',
     ]);
+});
+
+it('references records have a limit', function () {
+    $this->actingAs($this->user);
+    Reference::factory()->count(ResumeLimit::REFERENCES)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateReference::class)
+        ->set('references.name', 'John Smith')
+        ->set('references.reference', 'Good manager.')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('references', ResumeLimit::REFERENCES);
 });

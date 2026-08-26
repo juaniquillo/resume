@@ -10,6 +10,7 @@ use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use App\Jobs\ProcessResumeImport;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -35,8 +36,8 @@ class CreateResumeImport extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        if ($user->resumeImports()->count() >= 5) {
-            Flux::toast(heading: __('Error'), text: __('You can only have up to 5 resume imports. Please delete an old one first.'), variant: 'danger');
+        if ($user->resumeImports()->count() >= ResumeLimit::IMPORTS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('resume imports'), ResumeLimit::IMPORTS), variant: 'danger');
 
             return;
         }

@@ -1,8 +1,10 @@
 <?php
 
 use App\Livewire\Resume\Highlights\CreateHighlight;
+use App\Models\Highlight;
 use App\Models\User;
 use App\Models\Work;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -33,4 +35,18 @@ it('creates a new highlight successfully', function () {
         'highlightable_type' => Work::class,
         'highlight' => 'Great achievement',
     ]);
+});
+
+it('highlights records have a limit', function () {
+    $this->actingAs($this->user);
+    Highlight::factory()->count(ResumeLimit::HIGHLIGHTS)->create([
+        'highlightable_id' => $this->work->id,
+        'highlightable_type' => Work::class,
+    ]);
+
+    Livewire::test(CreateHighlight::class, ['model' => $this->work])
+        ->set('highlights.highlight', 'Extra highlight')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('highlights', ResumeLimit::HIGHLIGHTS);
 });

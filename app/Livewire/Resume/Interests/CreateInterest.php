@@ -11,6 +11,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Support\RequestUtils;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,12 @@ class CreateInterest extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->interests()->count() >= ResumeLimit::INTERESTS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('interests'), ResumeLimit::INTERESTS), variant: 'danger');
+
+            return;
+        }
 
         $values = $this->interests;
 

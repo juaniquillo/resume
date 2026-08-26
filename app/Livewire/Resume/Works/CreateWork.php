@@ -9,6 +9,7 @@ use App\Cruds\Schema\Works\WorksCrud;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,12 @@ class CreateWork extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->works()->count() >= ResumeLimit::WORK) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('work experiences'), ResumeLimit::WORK), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->works);
 

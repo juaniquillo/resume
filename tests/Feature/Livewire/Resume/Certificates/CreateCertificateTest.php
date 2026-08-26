@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\Certificates\CreateCertificate;
+use App\Models\Certificate;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -32,4 +34,15 @@ it('creates a new certificate record successfully', function () {
         'user_id' => $this->user->id,
         'name' => 'Certified Laravel Developer',
     ]);
+});
+
+it('certificates records have a limit', function () {
+    $this->actingAs($this->user);
+    Certificate::factory()->count(ResumeLimit::CERTIFICATES)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateCertificate::class)
+        ->set('certificates.name', 'Extra Certificate')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('certificates', ResumeLimit::CERTIFICATES);
 });

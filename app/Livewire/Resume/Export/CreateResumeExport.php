@@ -12,6 +12,7 @@ use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -36,8 +37,8 @@ class CreateResumeExport extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        if ($user->resumeExports()->count() >= 5) {
-            Flux::toast(heading: __('Error'), text: __('You can only have up to 5 resume exports. Please delete an old one first.'), variant: 'danger');
+        if ($user->resumeExports()->count() >= ResumeLimit::EXPORTS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('resume exports'), ResumeLimit::EXPORTS), variant: 'danger');
 
             return;
         }

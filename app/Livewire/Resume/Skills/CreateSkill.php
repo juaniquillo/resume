@@ -11,6 +11,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Support\RequestUtils;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,12 @@ class CreateSkill extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->skills()->count() >= ResumeLimit::SKILLS) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('skills'), ResumeLimit::SKILLS), variant: 'danger');
+
+            return;
+        }
 
         $values = $this->skills;
 

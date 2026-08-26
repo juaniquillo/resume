@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\Awards\CreateAward;
+use App\Models\Award;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -34,4 +36,16 @@ it('creates a new award record successfully', function () {
         'title' => 'Best Employee of the Year',
         'awarder' => 'Company Name',
     ]);
+});
+
+it('awards records have a limit', function () {
+    $this->actingAs($this->user);
+    Award::factory()->count(ResumeLimit::AWARDS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateAward::class)
+        ->set('awards.title', 'Extra Award')
+        ->set('awards.awarder', 'Extra Awarder')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('awards', ResumeLimit::AWARDS);
 });

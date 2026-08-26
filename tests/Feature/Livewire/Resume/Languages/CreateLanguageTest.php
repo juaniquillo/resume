@@ -2,7 +2,9 @@
 
 use App\Enums\LanguageFluency;
 use App\Livewire\Resume\Languages\CreateLanguage;
+use App\Models\Language;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -33,4 +35,16 @@ it('creates a new language record successfully', function () {
         'language' => 'English',
         'fluency' => LanguageFluency::EXPERT->value,
     ]);
+});
+
+it('languages records have a limit', function () {
+    $this->actingAs($this->user);
+    Language::factory()->count(ResumeLimit::LANGUAGES)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateLanguage::class)
+        ->set('languages.language', 'Spanish')
+        ->set('languages.fluency', LanguageFluency::BEGINNER->value)
+        ->call('createForm');
+
+    $this->assertDatabaseCount('languages', ResumeLimit::LANGUAGES);
 });

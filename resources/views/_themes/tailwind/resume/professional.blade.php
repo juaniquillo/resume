@@ -21,7 +21,7 @@ return [
     'section-title' => 'text-xl font-bold text-gray-900 dark:text-white mt-4 uppercase tracking-wider border-b-2 border-sky-600 dark:border-sky-500 pb-1.5 flex items-center gap-2',
     'section-inner' => '',
 
-    'summary' => 'text-base leading-relaxed text-gray-700 dark:text-zinc-300 whitespace-pre-wrap',
+    'summary' => 'mt-6 text-base leading-relaxed text-gray-700 dark:text-zinc-300 whitespace-pre-wrap',
     
     'basics-container' => 'md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left bg-zinc-50 dark:bg-zinc-800/50 p-6 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 h-fit',
     'summary-container' => 'md:col-span-2 bg-zinc-50 dark:bg-zinc-800/50 p-6 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 h-fit',
@@ -48,7 +48,7 @@ return [
     'publications-inner-container' => '',
     'skills-inner-container' => '',
     'languages-inner-container' => 'flex flex-wrap gap-2',
-    'interests-inner-container' => '',
+    'interests-inner-container' => 'flex flex-wrap gap-4',
     'references-inner-container' => '',
     'projects-inner-container' => '',
     'downloads-inner-container' => 'flex flex-wrap gap-4',

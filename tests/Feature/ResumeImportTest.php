@@ -7,6 +7,7 @@ use App\Livewire\Resume\Import\DeleteResumeImport;
 use App\Livewire\Resume\Import\EditResumeImport;
 use App\Models\ResumeImport;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -225,9 +226,9 @@ test('user cannot delete another users resume import', function () {
     $this->assertDatabaseHas('resume_imports', ['id' => $import->id]);
 });
 
-test('user cannot have more than 5 resume imports', function () {
+test('resume imports have a limit', function () {
     $user = User::factory()->create();
-    ResumeImport::factory()->count(5)->create(['user_id' => $user->id]);
+    ResumeImport::factory()->count(ResumeLimit::IMPORTS)->create(['user_id' => $user->id]);
 
     $file = UploadedFile::fake()->create('new_resume.json', 100);
 
@@ -236,7 +237,7 @@ test('user cannot have more than 5 resume imports', function () {
         ->set('resumeImport.resume_file', $file)
         ->call('createForm');
 
-    $this->assertDatabaseCount('resume_imports', 5);
+    $this->assertDatabaseCount('resume_imports', ResumeLimit::IMPORTS);
 });
 
 test('user can edit name on an import', function () {

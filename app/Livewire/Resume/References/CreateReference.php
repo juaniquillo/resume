@@ -9,6 +9,7 @@ use App\Cruds\Schema\References\Renderers\ReferencesLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,12 @@ class CreateReference extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->references()->count() >= ResumeLimit::REFERENCES) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('references'), ResumeLimit::REFERENCES), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->references);
 

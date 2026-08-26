@@ -2,6 +2,8 @@
 
 use App\Livewire\Resume\Works\CreateWork;
 use App\Models\User;
+use App\Models\Work;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -49,4 +51,17 @@ it('validates required fields', function () {
         ->set('works.name', '')
         ->call('createForm')
         ->assertHasErrors(['name']);
+});
+
+it('work records have a limit', function () {
+    $this->actingAs($this->user);
+    Work::factory()->count(ResumeLimit::WORK)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateWork::class)
+        ->set('works.name', 'Extra Corp')
+        ->set('works.position', 'Developer')
+        ->set('works.starts_at', '2020-01')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('works', ResumeLimit::WORK);
 });
