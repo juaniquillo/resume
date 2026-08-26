@@ -4,8 +4,10 @@ use App\Livewire\Resume\Education\Courses\CoursesTable;
 use App\Livewire\Resume\Education\Courses\CreateCourse;
 use App\Livewire\Resume\Education\Courses\DeleteCourse;
 use App\Livewire\Resume\Education\Courses\EditCourse;
+use App\Models\Course;
 use App\Models\Education;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -110,4 +112,18 @@ it('displays courses records in the table', function () {
         ->assertViewHas('table', function ($table) {
             return $table !== null;
         });
+});
+
+it('courses records have a limit', function () {
+    $this->actingAs($this->user);
+    Course::factory()->count(ResumeLimit::COURSES)->create([
+        'courseable_id' => $this->education->id,
+        'courseable_type' => Education::class,
+    ]);
+
+    Livewire::test(CreateCourse::class, ['educationId' => $this->education->id])
+        ->set('courses.course', 'Extra Course')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('courses', ResumeLimit::COURSES);
 });

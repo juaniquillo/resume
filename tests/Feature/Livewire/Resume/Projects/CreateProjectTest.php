@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\Projects\CreateProject;
+use App\Models\Project;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -34,4 +36,16 @@ it('creates a new project record successfully', function () {
         'user_id' => $this->user->id,
         'name' => 'Awesome Project',
     ]);
+});
+
+it('projects records have a limit', function () {
+    $this->actingAs($this->user);
+    Project::factory()->count(ResumeLimit::PROJECTS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateProject::class)
+        ->set('projects.name', 'Extra Project')
+        ->set('projects.start_date', '2022-01')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('projects', ResumeLimit::PROJECTS);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Support\ResumeLimit;
 use Illuminate\Http\Request;
 
 class ProjectHighlightsController extends Controller
@@ -13,6 +14,7 @@ class ProjectHighlightsController extends Controller
         $project = $request->user()->projects()->findOrFail($id);
 
         return view('dashboard.projects.highlights.index')
-            ->with('model', $project);
+            ->with('model', $project)
+            ->with('limit', ResumeLimit::HIGHLIGHTS);
     }
 }

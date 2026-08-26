@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
+use App\Support\ResumeLimit;
 use Illuminate\Http\Request;
 
 class VolunteersHighlightsController extends Controller
@@ -13,6 +14,7 @@ class VolunteersHighlightsController extends Controller
         $volunteer = $request->user()->volunteers()->findOrFail($id);
 
         return view('dashboard.volunteers.highlights.index')
-            ->with('volunteer', $volunteer);
+            ->with('volunteer', $volunteer)
+            ->with('limit', ResumeLimit::HIGHLIGHTS);
     }
 }

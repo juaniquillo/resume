@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Education;
+use App\Support\ResumeLimit;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,6 +15,7 @@ class EducationCoursesController extends Controller
         $education = $request->user()->education()->findOrFail($id);
 
         return view('dashboard.education.courses.index')
-            ->with('education', $education);
+            ->with('education', $education)
+            ->with('limit', ResumeLimit::COURSES);
     }
 }

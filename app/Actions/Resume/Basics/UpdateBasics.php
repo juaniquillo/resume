@@ -22,6 +22,7 @@ class UpdateBasics
         $basics = $this->user->basics;
 
         if ($this->image) {
+            // delete old image
             if ($basics?->image) {
                 Storage::delete($basics->image);
             }

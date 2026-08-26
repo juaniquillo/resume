@@ -2,7 +2,9 @@
 
 use App\Enums\SkillLevel;
 use App\Livewire\Resume\Skills\CreateSkill;
+use App\Models\Skill;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -34,4 +36,16 @@ it('creates a new skill record successfully', function () {
         'name' => 'PHP',
         'level' => SkillLevel::EXPERT->value,
     ]);
+});
+
+it('skills records have a limit', function () {
+    $this->actingAs($this->user);
+    Skill::factory()->count(ResumeLimit::SKILLS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateSkill::class)
+        ->set('skills.name', 'Extra Skill')
+        ->set('skills.level', SkillLevel::BEGINNER->value)
+        ->call('createForm');
+
+    $this->assertDatabaseCount('skills', ResumeLimit::SKILLS);
 });

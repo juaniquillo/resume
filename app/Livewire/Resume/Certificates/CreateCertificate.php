@@ -9,6 +9,7 @@ use App\Cruds\Schema\Certificates\Renderers\CertificatesLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,12 @@ class CreateCertificate extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->certificates()->count() >= ResumeLimit::CERTIFICATES) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('certificates'), ResumeLimit::CERTIFICATES), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->certificates);
 

@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\Publications\CreatePublication;
+use App\Models\Publication;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -34,4 +36,16 @@ it('creates a new publication record successfully', function () {
         'name' => 'Research Paper',
         'issuer' => 'ACM',
     ]);
+});
+
+it('publications records have a limit', function () {
+    $this->actingAs($this->user);
+    Publication::factory()->count(ResumeLimit::PUBLICATIONS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreatePublication::class)
+        ->set('publications.name', 'Extra Publication')
+        ->set('publications.issuer', 'Extra Issuer')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('publications', ResumeLimit::PUBLICATIONS);
 });

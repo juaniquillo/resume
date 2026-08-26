@@ -2,7 +2,9 @@
 
 use App\Enums\EducationLevel;
 use App\Livewire\Resume\Education\CreateEducation;
+use App\Models\Education;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -39,4 +41,17 @@ it('creates a new education record successfully', function () {
         'area' => 'Software Engineering',
         'study_type' => EducationLevel::BACHELOR_DEGREE->value,
     ]);
+});
+
+it('education records have a limit', function () {
+    $this->actingAs($this->user);
+    Education::factory()->count(ResumeLimit::EDUCATION)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateEducation::class)
+        ->set('education.institution', 'Extra University')
+        ->set('education.area', 'CS')
+        ->set('education.study_type', EducationLevel::BACHELOR_DEGREE->value)
+        ->call('createForm');
+
+    $this->assertDatabaseCount('education', ResumeLimit::EDUCATION);
 });

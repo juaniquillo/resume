@@ -2,6 +2,8 @@
 
 use App\Livewire\Resume\Volunteers\CreateVolunteer;
 use App\Models\User;
+use App\Models\Volunteer;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -37,4 +39,16 @@ it('creates a new volunteer successfully', function () {
         'position' => 'Volunteer',
         'summary' => 'Great experience',
     ]);
+});
+
+it('volunteers records have a limit', function () {
+    $this->actingAs($this->user);
+    Volunteer::factory()->count(ResumeLimit::VOLUNTEERS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateVolunteer::class)
+        ->set('volunteers.organization', 'Extra NGO')
+        ->set('volunteers.position', 'Helper')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('volunteers', ResumeLimit::VOLUNTEERS);
 });

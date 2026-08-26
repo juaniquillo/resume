@@ -9,6 +9,7 @@ use App\Cruds\Schema\Profiles\Renderers\ProfilesLivewireFormRenderer;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,17 @@ class CreateProfile extends Component
     {
         /** @var User $user */
         $user = Auth::user();
+
         $basics = $user->resumeBasics();
 
         if (! $basics) {
             Flux::toast(heading: __('Error'), text: __('basics.errors.basics_not_found'), variant: 'danger');
+
+            return;
+        }
+
+        if ($basics->profiles()->count() >= ResumeLimit::PROFILES) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('profiles'), ResumeLimit::PROFILES), variant: 'danger');
 
             return;
         }

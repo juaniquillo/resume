@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Resume\Interests\CreateInterest;
+use App\Models\Interest;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -31,4 +33,16 @@ it('creates a new interest record successfully', function () {
         'user_id' => $this->user->id,
         'name' => 'Coding',
     ]);
+});
+
+it('interests records have a limit', function () {
+    $this->actingAs($this->user);
+    Interest::factory()->count(ResumeLimit::INTERESTS)->create(['user_id' => $this->user->id]);
+
+    Livewire::test(CreateInterest::class)
+        ->set('interests.name', 'Chess')
+        ->set('interests.keywords', ['Strategy'])
+        ->call('createForm');
+
+    $this->assertDatabaseCount('interests', ResumeLimit::INTERESTS);
 });

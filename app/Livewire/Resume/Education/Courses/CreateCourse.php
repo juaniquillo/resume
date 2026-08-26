@@ -10,6 +10,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\Education;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,12 @@ class CreateCourse extends Component
         $user = Auth::user();
         /** @var Education $education */
         $education = $user->education()->findOrFail($this->educationId);
+
+        if ($education->courses()->count() >= ResumeLimit::COURSES) {
+            Flux::toast(heading: __('Error'), text: ResumeLimit::errorMessage(__('courses'), ResumeLimit::COURSES), variant: 'danger');
+
+            return;
+        }
 
         $validator = $this->validateForm($this->crud()->make(), $this->courses);
 

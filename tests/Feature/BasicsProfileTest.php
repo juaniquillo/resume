@@ -6,6 +6,7 @@ use App\Livewire\Resume\Profiles\EditProfile;
 use App\Models\Basic;
 use App\Models\Profile;
 use App\Models\User;
+use App\Support\ResumeLimit;
 use Livewire\Livewire;
 
 pest()->group('fast');
@@ -100,4 +101,18 @@ it('deletes a profile record', function () {
     $this->assertDatabaseMissing('profiles', [
         'id' => $profile->id,
     ]);
+});
+
+it('profiles records have a limit', function () {
+    Profile::factory()->count(ResumeLimit::PROFILES)->create([
+        'basic_id' => $this->basic->id,
+    ]);
+
+    Livewire::actingAs($this->user)
+        ->test(CreateProfile::class)
+        ->set('profiles.network', 'GitHub')
+        ->set('profiles.username', 'extrauser')
+        ->call('createForm');
+
+    $this->assertDatabaseCount('profiles', ResumeLimit::PROFILES);
 });
