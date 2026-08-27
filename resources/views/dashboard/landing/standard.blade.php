@@ -11,7 +11,7 @@
 
 <flux:heading class="mt-8" size="lg" level="2" icon="document-text">{{ __("Resume Sections") }}</flux:heading>
 
-<div class="mt-6 flex flex-wrap gap-3">
+<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
     {{ $cards }}
 </div>
 
@@ -19,7 +19,7 @@
 
 <flux:heading class="mt-10" size="lg" level="2" icon="cog-6-tooth">{{ __("Configuration") }}</flux:heading>
 
-<div class="mt-6 flex flex-wrap gap-3">
+<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
     {{ $optionsCards }}
 </div>
 
@@ -27,6 +27,6 @@
 
 <flux:heading class="mt-10" size="lg" level="2" icon="wrench-screwdriver">{{ __("Maintenance Tools") }}</flux:heading>
 
-<div class="mt-6 flex flex-wrap gap-3">
+<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
     {{ $toolsCards }}
 </div>

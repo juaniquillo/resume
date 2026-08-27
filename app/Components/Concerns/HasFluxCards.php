@@ -31,7 +31,6 @@ trait HasFluxCards
                 ->setAttributes([
                     'href' => $item['href'],
                     'aria-label' => $item['label'],
-                    'class' => 'dashboard-card-link',
                     'wire:navigate' => '',
                 ])
                 ->setContent(
