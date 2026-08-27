@@ -30,21 +30,29 @@
 
             <flux:sidebar.nav>
 
-                {{ $dashboardNav }}
+                <flux:navlist.group class="flex flex-col">
+                    {{ $dashboardNav }}
+                </flux:navlist.group>
 
-                <flux:navlist.group heading="Resume">
+                <flux:heading size="sm" class="p-3">Resume</flux:heading>
+
+                <flux:navlist.group  class="flex flex-col">
                     {{ $resumeNav }}
                 </flux:navlist.group>
 
                 <flux:menu.separator />
 
-                <flux:navlist.group heading="Options">
+                <flux:heading size="sm" class="p-3">Options</flux:heading>
+
+                <flux:navlist.group class="flex flex-col">
                     {{ $optionsNav }}
                 </flux:navlist.group>
 
                 <flux:menu.separator />
 
-                <flux:navlist.group heading="Tools">
+                <flux:heading size="sm" class="p-3">Tools</flux:heading>
+
+                <flux:navlist.group  class="flex flex-col">
                     {{ $toolsNav }}
                 </flux:navlist.group>
             </flux:sidebar.nav>

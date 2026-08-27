@@ -60,5 +60,5 @@
 57. ✅ Add new "Name" input to the import/export CRUDs.
 58. ✅ Create new "Professional" resume theme with two columns.
 59. ◻️ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch
-60. ◻️ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view.
+60. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
 61. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
