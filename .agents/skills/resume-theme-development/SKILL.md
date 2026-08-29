@@ -59,8 +59,8 @@ return [
     'section-inner' => '',
 
     'summary-container' => '',
-    'summary-inner-container' => '',
-    'summary' => 'text-base leading-relaxed text-gray-700 whitespace-pre-wrap',
+    'summary-inner-container' => 'whitespace-pre-wrap',
+    'summary' => 'text-base leading-relaxed text-gray-700',
     
     // Section containers (work, education, skills, etc.)
     'work-container' => '',
