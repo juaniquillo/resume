@@ -29,9 +29,10 @@ return [
     'section-title' => 'text-2xl md:text-5xl font-black uppercase tracking-tighter mb-8 md:mb-12 bg-white text-black px-4 md:px-6 py-2 inline-block transform -rotate-2',
     'section-inner' => '',
 
-    'summary' => 'text-xl md:text-2xl leading-tight font-medium text-zinc-300 max-w-4xl whitespace-pre-wrap',
+    'summary' => 'text-xl md:text-2xl leading-tight font-medium text-zinc-300 max-w-4xl',
 
     'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-8 border-yellow-400 pb-12',
+    'name-container' => '',
     'summary-container' => '',
     'work-container' => '',
     'volunteers-container' => '',
@@ -47,7 +48,7 @@ return [
     'downloads-container' => '',
     
     'basics-inner-container' => '',
-    'summary-inner-container' => 'border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
+    'summary-inner-container' => 'whitespace-pre-wrap border-l-4 md:border-l-8 border-yellow-400 pl-6 md:pl-8',
     'work-inner-container' => '',
     'volunteers-inner-container' => '',
     'education-inner-container' => '',

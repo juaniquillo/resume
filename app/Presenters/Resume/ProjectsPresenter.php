@@ -37,11 +37,7 @@ final class ProjectsPresenter
         return $this->section('Projects',
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->projectsInnerContainerThemes())
-                ->setContent(
-                    $this->compose(ComponentEnum::DIV)
-                        ->setContents($items)
-
-                )
+                ->setContents($items)
         )->setThemes($this->theme->projectsContainerThemes());
     }
 
@@ -77,7 +73,7 @@ final class ProjectsPresenter
                     ]),
                 'description' => $project->description
                     ? $this->compose(ComponentEnum::PARAGRAPH)
-                        ->setThemes($this->theme->summaryThemes())
+                        ->setThemes($this->theme->sectionInnerThemes())
                         ->setContent($project->description)
                     : null,
                 'highlights' => $project->highlights->isNotEmpty()

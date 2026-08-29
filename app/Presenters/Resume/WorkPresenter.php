@@ -79,7 +79,7 @@ final class WorkPresenter
                     ]),
                 'summary' => $work->summary
                     ? $this->compose(ComponentEnum::PARAGRAPH)
-                        ->setThemes($this->theme->summaryThemes())
+                        ->setThemes($this->theme->sectionInnerThemes())
                         ->setContent($work->summary)
                     : null,
                 'highlights' => $work->highlights->isNotEmpty()

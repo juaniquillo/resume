@@ -12,12 +12,12 @@
 return [
     'cover-letter-container' => 'prose prose-invert prose-green max-w-none text-green-300 prose-headings:text-green-300 prose-headings:font-bold prose-headings:uppercase prose-headings:tracking-tight prose-a:text-cyan-400 prose-a:hover:text-green-400 prose-a:underline',
     
-    'container' => 'mx-4 md:mx-auto max-w-5xl px-4 md:px-8 py-12 md:py-20 bg-black text-green-400 border-2 border-green-500 rounded-lg shadow-[0_0_30px_rgba(34,197,94,0.25)] my-6 md:my-6 font-[IBM_Plex_Mono] relative pt-[3.5rem] overflow-hidden before:content-["●_●_●__bash_-_guest@resume:~"] before:absolute before:top-0 before:left-0 before:right-0 before:h-[2.2rem] before:bg-[#161616] before:text-[#888888] before:text-[0.8rem] before:leading-[2.2rem] before:pl-[1rem] before:border-b-2 before:border-green-500 before:font-[IBM_Plex_Mono] before:tracking-[0.05em] before:z-20 after:content-[""] after:absolute after:inset-0 after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] after:bg-[length:100%_4px] after:z-10 after:pointer-events-none after:opacity-[0.15] print:bg-white print:text-black print:border-0 print:shadow-none print:my-0 print:py-0 print:px-0',
+    'container' => 'mx-4 md:mx-auto max-w-5xl px-6 md:px-10 py-14 md:py-18 bg-black text-green-400 border-2 border-green-500 rounded-lg shadow-[0_0_30px_rgba(34,197,94,0.25)] font-[IBM_Plex_Mono] relative pt-[3.5rem] overflow-hidden before:content-["●_●_●__bash_-_guest@resume:~"] before:absolute before:top-0 before:left-0 before:right-0 before:h-[2.2rem] before:bg-[#161616] before:text-[#888888] before:text-[0.8rem] before:leading-[2.2rem] before:pl-[1rem] before:border-b-2 before:border-green-500 before:font-[IBM_Plex_Mono] before:tracking-[0.05em] before:z-20 after:content-[""] after:absolute after:inset-0 after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] after:bg-[length:100%_4px] after:z-10 after:pointer-events-none after:opacity-[0.15] print:bg-white print:text-black print:border-0 print:shadow-none print:my-0 print:py-0 print:px-0',
     
-    'image-container' => 'mb-8 md:mb-12',
+    'image-container' => '',
     'image' => 'w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 border-2 border-green-500 object-cover shadow-[4px_4px_0px_rgba(34,197,94,0.3)] max-w-full print:border-black print:shadow-none',
-    'name' => 'text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight mb-2 break-words text-green-400 print:text-black',
-    'label' => 'text-lg md:text-2xl font-bold text-cyan-400 px-2 py-0.5 inline-block uppercase tracking-wider mt-2 mb-6 border border-cyan-500 bg-cyan-950/20 print:text-black print:border-black print:bg-white',
+    'name' => 'text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight mt-4 break-words text-green-400 print:text-black',
+    'label' => 'text-lg md:text-2xl font-bold text-cyan-400 px-2 py-0.5 inline-block uppercase tracking-wider mt-2 mt-6 border border-cyan-500 bg-cyan-950/20 print:text-black print:border-black print:bg-white',
     
     'contact-container' => 'flex flex-wrap gap-x-4 md:gap-x-6 gap-y-4 text-base md:text-lg font-bold mt-2 print:text-black',
     'contact-inner-container' => '',
@@ -30,13 +30,14 @@ return [
     'location-item' => 'flex items-center gap-2 font-bold text-green-400 before:content-["[addr]_"] before:text-cyan-400 print:text-black',
     'icon' => 'hidden',
     
-    'section' => 'mb-14 md:mb-24 last:mb-0 print:mb-12',
-    'section-title' => 'text-2xl md:text-4xl font-bold uppercase tracking-wide mb-8 md:mb-12 text-green-400 border-b border-green-500/30 pb-2 before:content-["guest@resume:~$_cat_"] before:text-green-500 before:font-normal after:content-["_.txt"] after:text-green-500 after:font-normal print:text-black print:border-black',
-    'section-inner' => '',
+    'section' => 'mt:12 md:mt-16 print:mt-12',
+    'section-title' => 'text-2xl md:text-4xl font-bold uppercase tracking-wide mt-8 md:mt-12 text-green-400 border-b border-green-500/30 pb-2 before:content-["guest@resume:~$_cat_"] before:text-green-500 before:font-normal after:content-["_.txt"] after:text-green-500 after:font-normal print:text-black print:border-black',
+    'section-inner' => 'mt-2',
 
-    'summary' => 'text-lg md:text-xl leading-relaxed text-green-300 max-w-4xl whitespace-pre-wrap print:text-black',
+    'summary' => 'text-lg md:text-xl leading-relaxed text-green-300 max-w-4xl print:text-black',
     
-    'basics-container' => 'mb-16 md:mb-24 flex flex-col items-center md:items-start border-b-2 border-green-500 pb-12 print:border-b-2 print:border-black',
+    'basics-container' => 'flex flex-col items-center md:items-start border-b-2 border-green-500 pb-12 print:border-b-2 print:border-black',
+    'name-container' => '',
     'summary-container' => '',
     'work-container' => '',
     'volunteers-container' => '',
@@ -52,7 +53,7 @@ return [
     'downloads-container' => '',
     
     'basics-inner-container' => '',
-    'summary-inner-container' => 'border-l-2 border-green-500 pl-6 md:pl-8 print:border-black',
+    'summary-inner-container' => 'whitespace-pre-wrap border-l-2 border-green-500 pl-6 md:pl-8 print:border-black',
     'work-inner-container' => '',
     'volunteers-inner-container' => '',
     'education-inner-container' => '',
@@ -66,17 +67,17 @@ return [
     'projects-inner-container' => '',
     'downloads-inner-container' => 'flex flex-wrap gap-4',
 
-    'item-container' => 'mb-10 md:mb-12 last:mb-0 relative group',
-    'item-title' => 'text-xl md:text-2xl font-bold uppercase tracking-tight text-green-400 mb-2 group-hover:text-cyan-400 transition-colors break-words print:text-black',
-    'item-details' => 'text-cyan-400 mb-4 text-sm md:text-base font-bold uppercase tracking-wider flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 items-center print:text-black',
+    'item-container' => 'mt-8 md:mt-10 relative group',
+    'item-title' => 'text-xl md:text-2xl font-bold uppercase tracking-tight text-green-400 mt-2 group-hover:text-cyan-400 transition-colors break-words print:text-black',
+    'item-details' => 'text-cyan-400 mt-4 text-sm md:text-base font-bold uppercase tracking-wider flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 items-center print:text-black',
     
     'list' => 'space-y-2 text-green-300 font-medium text-base md:text-lg leading-relaxed list-none print:text-black',
-    'list-item' => 'before:content-[">_"] before:text-green-500 before:mr-2 print:before:content-["•_"] print:before:text-black',
+    'list-item' => 'mt-2 before:content-[">_"] before:text-green-500 before:mr-2 print:before:content-["•_"] print:before:text-black',
     
-    'badge-container' => 'flex flex-wrap gap-2',
+    'badge-container' => 'mt-2 flex flex-wrap gap-2',
     'badge' => 'px-2 py-0.5 text-xs font-bold uppercase tracking-wider bg-green-950/40 text-green-400 border border-green-500 hover:bg-green-500 hover:text-black transition-colors print:bg-white print:text-black print:border-black',
     'keyword-badge' => 'px-2 py-0.5 text-xs font-bold uppercase tracking-wider bg-cyan-950/40 text-cyan-400 border border-cyan-500 hover:bg-cyan-500 hover:text-black transition-colors print:bg-white print:text-black print:border-black',
     'social-badge' => 'inline-flex items-center gap-2 px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-black text-green-400 border border-green-500 hover:bg-green-600 hover:text-black transition-all duration-300 before:content-["[profile]_"] before:text-cyan-400 print:bg-white print:text-black print:border-black',
     'date' => 'text-green-500/80 font-normal print:text-black',
-    'subtitle' => 'text-lg md:text-xl font-bold text-green-400 mb-2 uppercase tracking-tight print:text-black',
+    'subtitle' => 'text-lg md:text-xl font-bold text-green-400 mt-2 uppercase tracking-tight print:text-black',
 ];

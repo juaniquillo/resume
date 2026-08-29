@@ -76,7 +76,7 @@ final class VolunteersPresenter
                     ]),
                 'summary' => $volunteer->summary
                     ? $this->compose(ComponentEnum::PARAGRAPH)
-                        ->setThemes($this->theme->summaryThemes())
+                        ->setThemes($this->theme->sectionInnerThemes())
                         ->setContent($volunteer->summary)
                     : null,
                 'highlights' => $volunteer->highlights->isNotEmpty()

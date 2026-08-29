@@ -335,6 +335,13 @@ final class ProfessionalPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function nameContainerThemes(): array
+    {
+        return [
+            'professional' => 'name-container',
+        ];
+    }
+
     public function coverLetterThemes(): array
     {
         return [

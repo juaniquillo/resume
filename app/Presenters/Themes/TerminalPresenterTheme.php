@@ -173,7 +173,7 @@ final class TerminalPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-        return [];
+        return ['terminal' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array
@@ -300,6 +300,13 @@ final class TerminalPresenterTheme implements PresenterTheme
     {
         return [
             'terminal' => 'cover-letter-container',
+        ];
+    }
+
+    public function nameContainerThemes(): array
+    {
+        return [
+            'terminal' => 'name-container',
         ];
     }
 

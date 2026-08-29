@@ -27,11 +27,11 @@ final class SummaryPresenter
         return $this->section('Summary',
             $this->compose(ComponentEnum::DIV)
                 ->setThemes($this->theme->summaryInnerContainerThemes())
-                ->setContents([
-                    'paragraph' => $this->compose(ComponentEnum::PARAGRAPH)
-                        ->setThemes($this->theme->summaryThemes())
-                        ->setContent($this->basics->summary),
-                ])
+                ->setContent(
+                    $this->compose(ComponentEnum::DIV)
+                        ->setThemes($this->theme->itemContainerThemes())
+                        ->setContent($this->basics->summary)
+                )
         )
             ->setThemes($this->theme->summaryContainerThemes());
     }

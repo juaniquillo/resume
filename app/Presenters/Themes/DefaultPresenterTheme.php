@@ -216,6 +216,13 @@ final class DefaultPresenterTheme implements PresenterTheme
         ];
     }
 
+    public function nameContainerThemes(): array
+    {
+        return [
+            'default' => 'name-container',
+        ];
+    }
+
     public function coverLetterThemes(): array
     {
         return [
@@ -253,7 +260,9 @@ final class DefaultPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-        return [];
+        return [
+            'default' => 'section-inner'
+        ];
     }
 
     public function itemTitleThemes(): array
@@ -321,7 +330,7 @@ final class DefaultPresenterTheme implements PresenterTheme
 
     public function imageContainerThemes(): array
     {
-        return [];
+         return ['default' => 'section-inner'];
     }
 
     public function imageThemes(): array
