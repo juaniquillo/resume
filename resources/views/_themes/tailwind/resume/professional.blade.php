@@ -5,9 +5,9 @@ return [
 
     'container' => 'mx-auto max-w-5xl px-6 md:px-10 py-12 bg-white text-gray-800 shadow-xl rounded-2xl border border-gray-200 dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 grid  md:grid-cols-3 gap-8',
     
-    'image-container' => 'mt-2 flex justify-center md:justify-center',
+    'image-container' => 'flex justify-center md:justify-center',
     'image' => 'w-32 h-32 rounded-full object-cover border-4 border-white shadow-md dark:border-zinc-700',
-    'name' => 'text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-1',
+    'name' => 'mt-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-1',
     'label' => 'text-sm md:text-base font-semibold text-sky-600 dark:text-sky-400 mt-6',
     
     'contact-container' => '',
