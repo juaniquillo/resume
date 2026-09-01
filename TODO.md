@@ -47,7 +47,7 @@
 44. ✅ The Profile Network icons (svg) don't show on the PDF export. Only a color square shows.
 45. ✅ Add the image and the address to the General Options' Security Options group.
 46. ✅ Work on a new Resume Theme now under another Agent/Model
-47. ◻️ Add a theme select menu to the resume dashboard preview.
+47. ◻️ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch.
 48. ✅ Work on cover letter CRUD and export.
 49. ✅ Add the JSON export to the downloads' section.
 50. ✅ Refactor HasHtmlTable trait to make it Livewire aware.
@@ -56,9 +56,8 @@
 53. ✅ Check if general_options->hide_image is enable on OG images.
 54. ✅ Refactor import to livewire form and table, with polling for the status buttons.
 55. ✅ Refactor export to livewire form and table, with polling for the status buttons and edit form for the "Allow Download" option.
-56. ◻️ Consider adding limits to resume section records and revise the ones for import/export.
+56. ✅ Consider adding limits to resume section records and revise the ones for import/export.
 57. ✅ Add new "Name" input to the import/export CRUDs.
 58. ✅ Create new "Professional" resume theme with two columns.
-59. ◻️ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch
-60. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
-61. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
+59. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
+60. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
