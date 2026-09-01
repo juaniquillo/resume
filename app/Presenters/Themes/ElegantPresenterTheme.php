@@ -205,7 +205,7 @@ final class ElegantPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-         return ['elegant' => 'section-inner'];
+        return ['elegant' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array

@@ -62,7 +62,7 @@ final class DownloadsPresenter
 
         $content = $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->downloadsInnerContainerThemes())
-            ->setContents($items );
+            ->setContents($items);
 
         return $this->section(__('Downloads'), $content)
             ->setThemes($this->theme->downloadsContainerThemes());

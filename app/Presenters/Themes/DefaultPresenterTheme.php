@@ -261,7 +261,7 @@ final class DefaultPresenterTheme implements PresenterTheme
     public function sectionInnerThemes(): array
     {
         return [
-            'default' => 'section-inner'
+            'default' => 'section-inner',
         ];
     }
 
@@ -330,7 +330,7 @@ final class DefaultPresenterTheme implements PresenterTheme
 
     public function imageContainerThemes(): array
     {
-         return ['default' => 'section-inner'];
+        return ['default' => 'section-inner'];
     }
 
     public function imageThemes(): array

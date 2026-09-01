@@ -461,4 +461,5 @@ case MY_THEME = 'my-theme';
 
 - **Portability**: Themes must be fully portable and use **only** their own theme key (never reference `'default'` in custom theme presenter classes).
 - **Inner Containers**: Always utilize container and inner container pairs (`basicsContainerThemes()` + `basicsInnerContainerThemes()`, etc.) for maximum styling flexibility.
+- **Spacing Strategy**: Prefer top margins (`mt-`) over bottom margins (`mb-`) for element and section separation. This makes each element responsible for its own top separation and eliminates the need for `:last` cleanup classes (e.g. `last:mb-0`).
 - **Verification**: Run PHPStan (`composer phpstan`), Pint (`vendor/bin/pint --format agent`), and Pest tests (`php artisan test --compact`) after creating or modifying any theme.
