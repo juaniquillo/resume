@@ -5,7 +5,7 @@ return [
 
     'container' => 'mx-auto max-w-4xl p-6 bg-white dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] ]',
     
-    'basics-container' => 'flex flex-col md:items-center items-center gap-6 border-b border-[#d0d7de] dark:border-[#30363d] pb-6',
+    'basics-container' => 'flex flex-col md:items-center items-center gap-6',
     'name-container' => 'text-center',
     'basics-inner-container' => 'flex-1 text-center md:text-left',
     'image-container' => 'flex-shrink-0',
