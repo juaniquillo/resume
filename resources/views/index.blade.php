@@ -2,6 +2,7 @@
     title="Resume Manager"
     description="A professional, open-source resume management system. Build, customize, and export your resume in JSON and PDF formats with beautiful professional themes."
     :assets="['resources/css/landing.css', 'resources/js/landing.js']"
+    :image="asset('home-og.png')"
 >
     <x-slot:nav>
         <x-nav.landing />
