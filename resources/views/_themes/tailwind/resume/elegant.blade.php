@@ -12,7 +12,7 @@
 return [
     'cover-letter-container' => 'prose prose-stone text-gray-800 font-serif dark:text-gray-200 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
     
-    'container' => 'mx-auto max-w-4xl px-6 md:px-10 pt-6 md:pt-10 bg-white shadow-2xl border border-gray-100 dark:bg-gray-900 dark:border-gray-800 dark:shadow-none',
+    'container' => 'mx-auto max-w-4xl px-6 md:px-10 py-6 md:pt-10 bg-white shadow-2xl border border-gray-100 dark:bg-gray-900 dark:border-gray-800 dark:shadow-none',
     
     'image-container' => 'mt-6',
     'image' => 'w-32 h-32 rounded-full border border-gray-200 p-1 shadow-sm object-cover dark:border-gray-700',
