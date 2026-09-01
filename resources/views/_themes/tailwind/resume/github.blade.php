@@ -3,7 +3,7 @@
 return [
     'cover-letter-container' => 'prose dark:prose-invert text-[#24292f] dark:text-[#c9d1d9] max-w-none',
 
-    'container' => 'mx-auto max-w-4xl p-6 bg-white dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] ]',
+    'container' => 'mx-auto max-w-4xl px-6 py-8 bg-white dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] ]',
     
     'basics-container' => 'flex flex-col md:items-center items-center gap-6',
     'name-container' => 'text-center',
