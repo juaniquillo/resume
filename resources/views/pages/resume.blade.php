@@ -13,7 +13,7 @@
 >
     @if(! $minimalView)
         <x-slot:nav>
-            <x-nav.resume />
+            <x-nav.resume class="mb-4" />
         </x-slot:nav>
     @endif
 
@@ -28,7 +28,7 @@
 
     @if(! $minimalView)
         <x-slot:footer>
-            <x-footer :user="$user" />
+            <x-footer class="mt-4" :user="$user" />
         </x-slot:footer>
     @endif
     
