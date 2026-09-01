@@ -7,6 +7,7 @@ use App\Presenters\Themes\BlankThemePresenter;
 use App\Presenters\Themes\BoldPresenterTheme;
 use App\Presenters\Themes\DefaultPresenterTheme;
 use App\Presenters\Themes\ElegantPresenterTheme;
+use App\Presenters\Themes\GithubPresenterTheme;
 use App\Presenters\Themes\PdfPresenterTheme;
 use App\Presenters\Themes\ProfessionalPresenterTheme;
 use App\Presenters\Themes\TerminalPresenterTheme;
@@ -20,6 +21,7 @@ enum ResumeTheme: string
     case PDF = 'pdf';
     case TERMINAL = 'terminal';
     case PROFESSIONAL = 'professional';
+    case GITHUB = 'github';
 
     public function label(): string
     {
@@ -31,6 +33,7 @@ enum ResumeTheme: string
             self::PDF => 'PDF Optimized',
             self::TERMINAL => 'Terminal Console',
             self::PROFESSIONAL => 'Professional Layout',
+            self::GITHUB => 'GitHub Markdown',
         };
     }
 
@@ -44,6 +47,7 @@ enum ResumeTheme: string
             self::PDF => new PdfPresenterTheme,
             self::TERMINAL => new TerminalPresenterTheme,
             self::PROFESSIONAL => new ProfessionalPresenterTheme,
+            self::GITHUB => new GithubPresenterTheme,
         };
     }
 }

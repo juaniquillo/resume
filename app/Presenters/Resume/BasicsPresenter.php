@@ -47,15 +47,19 @@ final class BasicsPresenter
                                 'alt' => $this->basics->name,
                             ])
                     ) : null,
-                'name' => $this->compose(ComponentEnum::H1)
-                    ->setThemes($this->theme->nameThemes())
-                    ->setContent($this->basics->name),
-                'inner' => $this->compose(ComponentEnum::DIV)
-                    ->setThemes($this->theme->basicsInnerContainerThemes())
+                'name-container' => $this->compose(ComponentEnum::DIV)
+                    ->setThemes($this->theme->nameContainerThemes())
                     ->setContents([
+                        'name' => $this->compose(ComponentEnum::H1)
+                            ->setThemes($this->theme->nameThemes())
+                            ->setContent($this->basics->name),
                         'label' => $this->compose(ComponentEnum::H2)
                             ->setThemes($this->theme->labelThemes())
                             ->setContent($this->basics->label),
+                    ]),
+                'inner' => $this->compose(ComponentEnum::DIV)
+                    ->setThemes($this->theme->basicsInnerContainerThemes())
+                    ->setContents([
                         'contact' => $this->compose(ComponentEnum::DIV)
                             ->setThemes($this->theme->contactContainerThemes())
                             ->setContents($this->basicsContactItems($this->basics, $options)),

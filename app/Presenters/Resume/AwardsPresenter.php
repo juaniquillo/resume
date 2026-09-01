@@ -48,7 +48,7 @@ final class AwardsPresenter
                         ]),
                     'summary' => $award->summary
                         ? $this->compose(ComponentEnum::PARAGRAPH)
-                            ->setThemes($this->theme->summaryThemes())
+                            ->setThemes($this->theme->sectionInnerThemes())
                             ->setContent($award->summary)
                         : null,
                 ]));

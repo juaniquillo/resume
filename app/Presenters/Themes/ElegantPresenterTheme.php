@@ -205,7 +205,7 @@ final class ElegantPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-        return [];
+        return ['elegant' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array
@@ -332,6 +332,13 @@ final class ElegantPresenterTheme implements PresenterTheme
     {
         return [
             'elegant' => 'cover-letter-container',
+        ];
+    }
+
+    public function nameContainerThemes(): array
+    {
+        return [
+            'elegant' => 'name-container',
         ];
     }
 

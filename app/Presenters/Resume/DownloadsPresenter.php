@@ -37,32 +37,32 @@ final class DownloadsPresenter
             $extension = $enum->extension();
             $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$extension;
 
-            return $this->compose(ComponentEnum::LINK)
-                ->setAttribute('href', route('resume.download', [
-                    'uuid' => $export->uuid,
-                    'v' => md5($export->created_at),
-                ]))
-                ->setAttribute('download', $filename)
-                ->setThemes($this->theme->socialBadgeThemes())
-                ->setContents([
-                    'icon' => $this->compose('mask-icon')->useLocal()
-                        ->setThemes($this->theme->iconThemes())
-                        ->setAttributes([
-                            'path' => 'images/download.svg',
-                            'color' => 'currentColor',
-                        ]),
-                    'label' => $this->compose(ComponentEnum::SPAN)
-                        ->setContent($export->type->label()),
-                ]);
+            return $this->compose(ComponentEnum::SPAN)
+                ->setThemes($this->theme->itemContainerThemes())
+                ->setContent(
+                    $this->compose(ComponentEnum::LINK)
+                        ->setAttribute('href', route('resume.download', [
+                            'uuid' => $export->uuid,
+                            'v' => md5($export->created_at),
+                        ]))
+                        ->setAttribute('download', $filename)
+                        ->setThemes($this->theme->socialBadgeThemes())
+                        ->setContents([
+                            'icon' => $this->compose('mask-icon')->useLocal()
+                                ->setThemes($this->theme->iconThemes())
+                                ->setAttributes([
+                                    'path' => 'images/download.svg',
+                                    'color' => 'currentColor',
+                                ]),
+                            'label' => $this->compose(ComponentEnum::SPAN)
+                                ->setContent($export->type->label()),
+                        ])
+                );
         })->toArray();
 
         $content = $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->downloadsInnerContainerThemes())
-            ->setContent(
-                $this->compose(ComponentEnum::DIV)
-                    ->setThemes($this->theme->itemContainerThemes())
-                    ->setContents($items)
-            );
+            ->setContents($items);
 
         return $this->section(__('Downloads'), $content)
             ->setThemes($this->theme->downloadsContainerThemes());

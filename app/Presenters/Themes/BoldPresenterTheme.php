@@ -205,7 +205,7 @@ final class BoldPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-        return [];
+        return ['bold' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array
@@ -332,6 +332,13 @@ final class BoldPresenterTheme implements PresenterTheme
     {
         return [
             'bold' => 'cover-letter-container',
+        ];
+    }
+
+    public function nameContainerThemes(): array
+    {
+        return [
+            'bold' => 'name-container',
         ];
     }
 

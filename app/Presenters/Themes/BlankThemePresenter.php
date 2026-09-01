@@ -303,6 +303,11 @@ final class BlankThemePresenter implements PresenterTheme
         ];
     }
 
+    public function nameContainerThemes(): array
+    {
+        return [];
+    }
+
     public function coverLetterThemes(): array
     {
         return [];

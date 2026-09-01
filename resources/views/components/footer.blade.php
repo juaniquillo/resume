@@ -1,7 +1,7 @@
 @props([
     'user' => null,
 ])
-<footer class="py-12 border-t border-gray-100 dark:border-gray-800">
+<footer {{ $attributes->merge(['class' => 'py-12 border-t border-gray-100 dark:border-gray-800']) }}>
     <div class="container mx-auto max-w-4xl 3xl:max-w-6xl px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="text-gray-500 text-sm">
             @if($user)

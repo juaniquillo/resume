@@ -3,11 +3,11 @@
 return [
     'cover-letter-container' => 'prose text-gray-700 dark:text-zinc-300 max-w-none prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-a:text-sky-600 prose-a:underline',
 
-    'container' => 'mx-auto my-2 max-w-5xl px-6 md:px-10 py-12 bg-white text-gray-800 shadow-xl rounded-2xl border border-gray-200 dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 grid  md:grid-cols-3 gap-8',
+    'container' => 'mx-auto max-w-5xl px-6 md:px-10 py-12 bg-white text-gray-800 shadow-xl rounded-2xl border border-gray-200 dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 grid  md:grid-cols-3 gap-8',
     
-    'image-container' => 'mt-2 flex justify-center md:justify-center',
+    'image-container' => 'flex justify-center md:justify-center',
     'image' => 'w-32 h-32 rounded-full object-cover border-4 border-white shadow-md dark:border-zinc-700',
-    'name' => 'text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-1',
+    'name' => 'mt-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-1',
     'label' => 'text-sm md:text-base font-semibold text-sky-600 dark:text-sky-400 mt-6',
     
     'contact-container' => '',
@@ -21,9 +21,10 @@ return [
     'section-title' => 'text-xl font-bold text-gray-900 dark:text-white mt-4 uppercase tracking-wider border-b-2 border-sky-600 dark:border-sky-500 pb-1.5 flex items-center gap-2',
     'section-inner' => '',
 
-    'summary' => 'mt-6 text-base leading-relaxed text-gray-700 dark:text-zinc-300 whitespace-pre-wrap',
+    'summary' => 'mt-6 text-base leading-relaxed text-gray-700 dark:text-zinc-300',
     
     'basics-container' => 'md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left bg-zinc-50 dark:bg-zinc-800/50 p-6 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 h-fit',
+    'name-container' => '',
     'summary-container' => 'md:col-span-2 bg-zinc-50 dark:bg-zinc-800/50 p-6 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 h-fit',
     'work-container' => 'md:col-span-3',
     'volunteers-container' => 'md:col-span-3',
@@ -39,7 +40,7 @@ return [
     'downloads-container' => 'md:col-span-3',
     
     'basics-inner-container' => '',
-    'summary-inner-container' => '',
+    'summary-inner-container' => 'mt-4 whitespace-pre-wrap',
     'work-inner-container' => '',
     'volunteers-inner-container' => '',
     'education-inner-container' => '',

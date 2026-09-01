@@ -42,7 +42,7 @@ final class ReferencesPresenter
                                     ->setContent($ref->name),
                                 'reference' => $ref->reference
                                     ? $this->compose(ComponentEnum::PARAGRAPH)
-                                        ->setThemes($this->theme->summaryThemes())
+                                        ->setThemes($this->theme->sectionInnerThemes())
                                         ->setContent($ref->reference)
                                     : null,
                             ]));

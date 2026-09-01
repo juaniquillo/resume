@@ -205,7 +205,7 @@ final class PdfPresenterTheme implements PresenterTheme
 
     public function sectionInnerThemes(): array
     {
-        return [];
+        return ['pdf' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array
@@ -332,6 +332,13 @@ final class PdfPresenterTheme implements PresenterTheme
     {
         return [
             'pdf' => 'cover-letter-container',
+        ];
+    }
+
+    public function nameContainerThemes(): array
+    {
+        return [
+            'pdf' => 'name-container',
         ];
     }
 

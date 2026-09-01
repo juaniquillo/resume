@@ -4,338 +4,325 @@ namespace App\Presenters\Themes;
 
 use App\Presenters\Contracts\PresenterTheme;
 
-final class TerminalPresenterTheme implements PresenterTheme
+final class GithubPresenterTheme implements PresenterTheme
 {
     public function containerThemes(): array
     {
-        return ['terminal' => 'container'];
+        return ['github' => 'container'];
     }
 
     public function basicsContainerThemes(): array
     {
-        return ['terminal' => 'basics-container'];
+        return ['github' => 'basics-container'];
     }
 
     public function summaryContainerThemes(): array
     {
-        return ['terminal' => 'summary-container'];
+        return ['github' => 'summary-container'];
     }
 
     public function workContainerThemes(): array
     {
-        return ['terminal' => 'work-container'];
+        return ['github' => 'work-container'];
     }
 
     public function volunteersContainerThemes(): array
     {
-        return ['terminal' => 'volunteers-container'];
+        return ['github' => 'volunteers-container'];
     }
 
     public function educationContainerThemes(): array
     {
-        return ['terminal' => 'education-container'];
+        return ['github' => 'education-container'];
     }
 
     public function awardsContainerThemes(): array
     {
-        return ['terminal' => 'awards-container'];
+        return ['github' => 'awards-container'];
     }
 
     public function certificatesContainerThemes(): array
     {
-        return ['terminal' => 'certificates-container'];
+        return ['github' => 'certificates-container'];
     }
 
     public function publicationsContainerThemes(): array
     {
-        return ['terminal' => 'publications-container'];
+        return ['github' => 'publications-container'];
     }
 
     public function skillsContainerThemes(): array
     {
-        return ['terminal' => 'skills-container'];
+        return ['github' => 'skills-container'];
     }
 
     public function languagesContainerThemes(): array
     {
-        return ['terminal' => 'languages-container'];
+        return ['github' => 'languages-container'];
     }
 
     public function interestsContainerThemes(): array
     {
-        return ['terminal' => 'interests-container'];
+        return ['github' => 'interests-container'];
     }
 
     public function referencesContainerThemes(): array
     {
-        return ['terminal' => 'references-container'];
+        return ['github' => 'references-container'];
     }
 
     public function projectsContainerThemes(): array
     {
-        return ['terminal' => 'projects-container'];
+        return ['github' => 'projects-container'];
     }
 
     public function downloadsContainerThemes(): array
     {
-        return ['terminal' => 'downloads-container'];
+        return ['github' => 'downloads-container'];
     }
 
     public function basicsInnerContainerThemes(): array
     {
-        return ['terminal' => 'basics-inner-container'];
+        return ['github' => 'basics-inner-container'];
     }
 
     public function summaryInnerContainerThemes(): array
     {
-        return ['terminal' => 'summary-inner-container'];
+        return ['github' => 'summary-inner-container'];
     }
 
     public function workInnerContainerThemes(): array
     {
-        return ['terminal' => 'work-inner-container'];
+        return ['github' => 'work-inner-container'];
     }
 
     public function volunteersInnerContainerThemes(): array
     {
-        return ['terminal' => 'volunteers-inner-container'];
+        return ['github' => 'volunteers-inner-container'];
     }
 
     public function educationInnerContainerThemes(): array
     {
-        return ['terminal' => 'education-inner-container'];
+        return ['github' => 'education-inner-container'];
     }
 
     public function awardsInnerContainerThemes(): array
     {
-        return ['terminal' => 'awards-inner-container'];
+        return ['github' => 'awards-inner-container'];
     }
 
     public function certificatesInnerContainerThemes(): array
     {
-        return ['terminal' => 'certificates-inner-container'];
+        return ['github' => 'certificates-inner-container'];
     }
 
     public function publicationsInnerContainerThemes(): array
     {
-        return ['terminal' => 'publications-inner-container'];
+        return ['github' => 'publications-inner-container'];
     }
 
     public function skillsInnerContainerThemes(): array
     {
-        return ['terminal' => 'skills-inner-container'];
+        return ['github' => 'skills-inner-container'];
     }
 
     public function languagesInnerContainerThemes(): array
     {
-        return ['terminal' => 'languages-inner-container'];
+        return ['github' => 'languages-inner-container'];
     }
 
     public function interestsInnerContainerThemes(): array
     {
-        return ['terminal' => 'interests-inner-container'];
+        return ['github' => 'interests-inner-container'];
     }
 
     public function referencesInnerContainerThemes(): array
     {
-        return ['terminal' => 'references-inner-container'];
+        return ['github' => 'references-inner-container'];
     }
 
     public function projectsInnerContainerThemes(): array
     {
-        return ['terminal' => 'projects-inner-container'];
+        return ['github' => 'projects-inner-container'];
     }
 
     public function downloadsInnerContainerThemes(): array
     {
-        return ['terminal' => 'downloads-inner-container'];
+        return ['github' => 'downloads-inner-container'];
     }
 
     public function nameThemes(): array
     {
-        return ['terminal' => 'name'];
+        return ['github' => 'name'];
     }
 
     public function labelThemes(): array
     {
-        return ['terminal' => 'label'];
+        return ['github' => 'label'];
     }
 
     public function sectionThemes(): array
     {
-        return ['terminal' => 'section'];
+        return ['github' => 'section'];
     }
 
     public function sectionTitleThemes(): array
     {
-        return ['terminal' => 'section-title'];
+        return ['github' => 'section-title'];
     }
 
     public function sectionInnerThemes(): array
     {
-        return ['terminal' => 'section-inner'];
+        return ['github' => 'section-inner'];
     }
 
     public function itemTitleThemes(): array
     {
-        return ['terminal' => 'item-title'];
+        return ['github' => 'item-title'];
     }
 
     public function itemContainerThemes(): array
     {
-        return ['terminal' => 'item-container'];
+        return ['github' => 'item-container'];
     }
 
     public function itemDetailsThemes(): array
     {
-        return ['terminal' => 'item-details'];
+        return ['github' => 'item-details'];
     }
 
     public function summaryThemes(): array
     {
-        return ['terminal' => 'summary'];
+        return ['github' => 'summary'];
     }
 
     public function contactContainerThemes(): array
     {
-        return ['terminal' => 'contact-container'];
+        return ['github' => 'contact-container'];
     }
 
     public function badgeContainerThemes(): array
     {
-        return ['terminal' => 'badge-container'];
+        return ['github' => 'badge-container'];
     }
 
     public function contactInnerContainerThemes(): array
     {
-        return ['terminal' => 'contact-container'];
+        return ['github' => 'contact-inner-container'];
     }
 
     public function contactItemThemes(): array
     {
-        return ['terminal' => 'contact-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function listThemes(): array
     {
-        return ['terminal' => 'list'];
+        return ['github' => 'list'];
     }
 
     public function imageContainerThemes(): array
     {
-        return ['terminal' => 'image-container'];
+        return ['github' => 'image-container'];
     }
 
     public function imageThemes(): array
     {
-        return ['terminal' => 'image'];
+        return ['github' => 'image'];
     }
 
     public function linkThemes(): array
     {
-        return ['terminal' => 'links'];
+        return ['github' => 'links'];
     }
 
     public function iconThemes(): array
     {
-        return ['terminal' => 'icon'];
+        return ['github' => 'icon'];
     }
 
     public function listItemThemes(): array
     {
-        return ['terminal' => 'list-item'];
+        return ['github' => 'list-item'];
     }
 
     public function badgeThemes(): array
     {
-        return ['terminal' => 'badge'];
+        return ['github' => 'badge'];
     }
 
     public function keywordBadgeThemes(): array
     {
-        return ['terminal' => 'keyword-badge'];
+        return ['github' => 'keyword-badge'];
     }
 
     public function socialBadgeThemes(): array
     {
-        return ['terminal' => 'social-badge'];
+        return ['github' => 'social-badge'];
     }
 
     public function dateThemes(): array
     {
-        return ['terminal' => 'date'];
+        return ['github' => 'date'];
     }
 
     public function subTitleThemes(): array
     {
-        return ['terminal' => 'subtitle'];
+        return ['github' => 'subtitle'];
     }
 
     public function emailThemes(): array
     {
-        return ['terminal' => 'email-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function phoneThemes(): array
     {
-        return ['terminal' => 'phone-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function urlThemes(): array
     {
-        return ['terminal' => 'url-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function locationThemes(): array
     {
-        return ['terminal' => 'location-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function profileThemes(): array
     {
-        return ['terminal' => 'contact-item'];
+        return ['github' => 'contact-item'];
     }
 
     public function coverLetterContainerThemes(): array
     {
-        return [
-            'terminal' => 'cover-letter-container',
-        ];
+        return ['github' => 'cover-letter-container'];
     }
 
     public function nameContainerThemes(): array
     {
-        return [
-            'terminal' => 'name-container',
-        ];
+        return ['github' => 'name-container'];
     }
 
     public function coverLetterThemes(): array
     {
-        return [
-            'terminal' => 'summary',
-        ];
+        return ['github' => 'summary'];
     }
 
     public function fontUrls(): array
     {
-        return [
-            'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap',
-        ];
+        return ['https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'];
     }
 
     public function localFonts(): array
     {
-        return [
-            ['family' => 'IBM Plex Mono', 'path' => 'fonts/space-mono-regular.woff2', 'weight' => '400', 'style' => 'normal'],
-            ['family' => 'IBM Plex Mono', 'path' => 'fonts/space-mono-bold.woff2', 'weight' => '700', 'style' => 'normal'],
-            ['family' => 'IBM Plex Mono', 'path' => 'fonts/space-mono-italic.woff2', 'weight' => '400', 'style' => 'italic'],
-            ['family' => 'IBM Plex Mono', 'path' => 'fonts/space-mono-bold-italic.woff2', 'weight' => '700', 'style' => 'italic'],
-        ];
+        return [];
     }
 
     public function fontFamily(): string
     {
-        return "'IBM Plex Mono', monospace";
+        return "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'";
     }
 }
