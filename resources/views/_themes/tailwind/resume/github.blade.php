@@ -3,7 +3,7 @@
 return [
     'cover-letter-container' => 'prose dark:prose-invert text-[#24292f] dark:text-[#c9d1d9] max-w-none',
 
-    'container' => 'mx-auto max-w-4xl p-6 bg-white dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] ] border border-[#d0d7de] dark:border-[#30363d]',
+    'container' => 'mx-auto max-w-4xl p-6 bg-white dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] ]',
     
     'basics-container' => 'flex flex-col md:items-center items-center gap-6 border-b border-[#d0d7de] dark:border-[#30363d] pb-6',
     'name-container' => 'text-center',
