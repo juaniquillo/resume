@@ -61,3 +61,4 @@
 58. ✅ Create new "Professional" resume theme with two columns.
 59. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
 60. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
+61. ◻️ Work on authenticated MPC server so the LLMs can so some simple operations.

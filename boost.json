@@ -1,7 +1,6 @@
 {
     "agents": [
         "opencode",
-        "gemini",
         "claude_code"
     ],
     "cloud": false,
@@ -11,18 +10,23 @@
     "packages": [
         "juaniquillo/laravel-backend-component",
         "livewire/blaze",
-        "spatie/laravel-pdf"
+        "spatie/laravel-pdf",
+        "spatie/laravel-screenshot",
+        "fruitcake/laravel-debugbar"
     ],
     "sail": false,
     "skills": [
+        "infer-conventions",
         "fortify-development",
         "laravel-best-practices",
+        "testing-best-practices",
         "fluxui-development",
         "livewire-development",
-        "pest-testing",
         "tailwindcss-development",
         "backend-component",
         "blaze-optimize",
-        "laravel-pdf"
+        "laravel-pdf",
+        "laravel-screenshot",
+        "debug-using-debugbar"
     ]
 }

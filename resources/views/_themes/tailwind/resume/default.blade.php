@@ -15,7 +15,7 @@ return [
 
     'container' => 'container mx-auto max-w-4xl 3xl:max-w-6xl px-8 py-4',
     'image' => 'w-32 h-32 3xl:w-40 3xl:h-40 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mt-6 dark:border-sky-500',
-    'name' => '[word-spacing:-.5rem] md:[word-spacing:-.8rem] text-4xl md:text-6xl 3xl:text-8xl font-bold tracking-tight text-gray-900 mt-4 dark:text-white',
+    'name' => ' mt-6 [word-spacing:-.5rem] md:[word-spacing:-.8rem] text-4xl md:text-6xl 3xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white',
     'label' => 'text-2xl 3xl:text-3xl font-medium text-sky-600 mt-2 3xl:mt-10 dark:text-sky-400',
     
     'contact-container' => 'mt-6 flex flex-wrap gap-4',
