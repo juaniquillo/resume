@@ -36,11 +36,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function registerClasses()
     {
-        $this->app->singleton(ResumeThemeCacheManager::class, function (Application $app) {
+        $this->app->singleton(function (Application $app): ResumeThemeCacheManager {
             return new ResumeThemeCacheManager;
         });
 
-        $this->app->singleton(ResumeDataLoader::class, function (Application $app) {
+        $this->app->singleton(function (Application $app): ResumeDataLoader {
             return new ResumeDataLoader;
         });
     }
