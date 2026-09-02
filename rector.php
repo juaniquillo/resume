@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
-use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -20,7 +19,6 @@ return RectorConfig::configure()
         __DIR__.'/storage',
     ])
     // These still resolve perfectly using driftingly/rector-laravel
-    ->withSetProviders(LaravelSetProvider::class)
     ->withComposerBased(laravel: true)
     ->withSets([
         LaravelLevelSetList::UP_TO_LARAVEL_110, // Set your target version
