@@ -24,7 +24,13 @@ This is **not a commercial product**. It's a personal tool I built to manage and
 If you'd like to try it out or have any suggestions, I'd love to hear from you!
 🐦 **[@juaniquillo](https://x.com/juaniquillo)**
 
----
+
+## 📚 Guides
+For detailed guides on features, themes, and architecture, check out the [docs/](docs/) folder:
+- [Features Overview](docs/features.md)
+- [Themes & Styling](docs/themes.md)
+- [Exporting & Imports](docs/export-import.md)
+- More to come
 
 ## 🛠️ For Developers
 
@@ -56,8 +62,9 @@ Interested in the tech behind the scenes? This project is built using modern PHP
 ### 🧪 Development Workflow
 We maintain high code quality through a strict QA workflow.
 
-- **QA Suite**: `composer qa` (runs Lint, PHPStan, and Pest).
-- **Linting**: `composer lint`
+- **QA Suite**: `composer qa` (runs Rector, Lint, PHPStan, and Pest).
+- **Refactoring**: `composer rector` (or `composer rector:dry-run`)
+- **Linting**: `composer lint` (or `composer lint:check`)
 - **Analysis**: `composer phpstan`
 - **Testing**: `php artisan test --compact`
 
