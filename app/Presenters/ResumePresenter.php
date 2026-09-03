@@ -34,6 +34,8 @@ final class ResumePresenter
 {
     use HasThemeManager;
 
+    private ?GeneralOption $generalOptions = null;
+
     public function __construct(
         private User $user,
         private ?PresenterTheme $theme = new DefaultPresenterTheme,
@@ -45,9 +47,11 @@ final class ResumePresenter
     {
         /** @var array<string, bool> $settings */
         $settings = (array) ($this->user->sectionVisibility->settings ?? []);
+
         $data = resolve(ResumeDataLoader::class)->load($this->user);
+
         /** @var ?GeneralOption $generalOptions */
-        $generalOptions = $this->user->generalOptions;
+        $generalOptions = $this->generalOptions ?? $this->user->generalOptions;
 
         // Build the pool of available sections (excluding fixed ones)
         $pool = [
@@ -135,6 +139,13 @@ final class ResumePresenter
             ->setThemeManager($this->getThemeManager())
             ->present(array_filter($sections));
 
+    }
+
+    public function setGeneralOptions(): static
+    {
+        $this->generalOptions = new GeneralOption;
+
+        return $this;
     }
 
     public function getTheme(): PresenterTheme

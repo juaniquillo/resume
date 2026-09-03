@@ -39,7 +39,6 @@
 37. ✅ I want to make the `ResumeDataLoader` the global database accessor for any resume section. I don't want to repeat queries if I access one of the sections twice or more during the request lifecycle. I want to use it every time a sections is accessed but not for database mutations. Any advices?
 38. ✅ Simple Resume analytics.
 39. ✅ New `Section Ordering` CRUD using livewire. Reorder sections using Livewire drag and drop. Leave the ordering in the Resume Presenter as a default but use the one in the database if present.
-
 40. ✅ Refresh the README.md and the landing page with the new features. Removed technical content, added personal context and contact X account (@juaniquillo).
 41. ✅ Create a cache manager for the dashboard navigation components and dashboard cards since they don't change that much.
 42. ✅ Create a Test that deletes a user and verifying the rest of the resume sections and all files are deleted.
@@ -47,18 +46,19 @@
 44. ✅ The Profile Network icons (svg) don't show on the PDF export. Only a color square shows.
 45. ✅ Add the image and the address to the General Options' Security Options group.
 46. ✅ Work on a new Resume Theme now under another Agent/Model
-47. ◻️ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch.
+47. ✅ Add relevant General Options inputs group to the Export CRUD visible when toggle a "Use custom General Options" switch.
 48. ✅ Work on cover letter CRUD and export.
 49. ✅ Add the JSON export to the downloads' section.
 50. ✅ Refactor HasHtmlTable trait to make it Livewire aware.
-51. ◻️ Add own "custom general" options to exports.
-52. ✅ Update CRUD AI guides and skills with the way to create/refactor CRUDs to Livewire.
-53. ✅ Check if general_options->hide_image is enable on OG images.
-54. ✅ Refactor import to livewire form and table, with polling for the status buttons.
-55. ✅ Refactor export to livewire form and table, with polling for the status buttons and edit form for the "Allow Download" option.
-56. ✅ Consider adding limits to resume section records and revise the ones for import/export.
-57. ✅ Add new "Name" input to the import/export CRUDs.
-58. ✅ Create new "Professional" resume theme with two columns.
-59. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
-60. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
-61. ◻️ Work on authenticated MPC server so the LLMs can so some simple operations.
+51. ✅ Update CRUD AI guides and skills with the way to create/refactor CRUDs to Livewire.
+52. ✅ Check if general_options->hide_image is enable on OG images.
+53. ✅ Refactor import to livewire form and table, with polling for the status buttons.
+54. ✅ Refactor export to livewire form and table, with polling for the status buttons and edit form for the "Allow Download" option.
+55. ✅ Consider adding limits to resume section records and revise the ones for import/export.
+56. ✅ Add new "Name" input to the import/export CRUDs.
+57. ✅ Create new "Professional" resume theme with two columns.
+58. ✅ Make some other error pages (404, 500, etc) visually similar to the Resume Draft view (resources\views\pages\resume-draft.blade.php).
+59. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
+60. ◻️ Work on authenticated MPC server so the LLMs can so some simple operations.
+61. ✅ Refactor ProcessResumeImport into different classes that process their respective resume section.
+62. ◻️ Add Meta section to the JSON export with additional information like General Options, visibility and ordering.
