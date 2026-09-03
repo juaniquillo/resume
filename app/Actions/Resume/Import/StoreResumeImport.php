@@ -3,6 +3,7 @@
 namespace App\Actions\Resume\Import;
 
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\Inputs\NameFactory;
 use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -31,8 +32,12 @@ class StoreResumeImport
 
         $path = $file->store('imports/resumes');
 
+        $nameField = NameFactory::NAME;
+        $nameValue = $data[$nameField] ?? null;
+
         /** @var ResumeImport $import */
         $import = $user->resumeImports()->create([
+            $nameField => $nameValue,
             'file_path' => $path,
             'file_name' => $file->getClientOriginalName(),
             'status' => ProcessStatus::PENDING,
