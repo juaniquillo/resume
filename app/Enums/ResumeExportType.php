@@ -6,6 +6,7 @@ use App\Jobs\ProcessCoverLetterPdfExport;
 use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessPdfExport;
 use App\Models\ResumeExport;
+use Illuminate\Support\Str;
 
 enum ResumeExportType: string
 {
@@ -28,6 +29,24 @@ enum ResumeExportType: string
             self::JSON => 'json',
             self::PDF, self::COVER_LETTER_PDF => 'pdf',
         };
+    }
+
+    public function filename(ResumeExport $export): string
+    {
+        $name = $export->user->basics->name ?? $export->user->name;
+        $slug = Str::slug($name);
+
+        $suffix = match ($this) {
+            self::JSON => 'resume',
+            self::PDF => 'resume',
+            self::COVER_LETTER_PDF => 'cover-letter',
+        };
+
+        if ($this === self::JSON) {
+            return "{$slug}-{$suffix}.json";
+        }
+
+        return "{$slug}-{$suffix}.pdf";
     }
 
     public function label(): string
