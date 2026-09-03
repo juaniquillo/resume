@@ -15,7 +15,6 @@ Manage every aspect of your professional profile in one unified dashboard:
 
 [![Watch Career Tracking Walkthrough](https://img.youtube.com/vi/doaqt22pSmA/hqdefault.jpg)](https://www.youtube.com/watch?v=doaqt22pSmA)
 
-
 ## 2. Section Visibility & Custom Ordering
 Take complete control of how your resume structure is presented:
 - **Section Ordering**: Arrange sections (Work Experience, Education, Skills, Volunteer, Projects, etc.) in the exact order that highlights your strongest assets first.
@@ -24,17 +23,14 @@ Take complete control of how your resume structure is presented:
 [![Watch Section Control Walkthrough](https://img.youtube.com/vi/4wiTkwPHptk/hqdefault.jpg)](https://www.youtube.com/watch?v=4wiTkwPHptk)
 [![Watch Section Control Walkthrough](https://img.youtube.com/vi/MpPESaC0_0A/hqdefault.jpg)](https://www.youtube.com/watch?v=MpPESaC0_0A)
 
-
 ## 3. Modular Customization & Themes
 Organize your resume sections effortlessly and tailor the look and feel using multiple built-in professional themes:
 - **Default, GitHub, Bold, Elegant, Terminal, Professional, PDF Optimized, and Blank** themes.
 
 [![Watch Themes Walkthrough](https://img.youtube.com/vi/Qv1vk8l-LG0/hqdefault.jpg)](https://www.youtube.com/watch?v=Qv1vk8l-LG0)
 
-
 ## 4. Cover Letter Management
 Craft, preview, and manage targeted cover letters right inside your dashboard alongside your resume profile.
-
 
 ## 5. Versatile Exports & JSON Resume Standard
 - **PDF Export**: Generate beautifully formatted PDF resumes powered by Spatie Browsershot / Dompdf.
@@ -43,10 +39,8 @@ Craft, preview, and manage targeted cover letters right inside your dashboard al
 
 [![Watch Export & Import Walkthrough](https://img.youtube.com/vi/jnCrBUrOX2k/hqdefault.jpg)](https://www.youtube.com/watch?v=jnCrBUrOX2k)
 
-
 ## 6. Open Graph Management
 Ensure your professional profile makes a stunning impression when shared on social media (LinkedIn, X, Slack, etc.) with custom Open Graph image and metadata controls.
-
 
 ## 7. Detailed Accomplishments (Highlights)
 Go beyond simple job titles and bullet points. Every work experience and project allows you to attach **Highlights**—granular achievements that showcase your impact and measurable results.
