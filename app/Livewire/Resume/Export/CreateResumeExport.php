@@ -6,10 +6,6 @@ use App\Actions\Resume\Export\StoreResumeExport;
 use App\Cruds\Actions\General\NameValueAction;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
-use App\Enums\ResumeExportType;
-use App\Jobs\ProcessCoverLetterPdfExport;
-use App\Jobs\ProcessJsonExport;
-use App\Jobs\ProcessPdfExport;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use App\Support\ResumeLimit;
@@ -47,11 +43,7 @@ class CreateResumeExport extends Component
 
         $export = (new StoreResumeExport)->handle($user, $validator->validated());
 
-        match ($export->type) {
-            ResumeExportType::JSON => dispatch(new ProcessJsonExport($export)),
-            ResumeExportType::PDF => dispatch(new ProcessPdfExport($export)),
-            ResumeExportType::COVER_LETTER_PDF => dispatch(new ProcessCoverLetterPdfExport($export)),
-        };
+        $export->type->dispatchExportJob($export);
 
         Flux::toast(text: __('Resume export started successfully. It will be processed in the background.'), variant: 'success');
 

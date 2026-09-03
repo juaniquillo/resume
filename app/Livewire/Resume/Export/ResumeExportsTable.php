@@ -19,6 +19,8 @@ class ResumeExportsTable extends Component
 {
     use IsLivewireTable;
 
+    public bool $wasProcessing = false;
+
     #[On('resume-updated')]
     #[Computed]
     public function getModels(): Collection
@@ -32,10 +34,18 @@ class ResumeExportsTable extends Component
     #[Computed]
     public function hasActiveExports(): bool
     {
-        return $this->getModels()->contains(function (Model $export) {
+        $hasActive = $this->getModels()->contains(function (Model $export) {
             /** @var ResumeExport $export */
             return $export->status->processing();
         });
+
+        if ($this->wasProcessing && ! $hasActive) {
+            $this->dispatch('resume-updated');
+        }
+
+        $this->wasProcessing = $hasActive;
+
+        return $hasActive;
     }
 
     private function crud()

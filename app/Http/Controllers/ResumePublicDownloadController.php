@@ -29,7 +29,7 @@ class ResumePublicDownloadController extends Controller
         /** @var ResumeExportType $enum */
         $enum = $export->type;
 
-        $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
+        $filename = $enum->filename($export);
 
         return Storage::download($export->file_path, $filename);
     }
