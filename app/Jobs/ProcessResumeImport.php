@@ -2,51 +2,26 @@
 
 namespace App\Jobs;
 
-use App\Actions\Resume\Award\StoreAward;
-use App\Actions\Resume\Basics\StoreProfile;
-use App\Actions\Resume\Basics\UpdateBasics;
-use App\Actions\Resume\Basics\UpdateLocation;
-use App\Actions\Resume\Certificate\StoreCertificate;
-use App\Actions\Resume\Education\StoreCourse;
-use App\Actions\Resume\Education\StoreEducation;
-use App\Actions\Resume\Interest\StoreInterest;
-use App\Actions\Resume\Language\StoreLanguage;
-use App\Actions\Resume\Project\StoreHighlight as StoreProjectHighlight;
-use App\Actions\Resume\Project\StoreProject;
-use App\Actions\Resume\Publication\StorePublication;
-use App\Actions\Resume\Reference\StoreReference;
-use App\Actions\Resume\Skill\StoreSkill;
-use App\Actions\Resume\Volunteer\StoreVolunteer;
-use App\Actions\Resume\Work\StoreHighlight;
-use App\Actions\Resume\Work\StoreWork;
-use App\Cruds\Actions\General\NameValueAction;
-use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Schema\Awards\AwardsCrud;
-use App\Cruds\Schema\Basics\BasicsCrud;
-use App\Cruds\Schema\Certificates\CertificatesCrud;
-use App\Cruds\Schema\Education\EducationCrud;
-use App\Cruds\Schema\Interests\InterestsCrud;
-use App\Cruds\Schema\Languages\LanguagesCrud;
-use App\Cruds\Schema\Locations\LocationsCrud;
-use App\Cruds\Schema\Profiles\ProfilesCrud;
-use App\Cruds\Schema\Projects\ProjectsCrud;
-use App\Cruds\Schema\Publications\PublicationsCrud;
-use App\Cruds\Schema\References\ReferencesCrud;
-use App\Cruds\Schema\Skills\SkillsCrud;
-use App\Cruds\Schema\Volunteers\VolunteersCrud;
-use App\Cruds\Schema\Works\WorksCrud;
 use App\Enums\ProcessStatus;
-use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
 use App\Presenters\Resume\ResumeDataLoader;
-use App\Support\RequestUtils;
+use App\Services\ResumeImport\Processors\AwardsProcessor;
+use App\Services\ResumeImport\Processors\BasicsProcessor;
+use App\Services\ResumeImport\Processors\CertificatesProcessor;
+use App\Services\ResumeImport\Processors\EducationProcessor;
+use App\Services\ResumeImport\Processors\InterestsProcessor;
+use App\Services\ResumeImport\Processors\LanguagesProcessor;
+use App\Services\ResumeImport\Processors\ProjectsProcessor;
+use App\Services\ResumeImport\Processors\PublicationsProcessor;
+use App\Services\ResumeImport\Processors\ReferencesProcessor;
+use App\Services\ResumeImport\Processors\SkillsProcessor;
+use App\Services\ResumeImport\Processors\VolunteerProcessor;
+use App\Services\ResumeImport\Processors\WorkProcessor;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class ProcessResumeImport implements ShouldQueue
 {
@@ -92,18 +67,18 @@ class ProcessResumeImport implements ShouldQueue
             $user = $this->import->user;
 
             DB::transaction(function () use ($user, $data) {
-                $this->processBasics($user, $data);
-                $this->processWork($user, $data);
-                $this->processVolunteer($user, $data);
-                $this->processEducation($user, $data);
-                $this->processAwards($user, $data);
-                $this->processCertificates($user, $data);
-                $this->processPublications($user, $data);
-                $this->processSkills($user, $data);
-                $this->processLanguages($user, $data);
-                $this->processInterests($user, $data);
-                $this->processReferences($user, $data);
-                $this->processProjects($user, $data);
+                (new BasicsProcessor)->process($user, $data);
+                (new WorkProcessor)->process($user, $data);
+                (new VolunteerProcessor)->process($user, $data);
+                (new EducationProcessor)->process($user, $data);
+                (new AwardsProcessor)->process($user, $data);
+                (new CertificatesProcessor)->process($user, $data);
+                (new PublicationsProcessor)->process($user, $data);
+                (new SkillsProcessor)->process($user, $data);
+                (new LanguagesProcessor)->process($user, $data);
+                (new InterestsProcessor)->process($user, $data);
+                (new ReferencesProcessor)->process($user, $data);
+                (new ProjectsProcessor)->process($user, $data);
             });
 
             $this->import->update(['status' => ProcessStatus::COMPLETED]);
@@ -124,353 +99,5 @@ class ProcessResumeImport implements ShouldQueue
             'status' => ProcessStatus::FAILED,
             'error' => $exception->getMessage(),
         ]);
-    }
-
-    private function validate(array $data, array $rules): array
-    {
-        return Validator::make($data, $rules)->validate();
-    }
-
-    private function processBasics(User $user, array $data): void
-    {
-        if (! isset($data['basics'])) {
-            return;
-        }
-
-        $basicsData = $data['basics'];
-        $crud = BasicsCrud::build();
-        $inputs = $crud->make();
-
-        /**
-         * Check if image exists. If it does, fetch it and convert to UploadedFile
-         * to allow strict image validation (mimes, size, etc.)
-         */
-        if (isset($basicsData['image']) && is_string($basicsData['image']) && ! empty($basicsData['image'])) {
-            $image = $basicsData['image'];
-            $contents = null;
-            $extension = 'tmp';
-
-            if (str_starts_with($image, 'data:')) {
-                // Handle Data URI
-                if (preg_match('/^data:image\/(\w+);base64,/', $image, $matches)) {
-                    $extension = $matches[1];
-                    $imageContent = substr($image, strpos($image, ',') + 1);
-                    $contents = base64_decode($imageContent);
-                }
-            } else {
-                // Handle URL
-                $contents = @file_get_contents($image);
-                $pathInfo = pathinfo(parse_url($image, PHP_URL_PATH) ?? '');
-                $extension = $pathInfo['extension'] ?? 'tmp';
-            }
-
-            if ($contents) {
-                $tempPath = tempnam(sys_get_temp_dir(), 'resume_import_');
-                file_put_contents($tempPath, $contents);
-
-                $basicsData['image'] = new UploadedFile(
-                    $tempPath,
-                    'avatar.'.$extension,
-                    mime_content_type($tempPath),
-                    null,
-                    true
-                );
-            }
-        }
-
-        $mappedBasics = $inputs->execute(new NameValueAction($basicsData))
-            ->toArray();
-
-        $rules = $inputs->execute(new LaravelValidationRulesAction)->toArray();
-        $validated = $this->validate($mappedBasics, $rules);
-
-        $imageFile = $validated['image'] ?? null;
-        if (! $imageFile instanceof UploadedFile) {
-            $imageFile = null;
-        }
-
-        (new UpdateBasics($validated, $user, $imageFile))->handle();
-
-        /** @var Basic|null $basics */
-        $basics = $user->refresh()->resumeBasics();
-
-        if ($basics) {
-            if (isset($basicsData['location'])) {
-                $locationCrud = LocationsCrud::build();
-                $locationInputs = $locationCrud->make();
-
-                $mappedLocation = $locationInputs->execute(new NameValueAction($basicsData['location']))
-                    ->toArray();
-
-                $locationRules = $locationInputs->execute(new LaravelValidationRulesAction)->toArray();
-                $validatedLocation = $this->validate($mappedLocation, $locationRules);
-
-                (new UpdateLocation($validatedLocation, $basics))->handle();
-            }
-
-            if (isset($basicsData['profiles'])) {
-                $profileCrud = ProfilesCrud::build();
-                $profileInputs = $profileCrud->make();
-                $profileRules = $profileInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-                foreach ($basicsData['profiles'] as $profile) {
-                    $mappedProfile = $profileInputs->execute(new NameValueAction($profile))
-                        ->toArray();
-
-                    $validatedProfile = $this->validate($mappedProfile, $profileRules);
-
-                    (new StoreProfile($validatedProfile, $basics))->handle();
-                }
-            }
-        }
-    }
-
-    private function processWork(User $user, array $data): void
-    {
-        if (! isset($data['work'])) {
-            return;
-        }
-
-        $workCrud = WorksCrud::build();
-        $workInputs = $workCrud->make();
-        $workRules = $workInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['work'] as $workData) {
-            $mapped = $workInputs->execute(new NameValueAction($workData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $workRules);
-
-            $work = (new StoreWork($validated, $user))->handle();
-            if (isset($workData['highlights'])) {
-                foreach ($workData['highlights'] as $highlight) {
-                    (new StoreHighlight(['highlight' => is_array($highlight) ? ($highlight['highlight'] ?? '') : $highlight], $work))->handle();
-                }
-            }
-        }
-    }
-
-    private function processVolunteer(User $user, array $data): void
-    {
-        if (! isset($data['volunteer'])) {
-            return;
-        }
-
-        $volunteerCrud = VolunteersCrud::build();
-        $volunteerInputs = $volunteerCrud->make();
-        $volunteerRules = $volunteerInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['volunteer'] as $volunteerData) {
-            $mapped = $volunteerInputs->execute(new NameValueAction($volunteerData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $volunteerRules);
-
-            $volunteer = (new StoreVolunteer($validated, $user))->handle();
-            if (isset($volunteerData['highlights'])) {
-                foreach ($volunteerData['highlights'] as $highlight) {
-                    (new \App\Actions\Resume\Volunteer\StoreHighlight(['highlight' => is_array($highlight) ? ($highlight['highlight'] ?? '') : $highlight], $volunteer))->handle();
-                }
-            }
-        }
-    }
-
-    private function processEducation(User $user, array $data): void
-    {
-        if (! isset($data['education'])) {
-            return;
-        }
-
-        $educationCrud = EducationCrud::build();
-        $educationInputs = $educationCrud->make();
-        $educationRules = $educationInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['education'] as $eduData) {
-            $mapped = $educationInputs->execute(new NameValueAction($eduData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $educationRules);
-
-            $education = (new StoreEducation($validated, $user))->handle();
-
-            if (isset($eduData['courses'])) {
-                foreach ($eduData['courses'] as $course) {
-                    (new StoreCourse(['course' => is_array($course) ? ($course['course'] ?? '') : $course], $education))->handle();
-                }
-            }
-        }
-    }
-
-    private function processAwards(User $user, array $data): void
-    {
-        if (! isset($data['awards'])) {
-            return;
-        }
-
-        $awardCrud = AwardsCrud::build();
-        $awardInputs = $awardCrud->make();
-        $awardRules = $awardInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['awards'] as $awardData) {
-            $mapped = $awardInputs->execute(new NameValueAction($awardData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $awardRules);
-
-            (new StoreAward($validated, $user))->handle();
-        }
-    }
-
-    private function processCertificates(User $user, array $data): void
-    {
-        if (! isset($data['certificates'])) {
-            return;
-        }
-
-        $certificateCrud = CertificatesCrud::build();
-        $certificateInputs = $certificateCrud->make();
-        $certificateRules = $certificateInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['certificates'] as $certData) {
-            $mapped = $certificateInputs->execute(new NameValueAction($certData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $certificateRules);
-
-            (new StoreCertificate($validated, $user))->handle();
-        }
-    }
-
-    private function processPublications(User $user, array $data): void
-    {
-        if (! isset($data['publications'])) {
-            return;
-        }
-
-        $publicationCrud = PublicationsCrud::build();
-        $publicationInputs = $publicationCrud->make();
-        $publicationRules = $publicationInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['publications'] as $pubData) {
-            $mapped = $publicationInputs->execute(new NameValueAction($pubData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $publicationRules);
-
-            (new StorePublication($validated, $user))->handle();
-        }
-    }
-
-    private function processSkills(User $user, array $data): void
-    {
-        if (! isset($data['skills'])) {
-            return;
-        }
-
-        $skillCrud = SkillsCrud::build();
-        $skillInputs = $skillCrud->make();
-        $skillRules = $skillInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['skills'] as $skillData) {
-            $mapped = $skillInputs->execute(new NameValueAction($skillData))
-                ->toArray();
-
-            if (isset($mapped['keywords'])) {
-                $mapped['keywords'] = RequestUtils::commaSeparatedToArray($mapped['keywords']);
-            }
-
-            $validated = $this->validate($mapped, $skillRules);
-
-            (new StoreSkill($validated, $user))->handle();
-        }
-    }
-
-    private function processLanguages(User $user, array $data): void
-    {
-        if (! isset($data['languages'])) {
-            return;
-        }
-
-        $languageCrud = LanguagesCrud::build();
-        $languageInputs = $languageCrud->make();
-        $languageRules = $languageInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['languages'] as $langData) {
-            $mapped = $languageInputs->execute(new NameValueAction($langData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $languageRules);
-
-            (new StoreLanguage($validated, $user))->handle();
-        }
-    }
-
-    private function processInterests(User $user, array $data): void
-    {
-        if (! isset($data['interests'])) {
-            return;
-        }
-
-        $interestCrud = InterestsCrud::build();
-        $interestInputs = $interestCrud->make();
-        $interestRules = $interestInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['interests'] as $interestData) {
-            $mapped = $interestInputs->execute(new NameValueAction($interestData))
-                ->toArray();
-
-            if (isset($mapped['keywords'])) {
-                $mapped['keywords'] = RequestUtils::commaSeparatedToArray($mapped['keywords']);
-            }
-
-            $validated = $this->validate($mapped, $interestRules);
-
-            (new StoreInterest($validated, $user))->handle();
-        }
-    }
-
-    private function processReferences(User $user, array $data): void
-    {
-        if (! isset($data['references'])) {
-            return;
-        }
-
-        $referenceCrud = ReferencesCrud::build();
-        $referenceInputs = $referenceCrud->make();
-        $referenceRules = $referenceInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['references'] as $refData) {
-            $mapped = $referenceInputs->execute(new NameValueAction($refData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $referenceRules);
-
-            (new StoreReference($validated, $user))->handle();
-        }
-    }
-
-    private function processProjects(User $user, array $data): void
-    {
-        if (! isset($data['projects'])) {
-            return;
-        }
-
-        $projectCrud = ProjectsCrud::build();
-        $projectInputs = $projectCrud->make();
-        $projectRules = $projectInputs->execute(new LaravelValidationRulesAction)->toArray();
-
-        foreach ($data['projects'] as $projectData) {
-            $mapped = $projectInputs->execute(new NameValueAction($projectData))
-                ->toArray();
-
-            $validated = $this->validate($mapped, $projectRules);
-
-            $project = (new StoreProject($validated, $user))->handle();
-            if (isset($projectData['highlights'])) {
-                foreach ($projectData['highlights'] as $highlight) {
-                    (new StoreProjectHighlight(['highlight' => is_array($highlight) ? ($highlight['highlight'] ?? '') : $highlight], $project))->handle();
-                }
-            }
-        }
     }
 }
