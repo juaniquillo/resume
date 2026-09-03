@@ -3,6 +3,7 @@
 namespace App\Actions\Resume\Import;
 
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
+use App\Cruds\Schema\ResumeImport\Inputs\NameFactory;
 use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use App\Models\User;
@@ -13,7 +14,7 @@ use JustSteveKing\Resume\Factories\ResumeFactory;
 class StoreResumeImport
 {
     /**
-     * @param  array{resume_file: UploadedFile}  $data
+     * @param  array{name: string, resume_file: UploadedFile}  $data
      */
     public function handle(User $user, array $data): ResumeImport
     {
@@ -31,8 +32,11 @@ class StoreResumeImport
 
         $path = $file->store('imports/resumes');
 
+        $nameField = NameFactory::NAME;
+
         /** @var ResumeImport $import */
         $import = $user->resumeImports()->create([
+            $nameField => $data[$nameField],
             'file_path' => $path,
             'file_name' => $file->getClientOriginalName(),
             'status' => ProcessStatus::PENDING,
