@@ -26,11 +26,12 @@ If you'd like to try it out or have any suggestions, I'd love to hear from you!
 
 
 ## 📚 Guides
-For detailed guides on features, themes, and architecture, check out the [docs/](docs/) folder:
+For detailed walkthroughs and guides on features, themes, and architecture, check out our documentation:
 - [Features Overview](docs/features.md)
 - [Themes & Styling](docs/themes.md)
 - [Exporting & Imports](docs/export-import.md)
-- More to come
+- [Architecture & Core Patterns](docs/architecture.md)
+- [Testing Strategy & Pest](docs/testing.md)
 
 ## 🛠️ For Developers
 
