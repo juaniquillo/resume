@@ -2,11 +2,25 @@
 
 namespace App\Enums;
 
+use App\Jobs\ProcessCoverLetterPdfExport;
+use App\Jobs\ProcessJsonExport;
+use App\Jobs\ProcessPdfExport;
+use App\Models\ResumeExport;
+
 enum ResumeExportType: string
 {
     case JSON = 'json';
     case PDF = 'pdf';
     case COVER_LETTER_PDF = 'cover-letter-pdf';
+
+    public function dispatchExportJob(ResumeExport $export): void
+    {
+        match ($this) {
+            self::JSON => dispatch(new ProcessJsonExport($export)),
+            self::PDF => dispatch(new ProcessPdfExport($export)),
+            self::COVER_LETTER_PDF => dispatch(new ProcessCoverLetterPdfExport($export)),
+        };
+    }
 
     public function extension(): string
     {
