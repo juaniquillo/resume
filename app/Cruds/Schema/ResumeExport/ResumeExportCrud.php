@@ -12,11 +12,11 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Cruds\Schema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
-use App\Cruds\Schema\ResumeExport\Inputs\ExportThemeSelectFactory;
-use App\Cruds\Schema\ResumeExport\Inputs\ExportTypeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\NameFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\StatusFactory;
+use App\Cruds\Schema\ResumeExport\Inputs\UseCustomGeneralOptionsFactory;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireTableRenderer;
 use Illuminate\Database\Eloquent\Model;
@@ -66,11 +66,19 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function inputsArray(): array
     {
+        
+        /** @var ResumeExportCrud $crud */
+        $customOptionsInputs = GeneralOptionsCrud::exportInputsArray();
+        
         return [
             'name' => NameFactory::make(),
-            'type' => ExportTypeSelectFactory::make(),
-            'theme' => ExportThemeSelectFactory::make(),
-            'allow_download' => AllowDownloadSwitchFactory::make(),
+            'options' => $this->fieldsetWrap([
+                'allow_download' => AllowDownloadSwitchFactory::make(),
+            ], 'options', 'Options'),
+            'use_custom_general_options' => UseCustomGeneralOptionsFactory::make(),
+            'custom_options' => $this->fieldsetWrap([
+                ...$customOptionsInputs,
+            ], 'custom_options', 'Custom Options'),
             'status' => StatusFactory::make(),
         ];
     }

@@ -44,7 +44,13 @@ class ProcessJsonExport implements ShouldQueue
 
         try {
             $user = $this->export->user;
-            $resume = (new BuildResumeArray($user))->handle();
+            $customOptions = null;
+            if (! empty($this->export->custom_options)) {
+                $customOptions = new \App\Models\GeneralOption($this->export->custom_options);
+                $customOptions->setAttribute('user_id', $user->id);
+            }
+
+            $resume = (new BuildResumeArray($user, $customOptions))->handle();
 
             ResumeFactory::fromArray($resume)->validate();
 

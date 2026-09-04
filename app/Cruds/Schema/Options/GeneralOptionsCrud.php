@@ -55,6 +55,26 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
     /**
      * @return InputInterface[]
      */
+    public static function exportInputsArray(): array
+    {
+        $crud = self::build();
+        return [
+            ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
+            $crud->fieldsetWrap([
+                HidePhoneFactory::NAME => HidePhoneFactory::make(),
+                $crud->separator('security_1'),
+                HideAddressFactory::NAME => HideAddressFactory::make(),
+                $crud->separator('security_2'),
+                HideEmailFactory::NAME => HideEmailFactory::make(),
+                $crud->separator('security_3'),
+                HideImageFactory::NAME => HideImageFactory::make(),
+            ], 'security', 'Custom Security Options'),
+        ];
+    }
+
+    /**
+     * @return InputInterface[]
+     */
     #[Override]
     public function inputsArray(): array
     {

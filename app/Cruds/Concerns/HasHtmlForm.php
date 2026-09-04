@@ -5,6 +5,7 @@ namespace App\Cruds\Concerns;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\InputGroups\LabelInputGroup;
 use App\Cruds\Managers\EnumResolverValueManager;
@@ -18,14 +19,17 @@ use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
+use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Containers\InputComponentOutput;
 use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
 use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
+use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Managers\DefaultErrorManager;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -197,7 +201,24 @@ trait HasHtmlForm
     /** @param array<int|string, InputInterface> $inputs */
     public function fieldsetWrap(array $inputs, string|int $key, string $legend): InputInterface
     {
-        $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
+        // $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
+
+        $fieldset = new InputCollection("fieldset_wrap_{$key}");
+
+        $legendInput = (new DefaultInput("fieldset_legend_{$key}", $legend))
+            ->setRecipe(
+                (new InputComponentRecipe())
+                    ->setInputGroup(new SoleInputGroup)
+                    ->setComponentBag(
+                        (new DefaultComponentBag())
+                            ->setInputComponent(
+                                function (BackedEnum|string $type, ThemeManager $manager) use ($legend) {
+                                    return (new FluxBackendComponent(FluxComponentEnum::LEGEND, $manager))
+                                        ->setContent($legend);
+                                }
+                            )
+                    )
+            );
 
         $fieldset->setType(FormHelpers::FORM_WRAPPER_TYPE)
             ->setRecipe(
@@ -228,7 +249,10 @@ trait HasHtmlForm
 
             );
 
-        $fieldset->setSubElements(CrudAssistant::make($inputs));
+        $fieldset->setInputs([
+            'legend' => $legendInput,
+            'inputs' => CrudAssistant::make($inputs),
+        ]);
 
         return $fieldset;
     }
@@ -240,11 +264,19 @@ trait HasHtmlForm
         $separator->setType(FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE)
             ->setRecipe(
                 (new InputComponentRecipe)
+                    ->setDisableBag(
+                        (new DefaultDisableBag())
+                            ->setDisableDefaultForAttribute()
+                            ->setDisableDefaultNameAttribute()
+                    )
                     ->setComponentBag(
                         (new DefaultComponentBag)
                             ->setInputType(FluxComponentEnum::SEPARATOR)
                     )
-            );
+            )
+        ->setRecipe(
+            (new TableRowsRecipe())->ignore()
+        );
 
         return $separator;
     }

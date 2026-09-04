@@ -32,7 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class BuildResumeArray
 {
     public function __construct(
-        private User $user
+        private User $user,
+        private ?\App\Models\GeneralOption $generalOptions = null
     ) {}
 
     public function handle(): array
@@ -46,14 +47,34 @@ class BuildResumeArray
             throw new Exception(BasicsCrud::MISSING_BASICS_ERROR);
         }
 
+        $generalOptions = $this->generalOptions ?? $this->user->generalOptions;
+
         $data = [
             'basics' => [],
         ];
 
-        $data['basics'] = BasicsCrud::build()->make()->execute(new ModelToExportAction($basics))->toArray();
+        $basicsArray = BasicsCrud::build()->make()->execute(new ModelToExportAction($basics))->toArray();
+        if ($generalOptions) {
+            if ($generalOptions->getAttribute('hide_email') && isset($basicsArray['email'])) {
+                unset($basicsArray['email']);
+            }
+            if ($generalOptions->getAttribute('hide_phone') && isset($basicsArray['phone'])) {
+                unset($basicsArray['phone']);
+            }
+            if ($generalOptions->getAttribute('hide_image') && isset($basicsArray['image'])) {
+                unset($basicsArray['image']);
+            }
+        }
+        $data['basics'] = $basicsArray;
 
         if ($basics->location) {
-            $data['basics']['location'] = LocationsCrud::build()->make()->execute(new ModelToExportAction($basics->location))->toArray();
+            $locationArray = LocationsCrud::build()->make()->execute(new ModelToExportAction($basics->location))->toArray();
+            if ($generalOptions && $generalOptions->getAttribute('hide_address')) {
+                $locationArray = [];
+            }
+            if (! empty($locationArray)) {
+                $data['basics']['location'] = $locationArray;
+            }
         }
 
         if ($basics->profiles->isNotEmpty()) {
