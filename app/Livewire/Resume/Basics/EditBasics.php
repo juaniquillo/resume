@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Resume\Basics;
 
-use App\Actions\Resume\Basics\UpdateBasics as UpdateAction;
+use App\Actions\Resume\Basics\UpdateBasics;
 use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
@@ -14,7 +14,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class UpdateBasics extends Component
+class EditBasics extends Component
 {
     use IsLivewireForm, WithFileUploads;
 
@@ -37,7 +37,7 @@ class UpdateBasics extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->basics);
 
-        (new UpdateAction(
+        (new UpdateBasics(
             $validator->validated(),
             $user,
             $this->basics[ImageFactory::NAME] ?? null
@@ -78,7 +78,7 @@ class UpdateBasics extends Component
         $form = $crud->formWithTextareaSpanFull()
             ->setAttribute('wire:submit.prevent', 'updateForm()');
 
-        return view('livewire.resume.basics.update-basics')
+        return view('livewire.resume.basics.edit-basics')
             ->with('form', $form);
     }
 }
