@@ -27,6 +27,7 @@ final class TableHelpers
     public static function tableModal(int|string $id, string|BackendComponent|CompoundComponent $content, string $heading = '', ?string $triggerType = null, string $buttonLabel = 'View', array $buttonThemes = []): BackendComponent|CompoundComponent
     {
         $triggerType = $triggerType ?? 'primary';
+
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([
                 'button' => FluxComponentBuilder::make(FluxComponentEnum::MODAL_TRIGGER)

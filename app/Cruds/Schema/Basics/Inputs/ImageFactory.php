@@ -89,9 +89,9 @@ class ImageFactory
                         'type' => FluxComponentEnum::TEXT_FILE->value,
                         ...$livewireAttributes,
                     ]),
-                hookBag: (new DefaultHookBag())
-                    ->setInputHook(function(BackendComponent|ContentComponent $component, Input $input, BackedEnum|FluxComponentEnum $type, ValueManager $valueManager): BackendComponent|ContentComponent {
-                        
+                hookBag: (new DefaultHookBag)
+                    ->setInputHook(function (BackendComponent|ContentComponent $component, Input $input, BackedEnum|FluxComponentEnum $type, ValueManager $valueManager): BackendComponent|ContentComponent {
+
                         $model = $valueManager->getModel();
 
                         if (! $model instanceof Basic) {
@@ -99,7 +99,7 @@ class ImageFactory
                         }
 
                         return self::imageManagement($component, $model);
-                        
+
                     })
             )
         );
@@ -116,7 +116,7 @@ class ImageFactory
         );
     }
 
-    public  static function imageManagement(BackendComponent|ContentComponent $component, Basic $model): BackendComponent|ContentComponent
+    public static function imageManagement(BackendComponent|ContentComponent $component, Basic $model): BackendComponent|ContentComponent
     {
         $wrapper = ComponentBuilder::make(ComponentEnum::DIV)
             ->setThemes([
@@ -125,10 +125,9 @@ class ImageFactory
                     'gap-md',
                     'col',
                 ],
-                
+
             ]);
 
-        
         $imageUrl = ImageHelpers::imageUrl($model->uuid, $model->updated_at?->timestamp);
         $image = ComponentBuilder::make(ComponentEnum::DIV)
             ->setThemes([

@@ -54,7 +54,7 @@ class UrlFactory
     public static function form(InputInterface $input): void
     {
         $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), BasicsCrud::getLivewireGroup());
-        
+
         $input->setRecipe(
             (new InputComponentRecipe)
                 ->setAttributeBag(
