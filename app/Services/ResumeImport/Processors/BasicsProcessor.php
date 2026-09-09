@@ -56,10 +56,12 @@ class BasicsProcessor
                 $tempPath = tempnam(sys_get_temp_dir(), 'resume_import_');
                 file_put_contents($tempPath, $contents);
 
+                $mimeType = @mime_content_type($tempPath) ?: 'image/jpeg';
+
                 $basicsData['image'] = new UploadedFile(
                     $tempPath,
                     'avatar.'.$extension,
-                    mime_content_type($tempPath),
+                    $mimeType,
                     null,
                     true
                 );

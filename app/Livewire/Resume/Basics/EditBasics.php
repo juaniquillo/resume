@@ -2,19 +2,20 @@
 
 namespace App\Livewire\Resume\Basics;
 
-use App\Actions\Resume\Basics\UpdateBasics as UpdateAction;
+use App\Actions\Resume\Basics\UpdateBasics;
 use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Cruds\Schema\Basics\Inputs\ImageFactory;
 use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class UpdateBasics extends Component
+class EditBasics extends Component
 {
     use IsLivewireForm, WithFileUploads;
 
@@ -37,7 +38,7 @@ class UpdateBasics extends Component
 
         $validator = $this->validateForm($this->crud()->make(), $this->basics);
 
-        (new UpdateAction(
+        (new UpdateBasics(
             $validator->validated(),
             $user,
             $this->basics[ImageFactory::NAME] ?? null
@@ -71,14 +72,15 @@ class UpdateBasics extends Component
         );
     }
 
+    public function form(): CompoundComponent
+    {
+        return $this->crud()->form()
+            ->setAttribute('wire:submit.prevent', 'updateForm()');
+    }
+
     public function render()
     {
-        $crud = $this->crud();
-
-        $form = $crud->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'updateForm()');
-
-        return view('livewire.resume.basics.update-basics')
-            ->with('form', $form);
+        return view('livewire.resume.basics.edit-basics')
+            ->with('form', $this->form());
     }
 }

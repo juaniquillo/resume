@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Resume\Basics\UpdateBasics;
+use App\Livewire\Resume\Basics\EditBasics;
 use App\Models\Basic;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -15,7 +15,7 @@ beforeEach(function () {
 
 it('validates required fields', function () {
     Livewire::actingAs($this->user)
-        ->test(UpdateBasics::class)
+        ->test(EditBasics::class)
         ->set('basics.name', '')
         ->set('basics.label', '')
         ->set('basics.email', '')
@@ -25,7 +25,7 @@ it('validates required fields', function () {
 
 it('creates a new basic record', function () {
     Livewire::actingAs($this->user)
-        ->test(UpdateBasics::class)
+        ->test(EditBasics::class)
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
@@ -51,7 +51,7 @@ it('updates an existing basic record', function () {
     ]);
 
     Livewire::actingAs($this->user)
-        ->test(UpdateBasics::class)
+        ->test(EditBasics::class)
         ->set('basics.name', 'New Name')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
@@ -73,7 +73,7 @@ it('handles image upload', function () {
     $image = UploadedFile::fake()->image('avatar.jpg');
 
     Livewire::actingAs($this->user)
-        ->test(UpdateBasics::class)
+        ->test(EditBasics::class)
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')
@@ -107,7 +107,7 @@ it('deletes old image when a new one is uploaded', function () {
     $newImage = UploadedFile::fake()->image('new_avatar.jpg');
 
     Livewire::actingAs($this->user)
-        ->test(UpdateBasics::class)
+        ->test(EditBasics::class)
         ->set('basics.name', 'John Doe')
         ->set('basics.label', 'Developer')
         ->set('basics.email', 'john@example.com')

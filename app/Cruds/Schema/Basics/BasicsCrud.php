@@ -67,7 +67,7 @@ final class BasicsCrud implements CrudForm, CrudInterface
         return $this->composeForm($inputs, $themes);
     }
 
-    public function formWithTextareaSpanFull(): BackendComponent|CompoundComponent
+    public function form(): BackendComponent|CompoundComponent
     {
         return $this->formRenderer->getForm($this);
     }

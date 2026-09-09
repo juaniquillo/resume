@@ -16,6 +16,9 @@ final class BasicsFormRenderer implements FormRenderer
 
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
-        return $crud->formFullSpanInputs(['summary']);
+        return $crud->composeForm(
+            $crud->inputsArray(),
+            themes: ['forms' => 'one-column']
+        );
     }
 }
