@@ -8,14 +8,24 @@ use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Helpers\TableHelpers;
 use App\Cruds\Schema\Basics\BasicsCrud;
 use App\Models\Basic;
+use App\Support\ImageHelpers;
+use BackedEnum;
 use Faker\Generator;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BackendComponents\Contracts\ContentComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
+use Juaniquillo\CrudAssistant\Input;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
+use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 class ImageFactory
@@ -79,6 +89,18 @@ class ImageFactory
                         'type' => FluxComponentEnum::TEXT_FILE->value,
                         ...$livewireAttributes,
                     ]),
+                hookBag: (new DefaultHookBag())
+                    ->setInputHook(function(BackendComponent|ContentComponent $component, Input $input, BackedEnum|FluxComponentEnum $type, ValueManager $valueManager): BackendComponent|ContentComponent {
+                        
+                        $model = $valueManager->getModel();
+
+                        if (! $model instanceof Basic) {
+                            return $component;
+                        }
+
+                        return self::imageManagement($component, $model);
+                        
+                    })
             )
         );
     }
@@ -92,5 +114,34 @@ class ImageFactory
                 }
             )
         );
+    }
+
+    public  static function imageManagement(BackendComponent|ContentComponent $component, Basic $model): BackendComponent|ContentComponent
+    {
+        $wrapper = ComponentBuilder::make(ComponentEnum::DIV)
+            ->setThemes([
+                'display' => 'flex',
+                'flex' => [
+                    'gap-md',
+                    'col',
+                ],
+                
+            ]);
+
+        
+        $imageUrl = ImageHelpers::imageUrl($model->uuid, $model->updated_at?->timestamp);
+        $image = ComponentBuilder::make(ComponentEnum::DIV)
+            ->setThemes([
+                'padding' => 'top-sm',
+            ])
+            ->setContent(
+                ComponentBuilder::make(ComponentEnum::IMG)
+                    ->setAttribute('src', $imageUrl)
+            );
+
+        return $wrapper->setContents([
+            $component,
+            TableHelpers::tableModal($model->id, $image, 'Image Preview', null, 'Preview', ['flex' => ['self-baseline']]),
+        ]);
     }
 }
