@@ -19,7 +19,7 @@ it('renders the basics index page for authenticated users', function () {
         ->get(route('dashboard.basics'))
         ->assertSuccessful()
         ->assertViewIs('dashboard.basics.index')
-        ->assertSeeLivewire('resume.basics.update-basics');
+        ->assertSeeLivewire('resume.basics.edit-basics');
 });
 
 it('identifies when it is not the first time (model exists)', function () {
