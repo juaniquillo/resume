@@ -9,6 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -71,14 +72,15 @@ class EditBasics extends Component
         );
     }
 
+    public function form(): CompoundComponent
+    {
+        return $this->crud()->form()
+            ->setAttribute('wire:submit.prevent', 'updateForm()');
+    }
+
     public function render()
     {
-        $crud = $this->crud();
-
-        $form = $crud->formWithTextareaSpanFull()
-            ->setAttribute('wire:submit.prevent', 'updateForm()');
-
         return view('livewire.resume.basics.edit-basics')
-            ->with('form', $form);
+            ->with('form', $this->form());
     }
 }
