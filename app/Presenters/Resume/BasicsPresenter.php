@@ -9,6 +9,7 @@ use App\Models\GeneralOption;
 use App\Models\Profile;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
+use App\Support\ImageHelpers;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -32,7 +33,7 @@ final class BasicsPresenter
         $options = $this->options;
         $image = $this->basics->image ?? null;
         $hideImage = $options !== null && $options->hide_image;
-        $imageUrl = ($image && ! $hideImage) ? route('image.serve', $this->basics->uuid).'?v='.($this->basics->updated_at->timestamp ?? now()->timestamp) : null;
+        $imageUrl = ($image && ! $hideImage) ? ImageHelpers::imageUrl($this->basics->uuid, $this->basics->updated_at?->timestamp) : null;
 
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->basicsContainerThemes())
