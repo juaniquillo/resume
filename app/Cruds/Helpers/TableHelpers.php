@@ -24,8 +24,9 @@ final class TableHelpers
         return new self;
     }
 
-    public static function tableModal(int|string $id, string|BackendComponent|CompoundComponent $content, string $heading = '', string $triggerType = 'primary', string $buttonLabel = 'View'): BackendComponent|CompoundComponent
+    public static function tableModal(int|string $id, string|BackendComponent|CompoundComponent $content, string $heading = '', ?string $triggerType = null, string $buttonLabel = 'View', array $buttonThemes = []): BackendComponent|CompoundComponent
     {
+        $triggerType = $triggerType ?? 'primary';
         return ComponentBuilder::make(ComponentEnum::COLLECTION)
             ->setContents([
                 'button' => FluxComponentBuilder::make(FluxComponentEnum::MODAL_TRIGGER)
@@ -36,6 +37,7 @@ final class TableHelpers
                             ->setAttribute('size', 'xs')
                             ->setTheme('cursor', 'pointer')
                             ->setContent($buttonLabel)
+                            ->setThemes($buttonThemes)
                     ),
                 'modal' => FluxComponentBuilder::make(FluxComponentEnum::MODAL)
                     ->setAttribute('name', "flux-modal-confirm-{$id}")
