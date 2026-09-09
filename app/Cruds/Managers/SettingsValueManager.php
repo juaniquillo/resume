@@ -3,6 +3,7 @@
 namespace App\Cruds\Managers;
 
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\InputComponentAction\Concerns\IsValueManager;
 use Juaniquillo\InputComponentAction\Contracts\InputComponentRecipeInterface;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Utilities\Support;
@@ -10,34 +11,7 @@ use Stringable;
 
 class SettingsValueManager implements ValueManager
 {
-    private array $values = [];
-
-    private ?object $model = null;
-
-    public function setValues(array $values): static
-    {
-        $this->values = $values;
-
-        return $this;
-    }
-
-    public function setModel(?object $model): static
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    public function getValues(): array
-    {
-        return $this->values;
-    }
-
-    public function getModel(): ?object
-    {
-        return $this->model;
-    }
-
+    use IsValueManager;
     public function resolve(InputInterface $input, InputComponentRecipeInterface $recipe, bool $ignoreRecipeValue = false): Stringable|string|int|array|null
     {
         $values = $this->values;
