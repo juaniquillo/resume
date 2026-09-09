@@ -28,6 +28,16 @@ class SettingsValueManager implements ValueManager
         return $this;
     }
 
+    public function getValues(): array
+    {
+        return $this->values;
+    }
+
+    public function getModel(): ?object
+    {
+        return $this->model;
+    }
+
     public function resolve(InputInterface $input, InputComponentRecipeInterface $recipe, bool $ignoreRecipeValue = false): Stringable|string|int|array|null
     {
         $values = $this->values;
