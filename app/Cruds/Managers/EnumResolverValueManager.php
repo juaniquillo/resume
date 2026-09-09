@@ -13,6 +13,7 @@ use Stringable;
 class EnumResolverValueManager implements ValueManager
 {
     use IsValueManager;
+
     public function resolve(InputInterface $input, InputComponentRecipeInterface $recipe, bool $ignoreRecipeValue = false): Stringable|string|int|array|null
     {
         $values = $this->values;
