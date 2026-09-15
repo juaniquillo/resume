@@ -63,8 +63,7 @@ class CreateResumeExport extends Component
 
         $this->refreshVariables();
 
-         (new FluxManager)->modal($this->getModalKey())->close();
-
+        (new FluxManager)->modal($this->getModalKey())->close();
 
     }
 
