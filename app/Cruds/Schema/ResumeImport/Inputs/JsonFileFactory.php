@@ -67,6 +67,7 @@ class JsonFileFactory
                             'label' => self::LABEL,
                             'type' => FluxComponentEnum::TEXT_FILE->value,
                             'accept' => '.json',
+                            'badge' => 'required',
                         ])
                 )
         );

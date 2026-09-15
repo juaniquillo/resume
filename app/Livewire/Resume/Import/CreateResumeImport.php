@@ -10,12 +10,16 @@ use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
 use App\Jobs\ProcessResumeImport;
 use App\Livewire\Concerns\IsLivewireForm;
+use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Support\ResumeLimit;
 use Flux\Flux;
+use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,6 +27,7 @@ use Livewire\WithFileUploads;
 class CreateResumeImport extends Component
 {
     use IsLivewireForm,
+        IsLivewireModal,
         WithFileUploads;
 
     public array $resumeImport = [];
@@ -59,6 +64,8 @@ class CreateResumeImport extends Component
         $this->dispatch('resume-updated');
 
         $this->refreshVariables();
+
+        (new FluxManager)->modal($this->getModalKey())->close();
     }
 
     #[Computed]
@@ -91,9 +98,37 @@ class CreateResumeImport extends Component
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 
+    public function getModalKey(): string
+    {
+        return 'create-import';
+    }
+
+    public function getModal(): BackendComponent|CompoundComponent
+    {
+        $id = $this->getModalKey();
+        $form = $this->getForm();
+
+        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+            ->setContents([
+                // From trait
+                'button' => $this->modalButton(
+                    label: 'Import Resume',
+                    id: $id,
+                    variant: 'filled',
+                    icon: self::CREATE_ICON,
+                ),
+                // From trait
+                'modal' => $this->modalComponent(
+                    id: $id,
+                    content: $form,
+                    themes: ['modal' => 'lg']
+                ),
+            ]);
+    }
+
     public function render()
     {
         return view('livewire.resume.import.create-resume-import')
-            ->with('form', $this->getForm());
+            ->with('form', $this->getModal());
     }
 }
