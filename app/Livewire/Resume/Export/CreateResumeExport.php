@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Export;
 
 use App\Actions\Resume\Export\StoreResumeExport;
 use App\Cruds\Actions\General\NameValueAction;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Livewire\Concerns\IsLivewireForm;
@@ -21,6 +22,8 @@ class CreateResumeExport extends Component
     use IsLivewireForm;
 
     public array $resumeExport = [];
+
+    public array $generalOptions = [];
 
     public function mount(): void
     {
@@ -40,8 +43,12 @@ class CreateResumeExport extends Component
         }
 
         $validator = $this->validateForm($this->crud()->make(), $this->resumeExport);
+        $optionsValidator = $this->validateForm(
+            $this->optionsCrud()->make($this->optionsCrud()->optionsInputsArray()),
+            $this->generalOptions
+        );
 
-        $export = (new StoreResumeExport)->handle($user, $validator->validated());
+        $export = (new StoreResumeExport)->handle($user, $validator->validated(), $optionsValidator->validated());
 
         $export->type->dispatchExportJob($export);
 
@@ -64,6 +71,7 @@ class CreateResumeExport extends Component
             );
 
         $this->resumeExport = $output->toArray();
+        $this->generalOptions = [];
     }
 
     private function crud()
@@ -73,6 +81,11 @@ class CreateResumeExport extends Component
             errors: $this->formErrors,
             formRenderer: ResumeExportLivewireFormRenderer::make(),
         );
+    }
+
+    private function optionsCrud()
+    {
+        return GeneralOptionsCrud::build();
     }
 
     public function getForm(): BackendComponent|CompoundComponent

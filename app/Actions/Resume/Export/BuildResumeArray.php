@@ -21,6 +21,7 @@ use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Cruds\Schema\Works\WorksCrud;
 use App\Models\Basic;
 use App\Models\Education;
+use App\Models\GeneralOption;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -33,7 +34,7 @@ class BuildResumeArray
 {
     public function __construct(
         private User $user,
-        private ?\App\Models\GeneralOption $generalOptions = null
+        private ?GeneralOption $generalOptions = null
     ) {}
 
     public function handle(): array

@@ -108,7 +108,7 @@ class CourseFactory
                     $educationCourse = $model;
                     $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
                         ->setContent($value)
-                        ->setTheme('spacing', 'm-top-sm')
+                        ->setTheme('spacing', 'mt-sm')
                         ->setTheme('text', 'nl2br');
 
                     return ComponentBuilder::make(ComponentEnum::COLLECTION)

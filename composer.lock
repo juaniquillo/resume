@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e275259c695b96ce683a1c167478469",
+    "content-hash": "e73573367500acf85094fb6c28b804ce",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.12",
+            "version": "3.395.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "23b24609e38ba51f872c01385f85a8bd12e917d7"
+                "reference": "c8f42d03b697a61b4910d162d753b13d2de297fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/23b24609e38ba51f872c01385f85a8bd12e917d7",
-                "reference": "23b24609e38ba51f872c01385f85a8bd12e917d7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c8f42d03b697a61b4910d162d753b13d2de297fc",
+                "reference": "c8f42d03b697a61b4910d162d753b13d2de297fc",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.0"
             },
-            "time": "2026-09-10T18:07:33+00:00"
+            "time": "2026-09-11T18:07:54+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1597,16 +1597,16 @@
         },
         {
             "name": "juaniquillo/crud-assistant",
-            "version": "0.1.1",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/crud-assistant.git",
-                "reference": "ba9f7e6ec99b490f9245146371169d1bc43b3924"
+                "reference": "536559c2e08d1b6fb1eed224f1632394855c0893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/crud-assistant/zipball/ba9f7e6ec99b490f9245146371169d1bc43b3924",
-                "reference": "ba9f7e6ec99b490f9245146371169d1bc43b3924",
+                "url": "https://api.github.com/repos/juaniquillo/crud-assistant/zipball/536559c2e08d1b6fb1eed224f1632394855c0893",
+                "reference": "536559c2e08d1b6fb1eed224f1632394855c0893",
                 "shasum": ""
             },
             "require": {
@@ -1644,9 +1644,9 @@
                 "crud-assistant"
             ],
             "support": {
-                "source": "https://github.com/juaniquillo/crud-assistant/tree/0.1.1"
+                "source": "https://github.com/juaniquillo/crud-assistant/tree/0.2.0"
             },
-            "time": "2026-09-09T18:32:49+00:00"
+            "time": "2026-09-09T19:27:47+00:00"
         },
         {
             "name": "juaniquillo/input-component-action",
@@ -1654,16 +1654,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/input-component-action.git",
-                "reference": "4061d6733bd03ae6eb678da3e4c860bf05fd5889"
+                "reference": "89971d171c972b4aeb25e0bbd65a3c32ba5c1284"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/4061d6733bd03ae6eb678da3e4c860bf05fd5889",
-                "reference": "4061d6733bd03ae6eb678da3e4c860bf05fd5889",
+                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/89971d171c972b4aeb25e0bbd65a3c32ba5c1284",
+                "reference": "89971d171c972b4aeb25e0bbd65a3c32ba5c1284",
                 "shasum": ""
             },
             "require": {
-                "juaniquillo/crud-assistant": "^0.1.0",
+                "juaniquillo/crud-assistant": "^0.2.0",
                 "juaniquillo/laravel-backend-component": "@dev",
                 "spatie/laravel-package-tools": "^1.92"
             },
@@ -1703,7 +1703,7 @@
                 "issues": "https://github.com/juaniquillo/input-component-action/issues",
                 "source": "https://github.com/juaniquillo/input-component-action/tree/main"
             },
-            "time": "2026-09-09T17:29:31+00:00"
+            "time": "2026-09-11T20:03:26+00:00"
         },
         {
             "name": "juaniquillo/laravel-backend-component",

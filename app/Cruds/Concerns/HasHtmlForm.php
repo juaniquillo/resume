@@ -5,9 +5,7 @@ namespace App\Cruds\Concerns;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Helpers\FormHelpers;
-use App\Cruds\InputGroups\LabelInputGroup;
 use App\Cruds\Managers\EnumResolverValueManager;
 use BackedEnum;
 use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
@@ -15,12 +13,13 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
@@ -29,7 +28,6 @@ use Juaniquillo\InputComponentAction\Contracts\ComponentBag;
 use Juaniquillo\InputComponentAction\Contracts\ErrorManager;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\NoWrapSoleInputGroup;
-use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Managers\DefaultErrorManager;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -182,7 +180,7 @@ trait HasHtmlForm
             ->setAttribute('action', $this->formAction)
             ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
-            ->setThemes($themes)
+            ->setThemes(themes: $themes)
             ->setContents(
                 $this->inputs(inputs: $inputs)
             );
@@ -198,19 +196,20 @@ trait HasHtmlForm
         return $form;
     }
 
-    /** @param array<int|string, InputInterface> $inputs */
-    public function fieldsetWrap(array $inputs, string|int $key, string $legend): InputInterface
+    /**
+     * @param  array<int|string, InputInterface>  $inputs
+     * @param  array<int|string, class-string<ActionInterface>>  $onlyFor
+     */
+    public function fieldsetWrap(array $inputs, string|int $key, string $legend, array $wrapperAttributes = [], array $onlyFor = []): InputInterface
     {
-        // $fieldset = new DefaultInput("fieldset_wrap_{$key}", $legend);
-
         $fieldset = new InputCollection("fieldset_wrap_{$key}");
 
         $legendInput = (new DefaultInput("fieldset_legend_{$key}", $legend))
             ->setRecipe(
-                (new InputComponentRecipe())
-                    ->setInputGroup(new SoleInputGroup)
+                (new InputComponentRecipe)
+                    ->setInputGroup(new NoWrapSoleInputGroup)
                     ->setComponentBag(
-                        (new DefaultComponentBag())
+                        (new DefaultComponentBag)
                             ->setInputComponent(
                                 function (BackedEnum|string $type, ThemeManager $manager) use ($legend) {
                                     return (new FluxBackendComponent(FluxComponentEnum::LEGEND, $manager))
@@ -221,37 +220,40 @@ trait HasHtmlForm
             );
 
         $fieldset->setType(FormHelpers::FORM_WRAPPER_TYPE)
+            ->onlyFor($onlyFor)
             ->setRecipe(
                 (new InputComponentRecipe)
-                    ->setInputGroup(new LabelInputGroup)
-                    ->setComponentBag(
-                        (new DefaultComponentBag)
-                            ->setWrapperComponent(
-                                fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
-                            )
-                            ->setLabelComponent(
-                                fn (BackedEnum|string $type, ThemeManager $manager) => new FluxBackendComponent($type, $manager)
-                            )
-                            ->setInputComponent(
-                                fn (BackedEnum|string $type, ThemeManager $manager) => (new MainBackendComponent($type, $manager))
-                                    ->setTheme('forms', 'fieldset-spacing')
-                            )
-                            ->setWrapperType(FluxComponentEnum::FIELDSET)
-                            ->setLabelType(FluxComponentEnum::LEGEND)
-                            ->setInputType(ComponentEnum::DIV)
-                    )
                     ->setThemeBag(
                         (new DefaultThemeBag)
                             ->setWrapperTheme([
-                                'forms' => 'column-span-full',
+                                'forms' => [
+                                    'column-span-full',
+                                    'one-column',
+                                ],
                             ])
+                    )
+                    ->setAttributeBag(
+                        (new DefaultAttributeBag)
+                            ->setWrapperAttributes($wrapperAttributes)
                     )
 
             );
 
         $fieldset->setInputs([
             'legend' => $legendInput,
-            'inputs' => CrudAssistant::make($inputs),
+            'inputs' => CrudAssistant::make($inputs)
+                ->setRecipe(
+                    (new InputComponentRecipe)
+                        ->setThemeBag(
+                            (new DefaultThemeBag)
+                                ->setWrapperTheme([
+                                    'forms' => [
+                                        'one-column',
+
+                                    ],
+                                ])
+                        )
+                ),
         ]);
 
         return $fieldset;
@@ -261,11 +263,15 @@ trait HasHtmlForm
     {
         $separator = new DefaultInput("fieldset_wrap_{$key}");
 
-        $separator->setType(FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE)
+        $separator->onlyFor([
+            InputComponentAction::class,
+        ]);
+
+        $separator->setType(FormHelpers::IGNORE_LIVEWIRE_BINDINGS)
             ->setRecipe(
                 (new InputComponentRecipe)
                     ->setDisableBag(
-                        (new DefaultDisableBag())
+                        (new DefaultDisableBag)
                             ->setDisableDefaultForAttribute()
                             ->setDisableDefaultNameAttribute()
                     )
@@ -273,10 +279,7 @@ trait HasHtmlForm
                         (new DefaultComponentBag)
                             ->setInputType(FluxComponentEnum::SEPARATOR)
                     )
-            )
-        ->setRecipe(
-            (new TableRowsRecipe())->ignore()
-        );
+            );
 
         return $separator;
     }

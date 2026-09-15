@@ -27,7 +27,7 @@ class ExportThemeSelectFactory
 {
     public const NAME = 'theme';
 
-    public const LABEL = 'Theme (PDF only)';
+    public const LABEL = 'Theme';
 
     public static function make(): InputInterface
     {

@@ -4,6 +4,8 @@ namespace App\Cruds\Concerns;
 
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\LivewireHelpers;
+use Juaniquillo\CrudAssistant\CrudAssistant;
+use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
@@ -16,12 +18,18 @@ trait HasLivewireFormAttributes
     {
         foreach ($inputs as $name => $input) {
 
-            if ($input->getType() === FormHelpers::FORM_WRAPPER_TYPE) {
-                foreach ($input->getSubElements() as $child) {
-                    if ($child->getType() === FormHelpers::FORM_WRAPPER_SEPARATOR_TYPE) {
-                        continue;
-                    }
+            if ($input->getType() === FormHelpers::IGNORE_LIVEWIRE_BINDINGS) {
+                continue;
+            }
 
+            if ($input->getType() === FormHelpers::FORM_WRAPPER_TYPE && CrudAssistant::isInputCollection($input)) {
+
+                /** @var InputCollection $input */
+                $children = $input->getInputs();
+                if (! $children) {
+                    continue;
+                }
+                foreach ($children as $child) {
                     $this->addLivewireAttributes([$child->getName() => $child], $livewireGroup);
                 }
             }
@@ -33,7 +41,7 @@ trait HasLivewireFormAttributes
                 $attributes = LivewireHelpers::getLivewireAttributes($name, $livewireGroup);
                 $attributeBag = $recipe->getAttributeBag();
 
-                $currentAttributes = $attributeBag->getInputAttributes();
+                $currentAttributes = $attributeBag->getInputAttributes() ?? [];
                 $attributeBag->setInputAttributes(array_merge($currentAttributes, $attributes));
             }
         }

@@ -17,7 +17,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\CrudAssistant;
 use Override;
 
 final class GeneralOptionsCrud implements CrudForm, CrudInterface
@@ -42,6 +44,11 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
         );
     }
 
+    public function make(?array $inputs = null): InputCollectionInterface
+    {
+        return CrudAssistant::make($inputs ?? $this->inputsArray());
+    }
+
     /**
      * @return InputInterface[]
      */
@@ -55,20 +62,16 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
     /**
      * @return InputInterface[]
      */
-    public static function exportInputsArray(): array
+    public function optionsInputsArray(): array
     {
-        $crud = self::build();
         return [
-            ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
-            $crud->fieldsetWrap([
-                HidePhoneFactory::NAME => HidePhoneFactory::make(),
-                $crud->separator('security_1'),
-                HideAddressFactory::NAME => HideAddressFactory::make(),
-                $crud->separator('security_2'),
-                HideEmailFactory::NAME => HideEmailFactory::make(),
-                $crud->separator('security_3'),
-                HideImageFactory::NAME => HideImageFactory::make(),
-            ], 'security', 'Custom Security Options'),
+            HidePhoneFactory::NAME => HidePhoneFactory::make(),
+            $this->separator('security_1'),
+            HideAddressFactory::NAME => HideAddressFactory::make(),
+            $this->separator('security_2'),
+            HideEmailFactory::NAME => HideEmailFactory::make(),
+            $this->separator('security_3'),
+            HideImageFactory::NAME => HideImageFactory::make(),
         ];
     }
 
@@ -82,15 +85,7 @@ final class GeneralOptionsCrud implements CrudForm, CrudInterface
             ...self::slugInput(),
             ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
             IsDraftFactory::NAME => IsDraftFactory::make(),
-            $this->fieldsetWrap([
-                HidePhoneFactory::NAME => HidePhoneFactory::make(),
-                $this->separator('security_1'),
-                HideAddressFactory::NAME => HideAddressFactory::make(),
-                $this->separator('security_2'),
-                HideEmailFactory::NAME => HideEmailFactory::make(),
-                $this->separator('security_3'),
-                HideImageFactory::NAME => HideImageFactory::make(),
-            ], 'security', 'Security Options'),
+            $this->fieldsetWrap($this->optionsInputsArray(), 'security', 'Security Options'),
         ];
     }
 

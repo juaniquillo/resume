@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Enums\ProcessStatus;
+use App\Models\GeneralOption;
 use App\Models\ResumeExport;
 use App\Presenters\Cache\ResumePresenterCacheManager;
 use App\Presenters\ResumePresenter;
@@ -52,7 +53,7 @@ class ProcessPdfExport implements ShouldQueue
             $presenter = new ResumePresenter($user, $theme, isPdf: true);
 
             if (! empty($this->export->custom_options)) {
-                $customOptions = new \App\Models\GeneralOption($this->export->custom_options);
+                $customOptions = new GeneralOption($this->export->custom_options);
                 $customOptions->setAttribute('user_id', $user->id);
                 $presenter->setGeneralOptions($customOptions);
             }

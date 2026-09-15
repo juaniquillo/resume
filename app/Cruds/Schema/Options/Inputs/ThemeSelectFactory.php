@@ -29,11 +29,10 @@ class ThemeSelectFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
+        self::validation($input);
         self::form($input);
 
         $input->setSubElements(self::options());
-
-        self::validation($input);
 
         return $input;
     }
@@ -42,7 +41,7 @@ class ThemeSelectFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'required',
+                'nullable',
                 'string',
                 Rule::enum(ResumeTheme::class),
             ]))
@@ -78,7 +77,6 @@ class ThemeSelectFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'name' => $input->getName(),
-                            'badge' => 'required',
                             ...$livewireAttributes,
                         ])
                 )

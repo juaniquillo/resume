@@ -21,11 +21,11 @@ final class ResumeExportLivewireFormRenderer implements FormRenderer
     public function getForm(CrudForm $crud): BackendComponent|CompoundComponent
     {
         $inputs = $crud->inputsArray();
-        // $this->addLivewireAttributes($inputs, ResumeExportCrud::getLivewireGroup());
+        $this->addLivewireAttributes($inputs, ResumeExportCrud::getLivewireGroup());
 
         return $crud->composeForm(
             inputs: $inputs,
-            themes: ['forms' => 'two-column']
+            themes: ['forms' => 'one-column']
         );
     }
 }

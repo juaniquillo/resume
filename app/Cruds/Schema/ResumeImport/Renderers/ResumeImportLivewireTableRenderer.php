@@ -37,7 +37,7 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
                 id: "error-modal-{$import->id}",
                 content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
                     ->setContent($import->error)
-                    ->setTheme('spacing', 'p-top-sm')
+                    ->setTheme('spacing', 'pt-sm')
                     ->setTheme('text', 'nl2br'),
                 heading: 'Import Error Details',
                 triggerType: 'danger',

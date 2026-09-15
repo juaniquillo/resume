@@ -11,9 +11,27 @@ use App\Models\User;
 class StoreResumeExport
 {
     /**
-     * @param  array{type: string, name: ?string, theme: ?string, allow_download: bool, use_custom_general_options: ?bool, theme_select: ?string, hide_phone: ?bool, hide_address: ?bool, hide_email: ?bool, hide_image: ?bool}  $data
+     * @param  array{
+     *  type: string,
+     *  name: ?string,
+     *  theme: ?string,
+     *  allow_download: bool,
+     *  use_custom_general_options: ?bool,
+     *  theme_select: ?string,
+     *  hide_phone: ?bool,
+     *  hide_address: ?bool,
+     *  hide_email: ?bool,
+     *  hide_image: ?bool
+     * }  $data
+     * @param array{
+     *  theme_select: ?string,
+     *  hide_phone: ?bool,
+     *  hide_address: ?bool,
+     *  hide_email: ?bool,
+     *  hide_image: ?bool
+     * } $customOptions
      */
-    public function handle(User $user, array $data): ResumeExport
+    public function handle(User $user, array $data, ?array $customOptions = null): ResumeExport
     {
         $data = FormHelpers::convertEmptyStringToNull($data);
 
@@ -25,15 +43,8 @@ class StoreResumeExport
         $name = $data['name'] ?? null;
         $useCustomOptions = (bool) ($data['use_custom_general_options'] ?? false);
 
-        $customOptions = null;
-        if ($useCustomOptions) {
-            $customOptions = [
-                'theme_select' => $data['theme_select'] ?? null,
-                'hide_phone' => (bool) ($data['hide_phone'] ?? false),
-                'hide_address' => (bool) ($data['hide_address'] ?? false),
-                'hide_email' => (bool) ($data['hide_email'] ?? false),
-                'hide_image' => (bool) ($data['hide_image'] ?? false),
-            ];
+        if (! $useCustomOptions) {
+            $customOptions = null;
         }
 
         if ($allowDownload) {
