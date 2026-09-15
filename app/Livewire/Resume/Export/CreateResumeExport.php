@@ -8,18 +8,23 @@ use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
 use App\Cruds\Schema\ResumeExport\ResumeExportCrud;
 use App\Livewire\Concerns\IsLivewireForm;
+use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use App\Support\ResumeLimit;
 use Flux\Flux;
+use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
+use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class CreateResumeExport extends Component
 {
-    use IsLivewireForm;
+    use IsLivewireForm,
+        IsLivewireModal;
 
     public array $resumeExport = [];
 
@@ -57,6 +62,9 @@ class CreateResumeExport extends Component
         $this->dispatch('resume-updated');
 
         $this->refreshVariables();
+
+         (new FluxManager)->modal($this->getModalKey())->close();
+
 
     }
 
@@ -96,9 +104,37 @@ class CreateResumeExport extends Component
             ->setAttribute('wire:submit.prevent', 'createForm()');
     }
 
+    public function getModalKey(): string
+    {
+        return 'create-export';
+    }
+
+    public function getModal(): BackendComponent|CompoundComponent
+    {
+        $id = $this->getModalKey();
+        $form = $this->getForm();
+
+        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+            ->setContents([
+                // From trait
+                'button' => $this->modalButton(
+                    label: 'Export Resume',
+                    id: $id,
+                    variant: 'filled',
+                    icon: self::CREATE_ICON,
+                ),
+                // From trait
+                'modal' => $this->modalComponent(
+                    id: $id,
+                    content: $form,
+                    themes: ['modal' => 'lg']
+                ),
+            ]);
+    }
+
     public function render()
     {
         return view('livewire.resume.export.create-resume-export')
-            ->with('create', $this->getForm());
+            ->with('create', $this->getModal());
     }
 }
