@@ -17,6 +17,7 @@ Use this skill when the user needs to:
 - Add a new component type (enum case + blade file + tests)
 - Use the concrete `DivComponent` for quick divs without the builder
 - Build tables programmatically using `TableUtil` and `CellBag`
+- Build modals programmatically using `ModalUtil`
 - Resolve components or themes from the consuming app's local views
 
 ## Creating Components
@@ -51,7 +52,6 @@ $custom = ComponentBuilder::make('inline.button');
 | **Lists** | `OL`, `UL`, `LI` |
 | **Details** | `DETAILS`, `SUMMARY` |
 | **Layers** | `DIALOG` |
-| **Custom** | `MODAL` |
 
 ## Setting Content
 
@@ -130,6 +130,19 @@ $button = ComponentBuilder::make(ComponentEnum::BUTTON)
 // Theme classes merge into the HTML class attribute automatically
 ```
 
+Themes accumulate by default — calling `setTheme` with the same name appends rather than replaces:
+
+```php
+$button = ComponentBuilder::make(ComponentEnum::BUTTON)
+    ->setTheme('action', 'success')
+    ->setTheme('action', 'error');
+// theme['action'] = ['success', 'error']
+
+// Use overwrite: true to replace instead
+$button->setTheme('action', 'link', overwrite: true);
+// theme['action'] = 'link'
+```
+
 ## Individual Components
 
 `DivComponent` is both a utility **and** a blueprint for creating new targeted component classes that bypass the enum/builder entirely. To create a new individual component, duplicate the `DivComponent` pattern:
@@ -151,6 +164,28 @@ $div->setContent('Hello');
 ```
 
 Currently only `DivComponent` exists in this category — add more as needed.
+
+## Modal Utility
+
+`ModalUtil` builds a complete modal component tree with Alpine.js interactivity:
+
+```php
+use Juaniquillo\BackendComponents\Utils\ModalUtil;
+
+$modal = ModalUtil::make(
+    content: 'Hello World',
+    button: ComponentBuilder::make(ComponentEnum::BUTTON)
+        ->setContent('Open')
+        ->setAttribute('@click', 'showModal = true'),
+    title: ComponentBuilder::make(ComponentEnum::H2)->setContent('Title'),
+    footer: ComponentBuilder::make(ComponentEnum::DIV)->setContent('Footer'),
+)
+    ->setAttribute('id', 'my-modal')
+    ->setTheme('modal', 'lg')
+    ->getComponent();
+```
+
+The modal is composed from `DIV` components with Alpine.js attributes — no separate blade template or slots needed.
 
 ## Table Utilities
 
@@ -227,6 +262,43 @@ $restored = ComponentFactory::fromArray($array);
 ```
 
 This works recursively for nested content, themes, settings, and Livewire state.
+
+## Cached Components
+
+`CachedBackendComponent` caches its rendered HTML output to disk. Uses PSR-16 (`Psr\SimpleCache\CacheInterface`) via `FileCache`.
+
+```php
+use Juaniquillo\BackendComponents\Components\CachedBackendComponent;
+
+$button = new CachedBackendComponent(ComponentEnum::BUTTON);
+$html = $button->getCachedHtml();   // renders + caches on first call
+$html = $button->getCachedHtml();   // served from cache on subsequent calls
+$button->clearCache();              // invalidates the cached entry
+```
+
+The cache key is `md5(json_encode($toArray()))` — same component state always produces the same key. Default cache directory: `cache/backend-components/`. Livewire components bypass caching automatically. Best suited for static content like documentation, navigation, or footer blocks — avoid caching dynamic or user-specific content unless you handle invalidation.
+
+### Cache configuration
+
+```php
+$component = new CachedBackendComponent(ComponentEnum::DIV);
+$component->setCacheDirectory('/custom/path'); // override default
+$component->disableCache();                    // bypass cache entirely
+$component->enableCache();                     // re-enable
+```
+
+### Using the IsCachable trait
+
+Any component class can use the `IsCachable` trait directly:
+
+```php
+use Juaniquillo\BackendComponents\Concerns\IsCachable;
+
+class MyCustomComponent implements BackendComponent {
+    use IsBackendComponent, IsCachable;
+    // ...
+}
+```
 
 ## Guardrails
 
