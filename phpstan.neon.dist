@@ -8,6 +8,9 @@ parameters:
     paths:
         - app/
 
+    excludePaths:
+        - tests/
+
     # Level 10 is the highest level
     level: 5
 
