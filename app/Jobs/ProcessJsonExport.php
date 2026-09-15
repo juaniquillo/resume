@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Actions\Resume\Export\BuildResumeArray;
 use App\Enums\ProcessStatus;
+use App\Models\GeneralOption;
 use App\Models\ResumeExport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -44,7 +45,13 @@ class ProcessJsonExport implements ShouldQueue
 
         try {
             $user = $this->export->user;
-            $resume = (new BuildResumeArray($user))->handle();
+            $customOptions = null;
+            if (! empty($this->export->custom_options)) {
+                $customOptions = new GeneralOption($this->export->custom_options);
+                $customOptions->setAttribute('user_id', $user->id);
+            }
+
+            $resume = (new BuildResumeArray($user, $customOptions))->handle();
 
             ResumeFactory::fromArray($resume)->validate();
 

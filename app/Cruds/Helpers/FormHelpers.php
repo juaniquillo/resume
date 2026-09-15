@@ -16,7 +16,7 @@ class FormHelpers
 {
     public const FORM_WRAPPER_TYPE = 'form-wrapper';
 
-    public const FORM_WRAPPER_SEPARATOR_TYPE = 'form-wrapper-separator';
+    public const IGNORE_LIVEWIRE_BINDINGS = 'form-wrapper-separator';
 
     public static function errorAlertComponent(ThemeManager $manager): BackendComponent|CompoundComponent
     {

@@ -141,9 +141,9 @@ final class ResumePresenter
 
     }
 
-    public function setGeneralOptions(): static
+    public function setGeneralOptions(?GeneralOption $generalOptions = null): static
     {
-        $this->generalOptions = new GeneralOption;
+        $this->generalOptions = $generalOptions ?? new GeneralOption;
 
         return $this;
     }

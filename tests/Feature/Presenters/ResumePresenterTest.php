@@ -284,7 +284,7 @@ test('it can use a custom theme', function () {
 
         public function sectionThemes(): array
         {
-            return ['spacing' => 'm-bottom-xs'];
+            return ['spacing' => 'mb-xs'];
         }
 
         public function sectionTitleThemes(): array
@@ -514,7 +514,7 @@ test('it can use a custom theme', function () {
 
     // 'p-xs' is defined in spacing.blade.php as 'p-2'
     expect($html)->toContain('p-2');
-    // 'm-bottom-xs' is defined in spacing.blade.php as 'mb-1'
+    // 'mb-xs' is defined in spacing.blade.php as 'mb-1'
     expect($html)->toContain('mb-1');
 });
 

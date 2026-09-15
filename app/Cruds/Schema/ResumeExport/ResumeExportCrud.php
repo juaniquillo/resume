@@ -4,6 +4,7 @@ namespace App\Cruds\Schema\ResumeExport;
 
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -12,17 +13,27 @@ use App\Cruds\Contracts\CrudInterface;
 use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
+use App\Cruds\Helpers\FormHelpers;
+use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Cruds\Schema\ResumeExport\Inputs\AllowDownloadSwitchFactory;
+use App\Cruds\Schema\ResumeExport\Inputs\CustomOptionsFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportThemeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\ExportTypeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\NameFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\StatusFactory;
-use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireFormRenderer;
+use App\Cruds\Schema\ResumeExport\Inputs\UseCustomGeneralOptionsFactory;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireTableRenderer;
+use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportUpdateLivewireFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
+use Juaniquillo\CrudAssistant\CrudAssistant;
+use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
+use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
+use Juaniquillo\InputComponentAction\InputComponentAction;
+use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
 final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -38,16 +49,13 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         protected ?Model $model = null,
         protected ?FormRenderer $formRenderer = null,
         protected ?TableRenderer $tableRenderer = null,
-    ) {
-        $this->formRenderer = $formRenderer ?? ResumeExportLivewireFormRenderer::make();
-        $this->tableRenderer = $tableRenderer ?? ResumeExportLivewireTableRenderer::make();
-    }
+    ) {}
 
     public static function build(
         array $values = [],
         array $errors = [],
         ?Model $model = null,
-        ?FormRenderer $formRenderer = null,
+        ?FormRenderer $formRenderer = new ResumeExportUpdateLivewireFormRenderer,
         ?TableRenderer $tableRenderer = null,
     ): static {
         return new self(
@@ -71,6 +79,13 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
             'type' => ExportTypeSelectFactory::make(),
             'theme' => ExportThemeSelectFactory::make(),
             'allow_download' => AllowDownloadSwitchFactory::make(),
+            $this->separator('export_options_1'),
+
+            'custom_options' => CustomOptionsFactory::make(),
+
+            /** General options */
+            $this->generalOptionsGroup(),
+
             'status' => StatusFactory::make(),
         ];
     }
@@ -88,16 +103,6 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formRenderer->getForm($this);
     }
 
-    public function formNarrow(): BackendComponent|CompoundComponent
-    {
-        return $this->form();
-    }
-
-    public function formWithInputsSpanFull(): BackendComponent|CompoundComponent
-    {
-        return $this->form();
-    }
-
     public function tableOptions(TableRowsAction $action): void
     {
         /** @var ResumeExportLivewireTableRenderer $renderer */
@@ -113,10 +118,50 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         $action->setExtraCells($this->tableRenderer->renderExtraCells());
     }
 
-    public function formThemes(): array
+    public function generalOptionsGroup()
     {
-        return [
-            'forms' => 'two-column',
-        ];
+        $customOptionsInputs = GeneralOptionsCrud::build()->optionsInputsArray();
+
+        $options = CrudAssistant::make([
+            'custom_options' => $this->fieldsetWrap(
+                inputs: [
+                    ...$customOptionsInputs,
+                ],
+                key: 'custom_options',
+                legend: 'Custom Options',
+                wrapperAttributes: [
+                    'x-show' => 'showOptions',
+                    'x-cloak' => '',
+                ],
+                onlyFor: [
+                    InputComponentAction::class,
+                    LaravelValidationRulesAction::class,
+                ],
+            ),
+        ], 'option_toggle_group')
+            ->setType(FormHelpers::IGNORE_LIVEWIRE_BINDINGS);
+
+        //
+        $wrapper = CrudAssistant::make([
+            'custom_options' => UseCustomGeneralOptionsFactory::make(),
+            $options,
+        ], 'option_toggle_wrapper')
+            ->setType(FormHelpers::FORM_WRAPPER_TYPE)
+            ->setRecipe(
+                new InputComponentRecipe(
+                    themeManager: new LocalThemeManager,
+                    themeBag: (new DefaultThemeBag)
+                        ->setWrapperTheme([
+                            'forms' => 'one-column',
+                        ]),
+                    attributeBag: (new DefaultAttributeBag)
+                        ->setWrapperAttributes([
+                            'x-data' => '{ showOptions: false }',
+                        ])
+                )
+            );
+
+        return $wrapper;
+
     }
 }

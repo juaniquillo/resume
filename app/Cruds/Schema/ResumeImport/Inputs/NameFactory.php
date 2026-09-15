@@ -36,7 +36,7 @@ class NameFactory
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'nullable',
+                'required',
                 'string',
                 'max:191',
             ]))
@@ -52,6 +52,7 @@ class NameFactory
                         ->setInputAttributes([
                             'label' => self::LABEL,
                             'name' => $input->getName(),
+                            'badge' => 'required',
                         ])
                 )
         );

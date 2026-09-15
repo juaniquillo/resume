@@ -54,6 +54,7 @@ test('user can upload a resume json file', function () {
 
     Livewire::actingAs($user)
         ->test(CreateResumeImport::class)
+        ->set('resumeImport.name', 'My Import')
         ->set('resumeImport.resume_file', $file)
         ->call('createForm')
         ->assertHasNoErrors()
@@ -234,6 +235,7 @@ test('resume imports have a limit', function () {
 
     Livewire::actingAs($user)
         ->test(CreateResumeImport::class)
+        ->set('resumeImport.name', 'My Import')
         ->set('resumeImport.resume_file', $file)
         ->call('createForm');
 

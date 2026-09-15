@@ -68,7 +68,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsArray(): array
     {
         return [
-            'name' => NameFactory::make(),
+            ...$this->inputsUpdateArray(),
             JsonFileFactory::NAME => JsonFileFactory::make(),
         ];
     }
@@ -76,7 +76,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
     public function inputsUpdateArray(): array
     {
         return [
-            'name' => NameFactory::make(),
+            NameFactory::NAME => NameFactory::make(),
         ];
     }
 

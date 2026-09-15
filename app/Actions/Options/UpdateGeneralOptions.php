@@ -2,6 +2,7 @@
 
 namespace App\Actions\Options;
 
+use App\Enums\ResumeTheme;
 use App\Models\User;
 
 class UpdateGeneralOptions
@@ -17,7 +18,7 @@ class UpdateGeneralOptions
             ['user_id' => $this->user->id],
             [
                 'slug' => $this->data['slug'],
-                'theme' => $this->data['theme'],
+                'theme' => $this->data['theme'] ?? ResumeTheme::DEFAULT->value,
                 'is_draft' => $this->data['is_draft'] ?? false,
                 /**
                  * Security options

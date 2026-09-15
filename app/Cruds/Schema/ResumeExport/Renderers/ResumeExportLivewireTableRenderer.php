@@ -68,7 +68,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
                 id: "error-modal-{$export->id}",
                 content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
                     ->setContent($export->error)
-                    ->setTheme('spacing', 'p-top-sm')
+                    ->setTheme('spacing', 'pt-sm')
                     ->setTheme('text', 'nl2br'),
                 heading: 'Export Error Details',
                 triggerType: 'danger',

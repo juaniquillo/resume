@@ -102,7 +102,7 @@ class DescriptionFactory
                     $project = $model;
                     $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
                         ->setContent($value)
-                        ->setTheme('spacing', 'm-top-sm')
+                        ->setTheme('spacing', 'mt-sm')
                         ->setTheme('text', 'nl2br');
 
                     return TableHelpers::tableModal($project->id, $modalContent, DescriptionFactory::LABEL, 'ghost');

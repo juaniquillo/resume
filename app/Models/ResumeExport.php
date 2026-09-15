@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Storage;
  * @property-read ResumeExportType $type
  * @property-read ResumeTheme|null $theme
  * @property-read bool $allow_download
+ * @property-read array|null $custom_options
  * @property-read string|null $file_path
  * @property-read ProcessStatus $status
  * @property-read string|null $error
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\Storage;
     'theme',
     'allow_download',
     'name',
+    'custom_options',
 ])]
 class ResumeExport extends Model
 {
@@ -67,6 +69,7 @@ class ResumeExport extends Model
             'theme' => ResumeTheme::class,
             'status' => ProcessStatus::class,
             'allow_download' => 'boolean',
+            'custom_options' => 'array',
         ];
     }
 }

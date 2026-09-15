@@ -45,6 +45,7 @@ test('it can initiate a resume export', function () {
 
     Livewire::actingAs($this->user)
         ->test(CreateResumeExport::class)
+        ->set('resumeExport.name', 'My Export')
         ->set('resumeExport.type', ResumeExportType::JSON->value)
         ->call('createForm')
         ->assertHasNoErrors()
@@ -186,6 +187,7 @@ test('resume exports have a limit', function () {
 
     Livewire::actingAs($this->user)
         ->test(CreateResumeExport::class)
+        ->set('resumeExport.name', 'Export')
         ->set('resumeExport.type', ResumeExportType::JSON->value)
         ->call('createForm');
 
@@ -227,6 +229,7 @@ test('it can initiate a resume export with download and theme', function () {
 
     Livewire::actingAs($this->user)
         ->test(CreateResumeExport::class)
+        ->set('resumeExport.name', 'My PDF Export')
         ->set('resumeExport.type', ResumeExportType::PDF->value)
         ->set('resumeExport.theme', ResumeTheme::BOLD->value)
         ->set('resumeExport.allow_download', true)
@@ -248,12 +251,14 @@ test('it can initiate a resume export with download and theme', function () {
 test('user can edit allow download option on an export', function () {
     $export = ResumeExport::create([
         'user_id' => $this->user->id,
+        'name' => 'Existing Export',
         'status' => ProcessStatus::COMPLETED,
         'allow_download' => false,
     ]);
 
     Livewire::actingAs($this->user)
         ->test(EditResumeExport::class, ['resumeExportId' => $export->id])
+        ->set('resumeExport.name', 'Existing Export')
         ->set('resumeExport.allow_download', true)
         ->call('updateForm')
         ->assertHasNoErrors()
@@ -265,6 +270,7 @@ test('user can edit allow download option on an export', function () {
 test('marking an export for download unmarks others of the same type', function () {
     $existing = ResumeExport::create([
         'user_id' => $this->user->id,
+        'name' => 'Old Export',
         'type' => ResumeExportType::PDF,
         'allow_download' => true,
         'status' => ProcessStatus::COMPLETED,
@@ -272,6 +278,7 @@ test('marking an export for download unmarks others of the same type', function 
 
     Livewire::actingAs($this->user)
         ->test(CreateResumeExport::class)
+        ->set('resumeExport.name', 'New Export')
         ->set('resumeExport.type', ResumeExportType::PDF->value)
         ->set('resumeExport.allow_download', true)
         ->call('createForm')
@@ -290,6 +297,7 @@ test('marking an export for download unmarks others of the same type', function 
 test('json exports can be marked for download', function () {
     Livewire::actingAs($this->user)
         ->test(CreateResumeExport::class)
+        ->set('resumeExport.name', 'JSON Export')
         ->set('resumeExport.type', ResumeExportType::JSON->value)
         ->set('resumeExport.allow_download', true)
         ->call('createForm')
