@@ -2,33 +2,22 @@
 
 namespace App\Actions\Resume\Export;
 
-use App\Cruds\Actions\General\ModelToExportAction;
-use App\Cruds\Schema\Awards\AwardsCrud;
-use App\Cruds\Schema\Basics\BasicsCrud;
-use App\Cruds\Schema\Basics\Inputs\EmailFactory;
-use App\Cruds\Schema\Basics\Inputs\NameFactory;
-use App\Cruds\Schema\Certificates\CertificatesCrud;
-use App\Cruds\Schema\Education\EducationCrud;
-use App\Cruds\Schema\Interests\InterestsCrud;
-use App\Cruds\Schema\Languages\LanguagesCrud;
-use App\Cruds\Schema\Locations\LocationsCrud;
-use App\Cruds\Schema\Profiles\ProfilesCrud;
-use App\Cruds\Schema\Projects\ProjectsCrud;
-use App\Cruds\Schema\Publications\PublicationsCrud;
-use App\Cruds\Schema\References\ReferencesCrud;
-use App\Cruds\Schema\Skills\SkillsCrud;
-use App\Cruds\Schema\Volunteers\VolunteersCrud;
-use App\Cruds\Schema\Works\WorksCrud;
-use App\Models\Basic;
-use App\Models\Education;
+use App\Actions\Resume\Export\Builders\AwardsBuilder;
+use App\Actions\Resume\Export\Builders\BasicsBuilder;
+use App\Actions\Resume\Export\Builders\CertificatesBuilder;
+use App\Actions\Resume\Export\Builders\EducationBuilder;
+use App\Actions\Resume\Export\Builders\InterestsBuilder;
+use App\Actions\Resume\Export\Builders\LanguagesBuilder;
+use App\Actions\Resume\Export\Builders\MetaBuilder;
+use App\Actions\Resume\Export\Builders\ProjectsBuilder;
+use App\Actions\Resume\Export\Builders\PublicationsBuilder;
+use App\Actions\Resume\Export\Builders\ReferencesBuilder;
+use App\Actions\Resume\Export\Builders\SkillsBuilder;
+use App\Actions\Resume\Export\Builders\VolunteerBuilder;
+use App\Actions\Resume\Export\Builders\WorkBuilder;
 use App\Models\GeneralOption;
-use App\Models\Project;
 use App\Models\User;
-use App\Models\Volunteer;
-use App\Models\Work;
 use App\Presenters\Resume\ResumeDataLoader;
-use Exception;
-use Illuminate\Database\Eloquent\Model;
 
 class BuildResumeArray
 {
@@ -41,143 +30,56 @@ class BuildResumeArray
     {
         resolve(ResumeDataLoader::class)->clearCache($this->user->id);
 
-        /** @var Basic|null $basics */
-        $basics = $this->user->resumeBasics();
-
-        if (! $basics || (! $basics->{NameFactory::NAME} || ! $basics->{EmailFactory::NAME})) {
-            throw new Exception(BasicsCrud::MISSING_BASICS_ERROR);
-        }
-
         $generalOptions = $this->generalOptions ?? $this->user->generalOptions;
-
+        
+        /** @var GeneralOption|null $generalOptions */
         $data = [
-            'basics' => [],
+            'meta' => (new MetaBuilder)->handle($generalOptions),
+            'basics' => (new BasicsBuilder)->handle($this->user, $generalOptions),
         ];
 
-        $basicsArray = BasicsCrud::build()->make()->execute(new ModelToExportAction($basics))->toArray();
-        if ($generalOptions) {
-            if ($generalOptions->getAttribute('hide_email') && isset($basicsArray['email'])) {
-                unset($basicsArray['email']);
-            }
-            if ($generalOptions->getAttribute('hide_phone') && isset($basicsArray['phone'])) {
-                unset($basicsArray['phone']);
-            }
-            if ($generalOptions->getAttribute('hide_image') && isset($basicsArray['image'])) {
-                unset($basicsArray['image']);
-            }
-        }
-        $data['basics'] = $basicsArray;
-
-        if ($basics->location) {
-            $locationArray = LocationsCrud::build()->make()->execute(new ModelToExportAction($basics->location))->toArray();
-            if ($generalOptions && $generalOptions->getAttribute('hide_address')) {
-                $locationArray = [];
-            }
-            if (! empty($locationArray)) {
-                $data['basics']['location'] = $locationArray;
-            }
+        if ($work = (new WorkBuilder)->handle($this->user)) {
+            $data['work'] = $work;
         }
 
-        if ($basics->profiles->isNotEmpty()) {
-            $profilesCrud = ProfilesCrud::build()->make();
-            $data['basics']['profiles'] = $basics->profiles->map(function (Model $profile) use ($profilesCrud) {
-                return $profilesCrud->execute(
-                    new ModelToExportAction($profile)
-                )->toArray();
-            })->toArray();
+        if ($volunteer = (new VolunteerBuilder)->handle($this->user)) {
+            $data['volunteer'] = $volunteer;
         }
 
-        $work = $this->user->resumeWorks();
-        if ($work->isNotEmpty()) {
-            $data['work'] = $work->map(function (Model $work) {
-                /** @var Work $work */
-                $workArray = WorksCrud::build()->make()->execute(new ModelToExportAction($work))->toArray();
-                $workArray['highlights'] = $work->highlights->pluck('highlight')->toArray();
-
-                return $workArray;
-            })->toArray();
+        if ($education = (new EducationBuilder)->handle($this->user)) {
+            $data['education'] = $education;
         }
 
-        $volunteer = $this->user->resumeVolunteers();
-        if ($volunteer->isNotEmpty()) {
-            $data['volunteer'] = $volunteer->map(function (Model $volunteer) {
-                /** @var Volunteer $volunteer */
-                $volunteerArray = VolunteersCrud::build()->make()->execute(new ModelToExportAction($volunteer))->toArray();
-                $volunteerArray['highlights'] = $volunteer->highlights->pluck('highlight')->toArray();
-
-                return $volunteerArray;
-            })->toArray();
+        if ($awards = (new AwardsBuilder)->handle($this->user)) {
+            $data['awards'] = $awards;
         }
 
-        $education = $this->user->resumeEducation();
-        if ($education->isNotEmpty()) {
-            $data['education'] = $education->map(function (Model $edu) {
-                /** @var Education $edu */
-                $eduArray = EducationCrud::build()->make()->execute(new ModelToExportAction($edu))->toArray();
-                $eduArray['courses'] = $edu->courses->pluck('course')->toArray();
-
-                return $eduArray;
-            })->toArray();
+        if ($certificates = (new CertificatesBuilder)->handle($this->user)) {
+            $data['certificates'] = $certificates;
         }
 
-        $awards = $this->user->resumeAwards();
-        if ($awards->isNotEmpty()) {
-            $data['awards'] = $awards->map(function (Model $award) {
-                return AwardsCrud::build()->make()->execute(new ModelToExportAction($award))->toArray();
-            })->toArray();
+        if ($publications = (new PublicationsBuilder)->handle($this->user)) {
+            $data['publications'] = $publications;
         }
 
-        $certificates = $this->user->resumeCertificates();
-        if ($certificates->isNotEmpty()) {
-            $data['certificates'] = $certificates->map(function (Model $cert) {
-                return CertificatesCrud::build()->make()->execute(new ModelToExportAction($cert))->toArray();
-            })->toArray();
+        if ($skills = (new SkillsBuilder)->handle($this->user)) {
+            $data['skills'] = $skills;
         }
 
-        $publications = $this->user->resumePublications();
-        if ($publications->isNotEmpty()) {
-            $data['publications'] = $publications->map(function (Model $pub) {
-                return PublicationsCrud::build()->make()->execute(new ModelToExportAction($pub))->toArray();
-            })->toArray();
+        if ($languages = (new LanguagesBuilder)->handle($this->user)) {
+            $data['languages'] = $languages;
         }
 
-        $skills = $this->user->resumeSkills();
-        if ($skills->isNotEmpty()) {
-            $data['skills'] = $skills->map(function (Model $skill) {
-                return SkillsCrud::build()->make()->execute(new ModelToExportAction($skill))->toArray();
-            })->toArray();
+        if ($interests = (new InterestsBuilder)->handle($this->user)) {
+            $data['interests'] = $interests;
         }
 
-        $languages = $this->user->resumeLanguages();
-        if ($languages->isNotEmpty()) {
-            $data['languages'] = $languages->map(function (Model $lang) {
-                return LanguagesCrud::build()->make()->execute(new ModelToExportAction($lang))->toArray();
-            })->toArray();
+        if ($references = (new ReferencesBuilder)->handle($this->user)) {
+            $data['references'] = $references;
         }
 
-        $interests = $this->user->resumeInterests();
-        if ($interests->isNotEmpty()) {
-            $data['interests'] = $interests->map(function (Model $interest) {
-                return InterestsCrud::build()->make()->execute(new ModelToExportAction($interest))->toArray();
-            })->toArray();
-        }
-
-        $references = $this->user->resumeReferences();
-        if ($references->isNotEmpty()) {
-            $data['references'] = $references->map(function (Model $ref) {
-                return ReferencesCrud::build()->make()->execute(new ModelToExportAction($ref))->toArray();
-            })->toArray();
-        }
-
-        $projects = $this->user->resumeProjects();
-        if ($projects->isNotEmpty()) {
-            $data['projects'] = $projects->map(function (Model $project) {
-                /** @var Project $project */
-                $projectArray = ProjectsCrud::build()->make()->execute(new ModelToExportAction($project))->toArray();
-                $projectArray['highlights'] = $project->highlights->pluck('highlight')->toArray();
-
-                return $projectArray;
-            })->toArray();
+        if ($projects = (new ProjectsBuilder)->handle($this->user)) {
+            $data['projects'] = $projects;
         }
 
         return $data;

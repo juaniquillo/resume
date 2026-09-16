@@ -53,6 +53,8 @@ class StoreResumeExport
                 ->update(['allow_download' => false]);
         }
 
+        /** @TODO Add theme to custom options */
+
         /** @var ResumeExport $export */
         $export = $user->resumeExports()->create([
             'status' => ProcessStatus::PENDING,

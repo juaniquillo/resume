@@ -2,14 +2,18 @@
 
 namespace App\Cruds\Schema\Options\Inputs;
 
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Enums\SlugBlacklist;
 use App\Models\GeneralOption;
+use Faker\Generator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -24,10 +28,22 @@ class SlugFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
+        self::factory($input);
         self::form($input);
         self::validation($input, $id);
 
         return $input;
+    }
+
+    public  static function factory(InputInterface $input) : void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{$input->getName()} = $faker->slug(3);
+                }
+            )
+        );
     }
 
     public static function validation(InputInterface $input, ?int $id = null): void

@@ -12,6 +12,7 @@ use App\Services\ResumeImport\Processors\CertificatesProcessor;
 use App\Services\ResumeImport\Processors\EducationProcessor;
 use App\Services\ResumeImport\Processors\InterestsProcessor;
 use App\Services\ResumeImport\Processors\LanguagesProcessor;
+use App\Services\ResumeImport\Processors\MetaProcessor;
 use App\Services\ResumeImport\Processors\ProjectsProcessor;
 use App\Services\ResumeImport\Processors\PublicationsProcessor;
 use App\Services\ResumeImport\Processors\ReferencesProcessor;
@@ -45,7 +46,8 @@ class ProcessResumeImport implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public ResumeImport $import
+        public ResumeImport $import,
+        public bool $applyMetaOptions = true
     ) {}
 
     /**
@@ -67,6 +69,7 @@ class ProcessResumeImport implements ShouldQueue
             $user = $this->import->user;
 
             DB::transaction(function () use ($user, $data) {
+                (new MetaProcessor)->process($user, $data, $this->applyMetaOptions);
                 (new BasicsProcessor)->process($user, $data);
                 (new WorkProcessor)->process($user, $data);
                 (new VolunteerProcessor)->process($user, $data);

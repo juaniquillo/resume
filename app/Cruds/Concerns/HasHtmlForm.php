@@ -205,6 +205,7 @@ trait HasHtmlForm
         $fieldset = new InputCollection("fieldset_wrap_{$key}");
 
         $legendInput = (new DefaultInput("fieldset_legend_{$key}", $legend))
+            ->onlyFor([InputComponentAction::getIdentifier()])
             ->setRecipe(
                 (new InputComponentRecipe)
                     ->setInputGroup(new NoWrapSoleInputGroup)
