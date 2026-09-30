@@ -22,7 +22,9 @@ use App\Services\ResumeImport\Processors\WorkProcessor;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class ProcessResumeImport implements ShouldQueue
 {
@@ -85,10 +87,17 @@ class ProcessResumeImport implements ShouldQueue
             });
 
             $this->import->update(['status' => ProcessStatus::COMPLETED]);
-        } catch (\Exception $e) {
+        } catch (ValidationException $e) {
             $this->import->update([
                 'status' => ProcessStatus::FAILED,
                 'error' => $e->getMessage(),
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('Resume import failed with system error: ' . $e->getMessage(), ['exception' => $e]);
+
+            $this->import->update([
+                'status' => ProcessStatus::FAILED,
+                'error' => 'An error occurred while processing the resume import. Please try again.',
             ]);
         }
     }
@@ -98,9 +107,17 @@ class ProcessResumeImport implements ShouldQueue
      */
     public function failed(\Throwable $exception): void
     {
+        $errorMessage = $exception instanceof ValidationException
+            ? $exception->getMessage()
+            : 'An error occurred while processing the resume import. Please try again.';
+
+        if (! ($exception instanceof ValidationException)) {
+            Log::error('Resume import job failed: ' . $exception->getMessage(), ['exception' => $exception]);
+        }
+
         $this->import->update([
             'status' => ProcessStatus::FAILED,
-            'error' => $exception->getMessage(),
+            'error' => $errorMessage,
         ]);
     }
 }
