@@ -3,10 +3,15 @@
 namespace App\Actions\Resume\Export\Builders;
 
 use App\Cruds\Actions\General\ModelToExportAction;
-use App\Cruds\Schema\Options\GeneralOptionsCrud;
+use App\Cruds\Schema\Options\Inputs\HideAddressFactory;
+use App\Cruds\Schema\Options\Inputs\HideEmailFactory;
+use App\Cruds\Schema\Options\Inputs\HideImageFactory;
+use App\Cruds\Schema\Options\Inputs\HidePhoneFactory;
 use App\Cruds\Schema\Options\Inputs\IsDraftFactory;
+use App\Cruds\Schema\Options\Inputs\SlugFactory;
 use App\Cruds\Schema\Options\Inputs\ThemeSelectFactory;
 use App\Models\GeneralOption;
+use Juaniquillo\CrudAssistant\CrudAssistant;
 
 class MetaBuilder
 {
@@ -24,13 +29,17 @@ class MetaBuilder
         ];
 
         if ($generalOptions) {
-            $crud = GeneralOptionsCrud::build(model: $generalOptions);
-            $inputs = $crud->make([
+            $inputs = CrudAssistant::make([
+                SlugFactory::NAME => SlugFactory::make(),
                 ThemeSelectFactory::NAME => ThemeSelectFactory::make(),
                 IsDraftFactory::NAME => IsDraftFactory::make(),
-                ...$crud->optionsInputsArray(),
+                HidePhoneFactory::NAME => HidePhoneFactory::make(),
+                HideAddressFactory::NAME => HideAddressFactory::make(),
+                HideEmailFactory::NAME => HideEmailFactory::make(),
+                HideImageFactory::NAME => HideImageFactory::make(),
             ]);
-            $meta['options'] = $inputs->execute(new ModelToExportAction($generalOptions))->toArray();
+            $exported = $inputs->execute(new ModelToExportAction($generalOptions))->toArray();
+            $meta['options'] = $exported;
         }
 
         return $meta;

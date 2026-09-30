@@ -79,9 +79,7 @@ test('it processes a resume json and creates database records', function () {
     $job->handle();
 
     $import->refresh();
-    if ($import->status === ProcessStatus::FAILED) {
-        dump($import->error);
-    }
+    
     expect($import->status)->toBe(ProcessStatus::COMPLETED);
 
     // Assert Basics

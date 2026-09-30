@@ -60,6 +60,13 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
+        static::created(function (User $user) {
+            // create default slug
+            $user->generalOptions()->create([
+                'slug' => Str::slug($user->name),
+            ]);
+        });
+
         static::deleting(function (User $user) {
             $user->basics?->delete();
             $user->resumeExports->each->delete();

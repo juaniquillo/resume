@@ -30,16 +30,6 @@ class NameValueAction extends Action implements ActionInterface
         return $this;
     }
 
-    /**
-     * @param  Closure(?string):(?string)  $modifier
-     */
-    public function setModifier(Closure $modifier): static
-    {
-        $this->modifiers[] = $modifier;
-
-        return $this;
-    }
-
     public function execute(InputCollection|InputInterface|IteratorAggregate $input)
     {
         if ($input instanceof InputCollection || $input instanceof IteratorAggregate) {
@@ -114,9 +104,7 @@ class NameValueAction extends Action implements ActionInterface
 
         $value = $this->resolveValue($names, $values);
 
-        foreach ($this->modifiers as $modifier) {
-            $value = $modifier($value);
-        }
+        $value = $this->modifiers($value, $input);
 
         $output->set($inputName, $value);
 

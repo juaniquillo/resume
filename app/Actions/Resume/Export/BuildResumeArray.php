@@ -31,7 +31,7 @@ class BuildResumeArray
         resolve(ResumeDataLoader::class)->clearCache($this->user->id);
 
         $generalOptions = $this->generalOptions ?? $this->user->generalOptions;
-        
+
         /** @var GeneralOption|null $generalOptions */
         $data = [
             'meta' => (new MetaBuilder)->handle($generalOptions),

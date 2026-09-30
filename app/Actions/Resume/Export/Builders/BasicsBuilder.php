@@ -26,12 +26,12 @@ class BasicsBuilder
         }
 
         $basicsArray = BasicsCrud::build()->make()->execute(new ModelToExportAction($basics))->toArray();
-        /** 
+        /**
          * @TODO Instead of hardcoding every unset we could
-         * use GeneralOptionsCrud::optionsInputsArray() 
+         * use GeneralOptionsCrud::optionsInputsArray()
          * to loop through the input factory names
          * in case we add one later
-        */
+         */
         if ($generalOptions) {
             if ($generalOptions->getAttribute('hide_email') && isset($basicsArray['email'])) {
                 unset($basicsArray['email']);
