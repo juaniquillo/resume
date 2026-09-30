@@ -22,7 +22,7 @@ class UpdateGeneralOptions
             );
 
         $payload = $output->toArray();
-        
+
         if (! empty($payload)) {
             $this->user->generalOptions->update($payload);
         }

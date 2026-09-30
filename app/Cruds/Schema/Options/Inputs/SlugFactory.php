@@ -10,7 +10,6 @@ use App\Enums\SlugBlacklist;
 use App\Models\GeneralOption;
 use Faker\Generator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
@@ -35,7 +34,7 @@ class SlugFactory
         return $input;
     }
 
-    public  static function factory(InputInterface $input) : void
+    public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(

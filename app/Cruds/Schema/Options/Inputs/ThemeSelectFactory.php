@@ -8,8 +8,8 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Enums\ResumeTheme;
-use Illuminate\Validation\Rule;
 use Faker\Generator;
+use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
@@ -41,7 +41,7 @@ class ThemeSelectFactory
         return $input;
     }
 
-    public  static function factory(InputInterface $input) : void
+    public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(

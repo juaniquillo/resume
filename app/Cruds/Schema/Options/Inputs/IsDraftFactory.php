@@ -32,7 +32,7 @@ class IsDraftFactory
         return $input;
     }
 
-    public  static function factory(InputInterface $input) : void
+    public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(

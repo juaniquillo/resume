@@ -24,7 +24,7 @@ class HideImageFactory
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
-        
+
         self::factory($input);
         self::form($input);
         self::validation($input);
@@ -32,7 +32,7 @@ class HideImageFactory
         return $input;
     }
 
-    public  static function factory(InputInterface $input) : void
+    public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(

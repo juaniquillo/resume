@@ -13,21 +13,19 @@ class FilterUnsetValuesAction implements ActionInterface
 
     public function __construct(
         private array $values
-    )
-    {}
+    ) {}
 
-	public function execute(InputCollection|InputInterface|\IteratorAggregate $input) 
+    public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
     {
         $output = $this->getOutput();
         $name = $input->getName();
 
         $value = $this->values[$name] ?? null;
 
-        if($value !== null) {
+        if ($value !== null) {
             $output->set($name, $value);
         }
 
         return $output;
     }
-
 }
