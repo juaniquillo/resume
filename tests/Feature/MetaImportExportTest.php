@@ -67,7 +67,7 @@ test('meta processor can apply or skip options based on parameter', function () 
     ]);
 
     (new ProcessResumeImport($import2, applyMetaOptions: true))->handle();
-    
+
     $options = $user2->fresh()->generalOptions;
 
     expect($options)->not->toBeNull();

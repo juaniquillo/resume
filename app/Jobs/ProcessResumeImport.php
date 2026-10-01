@@ -93,7 +93,7 @@ class ProcessResumeImport implements ShouldQueue
                 'error' => $e->getMessage(),
             ]);
         } catch (\Throwable $e) {
-            Log::error('Resume import failed with system error: ' . $e->getMessage(), ['exception' => $e]);
+            Log::error('Resume import failed with system error: '.$e->getMessage(), ['exception' => $e]);
 
             $this->import->update([
                 'status' => ProcessStatus::FAILED,
@@ -112,7 +112,7 @@ class ProcessResumeImport implements ShouldQueue
             : 'An error occurred while processing the resume import. Please try again.';
 
         if (! ($exception instanceof ValidationException)) {
-            Log::error('Resume import job failed: ' . $exception->getMessage(), ['exception' => $exception]);
+            Log::error('Resume import job failed: '.$exception->getMessage(), ['exception' => $exception]);
         }
 
         $this->import->update([
