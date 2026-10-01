@@ -13,9 +13,6 @@ use Juaniquillo\CrudAssistant\InputCollection;
 
 class NameValueAction extends Action implements ActionInterface
 {
-    /** @var array<int, Closure(?string):(?string)> */
-    private array $modifiers = [];
-
     private ?string $globalDefault = null;
 
     public function __construct(
