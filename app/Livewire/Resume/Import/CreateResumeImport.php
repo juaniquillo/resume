@@ -4,6 +4,7 @@ namespace App\Livewire\Resume\Import;
 
 use App\Actions\Resume\Import\StoreResumeImport;
 use App\Cruds\Actions\General\NameValueAction;
+use App\Cruds\Schema\ResumeImport\Inputs\ApplyMetaOptionsFactory;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
 use App\Cruds\Schema\ResumeImport\Inputs\NameFactory;
 use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
@@ -57,7 +58,9 @@ class CreateResumeImport extends Component
             JsonFileFactory::NAME => $validatedData[JsonFileFactory::NAME] ?? null,
         ]);
 
-        dispatch(new ProcessResumeImport($import));
+        $applyMetaOptions = (bool) ($validatedData[ApplyMetaOptionsFactory::NAME] ?? false);
+
+        dispatch(new ProcessResumeImport($import, $applyMetaOptions));
 
         Flux::toast(text: __('Resume import started successfully. It will be processed in the background.'), variant: 'success');
 

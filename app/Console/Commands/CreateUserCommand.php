@@ -3,9 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
-use App\Cruds\Schema\Options\GeneralOptionsCrud;
-use App\Cruds\Schema\Options\Inputs\SlugFactory;
 use App\Models\User;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -15,8 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-#[Description('Create a new user. Pass email as argument, --name, --password, and --slug as options.')]
-#[Signature('user:make-user {email : User email} {--name= : User name} {--password= : User password} {--slug= : User slug}')]
+#[Description('Create a new user. Pass email as argument, --name, --password as options.')]
+#[Signature('user:make-user {email : User email} {--name= : User name} {--password= : User password}')]
 class CreateUserCommand extends Command
 {
     /**
@@ -28,7 +25,6 @@ class CreateUserCommand extends Command
         $handle = Str::before($email, '@');
 
         $name = $this->option('name') ?? $handle;
-        $slug = $this->option('slug') ?? Str::slug($handle);
         $password = $this->option('password') ?? Str::random(12);
 
         /**
@@ -36,23 +32,13 @@ class CreateUserCommand extends Command
          */
         $userRules = (new CreateNewUser)->validationRules();
 
-        $crud = GeneralOptionsCrud::build()->make(GeneralOptionsCrud::slugInput());
-
-        $slugRules = $crud->execute(
-            new LaravelValidationRulesAction,
-        )->toArray();
-
         $validator = Validator::make([
             'email' => $email,
             'name' => $name,
             'password' => $password,
             'password_confirmation' => $password,
-            SlugFactory::NAME => $slug,
         ],
-            [
-                ...$userRules,
-                ...$slugRules,
-            ],
+            $userRules,
         );
 
         if ($validator->fails()) {
@@ -72,11 +58,7 @@ class CreateUserCommand extends Command
             'password' => Hash::make($password),
         ]);
 
-        $user->generalOptions()->create([
-            'slug' => $slug,
-        ]);
-
-        $this->info("User {$user->name} ({$user->email}) created successfully with slug: {$slug}");
+        $this->info("User {$user->name} ({$user->email}) created successfully");
         if (! $this->option('password')) {
             $this->info("Generated password: $password");
         }

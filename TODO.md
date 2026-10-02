@@ -61,4 +61,4 @@
 59. ◻️ Add a note/warning with theme requirements (such as Summary position for the professional layout) when a theme is changed in Dashboard -> General Options.
 60. ◻️ Work on authenticated MPC server so the LLMs can so some simple operations.
 61. ✅ Refactor ProcessResumeImport into different classes that process their respective resume section.
-62. ◻️ Add Meta section to the JSON export with additional information like General Options, visibility and ordering.
+62. ✅ Add Meta section to the JSON export with additional information like General Options, visibility and ordering.

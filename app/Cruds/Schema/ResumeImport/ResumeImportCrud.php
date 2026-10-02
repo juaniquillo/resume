@@ -15,6 +15,7 @@ use App\Cruds\Contracts\CrudTable;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\LivewireHelpers;
+use App\Cruds\Schema\ResumeImport\Inputs\ApplyMetaOptionsFactory;
 use App\Cruds\Schema\ResumeImport\Inputs\JsonFileFactory;
 use App\Cruds\Schema\ResumeImport\Inputs\NameFactory;
 use App\Cruds\Schema\ResumeImport\Renderers\ResumeImportLivewireFormRenderer;
@@ -70,6 +71,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         return [
             ...$this->inputsUpdateArray(),
             JsonFileFactory::NAME => JsonFileFactory::make(),
+            ApplyMetaOptionsFactory::NAME => ApplyMetaOptionsFactory::make(),
         ];
     }
 

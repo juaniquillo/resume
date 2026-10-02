@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ResumeTheme;
-use App\Models\GeneralOption;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,9 +19,5 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345'),
         ]);
 
-        GeneralOption::where('user_id', $user->id)->first()->update([
-            'slug' => 'user-1',
-            'theme' => ResumeTheme::DEFAULT->value,
-        ]);
     }
 }

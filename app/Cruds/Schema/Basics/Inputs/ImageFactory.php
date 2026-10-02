@@ -98,6 +98,10 @@ class ImageFactory
                             return $component;
                         }
 
+                        if (! $model->image) {
+                            return $component;
+                        }
+
                         return self::imageManagement($component, $model);
 
                     })
@@ -110,7 +114,7 @@ class ImageFactory
         $input->setRecipe(
             new LaravelFactoryRecipe(
                 callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->imageUrl();
+                    $output->{ $input->getName() } = null;
                 }
             )
         );

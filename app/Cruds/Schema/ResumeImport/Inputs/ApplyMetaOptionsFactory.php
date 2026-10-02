@@ -1,53 +1,49 @@
 <?php
 
-namespace App\Cruds\Schema\Options\Inputs;
+namespace App\Cruds\Schema\ResumeImport\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
+use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
-use App\Cruds\Helpers\LivewireHelpers;
-use App\Cruds\Schema\Options\GeneralOptionsCrud;
+use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
+use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
-class HideAddressFactory
+class ApplyMetaOptionsFactory
 {
-    public const NAME = 'hide_address';
+    public const NAME = 'apply_meta_options';
 
-    public const LABEL = 'Hide Address';
+    public const LABEL = 'Apply options & theme from file metadata';
 
     public static function make(): InputInterface
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
-        self::factory($input);
+        $input->onlyFor([
+            InputComponentAction::getIdentifier(),
+            LaravelValidationRulesAction::getIdentifier(),
+        ]);
+
         self::form($input);
         self::validation($input);
 
         return $input;
     }
 
-    public static function factory(InputInterface $input): void
-    {
-        $input->setRecipe(
-            new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{$input->getName()} = false;
-                }
-            )
-        );
-    }
-
     public static function validation(InputInterface $input): void
     {
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
-                'sometimes',
+                'nullable',
                 'boolean',
             ]))
         );
@@ -55,12 +51,8 @@ class HideAddressFactory
 
     public static function form(InputInterface $input): void
     {
-        $livewireAttributes = LivewireHelpers::getLivewireAttributes($input->getName(), GeneralOptionsCrud::getLivewireGroup());
-
         $input->setRecipe(
-            (new InputComponentRecipe(
-                checkable: true,
-            ))
+            (new InputComponentRecipe)
                 ->setComponentBag(
                     (new DefaultComponentBag)
                         ->setInputType(FluxComponentEnum::SWITCH)
@@ -69,13 +61,31 @@ class HideAddressFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'description' => 'Hide your street address from the public resume.',
                             'name' => $input->getName(),
                             'align' => 'left',
                             'value' => 1,
-                            ...$livewireAttributes,
                         ])
                 )
+        );
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{$input->getName()} = (bool) $faker->boolean();
+                }
+            )
+        );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(
+            (new TableRowsRecipe(
+                value: fn ($value, Model $model) => $model->{$input->getName()} ?? TableHelpers::emptyValue()
+            ))
         );
     }
 }

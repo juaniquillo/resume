@@ -3,14 +3,17 @@
 namespace App\Cruds\Schema\Options\Inputs;
 
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Enums\ResumeTheme;
+use Faker\Generator;
 use Illuminate\Validation\Rule;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
+use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
@@ -29,12 +32,24 @@ class ThemeSelectFactory
     {
         $input = new DefaultInput(self::NAME, self::LABEL);
 
+        self::factory($input);
         self::validation($input);
         self::form($input);
 
         $input->setSubElements(self::options());
 
         return $input;
+    }
+
+    public static function factory(InputInterface $input): void
+    {
+        $input->setRecipe(
+            new LaravelFactoryRecipe(
+                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
+                    $output->{$input->getName()} = ResumeTheme::DEFAULT->value;
+                }
+            )
+        );
     }
 
     public static function validation(InputInterface $input): void

@@ -60,7 +60,7 @@
             -webkit-print-color-adjust: exact;
         }
         @page {
-            margin: 12mm 5mm;
+            margin: 10mm 5mm;
         }
         @page :first {
             margin-top: 10mm;

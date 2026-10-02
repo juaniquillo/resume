@@ -19,7 +19,6 @@ test('command flow logic creates a user', function () {
     // Manually triggering the logic to ensure User creation works with slug
     $name = 'Command Test';
     $email = 'command@test.com';
-    $slug = 'command-test';
     $password = 'secret123';
 
     $user = User::create([
@@ -28,10 +27,6 @@ test('command flow logic creates a user', function () {
         'password' => bcrypt($password),
     ]);
 
-    $user->generalOptions()->create([
-        'slug' => $slug,
-    ]);
-
-    expect($user->generalOptions->slug)->toBe($slug);
     expect($user->name)->toBe($name);
+    expect($user->email)->toBe($email);
 });

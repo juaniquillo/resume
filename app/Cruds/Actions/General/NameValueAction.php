@@ -13,9 +13,6 @@ use Juaniquillo\CrudAssistant\InputCollection;
 
 class NameValueAction extends Action implements ActionInterface
 {
-    /** @var array<int, Closure(?string):(?string)> */
-    private array $modifiers = [];
-
     private ?string $globalDefault = null;
 
     public function __construct(
@@ -26,16 +23,6 @@ class NameValueAction extends Action implements ActionInterface
     public function setGlobalDefault(?string $default): static
     {
         $this->globalDefault = $default;
-
-        return $this;
-    }
-
-    /**
-     * @param  Closure(?string):(?string)  $modifier
-     */
-    public function setModifier(Closure $modifier): static
-    {
-        $this->modifiers[] = $modifier;
 
         return $this;
     }
@@ -114,9 +101,7 @@ class NameValueAction extends Action implements ActionInterface
 
         $value = $this->resolveValue($names, $values);
 
-        foreach ($this->modifiers as $modifier) {
-            $value = $modifier($value);
-        }
+        $value = $this->modifiers($value, $input);
 
         $output->set($inputName, $value);
 
