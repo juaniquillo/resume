@@ -3,6 +3,7 @@
 namespace App\Actions\Options;
 
 use App\Cruds\Actions\General\FilterUnsetValuesAction;
+use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Schema\Options\GeneralOptionsCrud;
 use App\Models\User;
 
@@ -15,10 +16,12 @@ class UpdateGeneralOptions
 
     public function handle(): void
     {
+        $data = FormHelpers::convertEmptyStringToNull($this->data);
+
         $output = GeneralOptionsCrud::build()
             ->make()
             ->execute(
-                new FilterUnsetValuesAction($this->data)
+                new FilterUnsetValuesAction($data)
             );
 
         $payload = $output->toArray();
