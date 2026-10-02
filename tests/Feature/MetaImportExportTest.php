@@ -1,13 +1,18 @@
 <?php
 
+use App\Actions\Resume\Export\Builders\MetaBuilder;
 use App\Actions\Resume\Export\BuildResumeArray;
 use App\Enums\ProcessStatus;
+use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;
+use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessResumeImport;
 use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Queue\Jobs\Job;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
@@ -27,6 +32,8 @@ test('json export includes meta version and options', function () {
     expect($data['meta'])->toHaveKey('options');
     expect($data['meta']['options']['theme'])->toBe(ResumeTheme::BOLD);
     expect($data['meta']['options'])->toHaveKey('hide_email', true);
+    expect($data['meta']['options'])->not->toHaveKey('slug');
+    expect($data['meta']['options'])->not->toHaveKey('is_draft');
 });
 
 test('meta processor can apply or skip options based on parameter', function () {
@@ -73,4 +80,55 @@ test('meta processor can apply or skip options based on parameter', function () 
     expect($options)->not->toBeNull();
     expect($options->theme?->value ?? $options->theme)->toBe('elegant');
     expect($options->hide_phone)->toBeTrue();
+});
+
+test('meta builder can apply custom options to an export', function () {
+    $user = User::factory()->create();
+
+    $theme = ResumeTheme::BOLD;
+
+    $user->generalOptions()->update([
+        'theme' => $theme->value,
+        'hide_email' => true,
+    ]);
+
+    $metaArray = (new MetaBuilder)->handle($user->generalOptions);
+
+    expect($metaArray)->toHaveKey('options')
+        ->and($metaArray['options'])->toHaveKey('theme', $theme)
+        ->and($metaArray['options'])->toHaveKey('hide_email', true)
+        ->and($metaArray['options'])->not->toHaveKey('slug')
+        ->and($metaArray['options'])->not->toHaveKey('is_draft');
+});
+
+
+test('process json export job can apply custom options to an export', function () {
+    
+    Queue::fake();
+
+    $user = User::factory()->create();
+
+    $customOptions = [
+        'hide_phone' => true,
+    ];
+
+    $theme = ResumeTheme::ELEGANT;
+
+    $export = $user->resumeExports()->create([
+        'name' => 'Test Export',
+        'type' => 'json',
+        'theme' => $theme->value,
+        'custom_options' => $customOptions,
+        'allow_download' => true,
+        'status' => ProcessStatus::PENDING->value,
+    ]);
+
+    $export->type->dispatchExportJob($export);
+
+    expect(Queue::hasPushed(ProcessJsonExport::class))->toBeTrue();
+    Queue::assertPushed(ProcessJsonExport::class, function ($job) use ($export) {
+        return $job->export->id === $export->id
+            && $job->export->theme === $export->theme
+            && $job->export->custom_options === $export->custom_options;
+    });
 });
