@@ -3,7 +3,6 @@
 use App\Actions\Resume\Export\Builders\MetaBuilder;
 use App\Actions\Resume\Export\BuildResumeArray;
 use App\Enums\ProcessStatus;
-use App\Enums\ResumeExportType;
 use App\Enums\ResumeTheme;
 use App\Jobs\ProcessJsonExport;
 use App\Jobs\ProcessResumeImport;
@@ -11,7 +10,6 @@ use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
@@ -101,9 +99,8 @@ test('meta builder can apply custom options to an export', function () {
         ->and($metaArray['options'])->not->toHaveKey('is_draft');
 });
 
-
 test('process json export job can apply custom options to an export', function () {
-    
+
     Queue::fake();
 
     $user = User::factory()->create();
