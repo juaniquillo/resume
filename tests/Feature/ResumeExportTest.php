@@ -165,6 +165,9 @@ test('user can delete a failed resume export', function () {
 });
 
 test('user cannot delete another users resume export', function () {
+
+    $this->expectException(ModelNotFoundException::class);
+
     $otherUser = User::factory()->create();
 
     $export = ResumeExport::create([
@@ -173,9 +176,9 @@ test('user cannot delete another users resume export', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
-    expect(fn () => Livewire::actingAs($this->user)
+    Livewire::actingAs($this->user)
         ->test(DeleteResumeExport::class, ['resumeExportId' => $export->id])
-        ->call('deleteExport'))->toThrow(ModelNotFoundException::class);
+        ->call('deleteExport');
 
     $this->assertDatabaseHas('resume_exports', ['id' => $export->id]);
 });

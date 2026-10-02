@@ -210,6 +210,9 @@ test('user can delete their resume import', function () {
 });
 
 test('user cannot delete another users resume import', function () {
+
+    $this->expectException(ModelNotFoundException::class);
+
     $user = User::factory()->create();
     $otherUser = User::factory()->create();
 
@@ -220,9 +223,9 @@ test('user cannot delete another users resume import', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
-    expect(fn () => Livewire::actingAs($user)
+    Livewire::actingAs($user)
         ->test(DeleteResumeImport::class, ['resumeImportId' => $import->id])
-        ->call('deleteImport'))->toThrow(ModelNotFoundException::class);
+        ->call('deleteImport');
 
     $this->assertDatabaseHas('resume_imports', ['id' => $import->id]);
 });
