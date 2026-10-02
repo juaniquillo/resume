@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Actions\Resume\Export\BuildResumeArray;
+use App\Cruds\Schema\Options\Inputs\ThemeSelectFactory;
 use App\Enums\ProcessStatus;
 use App\Models\GeneralOption;
 use App\Models\ResumeExport;
@@ -47,7 +48,10 @@ class ProcessJsonExport implements ShouldQueue
             $user = $this->export->user;
             $customOptions = null;
             if (! empty($this->export->custom_options)) {
-                $customOptions = new GeneralOption($this->export->custom_options);
+                $customOptions = new GeneralOption([
+                    ThemeSelectFactory::NAME => $this->export->theme,
+                    ...$this->export->custom_options,
+                ]);
                 $customOptions->setAttribute('user_id', $user->id);
             }
 

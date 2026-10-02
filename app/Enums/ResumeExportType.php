@@ -70,7 +70,7 @@ enum ResumeExportType: string
     public function themeable(): bool
     {
         return match ($this) {
-            self::JSON => false,
+            self::JSON => true,
             self::PDF => true,
             self::COVER_LETTER_PDF => true,
         };
