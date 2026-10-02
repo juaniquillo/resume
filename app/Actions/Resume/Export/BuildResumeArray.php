@@ -30,7 +30,7 @@ class BuildResumeArray
     {
         resolve(ResumeDataLoader::class)->clearCache($this->user->id);
 
-        $generalOptions = $this->generalOptions ?? $this->user->generalOptions;
+        $generalOptions = $this->generalOptions ?? null;
 
         /** @var GeneralOption|null $generalOptions */
         $data = [
