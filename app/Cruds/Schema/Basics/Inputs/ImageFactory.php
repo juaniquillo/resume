@@ -98,6 +98,10 @@ class ImageFactory
                             return $component;
                         }
 
+                        if (! $model->image) {
+                            return $component;
+                        }
+
                         return self::imageManagement($component, $model);
 
                     })
