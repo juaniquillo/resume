@@ -5,10 +5,10 @@ use App\Jobs\ProcessResumeImport;
 use App\Livewire\Resume\Import\CreateResumeImport;
 use App\Livewire\Resume\Import\DeleteResumeImport;
 use App\Livewire\Resume\Import\EditResumeImport;
+use App\Models\Basic;
 use App\Models\ResumeImport;
 use App\Models\User;
 use App\Support\ResumeLimit;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -143,7 +143,7 @@ test('process resume import job correctly imports data', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
-    /** @var \App\Models\Basic $basics */
+    /** @var Basic $basics */
     $basics = $user->basics()->first();
     $location = $basics->location()->first();
 

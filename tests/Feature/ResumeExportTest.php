@@ -17,7 +17,6 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\Work;
 use App\Support\ResumeLimit;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
