@@ -50,7 +50,8 @@ class PhoneFactory
         $input->setRecipe(
             (new LaravelValidationRulesRecipe([
                 'nullable',
-                'digits:10',
+                'string',
+                'regex:/^\+?[1-9]\d{1,14}$/'
             ]))
         );
     }
