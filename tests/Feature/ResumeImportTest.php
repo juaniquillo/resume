@@ -143,6 +143,7 @@ test('process resume import job correctly imports data', function () {
         'status' => ProcessStatus::COMPLETED,
     ]);
 
+    /** @var \App\Models\Basic $basics */
     $basics = $user->basics()->first();
     $location = $basics->location()->first();
 
@@ -210,9 +211,6 @@ test('user can delete their resume import', function () {
 });
 
 test('user cannot delete another users resume import', function () {
-
-    // $this->expectException(ModelNotFoundException::class);
-
     $user = User::factory()->create();
     $otherUser = User::factory()->create();
 
@@ -225,7 +223,7 @@ test('user cannot delete another users resume import', function () {
 
     Livewire::actingAs($user)
         ->test(DeleteResumeImport::class, ['resumeImportId' => $import->id])
-        ->call('deleteImport');
+        ->call('deleteImport')->assertStatus(404);
 
     $this->assertDatabaseHas('resume_imports', ['id' => $import->id]);
 });
