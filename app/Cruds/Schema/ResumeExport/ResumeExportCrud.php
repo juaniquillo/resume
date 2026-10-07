@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\ResumeExport;
 
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
@@ -22,7 +21,6 @@ use App\Cruds\Schema\ResumeExport\Inputs\ExportTypeSelectFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\NameFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\StatusFactory;
 use App\Cruds\Schema\ResumeExport\Inputs\UseCustomGeneralOptionsFactory;
-use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportLivewireTableRenderer;
 use App\Cruds\Schema\ResumeExport\Renderers\ResumeExportUpdateLivewireFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -105,17 +103,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 
     public function tableOptions(TableRowsAction $action): void
     {
-        /** @var ResumeExportLivewireTableRenderer $renderer */
-        $renderer = $this->tableRenderer;
-
-        $action->setExtraCell('Actions', new TableRowsRecipe(
-            value: fn ($value, Model $model) => $renderer->renderSettings($model)
-        ));
-    }
-
-    public function extraCells(TableRowsAction $action): void
-    {
-        $action->setExtraCells($this->tableRenderer->renderExtraCells());
+        $this->tableRenderer->tableActionInstance($action);
     }
 
     public function generalOptionsGroup()

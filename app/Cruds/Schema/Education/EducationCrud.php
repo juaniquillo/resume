@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\Education;
 
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -90,21 +89,12 @@ final class EducationCrud implements CrudForm, CrudInterface, CrudTable
         return $this->form();
     }
 
-    protected function extraCells(TableRowsAction $action): void
-    {
-        $action->setExtraCells($this->tableRenderer->renderExtraCells());
-    }
-
     /**
      * Runs once after all inputs
      * are processed
      */
     protected function tableOptions(TableRowsAction $action): void
     {
-        $recipe = new TableRowsRecipe(
-            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
-        );
-
-        $action->setExtraCell('Settings', $recipe);
+        $this->tableRenderer->tableActionInstance($action);
     }
 }

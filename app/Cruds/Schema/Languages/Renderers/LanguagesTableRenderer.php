@@ -2,6 +2,8 @@
 
 namespace App\Cruds\Schema\Languages\Renderers;
 
+use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Language;
@@ -16,6 +18,13 @@ final class LanguagesTableRenderer implements TableRenderer
     public static function make(): static
     {
         return new self;
+    }
+
+    public function tableActionInstance(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Settings', new TableRowsRecipe(
+            value: fn ($value, $model) => $this->renderSettings($model)
+        ));
     }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent
@@ -36,11 +45,5 @@ final class LanguagesTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
-    }
-
-    public function renderExtraCells(): array
-    {
-        // Implementation for rendering extra cells
-        return [];
     }
 }

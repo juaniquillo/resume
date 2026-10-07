@@ -2,13 +2,9 @@
 
 namespace App\Cruds\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use App\Cruds\Actions\Presenters\TableRowsAction;
 
 interface TableRenderer
 {
-    public function renderSettings(Model $model): BackendComponent|CompoundComponent;
-
-    public function renderExtraCells(): array;
+    public function tableActionInstance(TableRowsAction $action): void;
 }

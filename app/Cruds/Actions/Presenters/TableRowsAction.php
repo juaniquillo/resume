@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
@@ -27,9 +26,11 @@ class TableRowsAction extends Action implements ActionInterface
     public function __construct(
         private Model $model,
         private ThemeManager $themeManager = new DefaultThemeManager,
-        private array $themes = [],
-        private array $attributes = [],
-        /** @var class-string<BackendComponent|CompoundComponent|ContentComponent> */
+        /** @var array<string, string>|Closure(Model $model):(array) $themes */
+        private array|Closure $themes = [],
+        /** @var array<string, string>|Closure(Model $model):(array) $attributes */
+        private array|Closure $attributes = [],
+        /** @var class-string<BackendComponent|CompoundComponent> */
         private string $component = MainBackendComponent::class,
         private string|BackedEnum $type = ComponentEnum::TD,
         /** @var array<string, TableRowsRecipe|RecipeInterface> $extraCells */
@@ -126,12 +127,12 @@ class TableRowsAction extends Action implements ActionInterface
         $componentClass = $recipe->component ?? $this->component;
         $componentType = $recipe->type ?? $this->type;
         $manager = $recipe->themeManager ?? $this->themeManager;
-        $themes = $recipe->themes ?? $this->themes;
-        $attributes = $recipe->attributes ?? $this->attributes;
+        $themes = $this->resolveArrayClosure(($recipe->themes ?? $this->themes), $this->model);
+        $attributes = $this->resolveArrayClosure(($recipe->attributes ?? $this->attributes), $this->model);
 
         $component = new $componentClass($componentType, $manager);
-        $component->setAttributes($attributes)
-            ->setContent($value);
+        $component->setAttributes($attributes);
+        $component->setContent($value);
 
         if ($themes) {
             $component->setThemes($themes);
@@ -142,6 +143,15 @@ class TableRowsAction extends Action implements ActionInterface
         }
 
         return $component;
+    }
+
+    public function resolveArrayClosure(array|Closure $resolve, Model $model): array
+    {
+        if (Helpers::isClosure($resolve)) {
+            return $resolve($model);
+        }
+
+        return $resolve;
     }
 
     public function cleanup(): static

@@ -2,6 +2,8 @@
 
 namespace App\Cruds\Schema\Courses\Renderers;
 
+use App\Cruds\Actions\Presenters\TableRowsAction;
+use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Course;
@@ -18,6 +20,13 @@ final class CoursesTableRenderer implements TableRenderer
     public static function make(?string $baseRoute = null): static
     {
         return new self($baseRoute);
+    }
+
+    public function tableActionInstance(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Settings', new TableRowsRecipe(
+            value: fn ($value, $model) => $this->renderSettings($model)
+        ));
     }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent
@@ -38,11 +47,5 @@ final class CoursesTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
-    }
-
-    public function renderExtraCells(): array
-    {
-        // Implementation for rendering extra cells
-        return [];
     }
 }

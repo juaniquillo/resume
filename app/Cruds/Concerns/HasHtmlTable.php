@@ -6,6 +6,7 @@ use App\Components\ThirdParty\Flux\FluxBackendComponent;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableComponentUtil;
 use App\Cruds\Actions\Presenters\TableRowsAction;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -35,9 +36,6 @@ trait HasHtmlTable
                 type: FluxComponentEnum::TD,
             );
 
-            /** Extra cells */
-            $this->extraCells($action);
-
             /** Row actions */
             $this->tableOptions($action);
 
@@ -49,7 +47,7 @@ trait HasHtmlTable
                 $headers = $this->tableHeaders($util, $outputArray);
             }
 
-            $rows[] = $this->tableRows($util, $outputArray);
+            $rows[] = $this->tableRows($util, $outputArray, $model);
 
         }
 
@@ -57,11 +55,14 @@ trait HasHtmlTable
 
     }
 
-    private function tableRows(TableComponentUtil $util, array $outputArray): BackendComponent|CompoundComponent
+    private function tableRows(TableComponentUtil $util, array $outputArray, Model $model): BackendComponent|CompoundComponent
     {
         return $util->rows(
             cells: $outputArray,
             type: FluxComponentEnum::TR,
+            attributes: [
+                'wire:key' => 'table-row-'.$model->getKey(),
+            ],
         );
     }
 
@@ -94,8 +95,6 @@ trait HasHtmlTable
         },
             array_keys($outputArray));
     }
-
-    protected function extraCells(TableRowsAction $action): void {}
 
     protected function tableOptions(TableRowsAction $action): void {}
 }

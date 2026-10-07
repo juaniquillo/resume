@@ -7,7 +7,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\CrudAssistant\Concerns\IsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\RecipeInterface;
@@ -22,9 +21,11 @@ class TableRowsRecipe implements RecipeInterface
         /** @var string|Closure(Stringable|BackedEnum|string|array|null $value, Model $model):(string|BackendComponent|CompoundComponent)|null $value */
         public readonly string|Closure|null $value = null,
         public readonly ?ThemeManager $themeManager = null,
-        public readonly array $themes = [],
-        public readonly array $attributes = [],
-        /** @var ?class-string<BackendComponent|CompoundComponent|ContentComponent> */
+        /** @var array<string, string>|Closure(Model $model):(array) $themes */
+        public readonly array|Closure $themes = [],
+        /** @var array<string, string>|Closure(Model $model):(array) $attributes */
+        public readonly array|Closure $attributes = [],
+        /** @var ?class-string<BackendComponent|CompoundComponent> */
         public readonly ?string $component = null,
         public readonly string|BackedEnum|null $type = null,
         /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
