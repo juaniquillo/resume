@@ -123,14 +123,14 @@ class TableComponentUtil
         string|BackedEnum $type,
         array $themes = [],
         array $attributes = [],
-        ThemeManager $themeManager = new DefaultThemeManager,
+        ?ThemeManager $themeManager = null,
         /** @var class-string<BackendComponent|CompoundComponent|ContentComponent> */
         string $component = MainBackendComponent::class,
     ): BackendComponent|CompoundComponent|ContentComponent {
-        $component = new $component($type, $this->themeManager);
+        $component = new $component($type, ($themeManager ?? $this->themeManager));
 
-        $component->setAttributes($attributes)
-            ->setContents($contents);
+        $component->setAttributes($attributes);
+        $component->setContents($contents);
 
         if (! empty($themes)) {
             $component->setThemes($themes);
