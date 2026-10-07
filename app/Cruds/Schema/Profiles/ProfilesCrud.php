@@ -5,7 +5,6 @@ namespace App\Cruds\Schema\Profiles;
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -95,11 +94,7 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
 
     protected function tableOptions(TableRowsAction $action): void
     {
-        $recipe = new TableRowsRecipe(
-            value: fn ($value, Model $model) => $this->tableRenderer->renderSettings($model)
-        );
-
-        $action->setExtraCell('Settings', $recipe);
+        $this->tableRenderer->tableActionInstance($action);
     }
 
     public function saveButton(): BackendComponent|CompoundComponent

@@ -4,6 +4,7 @@ namespace App\Cruds\Schema\ResumeExport\Renderers;
 
 use App\Components\Builders\FluxComponentBuilder;
 use App\Components\ThirdParty\Flux\FluxComponentEnum;
+use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
@@ -29,6 +30,18 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
         /** @var ResumeExport $model */
         return ComponentBuilder::make(ComponentEnum::SPAN)
             ->setContent($model->created_at->diffForHumans());
+    }
+
+    public function tableActionInstance(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Actions', new TableRowsRecipe(
+            value: fn ($value, $model) => $this->renderSettings($model)
+        ));
+
+        $extraCells = $this->renderExtraCells();
+        if (! empty($extraCells)) {
+            $action->setExtraCells($extraCells);
+        }
     }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent

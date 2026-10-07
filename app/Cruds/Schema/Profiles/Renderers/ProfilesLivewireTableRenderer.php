@@ -2,6 +2,7 @@
 
 namespace App\Cruds\Schema\Profiles\Renderers;
 
+use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
@@ -19,6 +20,14 @@ final class ProfilesLivewireTableRenderer implements TableRenderer
     public static function make(): static
     {
         return new self;
+    }
+
+    public function tableActionInstance(TableRowsAction $action): void
+    {
+        $action->setExtraCell('Settings', new TableRowsRecipe(
+            value: fn ($value, $model) => $this->renderSettings($model)
+        ));
+
     }
 
     public function renderSettings(Model $model): BackendComponent|CompoundComponent
@@ -47,20 +56,5 @@ final class ProfilesLivewireTableRenderer implements TableRenderer
             ->setTheme('flex', [
                 'gap-sm',
             ]);
-    }
-
-    public function renderExtraCells(): array
-    {
-        // Implementation for rendering extra cells
-        return [
-            'Highlights' => new TableRowsRecipe(
-                value: function ($value, Model $model) {
-                    /** @var Profile $profile */
-                    $profile = $model;
-
-                    return TableHelpers::highlightsButton(route('dashboard.profiles.highlights', [$profile->id]));
-                },
-            ),
-        ];
     }
 }
