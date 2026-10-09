@@ -4,7 +4,7 @@
 ])
 <x-layouts.guest
     :title="($user->name ?? 'User') . ' - Resume'"
-    :assets="['resources/css/resume.css', 'resources/js/resume.js']"
+    :assets="['resources/css/resume.css', 'resources/js/resume.ts']"
     :theme="$theme"
     :minimal-view="$minimalView"
     :description="$description ?? null"

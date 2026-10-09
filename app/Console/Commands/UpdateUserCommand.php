@@ -74,6 +74,12 @@ class UpdateUserCommand extends Command
         } catch (Throwable $e) {
             $this->error('An unknown error has occurred');
 
+            logger()->error('Error updating user', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
             return self::FAILURE;
         }
 

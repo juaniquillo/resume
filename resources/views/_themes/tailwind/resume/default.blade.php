@@ -4,7 +4,7 @@ return [
     // cover letter
     'cover-letter-container' => 'prose text-gray-700 dark:text-gray-300 prose-headings:text-sky-600 prose-headings:dark:text-sky-400 prose-headings:font-bold prose-headings:mt-0 prose-a:text-sky-600 prose-a:hover:text-gray-700 prose-a:dark:text-sky-400 prose-a:dark:hover:text-gray-400 prose-a:underline',
 
-    'container' => 'container mx-auto max-w-4xl 3xl:max-w-6xl px-8 py-4',
+    'container' => 'container mx-auto max-w-5xl 3xl:max-w-6xl px-8 py-4',
     'image' => 'w-32 h-32 3xl:w-40 3xl:h-40 rounded-2xl border-4 border-sky-600 shadow-lg object-cover mt-6 dark:border-sky-500',
     'name' => ' mt-6 [word-spacing:-.5rem] md:[word-spacing:-.8rem] text-4xl md:text-6xl 3xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white',
     'label' => 'text-2xl 3xl:text-3xl font-medium text-sky-600 mt-2 3xl:mt-10 dark:text-sky-400',

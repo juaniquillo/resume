@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResumeTheme;
 use App\Models\GeneralOption;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class HomeController extends Controller
         }
 
         return view('index')
-            ->with('demo', $demo);
+            ->with('demo', $demo)
+            ->with('themeShowcase', ResumeTheme::showcaseData());
     }
 }

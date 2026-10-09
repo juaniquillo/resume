@@ -1,5 +1,5 @@
 import { initThemeToggle } from './theme-toggle';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (): void => {
     initThemeToggle('theme-toggle');
 });
