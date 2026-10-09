@@ -9,16 +9,16 @@
     </x-slot:nav>
 
     {{-- Hero Section --}}
-    <header class="py-20 md:py-32">
+    <header class="py-12 md:py-28">
         <div class="container mx-auto max-w-5xl 3xl:max-w-6xl px-8 grid gap-12 lg:grid-cols-2">
             <div>
-                <h1 class="text-5xl md:text-6xl 3xl:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+                <h1 class="text-5xl md:text-6xl 3xl:text-7xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
                     Craft Your Professional Story<span class="text-sky-600">.</span>
                 </h1>
-                <p class="text-2xl 3xl:text-3xl font-medium text-sky-600 dark:text-sky-400 mb-10 max-w-2xl 3xl:max-w-3xl">
+                <p class="text-2xl 3xl:text-3xl font-medium text-sky-600 dark:text-sky-400 mt-8 max-w-2xl 3xl:max-w-3xl">
                     One dashboard for your entire career — experience, highlights, skills and cover letters — exported as JSON Resume or a beautifully themed PDF.
                 </p>
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 mt-10">
                     <a href="{{ route('login') }}" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-10 rounded-2xl shadow-lg shadow-sky-600/20 transition duration-300 text-lg">
                         @auth Go to Dashboard @else Start Building @endauth
                     </a>
@@ -34,7 +34,7 @@
     </header>
 
     {{-- Features Section --}}
-    <section id="features" class="py-20">
+    <section id="features" class="py-14">
         <div class="container mx-auto max-w-5xl 3xl:max-w-6xl px-8">
             <h2 class="text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-12 uppercase tracking-wider dark:text-white dark:border-sky-500">
                 Full Control Over Your Profile
