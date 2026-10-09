@@ -13,7 +13,7 @@ return [
     'name' => 'text-4xl font-bold text-[#24292f] dark:text-[#f0f6fc] mt-1',
     'label' => 'text-xl font-semibold text-[#57606a] dark:text-[#8b949e] mt-1',
     
-    'contact-container' => 'flex flex-wrap justify-center gap-4 text-base text-[#57606a] dark:text-[#8b949e]',
+    'contact-container' => 'flex flex-wrap flex-col justify-center gap-4 text-base text-[#57606a] dark:text-[#8b949e]',
     'contact-inner-container' => 'flex flex-wrap gap-2 justify-center',
     'contact-item' => 'flex items-center gap-1.5',
     'links' => 'text-[#0969da] dark:text-[#2f81f7] underline hover:no-underline decoration-gray-500',
