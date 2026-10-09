@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\SlugBlacklist;
 use App\Models\Concerns\HasResumeData;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -61,9 +62,17 @@ class User extends Authenticatable
     protected static function booted(): void
     {
         static::created(function (User $user) {
+
+            $slug = Str::slug($user->name);
+
+            // validate not in SlugBlacklist
+            if (in_array($slug, SlugBlacklist::values())) {
+                $slug = $slug.'-'.Str::random(5);
+            }
+
             // create default slug
             $user->generalOptions()->create([
-                'slug' => Str::slug($user->name),
+                'slug' => $slug,
             ]);
         });
 
@@ -212,6 +221,7 @@ class User extends Authenticatable
         return $this->hasOne(SectionVisibility::class);
     }
 
+    /** @return HasOne<GeneralOption, $this> */
     public function generalOptions(): HasOne
     {
         return $this->hasOne(GeneralOption::class);
