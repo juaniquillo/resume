@@ -19,9 +19,64 @@ enum ResumeTheme: string
     case BLANK = 'blank';
     case BOLD = 'bold';
     case PDF = 'pdf';
-    case TERMINAL = 'terminal';
     case PROFESSIONAL = 'professional';
+    case TERMINAL = 'terminal';
     case GITHUB = 'github';
+
+    public function isHiddenFromShowcase(): bool
+    {
+        return match ($this) {
+            self::BLANK, self::PDF => true,
+            default => false,
+        };
+    }
+
+    /**
+     * Themes featured in the landing page showcase.
+     *
+     * New themes appear here automatically; hide them with
+     * isHiddenFromShowcase() instead. Remember to capture their
+     * screenshots, otherwise their cards render broken images.
+     *
+     * @return list<self>
+     */
+    public static function showcase(): array
+    {
+        return array_values(
+            array_filter(self::cases(), fn (self $theme) => ! $theme->isHiddenFromShowcase())
+        );
+    }
+
+    /**
+     * Ready-to-render data for the landing page theme showcase.
+     *
+     * @return list<array{key: string, label: string, tab: string}>
+     */
+    public static function showcaseData(): array
+    {
+        return array_map(
+            fn (self $theme) => [
+                'key' => $theme->value,
+                'label' => $theme->label(),
+                'tab' => $theme->shortLabel(),
+            ],
+            self::showcase(),
+        );
+    }
+
+    public function shortLabel(): string
+    {
+        return match ($this) {
+            self::DEFAULT => 'Default',
+            self::ELEGANT => 'Elegant',
+            self::BLANK => 'Blank',
+            self::BOLD => 'Bold',
+            self::PDF => 'PDF',
+            self::PROFESSIONAL => 'Professional',
+            self::TERMINAL => 'Terminal',
+            self::GITHUB => 'GitHub',
+        };
+    }
 
     public function label(): string
     {

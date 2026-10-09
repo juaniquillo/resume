@@ -1,29 +1,22 @@
-@php
-    $themes = [
-        ['key' => 'default', 'label' => 'Retro-Modern (Space Mono)', 'tab' => 'Default'],
-        ['key' => 'elegant', 'label' => 'Elegant Serif', 'tab' => 'Elegant'],
-        ['key' => 'bold', 'label' => 'Modern & Bold', 'tab' => 'Bold'],
-        ['key' => 'professional', 'label' => 'Professional Layout', 'tab' => 'Professional'],
-        ['key' => 'terminal', 'label' => 'Terminal Console', 'tab' => 'Terminal'],
-        ['key' => 'github', 'label' => 'GitHub Markdown', 'tab' => 'GitHub'],
-    ];
-@endphp
+@props([
+    'themes' => [],
+])
 
 <div data-theme-showcase class="w-full">
     <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl shadow-gray-900/5 dark:border-gray-800 dark:bg-gray-950">
         <div class="flex items-center gap-4 px-5 py-4">
             <div>
                 <p class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">Theme preview</p>
-                <h2 data-showcase-label class="flex min-h-[3.5rem] items-center text-lg font-bold text-gray-900 dark:text-white">{{ $themes[0]['label'] }}</h2>
+                <h2 data-showcase-label class="flex min-h-14 items-center text-lg font-bold text-gray-900 dark:text-white">{{ $themes[0]['label'] ?? '' }}</h2>
             </div>
         </div>
 
         <button
             type="button"
             data-lightbox-open
-            data-lightbox-src="{{ asset('images/themes/default.png') }}"
-            data-lightbox-alt="Retro-Modern (Space Mono) resume theme, enlarged view"
-            class="relative block h-[440px] w-full cursor-zoom-in overflow-hidden border-y border-gray-100 sm:h-[520px] dark:border-gray-800"
+            data-lightbox-src="{{ asset('images/themes/' . ($themes[0]['key'] ?? 'default') . '.png') }}"
+            data-lightbox-alt="{{ ($themes[0]['label'] ?? 'Resume') }} resume theme, enlarged view"
+            class="relative block h-110 w-full cursor-zoom-in overflow-hidden border-y border-gray-100 sm:h-[520px] dark:border-gray-800"
             aria-label="Enlarge resume theme preview"
         >
             @foreach ($themes as $index => $theme)
@@ -40,7 +33,7 @@
                     draggable="false"
                 />
             @endforeach
-            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent dark:from-gray-950"></span>
+            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white to-transparent dark:from-gray-950"></span>
         </button>
 
         <div class="flex flex-wrap gap-2 px-5 py-4" role="tablist" aria-label="Resume themes">
@@ -61,7 +54,7 @@
         </div>
     </div>
 
-    <div data-lightbox hidden class="fixed inset-0 z-[100] bg-gray-950/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Enlarged resume theme preview">
+    <div data-lightbox hidden class="fixed inset-0 z-100 bg-gray-950/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Enlarged resume theme preview">
         <div data-zoom-viewport class="absolute inset-0 flex touch-none items-center justify-center overflow-hidden p-4 pt-20 select-none sm:p-8">
             <img data-lightbox-image src="" alt="" class="max-h-full w-auto max-w-full rounded-xl shadow-2xl" draggable="false" />
         </div>

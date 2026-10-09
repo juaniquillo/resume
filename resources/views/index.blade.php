@@ -29,7 +29,7 @@
                     @endif
                 </div>
             </div>
-            <x-landing.theme-showcase />
+            <x-landing.theme-showcase :themes="$themeShowcase" />
         </div>
     </header>
 
