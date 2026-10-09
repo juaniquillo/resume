@@ -7,7 +7,7 @@
 
     @php
         $additionalAssets = $additionalAssets ?? [];
-        $assets = array_merge(['resources/css/app.css', 'resources/js/app.js'], $additionalAssets);
+        $assets = array_merge(['resources/css/app.css', 'resources/js/app.ts'], $additionalAssets);
     @endphp
     
     @vite($assets)
