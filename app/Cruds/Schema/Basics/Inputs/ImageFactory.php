@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Basics\Inputs;
 
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
@@ -22,6 +21,7 @@ use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Input;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
@@ -86,7 +86,8 @@ class ImageFactory
                 attributeBag: (new DefaultAttributeBag)
                     ->setInputAttributes([
                         'label' => self::LABEL,
-                        'type' => FluxComponentEnum::TEXT_FILE->value,
+                        // Plain HTML input type, not a Flux component reference.
+                        'type' => 'file',
                         ...$livewireAttributes,
                     ]),
                 hookBag: (new DefaultHookBag)

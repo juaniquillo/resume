@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Helpers;
 
-use App\Components\Builders\FluxComponentBuilder;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
@@ -11,6 +10,7 @@ use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
 
 class FormHelpers
 {

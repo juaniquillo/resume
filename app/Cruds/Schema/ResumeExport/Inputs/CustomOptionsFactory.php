@@ -2,9 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\Builders\FluxLocalThemeComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Helpers\FormHelpers;
@@ -19,6 +16,9 @@ use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Builders\FluxLocalThemeComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Stringable;
 
 class CustomOptionsFactory

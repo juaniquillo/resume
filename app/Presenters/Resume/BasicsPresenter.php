@@ -2,7 +2,6 @@
 
 namespace App\Presenters\Resume;
 
-use App\Components\Builders\FluxComponentBuilder;
 use App\Enums\Network;
 use App\Models\Basic;
 use App\Models\GeneralOption;
@@ -13,6 +12,7 @@ use App\Support\ImageHelpers;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
 
 final class BasicsPresenter
 {
