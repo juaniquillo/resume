@@ -2,9 +2,6 @@
 
 namespace App\Cruds\Concerns;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxBackendComponent;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Managers\EnumResolverValueManager;
 use BackedEnum;
@@ -19,6 +16,9 @@ use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;

@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Profiles\Inputs;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -18,6 +16,8 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
 use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;

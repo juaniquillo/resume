@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -13,6 +11,8 @@ use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 use Stringable;
@@ -65,7 +65,8 @@ class JsonFileFactory
                     (new DefaultAttributeBag)
                         ->setInputAttributes([
                             'label' => self::LABEL,
-                            'type' => FluxComponentEnum::TEXT_FILE->value,
+                            // Plain HTML input type, not a Flux component reference.
+                            'type' => 'file',
                             'accept' => '.json',
                             'badge' => 'required',
                         ])

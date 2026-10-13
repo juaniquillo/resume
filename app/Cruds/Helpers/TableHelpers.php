@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Helpers;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Enums\ProcessStatus;
 use BackedEnum;
@@ -14,6 +12,8 @@ use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Livewire\Component;
 use Stringable;
 

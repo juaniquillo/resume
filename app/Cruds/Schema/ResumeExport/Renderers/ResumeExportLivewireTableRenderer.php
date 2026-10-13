@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Renderers;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
@@ -17,6 +15,8 @@ use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class ResumeExportLivewireTableRenderer implements TableRenderer
 {

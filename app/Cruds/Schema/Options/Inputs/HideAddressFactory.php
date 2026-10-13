@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Options\Inputs;
 
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
@@ -11,6 +10,7 @@ use Faker\Generator;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;

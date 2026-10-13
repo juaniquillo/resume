@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Cache;
 
-use App\Components\Builders\FluxComponentBuilder;
-use App\Components\ThirdParty\Flux\FluxComponentEnum;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\IsCrud;
 use App\Cruds\Contracts\CrudForm;
@@ -13,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class EmptyResumeCacheCrud implements CrudForm, CrudInterface
 {
