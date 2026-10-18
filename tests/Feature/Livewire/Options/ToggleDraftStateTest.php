@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\Options;
 
 use App\Livewire\Options\ToggleDraftState;
-use App\Models\Basic;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -16,9 +15,6 @@ test('ToggleDraftState component toggles the draft status correctly', function (
         'slug' => 'test-user',
         'is_draft' => true,
     ]);
-
-    // Also create basics so Helpers::isResumeInDraftState doesn't return true because of missing basics
-    Basic::factory()->for($user)->create();
 
     Livewire::actingAs($user)
         ->test(ToggleDraftState::class)
@@ -36,6 +32,19 @@ test('ToggleDraftState component toggles the draft status correctly', function (
         ->assertSee(__('Draft'));
 
     expect($user->fresh()->generalOptions->is_draft)->toBeTrue();
+});
+
+test('ToggleDraftState component reflects the draft setting without a basics record', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update([
+        'slug' => 'test-user',
+        'is_draft' => false,
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(ToggleDraftState::class)
+        ->assertSee(__('Published'))
+        ->assertDontSee(__('Draft'));
 });
 
 test('ToggleDraftState component renders nothing if slug is missing', function () {

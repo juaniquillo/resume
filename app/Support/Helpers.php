@@ -13,11 +13,15 @@ class Helpers
         return is_object($callback) && ($callback instanceof \Closure);
     }
 
-    public static function isResumeInDraftState(User $user): bool
+    public static function isResumePubliclyAvailable(User $user): bool
     {
         $options = $user->generalOptions;
 
-        return ($options->is_draft ?? true) || ! $user->resumeBasics();
+        if ($options->is_draft ?? true) {
+            return false;
+        }
+
+        return (bool) $user->resumeBasics();
     }
 
     public static function incrementViews(GeneralOption $options): void

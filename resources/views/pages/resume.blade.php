@@ -13,7 +13,7 @@
 >
     @if(! $minimalView)
         <x-slot:nav>
-            <x-nav.resume class="mb-4" />
+            <x-nav.resume :user="$user" class="mb-4" />
         </x-slot:nav>
     @endif
 

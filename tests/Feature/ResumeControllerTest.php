@@ -21,6 +21,7 @@ test('public resume route is accessible by slug', function () {
     $response->assertStatus(200);
     $response->assertViewIs('pages.resume');
     $response->assertSee('Test User');
+    $response->assertSee(route('api.resume', ['user' => 'test-slug']));
 });
 
 test('resume route returns 404 for non-existent slug', function () {
