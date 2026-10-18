@@ -16,9 +16,9 @@ class EnsureAcceptsJson
     public function handle(Request $request, Closure $next): Response
     {
         abort_unless(
-            $request->wantsJson(),
+            $request->wantsJson() || $request->acceptsAnyContentType(),
             406,
-            'This endpoint requires an "Accept: application/json" header.',
+            'This endpoint only serves JSON: send an "Accept: application/json" header.',
         );
 
         return $next($request);

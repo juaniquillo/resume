@@ -70,3 +70,21 @@ test('rate limits requests to five per minute', function () {
 
     $this->getJson(route('api.resume', ['user' => 'api-slug']))->assertStatus(429);
 });
+
+test('returns json when the client accepts any content type', function () {
+    createPublishedResumeUser();
+
+    $this->get(route('api.resume', ['user' => 'api-slug']), ['Accept' => '*/*'])
+        ->assertOk()
+        ->assertJsonPath('basics.name', 'API User');
+});
+
+test('renders errors as json when the client accepts any content type', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['slug' => 'draft-slug', 'is_draft' => true]);
+    Basic::factory()->create(['user_id' => $user->id]);
+
+    $this->get(route('api.resume', ['user' => 'draft-slug']), ['Accept' => '*/*'])
+        ->assertStatus(403)
+        ->assertJsonPath('message', 'This resume is not publicly available.');
+});
