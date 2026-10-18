@@ -5,7 +5,6 @@ namespace App\Livewire\Options;
 use App\Models\GeneralOption;
 use App\Models\User;
 use App\Presenters\Cache\ResumePresenterCacheManager;
-use App\Support\Helpers;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -35,7 +34,7 @@ class ToggleDraftState extends Component
         $this->dispatch('resume-updated');
         $this->dispatch('resume-visibility-updated');
 
-        $status = Helpers::isResumeInDraftState($user) ? __('Draft') : __('Published');
+        $status = $options->is_draft ? __('Draft') : __('Published');
 
         $this->dispatch('toast',
             variant: 'success',
@@ -53,7 +52,7 @@ class ToggleDraftState extends Component
         $options = $user->generalOptions;
 
         return view('livewire.options.toggle-draft-state', [
-            'isDraft' => Helpers::isResumeInDraftState($user),
+            'isDraft' => (bool) $options?->is_draft,
             'slug' => $options?->slug,
         ]);
     }

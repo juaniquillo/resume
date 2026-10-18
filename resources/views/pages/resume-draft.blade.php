@@ -13,7 +13,7 @@
                     Resume Unavailable
                 </h1>
                 <p class="text-gray-600 dark:text-gray-400 text-lg">
-                    The resume for <strong>{{ $user->name }}</strong> is currently in draft mode and is not publicly available at this time.
+                    The resume for <strong>{{ $user->name }}</strong> is not publicly available at this time.
                 </p>
             </div>
 

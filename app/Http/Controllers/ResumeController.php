@@ -15,9 +15,7 @@ class ResumeController extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
-        $isDraft = Helpers::isResumeInDraftState($user);
-
-        if ($isDraft) {
+        if (! Helpers::isResumePubliclyAvailable($user)) {
             return response()->view('pages.resume-draft', [
                 'user' => $user,
             ], 403);
