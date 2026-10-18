@@ -39,6 +39,7 @@ enum Network: string
     case VIBER = 'Viber';
     case SKYPE = 'Skype';
     case STARFLEET_DATABASE = 'Starfleet Database';
+    case DEV_NULL = '/dev/null';
 
     public static function fromString(string $name): ?self
     {
@@ -88,6 +89,7 @@ enum Network: string
             self::VIBER => 'purple',
             self::SKYPE => 'blue',
             self::STARFLEET_DATABASE => 'cyan',
+            self::DEV_NULL => 'orange',
         };
     }
 
@@ -128,6 +130,7 @@ enum Network: string
             self::VIBER => '7360F2',
             self::SKYPE => '00AFF0',
             self::STARFLEET_DATABASE => '000000',
+            self::DEV_NULL => 'D9480F',
         };
     }
 
@@ -168,6 +171,7 @@ enum Network: string
             self::VIBER => 'viber',
             self::SKYPE => 'skype',
             self::STARFLEET_DATABASE => 'nasa',
+            self::DEV_NULL => 'devnull',
         };
     }
 
@@ -185,7 +189,7 @@ enum Network: string
             self::TUMBLR, self::MEDIUM => 'document-text',
             self::DRIBBBLE, self::BEHANCE, self::FLICKR => 'photo',
             self::CLUBHOUSE => 'microphone',
-            self::STARFLEET_DATABASE => 'command-line',
+            self::STARFLEET_DATABASE, self::DEV_NULL => 'command-line',
         };
     }
 }
