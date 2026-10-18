@@ -22,6 +22,7 @@
         "juststeveking/resume-php": "^1.0",
         "laravel/fortify": "^1.37.3",
         "laravel/framework": "^13.23",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0.2",
         "league/flysystem-aws-s3-v3": "^3.35.2",
         "livewire/blaze": "^1.0.14",
