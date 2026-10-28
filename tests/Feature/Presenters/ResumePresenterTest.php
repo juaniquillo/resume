@@ -5,6 +5,7 @@ use App\Models\Award;
 use App\Models\Basic;
 use App\Models\Certificate;
 use App\Models\Course;
+use App\Models\CoverLetter;
 use App\Models\Education;
 use App\Models\Interest;
 use App\Models\Language;
@@ -17,7 +18,9 @@ use App\Models\User;
 use App\Models\Volunteer;
 use App\Models\Work;
 use App\Presenters\Contracts\PresenterTheme;
+use App\Presenters\Resume\CoverLetterPresenter;
 use App\Presenters\ResumePresenter;
+use App\Presenters\Themes\DefaultPresenterTheme;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
 
@@ -549,4 +552,44 @@ test('it respects section visibility settings', function () {
     expect($html)->not->toContain('My summary');
     expect($html)->not->toContain('Company Inc');
     expect($html)->toContain('John Doe'); // Basics always visible
+});
+
+test('it renders profile network icons with mask styles', function () {
+    $user = User::factory()->create();
+
+    $basic = Basic::factory()->for($user)->create([
+        'name' => 'John Doe',
+    ]);
+
+    Profile::factory()->create([
+        'basic_id' => $basic->id,
+        'network' => Network::GITHUB,
+        'username' => 'johndoe_git',
+        'url' => 'https://github.com/johndoe_git',
+    ]);
+
+    $presenter = new ResumePresenter($user);
+    $html = (string) $presenter->present()->toHtml();
+
+    expect($html)->toContain('Github (johndoe_git)');
+    expect($html)->toContain('mask-image');
+    expect($html)->toContain('data:image/svg+xml;base64');
+    // Raw component inputs must be converted to styles, not leaked as attributes.
+    expect($html)->not->toContain('path="images/networks/github.svg"');
+});
+
+test('it renders cover letter markdown as html', function () {
+    $user = User::factory()->create();
+
+    $coverLetter = CoverLetter::factory()->for($user)->create([
+        'content' => '# Hello',
+    ]);
+
+    $presenter = new CoverLetterPresenter(
+        $coverLetter,
+        new DefaultPresenterTheme,
+    );
+    $html = (string) $presenter->present()->toHtml();
+
+    expect($html)->toContain('<h1>Hello</h1>');
 });

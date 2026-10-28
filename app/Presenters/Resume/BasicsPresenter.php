@@ -150,19 +150,6 @@ final class BasicsPresenter
             $network = $profile->network;
             $enum = Network::fromString($network);
 
-            $icon = $enum
-                ? $this->compose('mask-icon')->useLocal()
-                    ->setThemes($this->theme->iconThemes())
-                    ->setAttributes([
-                        'path' => "images/networks/{$enum->slug()}.svg",
-                        'color' => "#{$enum->hex()}",
-                        'title' => $network,
-                    ])
-                : FluxComponentBuilder::make('icon.globe-alt')
-                    ->setThemeManager($themeManager)
-                    ->setThemes($this->theme->iconThemes())
-                    ->setAttribute('variant', 'outline');
-
             $profiles["profile_{$profile->id}"] = $this->compose(ComponentEnum::LINK)
                 ->setThemes($this->theme->socialBadgeThemes())
                 ->setAttribute('href', $profile->url)
