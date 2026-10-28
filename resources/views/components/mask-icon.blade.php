@@ -2,26 +2,23 @@
 @php
     use App\Support\Helpers;
 
-    $serverAttrs = [];
-    $content = null;
-    $slot = $slot ?? null;
+    // The backend-component package resolver passes `attributes` (plain
+    // ComponentAttributeBag) and `slot`. Older versions passed the
+    // DefaultAttributeBag as `attrs`; support both.
+    $serverAttrs = $attrs ? $attrs->getAttributes() : [];
 
-    if ($attrs) {
-        $serverAttrs = $attrs->getAttributes();
-        $content = $attrs->content;
+    $path = $serverAttrs['path'] ?? $attributes->get('path');
+    $color = $serverAttrs['color'] ?? $attributes->get('color', 'currentColor');
 
-        $path = $serverAttrs['path'] ?? null;
-        $color = $serverAttrs['color'] ?? 'currentColor';
-
-        if ($path) {
-            $base64 = Helpers::svgToBase64($path);
-            $maskStyle = "background-color: $color; mask-image: url($base64); -webkit-mask-image: url($base64); mask-size: contain; mask-repeat: no-repeat; mask-position: center;";
-            
-            $serverAttrs['style'] = $maskStyle . ($serverAttrs['style'] ?? '');
-            
-            unset($serverAttrs['path']);
-            unset($serverAttrs['color']);
+    $maskStyle = '';
+    if ($path) {
+        $base64 = Helpers::svgToBase64($path);
+        if ($base64 !== '') {
+            $maskStyle = "background-color: {$color}; mask-image: url({$base64}); -webkit-mask-image: url({$base64}); mask-size: contain; mask-repeat: no-repeat; mask-position: center;";
         }
     }
+
+    $existingStyle = $serverAttrs['style'] ?? $attributes->get('style');
+    $combinedStyle = trim($maskStyle.($existingStyle ? ' '.$existingStyle : ''));
 @endphp
-<span {{ $attributes->merge($serverAttrs) }}>{{ $content }}{{ $slot }}</span>
+<span {{ $attributes->except(['path', 'color', 'style']) }} @if($combinedStyle !== '') style="{{ $combinedStyle }}" @endif>{{ $slot ?? '' }}</span>
