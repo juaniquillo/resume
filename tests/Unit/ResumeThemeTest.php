@@ -5,7 +5,7 @@ use Tests\TestCase;
 
 uses(TestCase::class);
 
-test('showcase features the six marketing themes', function () {
+test('showcase features the seven marketing themes', function () {
     expect(ResumeTheme::showcase())->toBe([
         ResumeTheme::DEFAULT,
         ResumeTheme::ELEGANT,
@@ -13,6 +13,7 @@ test('showcase features the six marketing themes', function () {
         ResumeTheme::PROFESSIONAL,
         ResumeTheme::TERMINAL,
         ResumeTheme::GITHUB,
+        ResumeTheme::MODERN,
     ]);
 });
 
@@ -54,12 +55,13 @@ test('short labels stay concise for every theme', function () {
     expect(ResumeTheme::PROFESSIONAL->shortLabel())->toBe('Professional');
     expect(ResumeTheme::TERMINAL->shortLabel())->toBe('Terminal');
     expect(ResumeTheme::GITHUB->shortLabel())->toBe('GitHub');
+    expect(ResumeTheme::MODERN->shortLabel())->toBe('Retro-Pro');
 });
 
 test('showcase data exposes key, label and tab for every theme', function () {
     $data = ResumeTheme::showcaseData();
 
-    expect($data)->toHaveCount(6);
+    expect($data)->toHaveCount(7);
     expect($data[0])->toBe([
         'key' => 'default',
         'label' => 'Retro-Modern (Space Mono)',
@@ -78,4 +80,5 @@ test('showcase tabs use the short labels', function () {
 
     expect($tabs['elegant'])->toBe('Elegant');
     expect($tabs['github'])->toBe('GitHub');
+    expect($tabs['modern'])->toBe('Retro-Pro');
 });

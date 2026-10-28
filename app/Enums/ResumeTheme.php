@@ -8,6 +8,7 @@ use App\Presenters\Themes\BoldPresenterTheme;
 use App\Presenters\Themes\DefaultPresenterTheme;
 use App\Presenters\Themes\ElegantPresenterTheme;
 use App\Presenters\Themes\GithubPresenterTheme;
+use App\Presenters\Themes\ModernPresenterTheme;
 use App\Presenters\Themes\PdfPresenterTheme;
 use App\Presenters\Themes\ProfessionalPresenterTheme;
 use App\Presenters\Themes\TerminalPresenterTheme;
@@ -22,6 +23,7 @@ enum ResumeTheme: string
     case PROFESSIONAL = 'professional';
     case TERMINAL = 'terminal';
     case GITHUB = 'github';
+    case MODERN = 'modern';
 
     public function isHiddenFromShowcase(): bool
     {
@@ -75,6 +77,7 @@ enum ResumeTheme: string
             self::PROFESSIONAL => 'Professional',
             self::TERMINAL => 'Terminal',
             self::GITHUB => 'GitHub',
+            self::MODERN => 'Retro-Pro',
         };
     }
 
@@ -89,6 +92,7 @@ enum ResumeTheme: string
             self::TERMINAL => 'Terminal Console',
             self::PROFESSIONAL => 'Professional Layout',
             self::GITHUB => 'GitHub Markdown',
+            self::MODERN => 'Retro-Professional (Inter)',
         };
     }
 
@@ -103,6 +107,7 @@ enum ResumeTheme: string
             self::TERMINAL => new TerminalPresenterTheme,
             self::PROFESSIONAL => new ProfessionalPresenterTheme,
             self::GITHUB => new GithubPresenterTheme,
+            self::MODERN => new ModernPresenterTheme,
         };
     }
 }
