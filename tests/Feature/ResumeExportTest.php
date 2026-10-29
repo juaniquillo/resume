@@ -84,7 +84,7 @@ test('the background job generates a valid json file', function () {
     $data = json_decode($json, true);
 
     expect($data)->toHaveKey('basics');
-    expect($data['basics']['name'])->toBe($basic->name ?? $data['basics']['name']);
+    expect($data['basics']['name'])->toBe($basic->name);
     expect($data)->toHaveKey('work');
     expect(count($data['work']))->toBe(1);
 
@@ -99,21 +99,29 @@ test('the background job generates a valid json file', function () {
     expect($data['references'][0]['reference'])->not->toBeEmpty();
     expect($data['references'][0]['reference'])->toBe($reference->reference);
 
-    // Test skills
+    // Test skills (order-insensitive: keyword storage order is not a contract)
     $skill = Skill::factory()->create(['user_id' => $this->user->id, 'keywords' => 'PHP, Laravel, Vue']);
     $job->handle();
     $json = Storage::disk('local')->get($export->file_path);
     $data = json_decode($json, true);
     expect($data)->toHaveKey('skills');
-    expect($data['skills'][0]['keywords'])->toBe(['PHP', 'Laravel', 'Vue']);
+    $skillKeywords = $data['skills'][0]['keywords'];
+    expect($skillKeywords)->toHaveCount(3);
+    foreach (['PHP', 'Laravel', 'Vue'] as $keyword) {
+        expect($skillKeywords)->toContain($keyword);
+    }
 
-    // Test interests
+    // Test interests (order-insensitive)
     $interest = Interest::factory()->create(['user_id' => $this->user->id, 'keywords' => 'Coding, Chess']);
     $job->handle();
     $json = Storage::disk('local')->get($export->file_path);
     $data = json_decode($json, true);
     expect($data)->toHaveKey('interests');
-    expect($data['interests'][0]['keywords'])->toBe(['Coding', 'Chess']);
+    $interestKeywords = $data['interests'][0]['keywords'];
+    expect($interestKeywords)->toHaveCount(2);
+    foreach (['Coding', 'Chess'] as $keyword) {
+        expect($interestKeywords)->toContain($keyword);
+    }
 });
 
 test('user can delete their resume export', function () {

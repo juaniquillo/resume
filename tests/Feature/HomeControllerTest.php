@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ResumeTheme;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -9,32 +10,28 @@ uses(RefreshDatabase::class);
 
 pest()->group('fast');
 
-test('it renders the landing page with the static theme showcase', function () {
-    $this->get(route('home'))
+test('it renders the landing page with the theme showcase', function () {
+    $response = $this->get(route('home'))
         ->assertStatus(200)
         ->assertSee('Craft Your Professional Story')
         ->assertSee('data-theme-showcase')
-        ->assertSee('images/themes/default.png')
-        ->assertSee('images/themes/elegant.png')
-        ->assertSee('images/themes/bold.png')
-        ->assertSee('images/themes/professional.png')
-        ->assertSee('images/themes/terminal.png')
-        ->assertSee('images/themes/github.png')
-        ->assertSee('images/themes/modern.png')
-        ->assertSee('images/themes/default-dark.png')
-        ->assertSee('images/themes/terminal-dark.png')
-        ->assertSee('images/themes/modern-dark.png')
-        ->assertSee('Retro-Modern')
-        ->assertSee('Elegant Serif')
-        ->assertSee('Modern & Bold')
-        ->assertSee('Professional Layout')
-        ->assertSee('Terminal Console')
-        ->assertSee('GitHub Markdown')
-        ->assertSee('Retro-Professional')
         ->assertSee('data-lightbox')
         ->assertSee('data-zoom-viewport')
         ->assertSee('data-zoom-in')
         ->assertSee('data-showcase-tab');
+
+    foreach (ResumeTheme::showcaseData() as $theme) {
+        $response
+            ->assertSee('images/themes/'.$theme['key'].'.png')
+            ->assertSee('images/themes/'.$theme['key'].'-dark.png')
+            ->assertSee($theme['label']);
+    }
+
+    foreach (ResumeTheme::cases() as $theme) {
+        if ($theme->isHiddenFromShowcase()) {
+            $response->assertDontSee('images/themes/'.$theme->value.'.png');
+        }
+    }
 });
 
 test('it shows the demo link when a user exists', function () {

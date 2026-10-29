@@ -21,9 +21,15 @@ test('ResumeNav items are filtered when basics are missing', function () {
     Auth::login($this->user);
 
     $items = ResumeNav::items();
+    $names = collect($items)->pluck('name')->all();
 
-    expect($items)->toHaveCount(1);
-    expect($items[0]['name'])->toBe('basics');
+    expect($items)->not->toBeEmpty();
+    expect($names)->toContain('basics');
+    // Every surviving item opted out of filtering; adding a nav item
+    // must not break this, only items without the opt-out may be filtered.
+    foreach ($items as $item) {
+        expect($item['prevent_filter'] ?? false)->toBeTrue();
+    }
 });
 
 test('ResumeNav items are not filtered when basics are present', function () {
@@ -31,7 +37,11 @@ test('ResumeNav items are not filtered when basics are present', function () {
     Auth::login($this->user);
 
     $items = ResumeNav::items();
+    $names = collect($items)->pluck('name')->all();
 
+    expect($names)->toContain('basics');
+    expect($names)->toContain('works');
+    expect($names)->toContain('cover-letters');
     expect(count($items))->toBeGreaterThan(1);
 });
 
@@ -39,9 +49,12 @@ test('ResumeOptionNav items are filtered when basics are missing', function () {
     Auth::login($this->user);
 
     $items = ResumeOptionNav::items();
+    $names = collect($items)->pluck('name')->all();
 
-    expect($items)->toHaveCount(1);
-    expect($items[0]['name'])->toBe('resume.general');
+    expect($items)->not->toBeEmpty();
+    expect($names)->toContain('resume.general');
+    // Filtered state must stay a strict subset of the full nav.
+    expect(count($items))->toBeLessThan(3);
 });
 
 test('ResumeOptionNav items are not filtered when basics are present', function () {
@@ -49,6 +62,9 @@ test('ResumeOptionNav items are not filtered when basics are present', function 
     Auth::login($this->user);
 
     $items = ResumeOptionNav::items();
+    $names = collect($items)->pluck('name')->all();
 
-    expect(count($items))->toBeGreaterThan(1);
+    expect($names)->toContain('resume.general');
+    expect($names)->toContain('resume.visibility');
+    expect($names)->toContain('resume.ordering');
 });

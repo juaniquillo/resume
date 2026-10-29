@@ -74,9 +74,9 @@ test('ResumePresenter respects custom order', function () {
     $presenter = new ResumePresenter($user);
     $html = (string) $presenter->present()->toHtml();
 
-    // Check positions in HTML
-    $skillsPos = strpos($html, 'Skills');
-    $awardsPos = strpos($html, 'Awards');
+    // Positions follow the enum labels so a rename follows automatically.
+    $skillsPos = strpos($html, ResumeSection::SKILLS->label());
+    $awardsPos = strpos($html, ResumeSection::AWARDS->label());
     $basicsPos = strpos($html, 'John Doe');
 
     expect($basicsPos)->toBeLessThan($skillsPos);

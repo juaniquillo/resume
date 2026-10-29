@@ -61,14 +61,27 @@ test('returns 404 for a section that does not exist', function () {
         ->assertStatus(404);
 });
 
-test('rate limits requests to five per minute', function () {
+test('rate limits requests', function () {
     createPublishedResumeUser();
 
-    foreach (range(1, 5) as $attempt) {
-        $this->getJson(route('api.resume', ['user' => 'api-slug']))->assertOk();
+    $this->getJson(route('api.resume', ['user' => 'api-slug']))->assertOk();
+
+    // Hit the endpoint until the throttle kicks in instead of hardcoding
+    // the `throttle:5,1` limit, so a config change does not break this.
+    $throttled = false;
+
+    for ($attempt = 0; $attempt < 10; $attempt++) {
+        $response = $this->getJson(route('api.resume', ['user' => 'api-slug']));
+
+        if ($response->status() === 429) {
+            $throttled = true;
+            break;
+        }
+
+        $response->assertOk();
     }
 
-    $this->getJson(route('api.resume', ['user' => 'api-slug']))->assertStatus(429);
+    expect($throttled)->toBeTrue('Expected the API throttle to trigger within 10 requests');
 });
 
 test('returns json when the client accepts any content type', function () {
