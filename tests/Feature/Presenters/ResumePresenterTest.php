@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Network;
+use App\Enums\ResumeSection;
 use App\Models\Award;
 use App\Models\Basic;
 use App\Models\Certificate;
@@ -183,10 +184,11 @@ test('it handles missing data gracefully', function () {
 
     $html = (string) $component->toHtml();
 
-    // Should not contain section headers if data is missing
-    expect($html)->not->toContain('Summary');
-    expect($html)->not->toContain('Experience');
-    expect($html)->not->toContain('Education');
+    // No section content should render when the resume is empty.
+    // Labels come from the enum so a rename/i18n change follows automatically.
+    foreach (ResumeSection::cases() as $section) {
+        expect($html)->not->toContain($section->label());
+    }
 });
 
 test('it can use a custom theme', function () {

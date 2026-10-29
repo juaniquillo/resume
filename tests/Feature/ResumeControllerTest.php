@@ -2,6 +2,7 @@
 
 use App\Enums\ProcessStatus;
 use App\Enums\ResumeExportType;
+use App\Enums\ResumeSection;
 use App\Models\Basic;
 use App\Models\ResumeExport;
 use App\Models\User;
@@ -58,6 +59,6 @@ test('public resume shows allowed downloads', function () {
     $response = $this->get(route('resume', 'download-slug'));
 
     $response->assertStatus(200);
-    $response->assertSee('Downloads');
-    $response->assertSee('JSON Format');
+    $response->assertSee(ResumeSection::DOWNLOADS->label());
+    $response->assertSee(ResumeExportType::JSON->label());
 });

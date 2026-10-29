@@ -35,6 +35,10 @@ test('resume presenter can render with terminal theme', function () {
     $html = (string) $presenter->present()->toHtml();
 
     expect($html)->toContain('John Hacker');
-    expect($html)->toContain('mx-4');
-    expect($html)->toContain('text-4xl');
+    expect($html)->toContain('Security Analyst');
+    // Terminal identity markers from the theme legend (main colors + mono font),
+    // not generic spacing/scale utilities that change with any Tailwind tweak.
+    expect($html)->toContain('bg-black');
+    expect($html)->toContain('text-green-400');
+    expect($html)->toContain('IBM_Plex_Mono');
 });

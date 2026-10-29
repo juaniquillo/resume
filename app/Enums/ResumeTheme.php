@@ -28,7 +28,7 @@ enum ResumeTheme: string
     public function isHiddenFromShowcase(): bool
     {
         return match ($this) {
-            self::BLANK, self::PDF => true,
+            self::BLANK, self::PDF => true, self::MODERN => true,
             default => false,
         };
     }
