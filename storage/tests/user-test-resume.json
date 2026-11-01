@@ -1,0 +1,175 @@
+{
+    "meta": {
+        "version": "1.0.0",
+        "generator": {
+            "name": "juaniquillo/resume",
+            "url": "https://github.com/juaniquillo/resume"
+        },
+        "exported_at": "2026-11-01T20:04:47+00:00"
+    },
+    "basics": {
+        "name": "User Test",
+        "label": "Full Stack Developer",
+        "email": "user-test@test.com",
+        "phone": "5555555555",
+        "website": "https://janedoe.com",
+        "image": "http://resume-juaniquillo.test/images/4f7b19b0-a4d8-40a4-9ff4-76adc6751f6e",
+        "summary": "Full-Stack Developer with 5 years of experience building scalable web applications using React, TypeScript, and Node.js. Proven track record of optimizing database queries to cut page load times by 45% and increasing e-commerce conversion rates by 30%.",
+        "location": {
+            "city": "San Francisco",
+            "countryCode": "US",
+            "basics": null,
+            "address": null,
+            "postalCode": null,
+            "region": "California"
+        },
+        "profiles": [
+            {
+                "network": "LinkedIn",
+                "username": "janedoe",
+                "url": "https://linkedin.com"
+            },
+            {
+                "network": "GitHub",
+                "username": "janedoe",
+                "url": "https://github.com"
+            }
+        ]
+    },
+    "work": [
+        {
+            "name": "Tech Solutions Inc.",
+            "url": null,
+            "position": "Senior Software Engineer",
+            "startDate": "2026-08-01T00:00:00.000000Z",
+            "endDate": null,
+            "summary": "Led core infrastructure updates and API performance tuning.",
+            "highlights": [
+                "Reduced server response latency by 40% via caching layers.",
+                "Mentored junior engineers and conducted code reviews."
+            ]
+        },
+        {
+            "name": "Resume Worded University",
+            "url": null,
+            "position": "Web Developer",
+            "startDate": "2024-03-01T00:00:00.000000Z",
+            "endDate": "2026-07-01T00:00:00.000000Z",
+            "summary": "Built a business-critical feature using TypeScript and Vue.js, increasing user session duration by 40%.",
+            "highlights": [
+                "Reduced website loading time by 50% through image optimization, server response tuning, and removal of render-blocking JavaScript and CSS.",
+                "Spearheaded a strategic A/B testing approach that reduced testing cycles by 20%."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "University of California",
+            "startDate": "2017-09-01T00:00:00.000000Z",
+            "endDate": "2021-05-01T00:00:00.000000Z",
+            "area": "Computer Science",
+            "studyType": "Bachelor of Science",
+            "score": null,
+            "website": null,
+            "courses": [
+                "Advanced Distributed Systems",
+                "Machine Learning Fundamentals"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "Web Development",
+            "level": "Advanced",
+            "keywords": [
+                "JavaScript",
+                "TypeScript",
+                "Node.js",
+                "React"
+            ]
+        }
+    ],
+    "languages": [
+        {
+            "language": "English",
+            "fluency": "Native"
+        },
+        {
+            "language": "Spanish",
+            "fluency": "Beginner"
+        }
+    ],
+    "volunteer": [
+        {
+            "organization": "Code for Good",
+            "position": "Technical Mentor",
+            "url": "https://codeforgood.org",
+            "startDate": "2023-01-01T00:00:00.000000Z",
+            "endDate": null,
+            "summary": "Mentor bootcamp graduates contributing to open-source civic projects.",
+            "highlights": [
+                "Mentored 12 junior developers through their first open-source contributions.",
+                "Led weekend workshops on Git workflows and code reviews."
+            ]
+        }
+    ],
+    "awards": [
+        {
+            "title": "Engineering Excellence Award",
+            "date": "2025-06-01T00:00:00.000000Z",
+            "awarder": "Tech Solutions Inc.",
+            "summary": "Recognized for leading the API performance initiative."
+        }
+    ],
+    "certificates": [
+        {
+            "name": "AWS Certified Solutions Architect",
+            "date": "2024-11-01T00:00:00.000000Z",
+            "website": "https://aws.amazon.com/certification/"
+        }
+    ],
+    "publications": [
+        {
+            "name": "Caching Strategies for High-Traffic APIs",
+            "publisher": "Dev Blog",
+            "releaseDate": "2025-02-15T00:00:00.000000Z",
+            "website": "https://devblog.example.com/caching-strategies"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Open Resume Parser",
+            "description": "Open-source tool that extracts structured data from PDF resumes.",
+            "startDate": "2024-05-01T00:00:00.000000Z",
+            "endDate": null,
+            "website": "https://github.com/janedoe/open-resume-parser",
+            "highlights": [
+                "Reached 500+ GitHub stars within six months of launch.",
+                "Supports imports from all major resume formats."
+            ]
+        }
+    ],
+    "references": [
+        {
+            "name": "Alex Rivera",
+            "reference": "Jane is an exceptional engineer who consistently delivers high-quality work and lifts up everyone around her."
+        }
+    ],
+    "interests": [
+        {
+            "name": "Open Source",
+            "keywords": [
+                "Maintainer",
+                "Documentation",
+                "Community"
+            ]
+        },
+        {
+            "name": "Photography",
+            "keywords": [
+                "Landscape",
+                "Film"
+            ]
+        }
+    ]
+}
