@@ -5,12 +5,13 @@
     'footer' => null,
     'theme' => null,
     'minimalView' => false,
+    'themeMode' => null,
     'description' => null,
     'image' => null,
     'noindex' => false,
 ])
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth @if($minimalView) light @endif">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth{{ $themeMode ? " {$themeMode}" : ($minimalView ? ' light' : '') }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
