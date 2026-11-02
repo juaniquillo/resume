@@ -29,7 +29,7 @@
                     height="1600"
                     alt="{{ $theme['label'] }} resume theme preview"
                     @if ($index > 0) hidden loading="lazy" aria-hidden="true" @else fetchpriority="high" @endif
-                    class="absolute inset-x-0 top-[-4%] w-full select-none transition-opacity duration-300 motion-reduce:transition-none {{ $index > 0 ? 'opacity-0' : 'opacity-100' }}"
+                    class="absolute inset-x-0 top-0 w-full select-none transition-opacity duration-300 motion-reduce:transition-none {{ $index > 0 ? 'opacity-0' : 'opacity-100' }}"
                     draggable="false"
                 />
             @endforeach

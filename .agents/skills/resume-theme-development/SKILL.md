@@ -1,6 +1,6 @@
 ---
 name: resume-theme-development
-description: Guide for creating, configuring, and managing resume themes in this application. Covers PresenterTheme interface contracts, theme classes, Tailwind theme view files, container/inner-container structure, font management, ResumeTheme enum registration, and layout constraints (like professional 2-column header vs full-width sections).
+description: Guide for creating, configuring, and managing resume themes in this application. Covers PresenterTheme interface contracts, theme classes, Tailwind theme view files, container/inner-container structure, font management, ResumeTheme enum registration, layout constraints (like professional 2-column header vs full-width sections), and landing showcase screenshot capture.
 ---
 
 # Resume Theme Development
@@ -14,6 +14,7 @@ Use this skill when the user needs to:
 - Configure typography, Google fonts, or local font assets for a theme.
 - Register new themes in the `ResumeTheme` enum and `ThemeFactory`.
 - Understand layout constraints (such as multi-column grid headers vs full-width stacked sections).
+- Capture landing showcase screenshots for a new or restyled theme.
 
 ---
 
@@ -441,6 +442,18 @@ Add the case in `App\Enums\ResumeTheme`:
 ```php
 case MY_THEME = 'my-theme';
 ```
+
+### Step 4: Capture the Showcase Screenshots
+
+New themes stay hidden from the landing showcase until their screenshots exist — the `ResumeThemeTest` screenshot-existence test fails otherwise, and the cards render broken images. Keep the case in `isHiddenFromShowcase()` while developing, then:
+
+```bash
+php artisan showcase:capture my-theme --fresh
+```
+
+Eyeball `public/images/themes/my-theme.png` and `my-theme-dark.png` (1200×1600, light + dark), then remove the case from `isHiddenFromShowcase()`. No test edits needed — `ResumeThemeTest` and `HomeControllerTest` derive from the enum.
+
+Prerequisites: the app served (Herd), built assets (`npm run build` or `npm run dev`), and Chrome for Browsershot. The command screenshots the local-only `showcase/preview/{theme}` route over a deterministic fixture (`storage/tests/user-test-resume.json` + `storage/tests/photo-test.jpg`). Recapture everything with `php artisan showcase:capture --fresh`.
 
 ---
 

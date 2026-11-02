@@ -23,6 +23,7 @@ use App\Http\Controllers\ReferencesController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeOgController;
 use App\Http\Controllers\ResumePublicDownloadController;
+use App\Http\Controllers\ShowcasePreviewController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\Tools\ResumeCacheController;
 use App\Http\Controllers\Tools\ResumeExportController;
@@ -44,6 +45,8 @@ Route::get('resume/{user:slug}', ResumeController::class)->middleware('throttle:
 Route::get('resume/{user:slug}/og-preview', [ResumeOgController::class, 'show'])->name('resume.og.show');
 Route::get('resume/{user:slug}/og-image.png', [ResumeOgController::class, 'image'])->name('resume.og.image');
 Route::get('resume/download/{uuid}', ResumePublicDownloadController::class)->middleware('throttle:10,1')->name('resume.download');
+
+Route::get('showcase/preview/{theme}', ShowcasePreviewController::class)->name('showcase.preview');
 
 Route::get('images/{uuid}', ImageController::class)->name('image.serve');
 

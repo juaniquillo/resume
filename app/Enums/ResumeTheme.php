@@ -28,7 +28,7 @@ enum ResumeTheme: string
     public function isHiddenFromShowcase(): bool
     {
         return match ($this) {
-            self::BLANK, self::PDF => true, self::MODERN => true,
+            self::BLANK, self::PDF => true,
             default => false,
         };
     }
@@ -37,8 +37,8 @@ enum ResumeTheme: string
      * Themes featured in the landing page showcase.
      *
      * New themes appear here automatically; hide them with
-     * isHiddenFromShowcase() instead. Remember to capture their
-     * screenshots, otherwise their cards render broken images.
+     * isHiddenFromShowcase() until their screenshots exist.
+     * Capture screenshots with: php artisan showcase:capture [--fresh]
      *
      * @return list<self>
      */
