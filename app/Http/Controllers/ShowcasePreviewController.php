@@ -23,11 +23,10 @@ class ShowcasePreviewController extends Controller
 
         $presenterTheme = $enum->instance();
         $resumeComponent = new ResumePresenter($user, $presenterTheme);
-        
+
         if (config('cache.resume.disable_cache')) {
             $resumeComponent->clearCache();
         }
-
 
         return view('pages.showcase-preview', [
             'user' => $user,
