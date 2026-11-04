@@ -15,20 +15,25 @@ class ShowcasePreviewController extends Controller
 
         $enum = ResumeTheme::tryFrom($theme);
 
-        abort_if($enum === null || in_array($enum, [ResumeTheme::BLANK, ResumeTheme::PDF], true), 404);
+        abort_if($enum === null || $enum->isHiddenFromShowcase(), 404);
 
         $user = ShowcaseFixture::user();
 
         abort_if($user === null || $user->resumeBasics() === null, 404, 'Showcase fixture not seeded. Run php artisan showcase:capture --fresh.');
 
         $presenterTheme = $enum->instance();
-        $resumeComponent = (new ResumePresenter($user, $presenterTheme))->presentCached();
+        $resumeComponent = new ResumePresenter($user, $presenterTheme);
+        
+        if (config('cache.resume.disable_cache')) {
+            $resumeComponent->clearCache();
+        }
+
 
         return view('pages.showcase-preview', [
             'user' => $user,
             'theme' => $presenterTheme,
             'themeLabel' => $enum->label(),
-            'resumeComponent' => $resumeComponent,
+            'resumeComponent' => $resumeComponent->presentCached(),
             'dark' => $request->boolean('dark'),
             'noindex' => true,
         ]);
