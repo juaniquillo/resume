@@ -24,7 +24,7 @@ return [
     'section-inner' => 'mt-2',
 
     'summary-container' => 'mt-8',
-    'summary-inner-container' => 'mt-4 leading-relaxed text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap bg-[#f6f8fa] dark:bg-[#161b22] px-6 pb-5 rounded-md border border-[#d0d7de] dark:border-[#30363d]',
+    'summary-inner-container' => 'mt-4 leading-relaxed text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap bg-[#f6f8fa] dark:bg-[#161b22] p-6 rounded-md border border-[#d0d7de] dark:border-[#30363d]',
     'summary' => '',
     
     'work-container' => '',
