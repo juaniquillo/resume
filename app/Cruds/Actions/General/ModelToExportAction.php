@@ -3,12 +3,11 @@
 namespace App\Cruds\Actions\General;
 
 use Illuminate\Database\Eloquent\Model;
-use IteratorAggregate;
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class ModelToExportAction extends Action implements ActionInterface
 {
@@ -16,14 +15,14 @@ class ModelToExportAction extends Action implements ActionInterface
         private Model $model
     ) {}
 
-    public function execute(InputCollection|InputInterface|IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
-        if ($input instanceof InputCollection || $input instanceof IteratorAggregate) {
+        if ($input instanceof InputCollectionInterface) {
             foreach ($input as $item) {
                 $this->execute($item);
             }
 
-            return $this->getOutput();
+            return;
         }
 
         /** @var DataContainer $output */
@@ -45,7 +44,5 @@ class ModelToExportAction extends Action implements ActionInterface
         }
 
         $output->set($exportKey, $value);
-
-        return $output;
     }
 }

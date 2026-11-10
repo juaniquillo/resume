@@ -4,8 +4,8 @@ namespace App\Cruds\Actions\General;
 
 use Juaniquillo\CrudAssistant\Concerns\IsAction;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class FilterUnsetValuesAction implements ActionInterface
 {
@@ -15,7 +15,7 @@ class FilterUnsetValuesAction implements ActionInterface
         private array $values
     ) {}
 
-    public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
         $output = $this->getOutput();
         $name = $input->getName();
@@ -25,7 +25,5 @@ class FilterUnsetValuesAction implements ActionInterface
         if ($value !== null) {
             $output->set($name, $value);
         }
-
-        return $output;
     }
 }

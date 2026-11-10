@@ -4,8 +4,8 @@ namespace App\Cruds\Concerns;
 
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\LivewireHelpers;
-use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
+use Juaniquillo\CrudAssistant\Support\InputHelper;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 
@@ -22,7 +22,7 @@ trait HasLivewireFormAttributes
                 continue;
             }
 
-            if ($input->getType() === FormHelpers::FORM_WRAPPER_TYPE && CrudAssistant::isInputCollection($input)) {
+            if ($input->getType() === FormHelpers::FORM_WRAPPER_TYPE && InputHelper::isCollection($input)) {
 
                 /** @var InputCollection $input */
                 $children = $input->getInputs();

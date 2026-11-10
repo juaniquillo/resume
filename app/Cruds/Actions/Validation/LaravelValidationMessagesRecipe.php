@@ -12,15 +12,10 @@ class LaravelValidationMessagesRecipe implements RecipeInterface
 {
     use IsRecipe;
 
-    /**
-     * Recipe action
-     *
-     * @var string
-     */
-    protected $action = LaravelValidationMessagesAction::class;
-
     public function __construct(
         public readonly string|array|Closure $messages,
         public ?string $name = null,
-    ) {}
+    ) {
+        $this->action = LaravelValidationMessagesAction::class;
+    }
 }

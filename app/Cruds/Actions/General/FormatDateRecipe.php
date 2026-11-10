@@ -9,10 +9,10 @@ class FormatDateRecipe implements RecipeInterface
 {
     use IsRecipe;
 
-    protected $action = FormatDateAction::class;
-
     public function __construct(
         public readonly bool $isDate = false,
-    ) {}
+    ) {
+        $this->action = FormatDateAction::class;
+    }
 
 }

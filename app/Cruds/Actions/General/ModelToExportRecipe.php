@@ -10,10 +10,10 @@ class ModelToExportRecipe implements RecipeInterface
 {
     use IsRecipe;
 
-    protected $action = ModelToExportAction::class;
-
     public function __construct(
         public readonly ?string $key = null,
         public readonly ?Closure $callback = null,
-    ) {}
+    ) {
+        $this->action = ModelToExportAction::class;
+    }
 }

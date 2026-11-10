@@ -6,15 +6,15 @@ namespace App\Cruds\Actions\Validation;
 
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 /**
  * Laravel validation messages action.
  */
 class LaravelValidationMessagesAction extends Action implements ActionInterface
 {
-    public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
         /** @var LaravelValidationMessagesRecipe|null $recipe */
         $recipe = $input->getRecipe(static::class);
@@ -28,20 +28,18 @@ class LaravelValidationMessagesAction extends Action implements ActionInterface
             if (\is_string($messages)) {
                 $output->$name = $messages;
 
-                return $output;
+                return;
             }
 
             if (\is_callable($messages)) {
                 $messages($output, $input);
 
-                return $output;
+                return;
             }
 
             foreach ($messages as $keyMessage => $message) {
                 $output->$name = $message;
             }
         }
-
-        return $output;
     }
 }

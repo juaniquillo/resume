@@ -1,6 +1,6 @@
 ---
 name: backend-component
-description: Build and compose dynamic HTML components in PHP using the juaniquillo/laravel-backend-component package — create component trees, apply Tailwind themes, manage settings, integrate Livewire, serialize/deserialize component structures, and resolve components locally.
+description: Build and compose dynamic HTML components in PHP using the juaniquillo/laravel-backend-component package, create component trees, apply Tailwind themes, manage settings, integrate Livewire, serialize/deserialize component structures, and resolve components locally.
 ---
 
 # Backend Component Development
@@ -47,7 +47,7 @@ $custom = ComponentBuilder::make('inline.button');
 | **Block** | `DIV`, `PARAGRAPH` |
 | **Inline** | `BUTTON`, `LINK`, `IMG`, `SPAN`, `BOLD`, `EM`, `ITALIC`, `STRONG`, `SMALL` |
 | **Headers** | `H1`, `H2`, `H3`, `H4`, `H5`, `H6` |
-| **Form** | `FORM`, `LABEL`, `LEGEND`, `FIELDSET`, `TEXT_INPUT`, `FILE_INPUT`, `EMAIL_INPUT`, `SEARCH_INPUT`, `PASSWORD_INPUT`, `CHECKBOX_INPUT`, `HIDDEN_INPUT`, `RADIO_INPUT`, `DATALIST`, `TEXTAREA`, `SELECT`, `OPTGROUP`, `OPTION` |
+| **Form** | `FORM`, `LABEL`, `LEGEND`, `FIELDSET`, `TEXT_INPUT`, `FILE_INPUT`, `EMAIL_INPUT`, `SEARCH_INPUT`, `PASSWORD_INPUT`, `CHECKBOX_INPUT`, `HIDDEN_INPUT`, `RADIO_INPUT`, `NUMBER_INPUT`, `URL_INPUT`, `TEL_INPUT`, `DATE_INPUT`, `TIME_INPUT`, `COLOR_INPUT`, `RANGE_INPUT`, `DATALIST`, `TEXTAREA`, `SELECT`, `OPTGROUP`, `OPTION` |
 | **Table** | `TABLE`, `THEAD`, `TBODY`, `TFOOT`, `TR`, `TH`, `TD`, `CAPTION`, `COLGROUP`, `COL` |
 | **Lists** | `OL`, `UL`, `LI` |
 | **Details** | `DETAILS`, `SUMMARY` |
@@ -130,7 +130,7 @@ $button = ComponentBuilder::make(ComponentEnum::BUTTON)
 // Theme classes merge into the HTML class attribute automatically
 ```
 
-Themes accumulate by default — calling `setTheme` with the same name appends rather than replaces:
+Themes accumulate by default, calling `setTheme` with the same name appends rather than replaces:
 
 ```php
 $button = ComponentBuilder::make(ComponentEnum::BUTTON)
@@ -151,7 +151,7 @@ $button->setTheme('action', 'link', overwrite: true);
 2. Implement `BackendComponent`, `IndividualComponent`, `ThemeComponent`, `Htmlable` (omit `ContentsComponent`+`HasContent` for self-closing elements)
 3. Use traits `IsBackendComponent`, `IsThemeable` (add `HasContent` only if the component can hold children)
 4. Define `getName()` to return the `ComponentEnum` value (or any dotted view path)
-5. Define `getComponentPath()` and `getPathOnly()` following the existing convention
+5. Define `getComponentPath()`, `getPathOnly()` and `getViewPath()` following the existing convention
 6. Wire up `getAttributeBag()`, `toHtml()`, `toArray()`, and a static `make()` factory
 7. Mark the class `final` (optional but recommended)
 
@@ -163,7 +163,27 @@ $div->setAttribute('class', 'my-class');
 $div->setContent('Hello');
 ```
 
-Currently only `DivComponent` exists in this category — add more as needed.
+Currently only `DivComponent` exists in this category, add more as needed. `DivComponent` does not use `HasPath`, so it defines `getViewPath()` itself.
+
+## Third-party components
+
+Third-party packages can implement `Contracts\BackendComponent` in their own namespace and choose their own view and rendering strategy. The package's concerns (`HasContent`, `HasPath`, `HasProps`, `HasSettings`, `IsBackendComponent`, `IsThemeable`) are opt-in traits.
+
+`PropsComponent` in this package is only a reference implementation of those contracts, not a required base class.
+
+## View resolution
+
+Every component resolves its template through `getViewPath()`:
+
+| Component | `getViewPath()` |
+|---|---|
+| `ComponentBuilder::make(ComponentEnum::DIV)` | `backend-component::components.div` |
+| `ComponentBuilder::make(ComponentEnum::DIV)->useLocal()` | `components.div` |
+| `ComponentBuilder::make('img')->setPath('inline')` | `backend-component::components.inline.img` |
+
+- Templates are included as plain views with `$attributes`, `$slot` and `$settings`. Never declare props in these templates.
+- `getComponentPath()` is the `x-dynamic-component` form and does not include the `components/` directory. Do not pass it to `view()` or `@include`.
+- `DivComponent` does not use `HasPath`, so it implements `getViewPath()` itself.
 
 ## Modal Utility
 
@@ -185,7 +205,7 @@ $modal = ModalUtil::make(
     ->getComponent();
 ```
 
-The modal is composed from `DIV` components with Alpine.js attributes — no separate blade template or slots needed.
+The modal is composed from `DIV` components with Alpine.js attributes, no separate blade template or slots needed.
 
 ## Table Utilities
 
@@ -276,7 +296,7 @@ $html = $button->getCachedHtml();   // served from cache on subsequent calls
 $button->clearCache();              // invalidates the cached entry
 ```
 
-The cache key is `md5(json_encode($toArray()))` — same component state always produces the same key. Default cache directory: `cache/backend-components/`. Livewire components bypass caching automatically. Best suited for static content like documentation, navigation, or footer blocks — avoid caching dynamic or user-specific content unless you handle invalidation.
+The cache key is `md5(json_encode($toArray()))`, same component state always produces the same key. Default cache directory: `cache/backend-components/`. Livewire components bypass caching automatically. Best suited for static content like documentation, navigation, or footer blocks, avoid caching dynamic or user-specific content unless you handle invalidation.
 
 ### Cache configuration
 
@@ -302,8 +322,8 @@ class MyCustomComponent implements BackendComponent {
 
 ## Guardrails
 
-- Do NOT build HTML strings manually — always use the component builder and enum to ensure proper rendering.
-- Do NOT apply CSS classes directly in Blade templates — use the theme system instead for maintainability.
+- Do NOT build HTML strings manually, always use the component builder and enum to ensure proper rendering.
+- Do NOT apply CSS classes directly in Blade templates, use the theme system instead for maintainability.
 - Always use `ComponentEnum` cases rather than raw strings when possible, to benefit from IDE autocompletion and type safety.
-- Do NOT use `echo` or `{!! !!}` for component output — components implement `Htmlable` so `{{ $component }}` is safe and correct.
+- Do NOT use `echo` or `{!! !!}` for component output, components implement `Htmlable` so `{{ $component }}` is safe and correct.
 - For self-closing HTML elements (input, img, col), ensure the Blade template uses `/>` not `></tag>`.
