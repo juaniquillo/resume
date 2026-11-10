@@ -27,6 +27,7 @@
 - **Testing**: Every change must be tested. Prefer feature tests. Use factories.
 - **Formatting**: Run `vendor/bin/pint --format agent` if you change PHP files.
 - **No Documentation**: Do not create documentation files unless explicitly requested.
+- **Writing**: Never use em dashes (—) in any response. Use commas, periods, colons, or parentheses instead. If an em dash would typically be used, rewrite the sentence for natural pacing.
 
 ===
 
