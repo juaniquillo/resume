@@ -1,6 +1,6 @@
 <x-layouts.guest
     title="Resume Manager"
-    description="Own your career narrative: manage every resume section in one dashboard, switch between six professional themes, and export JSON Resume or themed PDF files."
+    description="Own your career narrative: manage every resume section in one dashboard, switch between six professional themes, and export JSON Resume, Markdown, or themed PDF files."
     :assets="['resources/css/landing.css', 'resources/js/landing.ts']"
     :image="asset('home-og.png')"
 >
@@ -16,7 +16,7 @@
                     Craft Your Professional Story<span class="text-sky-600">.</span>
                 </h1>
                 <p class="text-2xl 3xl:text-3xl font-medium text-sky-600 dark:text-sky-400 mt-8 max-w-2xl 3xl:max-w-3xl">
-                    One dashboard for your entire career — experience, highlights, skills and cover letters — exported as JSON Resume or a beautifully themed PDF.
+                    One dashboard for your entire career: experience, highlights, skills, and cover letters, exported as JSON Resume, Markdown, or a beautifully themed PDF.
                 </p>
                 <div class="flex flex-wrap gap-4 mt-10">
                     <a href="{{ route('login') }}" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-10 rounded-2xl shadow-lg shadow-sky-600/20 transition duration-300 text-lg">
@@ -34,7 +34,7 @@
     </header>
 
     {{-- Features Section --}}
-    <section id="features" class="py-14">
+    <section id="features" class="py-14 scroll-mt-24">
         <div class="container mx-auto max-w-5xl 3xl:max-w-6xl px-8">
             <h2 class="text-3xl font-bold border-b-2 border-sky-600 pb-2 mb-12 uppercase tracking-wider dark:text-white dark:border-sky-500">
                 Full Control Over Your Profile
@@ -48,7 +48,7 @@
                         Every Section, One Dashboard
                     </h3>
                     <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        Work history, education, skills, languages, projects, awards and more — managed from a single intuitive dashboard.
+                        Work history, education, skills, languages, projects, awards, and more, all managed from a single intuitive dashboard.
                     </p>
                 </div>
 
@@ -59,7 +59,7 @@
                         Highlights That Prove Impact
                     </h3>
                     <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        Attach measurable achievements to every role and project — because your outcomes matter more than your titles.
+                        Attach measurable achievements to every role and project, because your outcomes matter more than your titles.
                     </p>
                 </div>
 
@@ -81,7 +81,7 @@
                         Six Themes, One Click
                     </h3>
                     <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        From Retro-Modern to Terminal Console, switch your resume's entire look in the preview above — then export it as a themed PDF.
+                        From Retro-Modern to Terminal Console, switch your resume's entire look in the preview above, then export it as a themed PDF.
                     </p>
                 </div>
 
@@ -92,7 +92,7 @@
                         JSON Resume Standard
                     </h3>
                     <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        Import and export portable JSON Resume files, with public download links for your PDF and JSON versions.
+                        Import and export portable JSON Resume and Markdown files, with public download links for your PDF, JSON, and Markdown versions.
                     </p>
                 </div>
 
@@ -115,7 +115,7 @@
     </section>
 
     {{-- Personal Section --}}
-    <section id="about" class="py-20 bg-gray-50 dark:bg-zinc-900/50">
+    <section id="about" class="py-20 scroll-mt-24 bg-gray-50 dark:bg-zinc-900/50">
         <div class="container mx-auto max-w-5xl 3xl:max-w-6xl px-8 text-center">
             <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 Why I Built This
