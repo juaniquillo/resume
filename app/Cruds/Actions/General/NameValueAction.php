@@ -104,7 +104,6 @@ class NameValueAction extends Action implements ActionInterface
 
         $output->set($inputName, $value);
 
-        return;
     }
 
     public function resolveNames(NameValueRecipe $recipe, InputInterface $input): array
