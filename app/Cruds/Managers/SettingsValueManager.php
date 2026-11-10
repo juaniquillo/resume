@@ -2,11 +2,11 @@
 
 namespace App\Cruds\Managers;
 
+use Closure;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\InputComponentAction\Concerns\IsValueManager;
 use Juaniquillo\InputComponentAction\Contracts\InputComponentRecipeInterface;
 use Juaniquillo\InputComponentAction\Contracts\ValueManager;
-use Juaniquillo\InputComponentAction\Utilities\Support;
 use Stringable;
 
 class SettingsValueManager implements ValueManager
@@ -34,7 +34,7 @@ class SettingsValueManager implements ValueManager
         }
 
         if (! $ignoreRecipeValue) {
-            if (Support::isClosure($recipeValue)) {
+            if ($recipeValue instanceof Closure) {
                 $recipeValueProcessed = $recipeValue($input, $values, $model);
             } else {
                 $recipeValueProcessed = $recipeValue;

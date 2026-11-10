@@ -30,7 +30,7 @@ class TableRowsRecipe implements RecipeInterface
         public readonly string|BackedEnum|null $type = null,
         /** @var ?Closure(string|BackendComponent|CompoundComponent|null $value, BackendComponent|CompoundComponent $component):(BackendComponent|CompoundComponent) $callback */
         public readonly ?Closure $callback = null,
-    ) {}
-
-    protected $action = TableRowsAction::class;
+    ) {
+        $this->action = TableRowsAction::class;
+    }
 }

@@ -7,7 +7,6 @@ use BackedEnum;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
-use IteratorAggregate;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
@@ -16,10 +15,10 @@ use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Contracts\RecipeInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class TableRowsAction extends Action implements ActionInterface
 {
@@ -70,7 +69,7 @@ class TableRowsAction extends Action implements ActionInterface
         return $this;
     }
 
-    public function execute(InputCollection|InputInterface|IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
 
         /** @var TableRowsRecipe $recipe */
@@ -93,9 +92,6 @@ class TableRowsAction extends Action implements ActionInterface
             $label,
             $this->resolveCellComponent($resolvedValue, $recipe)
         );
-
-        return $output;
-
     }
 
     public function resolveValue(mixed $value = null, TableRowsRecipe|RecipeInterface|null $recipe = new TableRowsRecipe): string|BackendComponent|CompoundComponent|null

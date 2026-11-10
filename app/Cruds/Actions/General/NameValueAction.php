@@ -4,12 +4,11 @@ namespace App\Cruds\Actions\General;
 
 use App\Support\Helpers;
 use Closure;
-use IteratorAggregate;
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class NameValueAction extends Action implements ActionInterface
 {
@@ -27,14 +26,14 @@ class NameValueAction extends Action implements ActionInterface
         return $this;
     }
 
-    public function execute(InputCollection|InputInterface|IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
-        if ($input instanceof InputCollection || $input instanceof IteratorAggregate) {
+        if ($input instanceof InputCollectionInterface) {
             foreach ($input as $item) {
                 $this->execute($item);
             }
 
-            return $this->getOutput();
+            return;
         }
 
         /** @var DataContainer $output */
@@ -53,13 +52,13 @@ class NameValueAction extends Action implements ActionInterface
                     $output->set($inputName, $this->globalDefault);
                 }
 
-                return $output;
+                return;
             }
 
             $value = $values[$inputName];
             $output->set($inputName, $value);
 
-            return $output;
+            return;
         }
 
         $names = $this->resolveNames($recipe, $input);
@@ -71,14 +70,14 @@ class NameValueAction extends Action implements ActionInterface
             $value = $callback($values);
             $output->set($inputName, $value);
 
-            return $output;
+            return;
         }
 
         if ($recipe->value !== null) {
             $value = Helpers::isClosure($recipe->value) ? ($recipe->value)($values) : $recipe->value;
             $output->set($inputName, $value);
 
-            return $output;
+            return;
         }
 
         $found = false;
@@ -96,7 +95,7 @@ class NameValueAction extends Action implements ActionInterface
                 $output->set($inputName, $this->globalDefault);
             }
 
-            return $output;
+            return;
         }
 
         $value = $this->resolveValue($names, $values);
@@ -105,7 +104,7 @@ class NameValueAction extends Action implements ActionInterface
 
         $output->set($inputName, $value);
 
-        return $output;
+        return;
     }
 
     public function resolveNames(NameValueRecipe $recipe, InputInterface $input): array

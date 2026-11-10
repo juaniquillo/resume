@@ -10,11 +10,11 @@ class LaravelFactoryRecipe implements RecipeInterface
 {
     use IsRecipe;
 
-    protected $action = LaravelFactoryAction::class;
-
     public function __construct(
         public readonly ?string $type = null,
         public readonly ?Closure $callback = null,
-    ) {}
+    ) {
+        $this->action = LaravelFactoryAction::class;
+    }
 
 }

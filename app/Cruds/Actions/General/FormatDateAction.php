@@ -4,11 +4,10 @@ namespace App\Cruds\Actions\General;
 
 use App\Cruds\Helpers\DateHelpers;
 use Illuminate\Database\Eloquent\Model;
-use IteratorAggregate;
 use Juaniquillo\CrudAssistant\Concerns\IsAction;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class FormatDateAction implements ActionInterface
 {
@@ -19,7 +18,7 @@ class FormatDateAction implements ActionInterface
         private bool $onlyDates = false,
     ) {}
 
-    public function execute(InputCollection|InputInterface|IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
         /** @var ?FormatDateRecipe $recipe */
         $recipe = $input->getRecipe(self::getIdentifier());
@@ -35,8 +34,5 @@ class FormatDateAction implements ActionInterface
         } elseif (! $this->onlyDates) {
             $output->set($name, $value);
         }
-
-        return $output;
-
     }
 }

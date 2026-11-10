@@ -3,11 +3,10 @@
 namespace App\Cruds\Actions\Model;
 
 use Faker\Generator;
-use IteratorAggregate;
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 class LaravelFactoryAction extends Action implements ActionInterface
 {
@@ -21,13 +20,13 @@ class LaravelFactoryAction extends Action implements ActionInterface
     /**
      * Execute action on input.
      */
-    public function execute(InputCollection|InputInterface|IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
         /** @var ?LaravelFactoryRecipe $recipe */
         $recipe = $input->getRecipe($this->getIdentifier());
 
         if ($recipe?->isIgnored()) {
-            return $this->getOutput();
+            return;
         }
 
         $output = $this->getOutput();
@@ -42,7 +41,7 @@ class LaravelFactoryAction extends Action implements ActionInterface
             if ($callback) {
                 $callback($input, $output, $faker);
 
-                return $output;
+                return;
             }
 
             $type = $recipe->type;
@@ -50,13 +49,10 @@ class LaravelFactoryAction extends Action implements ActionInterface
             if ($type) {
                 $output->$name = $faker->{$type}();
 
-                return $output;
+                return;
             }
         }
 
         $output->$name = $faker->sentence();
-
-        return $output;
-
     }
 }

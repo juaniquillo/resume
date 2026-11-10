@@ -6,8 +6,8 @@ namespace App\Cruds\Actions\Validation;
 
 use Juaniquillo\CrudAssistant\Action;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
+use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\InputCollection;
 
 /**
  * Laravel validation rules action.
@@ -19,7 +19,7 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         protected $model = null
     ) {}
 
-    public function execute(InputCollection|InputInterface|\IteratorAggregate $input)
+    public function execute(InputCollectionInterface|InputInterface $input): void
     {
         $this->executeOne($input);
 
@@ -30,11 +30,9 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
                 $this->executeOne($subElement);
             }
         }
-
-        return $this->getOutput();
     }
 
-    public function executeOne(InputCollection|InputInterface|\IteratorAggregate $input)
+    public function executeOne(InputInterface $input): void
     {
         $output = $this->getOutput();
 
@@ -44,7 +42,7 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         $recipe = $input->getRecipe(self::getIdentifier());
 
         if (! $recipe) {
-            return $output;
+            return;
         }
 
         $rules = $recipe->rules;
@@ -52,14 +50,12 @@ class LaravelValidationRulesAction extends Action implements ActionInterface
         if ($rules) {
 
             if (\is_callable($rules)) {
-                $output->add(
+                $output->merge(
                     $rules($input, $this->requestArray, $this->model)
                 );
             } else {
                 $output->$name = $rules;
             }
         }
-
-        return $output;
     }
 }
