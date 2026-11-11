@@ -8,10 +8,10 @@ use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 
 final class CoursesTableRenderer implements TableRenderer
 {
@@ -41,7 +41,7 @@ final class CoursesTableRenderer implements TableRenderer
             $helper->deleteButton(route('dashboard.education.courses.destroy', [$course->courseable_id, $course->id])),
         ];
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [

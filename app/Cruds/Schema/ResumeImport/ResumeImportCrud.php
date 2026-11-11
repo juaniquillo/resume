@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
@@ -96,7 +96,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         $label = $this->saveButtonLabel;
         $livewireAttributes = LivewireHelpers::getLivewireAttributes(JsonFileFactory::NAME, self::getLivewireGroup());
 
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')

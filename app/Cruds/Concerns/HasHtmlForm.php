@@ -5,18 +5,18 @@ namespace App\Cruds\Concerns;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Managers\EnumResolverValueManager;
 use BackedEnum;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\ActionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputCollectionInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\InputCollection;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
@@ -80,7 +80,7 @@ trait HasHtmlForm
 
     public function saveButton(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')
@@ -176,7 +176,7 @@ trait HasHtmlForm
     {
         $themes ??= $this->formThemes();
 
-        $form = LocalThemeComponentBuilder::make(ComponentEnum::FORM)
+        $form = LocalThemeComponentFactory::make(ComponentEnum::FORM)
             ->setAttribute('action', $this->formAction)
             ->setAttribute('method', $this->formMethod)
             ->setAttribute('enctype', 'multipart/form-data')
@@ -186,7 +186,7 @@ trait HasHtmlForm
             );
 
         $form->setContent(
-            LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+            LocalThemeComponentFactory::make(ComponentEnum::DIV)
                 ->setTheme('forms', 'column-span-full')
                 ->setContent(
                     $this->saveButton()

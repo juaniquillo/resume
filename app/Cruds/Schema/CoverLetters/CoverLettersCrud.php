@@ -13,11 +13,11 @@ use App\Cruds\Schema\CoverLetters\Inputs\ContentFactory;
 use App\Livewire\Resume\CoverLetters\PreviewCoverLetter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Override;
 
@@ -67,16 +67,16 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
         $livewireAttributes = LivewireHelpers::getLivewireAttributes(ContentFactory::NAME, self::getLivewireGroup());
         $label = $this->saveButtonLabel;
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setThemes([
                 'display' => 'flex',
                 'flex' => 'gap-sm',
             ])
             ->setContents([
-                'preview' => ComponentBuilder::make(PreviewCoverLetter::class)
+                'preview' => ComponentFactory::make(PreviewCoverLetter::class)
                     ->setLivewire()
                     ->setLivewireKey('preview-cover-letter'),
-                'save' => FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                'save' => FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                     ->setAttribute('type', 'submit')
                     ->setAttribute('variant', 'primary')
                     ->setAttribute('color', 'blue')

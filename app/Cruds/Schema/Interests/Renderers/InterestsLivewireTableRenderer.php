@@ -10,10 +10,10 @@ use App\Livewire\Resume\Interests\DeleteInterest;
 use App\Livewire\Resume\Interests\EditInterest;
 use App\Models\Interest;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 
 final class InterestsLivewireTableRenderer implements TableRenderer
 {
@@ -49,7 +49,7 @@ final class InterestsLivewireTableRenderer implements TableRenderer
             ),
         ];
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [

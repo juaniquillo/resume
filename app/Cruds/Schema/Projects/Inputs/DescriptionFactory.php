@@ -11,12 +11,12 @@ use App\Cruds\Helpers\TableHelpers;
 use App\Models\Project;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
@@ -92,7 +92,7 @@ class DescriptionFactory
                 value: function ($value, Model $model) {
 
                     if (! $value) {
-                        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                        return FluxComponentFactory::make(FluxComponentEnum::BADGE)
                             ->setAttribute('color', 'red')
                             ->setContent('empty');
 
@@ -100,7 +100,7 @@ class DescriptionFactory
 
                     /** @var Project $project */
                     $project = $model;
-                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                    $modalContent = LocalThemeComponentFactory::make(ComponentEnum::DIV)
                         ->setContent($value)
                         ->setTheme('spacing', 'mt-sm')
                         ->setTheme('text', 'nl2br');

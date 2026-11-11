@@ -10,8 +10,8 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Reference;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
@@ -95,7 +95,7 @@ class ReferenceFactory
                     /** @var Reference $reference */
                     $reference = $model;
 
-                    $content = ComponentBuilder::make(ComponentEnum::DIV)
+                    $content = ComponentFactory::make(ComponentEnum::DIV)
                         ->setContent($value)
                         ->setTheme('margin', 'top-sm');
 

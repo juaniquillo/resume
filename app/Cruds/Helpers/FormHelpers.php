@@ -10,7 +10,7 @@ use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 
 class FormHelpers
 {
@@ -32,7 +32,7 @@ class FormHelpers
 
     public static function errorIcon(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make('icon.exclamation-triangle')
+        return FluxComponentFactory::make('icon.exclamation-triangle')
             ->setAttributes([
                 'variant' => 'solid',
                 'class' => 'size-4',

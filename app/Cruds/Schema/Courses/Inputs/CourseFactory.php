@@ -10,12 +10,12 @@ use App\Models\Course;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
@@ -106,12 +106,12 @@ class CourseFactory
 
                     /** @var Course $educationCourse */
                     $educationCourse = $model;
-                    $modalContent = LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+                    $modalContent = LocalThemeComponentFactory::make(ComponentEnum::DIV)
                         ->setContent($value)
                         ->setTheme('spacing', 'mt-sm')
                         ->setTheme('text', 'nl2br');
 
-                    return ComponentBuilder::make(ComponentEnum::COLLECTION)
+                    return ComponentFactory::make(ComponentEnum::COLLECTION)
                         ->setContent(Str::limit($value, 60))
                         ->setContent(
                             TableHelpers::tableModal(

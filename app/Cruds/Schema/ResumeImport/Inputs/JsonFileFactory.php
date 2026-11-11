@@ -11,7 +11,7 @@ use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -82,7 +82,7 @@ class JsonFileFactory
                     /** @var ResumeImport $import */
                     $import = $model;
 
-                    return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                         ->setAttribute('href', route('dashboard.resume.import.download', [$import->id]))
                         ->setContent($import->file_name)
                         ->setAttribute('variant', 'ghost')

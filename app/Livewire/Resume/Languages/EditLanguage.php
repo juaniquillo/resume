@@ -13,10 +13,10 @@ use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -103,7 +103,7 @@ class EditLanguage extends Component
         $id = $this->getModalKey();
         $form = $this->getForm();
 
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents([
                 'button' => $this->modalButton(
                     label: 'Edit',

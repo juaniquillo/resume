@@ -6,13 +6,13 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Enums\ProcessStatus;
 use BackedEnum;
 use Carbon\CarbonImmutable;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Livewire\Component;
 use Stringable;
@@ -28,23 +28,23 @@ final class TableHelpers
     {
         $triggerType = $triggerType ?? 'primary';
 
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents([
-                'button' => FluxComponentBuilder::make(FluxComponentEnum::MODAL_TRIGGER)
+                'button' => FluxComponentFactory::make(FluxComponentEnum::MODAL_TRIGGER)
                     ->setAttribute('name', "flux-modal-confirm-{$id}")
                     ->setContent(
-                        FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                        FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                             ->setAttribute('variant', $triggerType)
                             ->setAttribute('size', 'xs')
                             ->setTheme('cursor', 'pointer')
                             ->setContent($buttonLabel)
                             ->setThemes($buttonThemes)
                     ),
-                'modal' => FluxComponentBuilder::make(FluxComponentEnum::MODAL)
+                'modal' => FluxComponentFactory::make(FluxComponentEnum::MODAL)
                     ->setAttribute('name', "flux-modal-confirm-{$id}")
                     // ->setAttribute(':dismissible', 'false')
                     ->setContents([
-                        FluxComponentBuilder::make(FluxComponentEnum::HEADING)
+                        FluxComponentFactory::make(FluxComponentEnum::HEADING)
                             ->setContent($heading),
                         $content,
                     ]),
@@ -69,7 +69,7 @@ final class TableHelpers
             id: "summary-{$id}",
             triggerType: 'ghost',
             heading: $label,
-            content: ComponentBuilder::make(ComponentEnum::DIV)
+            content: ComponentFactory::make(ComponentEnum::DIV)
                 ->setContent($value)
                 ->setTheme('margin', 'top-sm')
         );
@@ -77,7 +77,7 @@ final class TableHelpers
 
     public static function editButton(string $route): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setAttribute('href', $route)
             ->setContent('Edit')
             ->setAttribute('size', 'xs')
@@ -87,7 +87,7 @@ final class TableHelpers
 
     public static function deleteButton(string $route): BackendComponent|CompoundComponent
     {
-        return ComponentBuilder::make(ComponentEnum::FORM)
+        return ComponentFactory::make(ComponentEnum::FORM)
             ->setAttribute('action', $route)
             ->setAttribute('method', 'delete')
             ->setContent(
@@ -110,7 +110,7 @@ final class TableHelpers
     /** @param class-string<Component>|BackedEnum $component */
     public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
     {
-        $component = ComponentBuilder::make($component)
+        $component = ComponentFactory::make($component)
             ->setLivewire()
             ->setLivewireKey($id)
             ->setLivewireParams($params);
@@ -120,7 +120,7 @@ final class TableHelpers
 
     public static function baseDeleteButton(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setContent('Delete')
             ->setAttribute('size', 'xs')
             ->setAttribute('variant', 'danger')
@@ -136,7 +136,7 @@ final class TableHelpers
 
         $attributes = array_merge($attributes, $extraAttributes);
 
-        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+        return FluxComponentFactory::make(FluxComponentEnum::BADGE)
             ->setAttributes($attributes)
             ->setContent($content);
     }
@@ -177,7 +177,7 @@ final class TableHelpers
 
     public static function baseHighlightsButton(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setContent('Highlights')
             ->setAttribute('variant', 'primary')
             ->setAttribute('icon', 'sun')
@@ -189,7 +189,7 @@ final class TableHelpers
 
     public static function errorTooltip(string $error, string|BackendComponent|CompoundComponent $trigger, string $position = 'top'): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::TOOLTIP)
+        return FluxComponentFactory::make(FluxComponentEnum::TOOLTIP)
             ->setAttribute('content', $error)
             ->setAttribute('position', $position)
             ->setContent($trigger);
@@ -201,7 +201,7 @@ final class TableHelpers
             return TableHelpers::emptyValue();
         }
 
-        return FluxComponentBuilder::make(FluxComponentEnum::LINK)
+        return FluxComponentFactory::make(FluxComponentEnum::LINK)
             ->setAttributes([
                 'href' => $link,
                 'target' => $target,
@@ -211,14 +211,14 @@ final class TableHelpers
 
     public static function nl2br(string $value)
     {
-        return LocalThemeComponentBuilder::make(ComponentEnum::DIV)
+        return LocalThemeComponentFactory::make(ComponentEnum::DIV)
             ->setContent($value)
             ->setTheme('text', 'nl2br');
     }
 
     public static function emptyValue(string $label = 'N/A'): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+        return FluxComponentFactory::make(FluxComponentEnum::BADGE)
             ->setAttribute('variant', 'light')
             ->setContent($label);
 
