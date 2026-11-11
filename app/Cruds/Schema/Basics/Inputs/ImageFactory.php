@@ -13,10 +13,10 @@ use App\Models\Basic;
 use App\Support\ImageHelpers;
 use BackedEnum;
 use Faker\Generator;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Input;
@@ -123,7 +123,7 @@ class ImageFactory
 
     public static function imageManagement(BackendComponent|ContentComponent $component, Basic $model): BackendComponent|ContentComponent
     {
-        $wrapper = ComponentBuilder::make(ComponentEnum::DIV)
+        $wrapper = ComponentFactory::make(ComponentEnum::DIV)
             ->setThemes([
                 'display' => 'flex',
                 'flex' => [
@@ -134,12 +134,12 @@ class ImageFactory
             ]);
 
         $imageUrl = ImageHelpers::imageUrl($model->uuid, $model->updated_at?->timestamp);
-        $image = ComponentBuilder::make(ComponentEnum::DIV)
+        $image = ComponentFactory::make(ComponentEnum::DIV)
             ->setThemes([
                 'padding' => 'top-sm',
             ])
             ->setContent(
-                ComponentBuilder::make(ComponentEnum::IMG)
+                ComponentFactory::make(ComponentEnum::IMG)
                     ->setAttribute('src', $imageUrl)
             );
 

@@ -8,11 +8,11 @@ use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class EducationTableRenderer implements TableRenderer
@@ -47,7 +47,7 @@ final class EducationTableRenderer implements TableRenderer
             $helper->deleteButton(route('dashboard.certificates.destroy', [$education->id])),
         ];
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [
@@ -65,9 +65,9 @@ final class EducationTableRenderer implements TableRenderer
                     /** @var Education $education */
                     $education = $model;
 
-                    return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                         ->setContent(
-                            FluxComponentBuilder::make('icon.building-library')
+                            FluxComponentFactory::make('icon.building-library')
                                 ->setAttribute('variant', 'micro')
                         )
                         ->setContent('Courses')

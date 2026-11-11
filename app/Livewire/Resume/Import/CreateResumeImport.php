@@ -17,10 +17,10 @@ use App\Support\ResumeLimit;
 use Flux\Flux;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -111,7 +111,7 @@ class CreateResumeImport extends Component
         $id = $this->getModalKey();
         $form = $this->getForm();
 
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents([
                 // From trait
                 'button' => $this->modalButton(

@@ -10,12 +10,12 @@ use App\Livewire\Resume\Export\DeleteResumeExport;
 use App\Livewire\Resume\Export\EditResumeExport;
 use App\Models\ResumeExport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class ResumeExportLivewireTableRenderer implements TableRenderer
@@ -28,7 +28,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
     public function renderDateCell(Model $model): BackendComponent|CompoundComponent
     {
         /** @var ResumeExport $model */
-        return ComponentBuilder::make(ComponentEnum::SPAN)
+        return ComponentFactory::make(ComponentEnum::SPAN)
             ->setContent($model->created_at->diffForHumans());
     }
 
@@ -63,7 +63,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
             $enum = $export->type;
             $filename = str_replace(' ', '-', strtolower($export->user->name)).'-resume.'.$enum->extension();
 
-            $contents[] = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+            $contents[] = FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                 ->setAttribute('href', route('dashboard.resume.export.download', [
                     'uuid' => $export->uuid,
                     'v' => md5($export->created_at),
@@ -79,7 +79,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
         if ($export->status->failed() && $export->error) {
             $contents[] = TableHelpers::tableModal(
                 id: "error-modal-{$export->id}",
-                content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                content: LocalThemeComponentFactory::make(ComponentEnum::PARAGRAPH)
                     ->setContent($export->error)
                     ->setTheme('spacing', 'pt-sm')
                     ->setTheme('text', 'nl2br'),
@@ -97,7 +97,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
             );
         }
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [

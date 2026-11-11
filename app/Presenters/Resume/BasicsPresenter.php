@@ -12,7 +12,7 @@ use App\Support\ImageHelpers;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 
 final class BasicsPresenter
 {
@@ -82,7 +82,7 @@ final class BasicsPresenter
             $info['email'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->emailThemes())
                 ->setContents([
-                    'icon' => FluxComponentBuilder::make('icon.envelope')
+                    'icon' => FluxComponentFactory::make('icon.envelope')
                         ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
@@ -97,7 +97,7 @@ final class BasicsPresenter
             $info['phone'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->phoneThemes())
                 ->setContents([
-                    'icon' => FluxComponentBuilder::make('icon.phone')
+                    'icon' => FluxComponentFactory::make('icon.phone')
                         ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
@@ -110,7 +110,7 @@ final class BasicsPresenter
             $info['url'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->urlThemes())
                 ->setContents([
-                    'icon' => FluxComponentBuilder::make('icon.link')
+                    'icon' => FluxComponentFactory::make('icon.link')
                         ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),
@@ -135,7 +135,7 @@ final class BasicsPresenter
             $info['location'] = $this->compose(ComponentEnum::SPAN)
                 ->setThemes($this->theme->locationThemes())
                 ->setContents([
-                    'icon' => FluxComponentBuilder::make('icon.map-pin')
+                    'icon' => FluxComponentFactory::make('icon.map-pin')
                         ->setThemeManager($themeManager)
                         ->setThemes($this->theme->iconThemes())
                         ->setAttribute('variant', 'outline'),

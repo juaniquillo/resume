@@ -6,10 +6,10 @@ use App\Models\CoverLetter;
 use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\Concerns\CanComposeResumeComponents;
 use Illuminate\Contracts\Support\Htmlable;
-use Juaniquillo\BackendComponents\Builders\LocalComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\LocalComponentFactory;
 
 final class CoverLetterPresenter
 {
@@ -34,7 +34,7 @@ final class CoverLetterPresenter
         return $this->compose(ComponentEnum::DIV)
             ->setThemes($this->theme->coverLetterContainerThemes())
             ->setContent(
-                LocalComponentBuilder::make('markdown')
+                LocalComponentFactory::make('markdown')
                     ->setContent($this->coverLetter->content)
             );
     }

@@ -10,10 +10,10 @@ use App\Livewire\Resume\Projects\DeleteProject;
 use App\Livewire\Resume\Projects\EditProject;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 
 final class ProjectsLivewireTableRenderer implements TableRenderer
 {
@@ -54,7 +54,7 @@ final class ProjectsLivewireTableRenderer implements TableRenderer
             ),
         ];
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [

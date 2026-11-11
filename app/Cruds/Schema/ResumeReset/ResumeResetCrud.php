@@ -9,7 +9,7 @@ use App\Cruds\Contracts\CrudInterface;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class ResumeResetCrud implements CrudForm, CrudInterface
@@ -39,7 +39,7 @@ final class ResumeResetCrud implements CrudForm, CrudInterface
 
     public function saveButton(): BackendComponent|CompoundComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'danger')
             ->setTheme('cursor', 'pointer')

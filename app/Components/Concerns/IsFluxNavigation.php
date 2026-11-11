@@ -5,11 +5,11 @@ namespace App\Components\Concerns;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 /**
@@ -19,7 +19,7 @@ trait IsFluxNavigation
 {
     public static function makeNav(): BackendComponent|Htmlable
     {
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents(
                 self::navItems()
             );
@@ -99,14 +99,14 @@ trait IsFluxNavigation
             $attr['expanded'] = '0';
         }
 
-        return FluxComponentBuilder::make(FluxComponentEnum::NAVLIST_GROUP)
+        return FluxComponentFactory::make(FluxComponentEnum::NAVLIST_GROUP)
             ->setAttributes($attr);
 
     }
 
     public static function single(array $item, bool $current = false): BackendComponent|ContentComponent
     {
-        $itemComponent = FluxComponentBuilder::make(FluxComponentEnum::SIDEBAR_ITEM)
+        $itemComponent = FluxComponentFactory::make(FluxComponentEnum::SIDEBAR_ITEM)
             ->setAttributes([
                 'icon' => $item['icon'],
                 'href' => route($item['route']),

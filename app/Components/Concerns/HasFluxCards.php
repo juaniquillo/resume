@@ -2,10 +2,10 @@
 
 namespace App\Components\Concerns;
 
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 /**
@@ -15,7 +15,7 @@ trait HasFluxCards
 {
     public static function makeCards(): BackendComponent
     {
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents(
                 self::cardLinks()
             );
@@ -27,7 +27,7 @@ trait HasFluxCards
 
         foreach (self::cards() as $item) {
 
-            $cards[] = ComponentBuilder::make(ComponentEnum::LINK)
+            $cards[] = ComponentFactory::make(ComponentEnum::LINK)
                 ->setAttributes([
                     'href' => $item['href'],
                     'aria-label' => $item['label'],
@@ -43,7 +43,7 @@ trait HasFluxCards
 
     public static function card(array $item): BackendComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::CARD)
+        return FluxComponentFactory::make(FluxComponentEnum::CARD)
             ->setAttributes([
                 'size' => 'sm',
             ])
@@ -63,7 +63,7 @@ trait HasFluxCards
 
     public static function cardHeading(array $item): BackendComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::HEADING)
+        return FluxComponentFactory::make(FluxComponentEnum::HEADING)
             ->setAttribute('class', 'flex items-center gap-1')
             ->setContents([
                 self::cardIcon($item),
@@ -73,14 +73,14 @@ trait HasFluxCards
 
     public static function cardText(array $item): BackendComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::TEXT)
+        return FluxComponentFactory::make(FluxComponentEnum::TEXT)
             ->setAttribute('class', 'mt-2')
             ->setContent($item['description'] ?? '');
     }
 
     public static function cardIcon(array $item): BackendComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::ICON)
+        return FluxComponentFactory::make(FluxComponentEnum::ICON)
             ->setAttribute('class', 'text-sky-500')
             ->setAttributes([
                 'name' => $item['icon'],

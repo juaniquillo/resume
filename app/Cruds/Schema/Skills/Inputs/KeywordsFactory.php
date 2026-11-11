@@ -9,11 +9,11 @@ use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
@@ -88,7 +88,7 @@ class KeywordsFactory
                 value: function (string|array|null $value, Model|Skill $model) {
 
                     if (is_array($value)) {
-                        $keywords = ComponentBuilder::make(ComponentEnum::DIV)
+                        $keywords = ComponentFactory::make(ComponentEnum::DIV)
                             ->setThemes([
                                 'display' => 'flex',
                                 'flex' => [
@@ -98,7 +98,7 @@ class KeywordsFactory
                             ]);
                         foreach ($value as $keyword) {
                             $keywords->setContent(
-                                FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                                FluxComponentFactory::make(FluxComponentEnum::BADGE)
                                     ->setAttributes([
                                         'color' => 'cyan',
                                     ])

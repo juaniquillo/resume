@@ -10,14 +10,14 @@ use App\Models\ResumeExport;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
-use Juaniquillo\FluxBackendComponents\Builders\FluxLocalThemeComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxLocalThemeComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Stringable;
 
@@ -69,14 +69,14 @@ class CustomOptionsFactory
 
     public static function modalContent(array $value): BackendComponent|CompoundComponent
     {
-        $wrapper = ComponentBuilder::make(ComponentEnum::DIV)
+        $wrapper = ComponentFactory::make(ComponentEnum::DIV)
             ->setThemes([
                 'margin' => 'top-xs',
             ]);
         $contents = [];
 
         foreach ($value as $key => $option) {
-            $contents[] = ComponentBuilder::make(ComponentEnum::DIV)
+            $contents[] = ComponentFactory::make(ComponentEnum::DIV)
                 ->setThemes([
                     'display' => 'flex',
                     'border' => 'bottom-sm',
@@ -89,14 +89,14 @@ class CustomOptionsFactory
                 ])
                 ->setContents([
                     // maybe an icon for later
-                    FluxLocalThemeComponentBuilder::make(FluxComponentEnum::TEXT)
+                    FluxLocalThemeComponentFactory::make(FluxComponentEnum::TEXT)
                         ->setContent(Str::headline($key))
                         ->setThemes([
                             'cards' => 'default-content',
                         ]),
-                    FluxLocalThemeComponentBuilder::make(FluxComponentEnum::TEXT)
+                    FluxLocalThemeComponentFactory::make(FluxComponentEnum::TEXT)
                         ->setContent(
-                            FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                            FluxComponentFactory::make(FluxComponentEnum::BADGE)
                                 ->setContent('true')
                                 ->setAttribute('color', 'lime')
                         )

@@ -11,11 +11,11 @@ use App\Livewire\Resume\Import\DeleteResumeImport;
 use App\Livewire\Resume\Import\EditResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 
 final class ResumeImportLivewireTableRenderer implements TableRenderer
 {
@@ -48,7 +48,7 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
         if ($import->status === ProcessStatus::FAILED && $import->error) {
             $contents[] = TableHelpers::tableModal(
                 id: "error-modal-{$import->id}",
-                content: LocalThemeComponentBuilder::make(ComponentEnum::PARAGRAPH)
+                content: LocalThemeComponentFactory::make(ComponentEnum::PARAGRAPH)
                     ->setContent($import->error)
                     ->setTheme('spacing', 'pt-sm')
                     ->setTheme('text', 'nl2br'),
@@ -72,7 +72,7 @@ final class ResumeImportLivewireTableRenderer implements TableRenderer
             );
         }
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [

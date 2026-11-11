@@ -9,14 +9,14 @@ use App\Enums\Network;
 use App\Models\Profile;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
@@ -108,7 +108,7 @@ class NetworkFactory
                         $color = $enum->colors();
                     }
 
-                    return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                    return FluxComponentFactory::make(FluxComponentEnum::BADGE)
                         ->setAttributes([
                             'color' => $color,
                         ])
@@ -139,7 +139,7 @@ class NetworkFactory
 
     public static function dataList(): BackendComponent|CompoundComponent
     {
-        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+        $datalist = ComponentFactory::make(ComponentEnum::DATALIST)
             ->setAttribute('id', self::LIST_ID)
             ->setContents(self::options());
 
@@ -152,7 +152,7 @@ class NetworkFactory
 
         foreach (self::optionsArray() as $optionArray) {
 
-            $option = ComponentBuilder::make(ComponentEnum::OPTION)
+            $option = ComponentFactory::make(ComponentEnum::OPTION)
                 ->setAttribute('value', $optionArray['value']);
 
             $options[] = $option;

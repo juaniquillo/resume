@@ -18,7 +18,7 @@ use App\Cruds\Schema\Locations\Renderers\LocationsLivewireFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class LocationsCrud implements CrudForm, CrudInterface
@@ -77,7 +77,7 @@ final class LocationsCrud implements CrudForm, CrudInterface
 
         $label = $this->saveButtonLabel;
 
-        return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setAttribute('type', 'submit')
             ->setAttribute('variant', 'primary')
             ->setAttribute('color', 'blue')

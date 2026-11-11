@@ -8,11 +8,11 @@ use App\Models\User;
 use App\Presenters\Resume\CoverLetterPresenter;
 use App\Presenters\Themes\ThemeFactory;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -35,14 +35,14 @@ class PreviewCoverLetter extends Component
         if ($model) {
             $theme = ThemeFactory::forUser($user);
 
-            return ComponentBuilder::make(ComponentEnum::DIV)
+            return ComponentFactory::make(ComponentEnum::DIV)
                 ->setTheme('margin', 'top-sm')
                 ->setContent(
                     (new CoverLetterPresenter($model, $theme))->present()
                 );
         }
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContent('No content available yet')
             ->setTheme('margin', 'top-sm');
     }
@@ -62,7 +62,7 @@ class PreviewCoverLetter extends Component
     {
         $id = $this->getModalKey();
 
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents([
                 // From trait
                 'button' => $this->modalButton(
@@ -74,7 +74,7 @@ class PreviewCoverLetter extends Component
                 // From trait
                 'modal' => $this->modalComponent(
                     id: $id,
-                    heading: FluxComponentBuilder::make(FluxComponentEnum::HEADING)
+                    heading: FluxComponentFactory::make(FluxComponentEnum::HEADING)
                         ->setAttribute('size', 'xl')
                         ->setContent('Cover Letter'),
                     content: $this->getPresenterContent(),

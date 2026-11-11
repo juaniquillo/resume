@@ -11,14 +11,14 @@ use App\Enums\EducationLevel;
 use App\Models\Education;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
@@ -91,7 +91,7 @@ class StudyTypeFactory
 
     public static function dataList(): BackendComponent|CompoundComponent
     {
-        $datalist = ComponentBuilder::make(ComponentEnum::DATALIST)
+        $datalist = ComponentFactory::make(ComponentEnum::DATALIST)
             ->setAttribute('id', self::LIST_ID)
             ->setContents(self::options());
 
@@ -103,7 +103,7 @@ class StudyTypeFactory
         $options = [];
 
         foreach (EducationLevel::cases() as $level) {
-            $options[] = ComponentBuilder::make(ComponentEnum::OPTION)
+            $options[] = ComponentFactory::make(ComponentEnum::OPTION)
                 ->setAttribute('value', $level->value);
         }
 
@@ -137,7 +137,7 @@ class StudyTypeFactory
                         $color = $enum->color();
                     }
 
-                    return FluxComponentBuilder::make(FluxComponentEnum::BADGE)
+                    return FluxComponentFactory::make(FluxComponentEnum::BADGE)
                         ->setAttributes([
                             'color' => $color,
                         ])

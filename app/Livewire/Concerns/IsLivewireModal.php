@@ -5,7 +5,7 @@ namespace App\Livewire\Concerns;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 trait IsLivewireModal
@@ -16,7 +16,7 @@ trait IsLivewireModal
 
     public function modalButton(string $label, int|string $id, ?string $variant = null, ?string $icon = null, ?string $size = null, ?array $themes = null): CompoundComponent|BackendComponent|ContentComponent
     {
-        $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+        $button = FluxComponentFactory::make(FluxComponentEnum::BUTTON)
             ->setContent($label)
             ->setTheme('cursor', 'pointer');
 
@@ -47,13 +47,13 @@ trait IsLivewireModal
         $contents = [];
 
         if ($heading) {
-            $contents['heading'] = FluxComponentBuilder::make(FluxComponentEnum::HEADING)
+            $contents['heading'] = FluxComponentFactory::make(FluxComponentEnum::HEADING)
                 ->setContent($heading);
         }
 
         $contents['content'] = $content;
 
-        $modal = FluxComponentBuilder::make(FluxComponentEnum::MODAL)
+        $modal = FluxComponentFactory::make(FluxComponentEnum::MODAL)
             ->setAttribute('name', $id)
             ->setContents($contents);
 
@@ -71,7 +71,7 @@ trait IsLivewireModal
 
     public function modalTrigger(int|string $id): CompoundComponent|BackendComponent|ContentComponent
     {
-        return FluxComponentBuilder::make(FluxComponentEnum::MODAL_TRIGGER)
+        return FluxComponentFactory::make(FluxComponentEnum::MODAL_TRIGGER)
             ->setAttribute('name', $id);
     }
 }

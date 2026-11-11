@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "550570b5de1e29630039360ddd8afd93",
+    "content-hash": "c66d5f9427dfe85826ed16a3b17a282c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1647,21 +1647,21 @@
         },
         {
             "name": "juaniquillo/flux-backend-components",
-            "version": "v0.2.4",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/flux-backend-components.git",
-                "reference": "efecd6a6a0b1a7e194ce410c135265ea87b0bcc2"
+                "reference": "4e528cb9c10e6a59ba4fcb117b3043296d665a74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/flux-backend-components/zipball/efecd6a6a0b1a7e194ce410c135265ea87b0bcc2",
-                "reference": "efecd6a6a0b1a7e194ce410c135265ea87b0bcc2",
+                "url": "https://api.github.com/repos/juaniquillo/flux-backend-components/zipball/4e528cb9c10e6a59ba4fcb117b3043296d665a74",
+                "reference": "4e528cb9c10e6a59ba4fcb117b3043296d665a74",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^12.0||^13.0",
-                "juaniquillo/laravel-backend-component": "^0.9.1||^0.10.0",
+                "juaniquillo/laravel-backend-component": "^0.11.0",
                 "livewire/flux": "^2.0",
                 "php": "^8.3"
             },
@@ -1712,28 +1712,28 @@
             ],
             "support": {
                 "issues": "https://github.com/juaniquillo/flux-backend-components/issues",
-                "source": "https://github.com/juaniquillo/flux-backend-components/tree/v0.2.4"
+                "source": "https://github.com/juaniquillo/flux-backend-components/tree/v0.3.0"
             },
-            "time": "2026-10-23T15:31:16+00:00"
+            "time": "2026-11-10T20:21:28+00:00"
         },
         {
             "name": "juaniquillo/input-component-action",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/input-component-action.git",
-                "reference": "d891e722f56482469d22bbfdd1ee200f2763167b"
+                "reference": "ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/d891e722f56482469d22bbfdd1ee200f2763167b",
-                "reference": "d891e722f56482469d22bbfdd1ee200f2763167b",
+                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3",
+                "reference": "ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^12.0||^13.0",
                 "juaniquillo/crud-assistant": "^0.3.0",
-                "juaniquillo/laravel-backend-component": "^0.10.0",
+                "juaniquillo/laravel-backend-component": "^0.11.0",
                 "php": "^8.3"
             },
             "require-dev": {
@@ -1770,22 +1770,22 @@
             "homepage": "https://github.com/juaniquillo/input-component-action",
             "support": {
                 "issues": "https://github.com/juaniquillo/input-component-action/issues",
-                "source": "https://github.com/juaniquillo/input-component-action/tree/v0.1.1"
+                "source": "https://github.com/juaniquillo/input-component-action/tree/v0.2.0"
             },
-            "time": "2026-11-09T20:11:42+00:00"
+            "time": "2026-11-10T22:04:33+00:00"
         },
         {
             "name": "juaniquillo/laravel-backend-component",
-            "version": "v0.10.0",
+            "version": "v0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/laravel-backend-component.git",
-                "reference": "1b3505c45b5f1adc626af2d29ad871a688a6c5e7"
+                "reference": "b6893b60b1041df8af99b4a750bc1c81434551f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/1b3505c45b5f1adc626af2d29ad871a688a6c5e7",
-                "reference": "1b3505c45b5f1adc626af2d29ad871a688a6c5e7",
+                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/b6893b60b1041df8af99b4a750bc1c81434551f3",
+                "reference": "b6893b60b1041df8af99b4a750bc1c81434551f3",
                 "shasum": ""
             },
             "require": {
@@ -1837,7 +1837,7 @@
                 "laravel-backend-component"
             ],
             "support": {
-                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.10.0"
+                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.11.0"
             },
             "funding": [
                 {
@@ -1845,7 +1845,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-22T20:39:24+00:00"
+            "time": "2026-11-10T19:19:07+00:00"
         },
         {
             "name": "juststeveking/resume-php",

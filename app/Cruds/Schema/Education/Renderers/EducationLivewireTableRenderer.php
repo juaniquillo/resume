@@ -10,11 +10,11 @@ use App\Livewire\Resume\Education\DeleteEducation;
 use App\Livewire\Resume\Education\EditEducation;
 use App\Models\Education;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 final class EducationLivewireTableRenderer implements TableRenderer
@@ -56,7 +56,7 @@ final class EducationLivewireTableRenderer implements TableRenderer
             ),
         ];
 
-        return ComponentBuilder::make(ComponentEnum::DIV)
+        return ComponentFactory::make(ComponentEnum::DIV)
             ->setContents($contents)
             ->setTheme('display', 'flex')
             ->setTheme('flex', [
@@ -73,9 +73,9 @@ final class EducationLivewireTableRenderer implements TableRenderer
                     /** @var Education $education */
                     $education = $model;
 
-                    return FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+                    return FluxComponentFactory::make(FluxComponentEnum::BUTTON)
                         ->setContent(
-                            FluxComponentBuilder::make('icon.building-library')
+                            FluxComponentFactory::make('icon.building-library')
                                 ->setAttribute('variant', 'micro')
                         )
                         ->setContent('Courses')
