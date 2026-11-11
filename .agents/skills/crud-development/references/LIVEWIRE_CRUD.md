@@ -26,7 +26,7 @@ use App\Livewire\Concerns\IsLivewireModal;
 use App\Models\User;
 use Flux\FluxManager;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -103,7 +103,7 @@ class CreateMyEntity extends Component
         $id = $this->getModalKey();
         $form = $this->getForm();
 
-        return ComponentBuilder::make(ComponentEnum::COLLECTION)
+        return ComponentFactory::make(ComponentEnum::COLLECTION)
             ->setContents([
                 'button' => $this->modalButton(
                     label: 'Create Item',

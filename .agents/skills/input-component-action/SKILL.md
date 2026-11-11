@@ -141,6 +141,8 @@ constructor runs.
 | `helpText` | Help text or closure |
 | `checkable` | Add `checked` when selected |
 | `selectable` | Add `selected` when selected |
+| `useParentName` | Inherit the parent input's `name` attribute |
+| `useInputNameAsValue` | Fall back to the input name when no value is resolved |
 
 ## Bags
 
@@ -362,12 +364,16 @@ $select->setSubElements(CrudAssistant::make([
 ]));
 ```
 
-`SelectOptionComponentRecipe` extends `InputComponentRecipe` and configures the
-usual option defaults: `SoleInputGroup`, the `option` component type, disabled
-wrapper/default name, `useParentValue`, `selectable`, and `labelAsInputContent`.
-Passing `['language' => ['php', 'js']]` marks both options selected.
+`SelectOptionComponentRecipe` extends the shared `ChoiceComponentRecipe` base and
+configures the usual option defaults: `SoleInputGroup`, the `option` component
+type, disabled wrapper/default name, `useParentValue`, `selectable`, and
+`labelAsInputContent`. Passing `['language' => ['php', 'js']]` marks both options
+selected.
 
-### Radio and checkbox groups
+### Radio and checkbox options
+
+`RadioComponentRecipe` and `CheckboxComponentRecipe` configure a single choice
+inside a group:
 
 ```php
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
@@ -375,9 +381,8 @@ use Juaniquillo\CrudAssistant\CrudAssistant;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\CrudAssistant\Inputs\RadioGroupInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
-use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
-use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\InputComponentAction\Recipes\RadioComponentRecipe;
 
 $group = new RadioGroupInput('choice', 'Choice');
 $group->setRecipe(new InputComponentRecipe(
@@ -385,23 +390,23 @@ $group->setRecipe(new InputComponentRecipe(
 ));
 
 $group->setSubElements(CrudAssistant::make([
-    (new DefaultInput('a', 'A'))->setRecipe(new InputComponentRecipe(
-        inputGroup: new SoleInputGroup,
-        componentBag: (new DefaultComponentBag)->setInputType(ComponentEnum::RADIO_INPUT),
-        disableBag: (new DefaultDisableBag)
-            ->setDisableWrapper()
-            ->setDisableDefaultNameAttribute(),
-        inputValue: 'a',
-        labelAsInputContent: true,
-        checkable: true,
-        useParentValue: true,
-    )),
+    (new DefaultInput('a', 'A'))->setRecipe(new RadioComponentRecipe),
+    (new DefaultInput('b', 'B'))->setRecipe(new RadioComponentRecipe),
 ]));
 ```
 
-`useParentValue: true` compares the child with the parent input value and adds
-`checked`/`selected` when they match. The parent is passed through the group
-context, so do not remove it when customizing sub-element resolution.
+`RadioComponentRecipe` inherits the parent `name`, uses the input name as the
+value, and adds `checked` when it matches the parent value. Swap it for
+`CheckboxComponentRecipe` for checkbox groups, or use it alone for a single
+checkbox.
+
+Both recipes only fill in defaults: a supplied component bag, group, or disable
+bag is kept. That means you can still use a custom component (such as a switch)
+or a label/error group. Use `setUseParentValue(false)` to opt out of parent
+comparison.
+
+All three recipes extend `ChoiceComponentRecipe`. The parent is passed through
+the group context, so do not remove it when customizing sub-element resolution.
 
 ## Action configuration
 
@@ -433,14 +438,12 @@ $action = (new InputComponentAction($values, $errors))
 $output = $crud->execute($action);
 
 $component = $output->inputs->get('name'); // BackendComponent
-$meta = $output->meta->toArray();
+$meta = $output->meta->all();
 ```
 
 - `inputs` is keyed by input name.
 - `meta` is free-form action metadata.
 - Components implement `Htmlable`; render with `{{ $component }}`.
-- Serialization belongs to `laravel-backend-component`:
-  `$component->toArray()` and `ComponentFactory::fromArray(...)`.
 
 ## Theming
 
@@ -468,6 +471,8 @@ over the action default theme bag.
   effective type.
 - Keep the parent linkage when resolving sub-elements; `selected`/`checked`
   depend on it.
+- Use `RadioComponentRecipe` / `CheckboxComponentRecipe` for radio and checkbox
+  options instead of repeating the type, `checkable`, and layout defaults.
 - Use `Default*Bag` classes unless a custom bag is genuinely required.
 
 ## Testing and QA
@@ -478,6 +483,9 @@ composer analyse    # PHPStan level 8
 composer format     # Pint
 composer qa         # format -> analyse -> test
 ```
+
+`laravel/pao` (dev) returns compact JSON when running inside an AI agent and
+normal output otherwise.
 
 ## Upgrading
 
