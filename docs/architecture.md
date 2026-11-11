@@ -10,7 +10,7 @@ All resume sections (Works, Education, Skills, etc.) are managed via **CrudAssis
 
 ## 2. Laravel Backend Component (`juaniquillo/laravel-backend-component`)
 Instead of writing static Blade HTML directly for complex dynamic views, component trees are composed in PHP objects:
-- Use `ComponentBuilder` and `ComponentEnum` to compose buttons, divs, tables, and modals.
+- Use `ComponentFactory` and `ComponentEnum` to compose buttons, divs, tables, and modals.
 - Themes accumulate cleanly and integrate directly with Tailwind CSS variants.
 - Models affecting public resumes apply the `InvalidatesResumeCache` trait automatically.
 

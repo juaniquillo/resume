@@ -26,7 +26,7 @@ CRUDs are built using a specialized "Squema" architecture located in `app/Cruds/
 
 ### 3. Backend Components
 The project heavily utilizes the **Backend Component** pattern. UIs are composed in PHP using a fluent API.
-- **Root Resolution:** Use `LocalThemeComponentBuilder` to resolve components with theme support.
+- **Root Resolution:** Use `LocalThemeComponentFactory` to resolve components with theme support.
 - **Granularity:** Themes are granular. For example, `BasicsPresenter` uses `emailThemes()`, `phoneThemes()`, and `profileThemes()` to style individual contact items.
 
 ### 4. Persistence & Logic (Actions)
@@ -266,14 +266,14 @@ Components implement Laravel's `Htmlable`.
 
 ### Creating components
 
-Use the `ComponentBuilder` with a `ComponentEnum`:
+Use the `ComponentFactory` with a `ComponentEnum`:
 
 ```php
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 
-$button = ComponentBuilder::make(ComponentEnum::BUTTON);
-$div    = ComponentBuilder::make(ComponentEnum::DIV);
+$button = ComponentFactory::make(ComponentEnum::BUTTON);
+$div    = ComponentFactory::make(ComponentEnum::DIV);
 ```
 
 ### Content management
@@ -281,7 +281,7 @@ $div    = ComponentBuilder::make(ComponentEnum::DIV);
 Use **`setContent()`** for a single item and **`setContents()`** for multiple items at once:
 
 ```php
-$div = ComponentBuilder::make(ComponentEnum::DIV)
+$div = ComponentFactory::make(ComponentEnum::DIV)
     ->setContent('Hello');                // single (no key)
     ->setContent('World', 'key_1');       // single with key
     ->setContents([...]);                 // batch (ignores keys)
@@ -297,7 +297,7 @@ $div->unsetContent('key_1');              // Remove by key
 Use **`setAttribute()`** for a single attribute and **`setAttributes()`** for multiple at once:
 
 ```php
-$div = ComponentBuilder::make(ComponentEnum::DIV)
+$div = ComponentFactory::make(ComponentEnum::DIV)
     ->setAttribute('id', 'my-id');        // single
     ->setAttribute('class', 'custom-class');
     ->setAttributes(['data-foo' => 'bar']); // batch
@@ -318,7 +318,7 @@ return [
 ```
 
 ```php
-$button = ComponentBuilder::make(ComponentEnum::BUTTON)
+$button = ComponentFactory::make(ComponentEnum::BUTTON)
     ->setTheme('action', 'success')                       // single variant
     ->setTheme('table', ['th', 'th-dark'])                // array of variant keys
     ->setThemes(['action' => 'success', 'size' => 'lg']); // batch
@@ -370,7 +370,7 @@ $table = TableUtil::make(
 ### Settings
 
 ```php
-$component = ComponentBuilder::make(ComponentEnum::MODAL)
+$component = ComponentFactory::make(ComponentEnum::MODAL)
     ->setSetting('transition', 'fade')
     ->setSettings(['setting_1' => 'value_1']);
 ```
@@ -378,7 +378,7 @@ $component = ComponentBuilder::make(ComponentEnum::MODAL)
 ### Livewire
 
 ```php
-ComponentBuilder::make('my-livewire-component')
+ComponentFactory::make('my-livewire-component')
     ->setLivewire()
     ->setLivewireKey('my-key')
     ->setLivewireParams(['param' => 'value']);
@@ -422,21 +422,21 @@ Self-closing tags (input, img, col) use `/>` instead.
 
 For apps consuming the package, three builders control which `resources/views/` directory resolves components and themes:
 
-- **`ComponentBuilder`** — package views for both components and themes
-- **`LocalComponentBuilder`** — app views for both components and themes
-- **`LocalThemeComponentBuilder`** — package views for components, app views for themes
+- **`ComponentFactory`** — package views for both components and themes
+- **`LocalComponentFactory`** — app views for both components and themes
+- **`LocalThemeComponentFactory`** — package views for components, app views for themes
 
 ```php
-use Juaniquillo\BackendComponents\Builders\ComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalComponentBuilder;
-use Juaniquillo\BackendComponents\Builders\LocalThemeComponentBuilder;
+use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalComponentFactory;
+use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
 
-$package     = ComponentBuilder::make(ComponentEnum::BUTTON);                  // package both
-$local       = LocalComponentBuilder::make(ComponentEnum::BUTTON);              // app both
-$localTheme  = LocalThemeComponentBuilder::make(ComponentEnum::BUTTON);         // package comp + app theme
+$package     = ComponentFactory::make(ComponentEnum::BUTTON);                  // package both
+$local       = LocalComponentFactory::make(ComponentEnum::BUTTON);              // app both
+$localTheme  = LocalThemeComponentFactory::make(ComponentEnum::BUTTON);         // package comp + app theme
 
-// ComponentBuilder also supports ->useLocal() as a shorthand for LocalComponentBuilder
-$component   = ComponentBuilder::make(ComponentEnum::BUTTON)->useLocal();
+// ComponentFactory also supports ->useLocal() as a shorthand for LocalComponentFactory
+$component   = ComponentFactory::make(ComponentEnum::BUTTON)->useLocal();
 ```
 
 ### Serialization
