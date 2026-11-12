@@ -24,8 +24,8 @@ use App\Cruds\Schema\Education\Renderers\EducationFormRenderer;
 use App\Cruds\Schema\Education\Renderers\EducationTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class EducationCrud implements CrudForm, CrudInterface, CrudTable
 {

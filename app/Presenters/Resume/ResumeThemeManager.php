@@ -2,8 +2,8 @@
 
 namespace App\Presenters\Resume;
 
-use Juaniquillo\BackendComponents\Concerns\IsThemeManager;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
+use Juaniquillo\BaseBackendComponent\Concerns\IsThemeManager;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeManager;
 
 class ResumeThemeManager implements ThemeManager
 {
@@ -12,5 +12,6 @@ class ResumeThemeManager implements ThemeManager
     public function __construct()
     {
         $this->setDefaultPath(resource_path('views/_themes/tailwind/resume/'));
+        $this->setThemeExtension('.blade.php');
     }
 }

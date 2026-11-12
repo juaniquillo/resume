@@ -3,8 +3,8 @@
 namespace App\Cruds\Schema\Locations\Renderers;
 
 use App\Cruds\Schema\Locations\LocationsCrud;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class LocationsFormRenderer
 {

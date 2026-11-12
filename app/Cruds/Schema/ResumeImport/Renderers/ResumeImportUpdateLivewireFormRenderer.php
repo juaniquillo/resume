@@ -6,8 +6,8 @@ use App\Cruds\Concerns\HasLivewireFormAttributes;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Schema\ResumeImport\ResumeImportCrud;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class ResumeImportUpdateLivewireFormRenderer implements FormRenderer
 {

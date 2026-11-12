@@ -10,10 +10,10 @@ use App\Livewire\Resume\Education\Courses\DeleteCourse;
 use App\Livewire\Resume\Education\Courses\EditCourse;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class CoursesLivewireTableRenderer implements TableRenderer
 {

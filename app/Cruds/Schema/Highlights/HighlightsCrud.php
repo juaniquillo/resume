@@ -16,8 +16,8 @@ use App\Cruds\Schema\Highlights\Renderers\HighlightsFormRenderer;
 use App\Cruds\Schema\Highlights\Renderers\HighlightsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class HighlightsCrud implements CrudForm, CrudInterface, CrudTable
 {

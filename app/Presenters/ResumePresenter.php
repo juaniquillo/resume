@@ -27,8 +27,8 @@ use App\Presenters\Resume\VolunteersPresenter;
 use App\Presenters\Resume\WorkPresenter;
 use App\Presenters\Themes\DefaultPresenterTheme;
 use Illuminate\Contracts\Support\Htmlable;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class ResumePresenter
 {

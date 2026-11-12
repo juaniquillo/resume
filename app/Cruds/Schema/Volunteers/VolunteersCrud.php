@@ -23,8 +23,8 @@ use App\Cruds\Schema\Volunteers\Renderers\VolunteersFormRenderer;
 use App\Cruds\Schema\Volunteers\Renderers\VolunteersTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Override;
 
 final class VolunteersCrud implements CrudForm, CrudInterface, CrudTable

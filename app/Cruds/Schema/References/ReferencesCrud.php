@@ -19,8 +19,8 @@ use App\Cruds\Schema\References\Renderers\ReferencesFormRenderer;
 use App\Cruds\Schema\References\Renderers\ReferencesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class ReferencesCrud implements CrudForm, CrudInterface, CrudTable
 {

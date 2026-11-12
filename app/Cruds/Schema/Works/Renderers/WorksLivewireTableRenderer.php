@@ -10,10 +10,10 @@ use App\Livewire\Resume\Works\DeleteWork;
 use App\Livewire\Resume\Works\EditWork;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class WorksLivewireTableRenderer implements TableRenderer
 {

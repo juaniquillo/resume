@@ -22,8 +22,8 @@ use App\Cruds\Schema\Projects\Renderers\ProjectsFormRenderer;
 use App\Cruds\Schema\Projects\Renderers\ProjectsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class ProjectsCrud implements CrudForm, CrudInterface, CrudTable
 {

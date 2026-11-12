@@ -19,8 +19,8 @@ use App\Cruds\Schema\Basics\Inputs\UuidFactory;
 use App\Cruds\Schema\Basics\Renderers\BasicsFormRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class BasicsCrud implements CrudForm, CrudInterface
 {

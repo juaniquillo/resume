@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c66d5f9427dfe85826ed16a3b17a282c",
+    "content-hash": "909c033c6db9c5e6b71ba8ae84661da2",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -563,7 +563,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "conflict": {
                 "phpunit/phpunit": "<=7.5 || >=14"
@@ -592,7 +592,7 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.6"
+                "source": "https://github.com/doctrine/deprecations/tree/1.2.0"
             },
             "time": "2026-02-07T07:09:04+00:00"
         },
@@ -1491,7 +1491,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/3.2.0"
+                "source": "https://github.com/guzzle/psr7/tree/3.2.1"
             },
             "funding": [
                 {
@@ -1596,6 +1596,63 @@
             "time": "2026-08-24T17:13:02+00:00"
         },
         {
+            "name": "juaniquillo/base-backend-component",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/juaniquillo/base-backend-component.git",
+                "reference": "890fed25a1ef4fb2751b43998850229e5c17b61d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/juaniquillo/base-backend-component/zipball/890fed25a1ef4fb2751b43998850229e5c17b61d",
+                "reference": "890fed25a1ef4fb2751b43998850229e5c17b61d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3",
+                "psr/simple-cache": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.89",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12",
+                "rector/rector": "^2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Juaniquillo\\BaseBackendComponent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Victor Sánchez",
+                    "email": "juaniquillo@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Framework-agnostic base state for backend components: attributes, contents, settings, themes, paths and array serialization. You choose how your components render.",
+            "homepage": "https://github.com/juaniquillo/base-backend-component",
+            "keywords": [
+                "Juaniquillo",
+                "backend-component",
+                "base-backend-component"
+            ],
+            "support": {
+                "issues": "https://github.com/juaniquillo/base-backend-component/issues",
+                "source": "https://github.com/juaniquillo/base-backend-component/tree/v0.1.0"
+            },
+            "time": "2026-11-11T16:38:32+00:00"
+        },
+        {
             "name": "juaniquillo/crud-assistant",
             "version": "0.3.0",
             "source": {
@@ -1647,21 +1704,22 @@
         },
         {
             "name": "juaniquillo/flux-backend-components",
-            "version": "v0.3.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/flux-backend-components.git",
-                "reference": "4e528cb9c10e6a59ba4fcb117b3043296d665a74"
+                "reference": "e69755bb2c259a428454b90026f403fcf3b1a2d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/flux-backend-components/zipball/4e528cb9c10e6a59ba4fcb117b3043296d665a74",
-                "reference": "4e528cb9c10e6a59ba4fcb117b3043296d665a74",
+                "url": "https://api.github.com/repos/juaniquillo/flux-backend-components/zipball/e69755bb2c259a428454b90026f403fcf3b1a2d2",
+                "reference": "e69755bb2c259a428454b90026f403fcf3b1a2d2",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^12.0||^13.0",
-                "juaniquillo/laravel-backend-component": "^0.11.0",
+                "juaniquillo/base-backend-component": "^0.1.0",
+                "juaniquillo/laravel-backend-component": "^0.12.0",
                 "livewire/flux": "^2.0",
                 "php": "^8.3"
             },
@@ -1712,28 +1770,29 @@
             ],
             "support": {
                 "issues": "https://github.com/juaniquillo/flux-backend-components/issues",
-                "source": "https://github.com/juaniquillo/flux-backend-components/tree/v0.3.0"
+                "source": "https://github.com/juaniquillo/flux-backend-components/tree/v0.4.0"
             },
-            "time": "2026-11-10T20:21:28+00:00"
+            "time": "2026-11-11T23:04:36+00:00"
         },
         {
             "name": "juaniquillo/input-component-action",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/input-component-action.git",
-                "reference": "ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3"
+                "reference": "88e8f059f0b7ad5c996fe579a22f4ea1f979b727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3",
-                "reference": "ea7b046bbdf2ff8a4803d206df22ce2ab5b089c3",
+                "url": "https://api.github.com/repos/juaniquillo/input-component-action/zipball/88e8f059f0b7ad5c996fe579a22f4ea1f979b727",
+                "reference": "88e8f059f0b7ad5c996fe579a22f4ea1f979b727",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^12.0||^13.0",
+                "juaniquillo/base-backend-component": "^0.1.0",
                 "juaniquillo/crud-assistant": "^0.3.0",
-                "juaniquillo/laravel-backend-component": "^0.11.0",
+                "juaniquillo/laravel-backend-component": "^0.12.0",
                 "php": "^8.3"
             },
             "require-dev": {
@@ -1770,26 +1829,29 @@
             "homepage": "https://github.com/juaniquillo/input-component-action",
             "support": {
                 "issues": "https://github.com/juaniquillo/input-component-action/issues",
-                "source": "https://github.com/juaniquillo/input-component-action/tree/v0.2.0"
+                "source": "https://github.com/juaniquillo/input-component-action/tree/v0.3.0"
             },
-            "time": "2026-11-10T22:04:33+00:00"
+            "time": "2026-11-12T02:24:15+00:00"
         },
         {
             "name": "juaniquillo/laravel-backend-component",
-            "version": "v0.11.0",
+            "version": "v0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/juaniquillo/laravel-backend-component.git",
-                "reference": "b6893b60b1041df8af99b4a750bc1c81434551f3"
+                "reference": "677e16a4fb5627aeb4c5120db1c4472d55f344c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/b6893b60b1041df8af99b4a750bc1c81434551f3",
-                "reference": "b6893b60b1041df8af99b4a750bc1c81434551f3",
+                "url": "https://api.github.com/repos/juaniquillo/laravel-backend-component/zipball/677e16a4fb5627aeb4c5120db1c4472d55f344c1",
+                "reference": "677e16a4fb5627aeb4c5120db1c4472d55f344c1",
                 "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^11.0||^12.0||^13.0",
+                "illuminate/support": "^11.0||^12.0||^13.0",
+                "illuminate/view": "^11.0||^12.0||^13.0",
+                "juaniquillo/base-backend-component": "^0.1.0",
                 "php": "^8.3",
                 "psr/simple-cache": "^3.0",
                 "spatie/laravel-package-tools": "^1.16"
@@ -1828,7 +1890,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Use Laravel component using php classes",
+            "description": "Build dynamic HTML components in PHP with Blade rendering, Tailwind themes, Livewire support and array serialization",
             "homepage": "https://github.com/juaniquillo/laravel-backend-component",
             "keywords": [
                 "Juaniquillo",
@@ -1837,7 +1899,7 @@
                 "laravel-backend-component"
             ],
             "support": {
-                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.11.0"
+                "source": "https://github.com/juaniquillo/laravel-backend-component/tree/v0.12.0"
             },
             "funding": [
                 {
@@ -1845,7 +1907,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-10T19:19:07+00:00"
+            "time": "2026-11-11T22:06:36+00:00"
         },
         {
             "name": "juststeveking/resume-php",
@@ -2015,7 +2077,7 @@
                 "league/commonmark": "^2.8.1",
                 "league/flysystem": "^3.25.1",
                 "league/flysystem-local": "^3.25.1",
-                "league/uri": "^7.5.1",
+                "league/uri": "^7.6",
                 "monolog/monolog": "^3.10",
                 "nesbot/carbon": "^3.8.4",
                 "nunomaduro/termwind": "^2.0",
@@ -2092,11 +2154,12 @@
                 "spatie/once": "*"
             },
             "require-dev": {
-                "ably/ably-php": "^1.0",
+                "ably/pubsub-server": "^1.0|^2.0",
                 "aws/aws-sdk-php": "^3.322.9",
                 "ext-gmp": "*",
                 "fakerphp/faker": "^1.24",
                 "intervention/image": "^4.2",
+                "jasonmccreary/double": "^1.1",
                 "laravel/pint": "^1.18",
                 "league/flysystem-aws-s3-v3": "^3.25.1",
                 "league/flysystem-ftp": "^3.25.1",
@@ -2108,7 +2171,7 @@
                 "orchestra/testbench-core": "^11.6.0",
                 "pda/pheanstalk": "^7.0.0 || ^8.0.0",
                 "php-http/discovery": "^1.15",
-                "phpstan/phpstan": "2.3.1",
+                "phpstan/phpstan": "2.3.5",
                 "phpunit/phpunit": "^11.5.50 || ^12.5.8 || ^13.0.3",
                 "predis/predis": "^2.3 || ^3.0",
                 "rector/rector": "2.6.3",
@@ -2121,7 +2184,7 @@
                 "web-token/jwt-library": "^4.1"
             },
             "suggest": {
-                "ably/ably-php": "Required to use the Ably broadcast driver (^1.0).",
+                "ably/pubsub-server": "Required to use the Ably broadcast driver (^1.0|^2.0).",
                 "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage, and SES mail driver (^3.322.9).",
                 "brianium/paratest": "Required to run tests in parallel (^7.0 || ^8.0).",
                 "ext-apcu": "Required to use the APC cache driver.",
@@ -13940,12 +14003,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.9.0"
 }
