@@ -43,7 +43,7 @@ class BuildResumeArray
         }
 
         if ($volunteer = (new VolunteerBuilder)->handle($this->user)) {
-            $data['volunteer'] = $volunteer;
+            $data['volunteers'] = $volunteer;
         }
 
         if ($education = (new EducationBuilder)->handle($this->user)) {

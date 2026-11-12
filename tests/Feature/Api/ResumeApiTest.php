@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ResumeSection;
 use App\Models\Basic;
 use App\Models\User;
 
@@ -58,7 +59,8 @@ test('returns 404 for a section that does not exist', function () {
     createPublishedResumeUser();
 
     $this->getJson(route('api.resume', ['user' => 'api-slug', 'section' => 'nope']))
-        ->assertStatus(404);
+        ->assertStatus(404)
+        ->assertJsonPath('message', "Section 'nope' not found in this resume. Available sections: ".implode(', ', ResumeSection::apiSections()).'.');
 });
 
 test('rate limits requests', function () {

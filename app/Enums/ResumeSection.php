@@ -47,4 +47,28 @@ enum ResumeSection: string
 
         return $labels;
     }
+
+    /**
+     * Section keys accepted by the API ?section= query parameter, in export order.
+     *
+     * Display sections with no top-level export key are excluded: downloads is
+     * never exported, and summary nests inside basics. Meta and basics are valid
+     * API keys but are not display sections, so they lead the list.
+     *
+     * @return list<string>
+     */
+    public static function apiSections(): array
+    {
+        $sections = ['meta', 'basics'];
+
+        foreach (self::cases() as $case) {
+            if ($case === self::DOWNLOADS || $case === self::SUMMARY) {
+                continue;
+            }
+
+            $sections[] = $case->value;
+        }
+
+        return $sections;
+    }
 }

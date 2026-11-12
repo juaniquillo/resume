@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Resume\Export\BuildResumeArray;
+use App\Enums\ResumeSection;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResumeResource;
 use App\Http\Resources\ResumeSectionResource;
@@ -33,7 +34,7 @@ class ResumeApiController extends Controller
             abort_unless(
                 array_key_exists($section, $resume),
                 404,
-                "Section '{$section}' not found in this resume.",
+                "Section '{$section}' not found in this resume. Available sections: ".implode(', ', ResumeSection::apiSections()).'.',
             );
 
             return new ResumeSectionResource($resume[$section]);

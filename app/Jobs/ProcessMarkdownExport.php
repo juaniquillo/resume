@@ -110,20 +110,15 @@ class ProcessMarkdownExport implements ShouldQueue
             return $resume;
         }
 
-        /** @var array<string, string|null> $keyMap ResumeSection value → BuildResumeArray key. */
-        $keyMap = [
-            'work' => 'work',
-            'volunteers' => 'volunteer',
-            'education' => 'education',
-            'awards' => 'awards',
-            'certificates' => 'certificates',
-            'publications' => 'publications',
-            'skills' => 'skills',
-            'languages' => 'languages',
-            'interests' => 'interests',
-            'references' => 'references',
-            'projects' => 'projects',
-        ];
+        /** @var array<string, string> $keyMap ResumeSection value → export key. */
+        $keyMap = [];
+        foreach (ResumeSection::cases() as $case) {
+            if ($case === ResumeSection::DOWNLOADS || $case === ResumeSection::SUMMARY) {
+                continue;
+            }
+
+            $keyMap[$case->value] = $case->value;
+        }
 
         if (! empty($settings['summary'])) {
             unset($resume['basics']['summary']);
@@ -156,7 +151,7 @@ class ProcessMarkdownExport implements ShouldQueue
 
         return array_values(array_filter(
             $ordered,
-            fn (string $section) => $section !== 'downloads' && $section !== 'basics',
+            fn (string $section) => $section !== ResumeSection::DOWNLOADS->value && $section !== 'basics',
         ));
     }
 }
