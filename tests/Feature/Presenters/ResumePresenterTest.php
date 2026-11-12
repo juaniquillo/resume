@@ -22,8 +22,8 @@ use App\Presenters\Contracts\PresenterTheme;
 use App\Presenters\Resume\CoverLetterPresenter;
 use App\Presenters\ResumePresenter;
 use App\Presenters\Themes\DefaultPresenterTheme;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 
 test('it can present a resume for a user', function () {
     $user = User::factory()->create();
