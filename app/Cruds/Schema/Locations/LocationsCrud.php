@@ -16,8 +16,8 @@ use App\Cruds\Schema\Locations\Inputs\PostalCodeFactory;
 use App\Cruds\Schema\Locations\Inputs\RegionFactory;
 use App\Cruds\Schema\Locations\Renderers\LocationsLivewireFormRenderer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 

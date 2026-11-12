@@ -2,10 +2,10 @@
 
 namespace App\Presenters\Resume\Concerns;
 
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 trait CanComposeResumeComponents
 {
@@ -24,7 +24,7 @@ trait CanComposeResumeComponents
             ]);
     }
 
-    private function compose(ComponentEnum|string $case): CompoundComponent
+    private function compose(ComponentEnum|string $case): MainBackendComponent
     {
         $themeManager = $this->getThemeManager();
         $component = new MainBackendComponent($case, $themeManager);

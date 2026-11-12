@@ -11,11 +11,11 @@ use App\Livewire\Resume\Import\DeleteResumeImport;
 use App\Livewire\Resume\Import\EditResumeImport;
 use App\Models\ResumeImport;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class ResumeImportLivewireTableRenderer implements TableRenderer
 {

@@ -20,8 +20,8 @@ use App\Cruds\Schema\Certificates\Renderers\CertificatesFormRenderer;
 use App\Cruds\Schema\Certificates\Renderers\CertificatesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class CertificatesCrud implements CrudForm, CrudInterface, CrudTable
 {

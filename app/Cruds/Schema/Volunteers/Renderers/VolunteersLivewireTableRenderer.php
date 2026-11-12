@@ -10,10 +10,10 @@ use App\Livewire\Resume\Volunteers\DeleteVolunteer;
 use App\Livewire\Resume\Volunteers\EditVolunteer;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class VolunteersLivewireTableRenderer implements TableRenderer
 {

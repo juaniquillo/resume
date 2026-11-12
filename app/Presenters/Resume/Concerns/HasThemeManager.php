@@ -3,7 +3,7 @@
 namespace App\Presenters\Resume\Concerns;
 
 use App\Presenters\Resume\ResumeThemeManager;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeManager;
 
 trait HasThemeManager
 {

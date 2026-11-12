@@ -23,7 +23,7 @@ use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
 use Stringable;
 
-use function Juaniquillo\BackendComponents\isBackedEnum;
+use function Juaniquillo\BaseBackendComponent\isBackedEnum;
 
 class ExportTypeSelectFactory
 {

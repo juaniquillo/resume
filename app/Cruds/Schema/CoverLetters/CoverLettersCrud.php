@@ -13,10 +13,11 @@ use App\Cruds\Schema\CoverLetters\Inputs\ContentFactory;
 use App\Livewire\Resume\CoverLetters\PreviewCoverLetter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Override;
@@ -73,7 +74,7 @@ final class CoverLettersCrud implements CrudForm, CrudInterface, CrudTable
                 'flex' => 'gap-sm',
             ])
             ->setContents([
-                'preview' => ComponentFactory::make(PreviewCoverLetter::class)
+                'preview' => (new MainBackendComponent(PreviewCoverLetter::class))
                     ->setLivewire()
                     ->setLivewireKey('preview-cover-letter'),
                 'save' => FluxComponentFactory::make(FluxComponentEnum::BUTTON)

@@ -19,8 +19,8 @@ use App\Cruds\Schema\Languages\Renderers\LanguagesFormRenderer;
 use App\Cruds\Schema\Languages\Renderers\LanguagesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class LanguagesCrud implements CrudForm, CrudInterface, CrudTable
 {

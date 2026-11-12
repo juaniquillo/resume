@@ -9,7 +9,7 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;

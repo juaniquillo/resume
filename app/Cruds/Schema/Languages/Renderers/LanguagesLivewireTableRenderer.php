@@ -10,10 +10,10 @@ use App\Livewire\Resume\Languages\DeleteLanguage;
 use App\Livewire\Resume\Languages\EditLanguage;
 use App\Models\Language;
 use Illuminate\Database\Eloquent\Model;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class LanguagesLivewireTableRenderer implements TableRenderer
 {

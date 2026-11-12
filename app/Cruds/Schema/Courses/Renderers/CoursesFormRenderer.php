@@ -5,8 +5,8 @@ namespace App\Cruds\Schema\Courses\Renderers;
 use App\Cruds\Contracts\CrudForm;
 use App\Cruds\Contracts\FormRenderer;
 use App\Cruds\Schema\Courses\CoursesCrud;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class CoursesFormRenderer implements FormRenderer
 {

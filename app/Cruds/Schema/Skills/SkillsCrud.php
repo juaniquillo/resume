@@ -20,8 +20,8 @@ use App\Cruds\Schema\Skills\Renderers\SkillsFormRenderer;
 use App\Cruds\Schema\Skills\Renderers\SkillsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class SkillsCrud implements CrudForm, CrudInterface, CrudTable
 {

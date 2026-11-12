@@ -16,8 +16,8 @@ use App\Cruds\Schema\Courses\Renderers\CoursesFormRenderer;
 use App\Cruds\Schema\Courses\Renderers\CoursesTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class CoursesCrud implements CrudForm, CrudInterface, CrudTable
 {

@@ -7,8 +7,8 @@ use App\Livewire\Concerns\IsLivewireForm;
 use App\Models\Education;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 

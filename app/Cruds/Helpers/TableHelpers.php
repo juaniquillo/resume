@@ -6,11 +6,12 @@ use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Enums\ProcessStatus;
 use BackedEnum;
 use Carbon\CarbonImmutable;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BackendComponents\Factories\LocalThemeComponentFactory;
+use Juaniquillo\BackendComponents\MainBackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
@@ -110,7 +111,7 @@ final class TableHelpers
     /** @param class-string<Component>|BackedEnum $component */
     public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
     {
-        $component = ComponentFactory::make($component)
+        $component = new MainBackendComponent($component)
             ->setLivewire()
             ->setLivewireKey($id)
             ->setLivewireParams($params);

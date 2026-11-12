@@ -21,8 +21,8 @@ use App\Cruds\Schema\Publications\Renderers\PublicationsFormRenderer;
 use App\Cruds\Schema\Publications\Renderers\PublicationsTableRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 
 final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
 {

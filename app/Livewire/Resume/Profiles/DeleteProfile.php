@@ -5,8 +5,8 @@ namespace App\Livewire\Resume\Profiles;
 use App\Cruds\Helpers\TableHelpers;
 use App\Livewire\Concerns\IsLivewireForm;
 use Illuminate\Support\Facades\Auth;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
