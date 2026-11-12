@@ -155,7 +155,7 @@ Component class and type per slot:
 
 ```php
 use BackedEnum;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 
@@ -214,7 +214,7 @@ Hooks receive the built component and can replace or mutate it. Available hooks:
 `input`, `wrapper`, `label`, `error`, `helpText`.
 
 ```php
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\InputComponentAction\Bags\DefaultHookBag;
 
 (new DefaultHookBag)->setInputHook(
@@ -286,8 +286,8 @@ For full control, implement `InputGroup` with `IsInputGroup` and the `Has*`
 traits:
 
 ```php
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\ContentComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\ContentComponent;
 use Juaniquillo\InputComponentAction\Concerns\HasLabel;
 use Juaniquillo\InputComponentAction\Concerns\HasWrapper;
 use Juaniquillo\InputComponentAction\Concerns\IsInputGroup;
