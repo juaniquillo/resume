@@ -12,8 +12,10 @@ final class ResumeResource extends JsonResource
     /**
      * Transform the resume array into a JSON response payload.
      *
-     * The underlying export array already follows the JSON Resume schema, so it
-     * is returned as-is to keep the API and the JSON export in sync.
+     * The underlying export array mirrors the JSON Resume schema, except the
+     * volunteer section uses the ResumeSection key `volunteers` (singular
+     * `volunteer` in the schema). It is returned as-is to keep the API and
+     * the JSON export in sync.
      *
      * @return array<array-key, mixed>
      */

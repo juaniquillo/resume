@@ -25,6 +25,20 @@ test('public resume route is accessible by slug', function () {
     $response->assertSee(route('api.resume', ['user' => 'test-slug']));
 });
 
+test('public resume api dialog lists all available sections', function () {
+    $user = User::factory()->create();
+    $user->generalOptions()->update(['slug' => 'sections-slug', 'is_draft' => false]);
+    Basic::factory()->create(['user_id' => $user->id, 'name' => 'Section User']);
+
+    $response = $this->get(route('resume', ['user' => 'sections-slug']));
+
+    $response->assertStatus(200);
+
+    foreach (ResumeSection::apiSections() as $section) {
+        $response->assertSee($section);
+    }
+});
+
 test('resume route returns 404 for non-existent slug', function () {
     $response = $this->get('/resume/non-existent-slug');
 

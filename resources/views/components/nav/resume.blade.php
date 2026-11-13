@@ -42,6 +42,11 @@
                 <p class="mt-3 text-xs text-gray-500 dark:text-gray-500">
                     Send an <code class="rounded bg-gray-100 px-1 dark:bg-gray-800">Accept: application/json</code> header; append
                     <code class="rounded bg-gray-100 px-1 dark:bg-gray-800">?section=basics</code> for a single section.
+                    Available sections:
+                    @foreach (\App\Enums\ResumeSection::apiSections() as $apiSection)
+                        <code class="rounded bg-gray-100 px-1 dark:bg-gray-800">{{ $apiSection }}</code>
+                    @endforeach
+                    Only sections with content are returned.
                 </p>
 
                 <div class="mt-5 text-right">

@@ -16,7 +16,11 @@ class VolunteerProcessor
 
     public function process(User $user, array $data): void
     {
-        if (! isset($data['volunteer'])) {
+        // Our exports use the ResumeSection key; fall back to the JSON Resume
+        // key so standard files still import.
+        $volunteers = $data['volunteers'] ?? $data['volunteer'] ?? null;
+
+        if (! is_array($volunteers)) {
             return;
         }
 
@@ -24,7 +28,7 @@ class VolunteerProcessor
         $volunteerInputs = $volunteerCrud->make();
         $volunteerRules = $volunteerInputs->execute(new LaravelValidationRulesAction)->toArray();
 
-        foreach ($data['volunteer'] as $volunteerData) {
+        foreach ($volunteers as $volunteerData) {
             $mapped = $volunteerInputs->execute(new NameValueAction($volunteerData))
                 ->toArray();
 

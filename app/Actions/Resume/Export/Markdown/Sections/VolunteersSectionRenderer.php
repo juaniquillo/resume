@@ -16,8 +16,7 @@ final class VolunteersSectionRenderer implements MarkdownSectionRenderer
 
     public function render(array $resume): array
     {
-        // BuildResumeArray uses the singular key.
-        $volunteers = $resume['volunteer'] ?? null;
+        $volunteers = $resume['volunteers'] ?? null;
 
         if (! is_array($volunteers) || $volunteers === []) {
             return [];
