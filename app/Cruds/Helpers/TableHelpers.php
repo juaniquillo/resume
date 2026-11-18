@@ -111,7 +111,7 @@ final class TableHelpers
     /** @param class-string<Component>|BackedEnum $component */
     public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
     {
-        $component = new MainBackendComponent($component)
+        $component = (new MainBackendComponent($component))
             ->setLivewire()
             ->setLivewireKey($id)
             ->setLivewireParams($params);
