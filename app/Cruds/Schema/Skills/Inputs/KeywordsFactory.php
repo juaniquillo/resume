@@ -4,7 +4,6 @@ namespace App\Cruds\Schema\Skills\Inputs;
 
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Skill;
@@ -17,6 +16,7 @@ use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class KeywordsFactory
 {
@@ -84,7 +84,7 @@ class KeywordsFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function (string|array|null $value, Model|Skill $model) {
 
                     if (is_array($value)) {

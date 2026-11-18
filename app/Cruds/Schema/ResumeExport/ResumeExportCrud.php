@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
@@ -32,6 +31,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -101,7 +101,7 @@ final class ResumeExportCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formRenderer->getForm($this);
     }
 
-    public function tableOptions(TableRowsAction $action): void
+    public function tableOptions(TableCellsAction $action): void
     {
         $this->tableRenderer->tableActionInstance($action);
     }

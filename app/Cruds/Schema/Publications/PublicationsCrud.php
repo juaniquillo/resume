@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Publications;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -23,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -92,7 +92,7 @@ final class PublicationsCrud implements CrudForm, CrudInterface, CrudTable
      * Runs once after all inputs
      * are processed
      */
-    protected function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableCellsAction $action): void
     {
         $this->tableRenderer->tableActionInstance($action);
     }

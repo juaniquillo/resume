@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Renderers;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\ResumeExport;
@@ -12,6 +10,8 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 final class ResumeExportTableRenderer implements TableRenderer
 {
@@ -22,9 +22,9 @@ final class ResumeExportTableRenderer implements TableRenderer
         return new self;
     }
 
-    public function tableActionInstance(TableRowsAction $action): void
+    public function tableActionInstance(TableCellsAction $action): void
     {
-        $action->setExtraCell('Actions', new TableRowsRecipe(
+        $action->setExtraCell('Actions', new TableCellsRecipe(
             value: fn ($value, $model) => $this->renderSettings($model)
         ));
 

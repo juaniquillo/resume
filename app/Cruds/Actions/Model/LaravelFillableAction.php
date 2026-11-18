@@ -15,30 +15,31 @@ class LaravelFillableAction extends Action implements ActionInterface
      */
     public function execute(InputCollectionInterface|InputInterface $input): void
     {
-        $output = $this->getOutput();
-        $name = $input->getName();
-        $label = $input->getLabel();
-
+        /** @var LaravelFillableRecipe|null */
         $recipe = $input->getRecipe($this->getIdentifier());
 
-        if ($recipe) {
-            $fillable = $recipe->fillable ?? null;
+        $output = $this->getOutput();
+        $name = $input->getName();
 
-            if ($fillable) {
-                $output[$name] = $fillable;
+        if ($recipe) {
+            $recipeName = $recipe->name ?? null;
+
+            if ($recipeName) {
+                $output->push($recipeName);
 
                 return;
             }
 
             $callback = $recipe->callback ?? null;
             if (Helpers::isClosure($callback)) {
-                $output[$name] = $callback($input);
+                $recipeCallbackName = $callback($input);
+                $output->push($recipeCallbackName);
 
                 return;
             }
 
         }
 
-        $output[$name] = $label;
+        $output->push($name);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
@@ -13,6 +12,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class NameFactory
 {
@@ -72,7 +72,7 @@ class NameFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            (new TableRowsRecipe(
+            (new TableCellsRecipe(
                 value: fn ($value, Model $model) => $model->{$input->getName()} ?? TableHelpers::emptyValue()
             ))
         );

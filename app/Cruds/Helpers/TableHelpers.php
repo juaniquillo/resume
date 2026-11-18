@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Helpers;
 
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Enums\ProcessStatus;
 use BackedEnum;
 use Carbon\CarbonImmutable;
@@ -15,6 +14,7 @@ use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Livewire\Component;
 use Stringable;
 
@@ -111,7 +111,7 @@ final class TableHelpers
     /** @param class-string<Component>|BackedEnum $component */
     public function liveWireComponent(string|BackedEnum $component, int|string $id, array $params): BackendComponent|CompoundComponent
     {
-        $component = new MainBackendComponent($component)
+        $component = (new MainBackendComponent($component))
             ->setLivewire()
             ->setLivewireKey($id)
             ->setLivewireParams($params);
@@ -227,7 +227,7 @@ final class TableHelpers
 
     public static function formatDateOutput(?InputInterface $input): void
     {
-        $recipe = new TableRowsRecipe(
+        $recipe = new TableCellsRecipe(
             value: fn (?CarbonImmutable $value) => DateHelpers::formatDateOutput($value)
         );
 

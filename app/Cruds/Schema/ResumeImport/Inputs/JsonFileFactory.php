@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
@@ -15,6 +14,7 @@ use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Stringable;
 
 class JsonFileFactory
@@ -77,7 +77,7 @@ class JsonFileFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function (Stringable|BackedEnum|string|array|null $value, Model $model) {
                     /** @var ResumeImport $import */
                     $import = $model;

@@ -5,7 +5,6 @@ namespace App\Cruds\Schema\Education\Inputs;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Education;
@@ -16,6 +15,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class InstitutionFactory
 {
@@ -32,7 +32,7 @@ class InstitutionFactory
         self::factory($input);
         self::import($input);
         self::export($input);
-        // self::table($input);
+        self::table($input);
 
         return $input;
     }
@@ -81,7 +81,7 @@ class InstitutionFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function (mixed $value, Model|Education $model) {
                     return TableHelpers::nl2br($value);
                 },

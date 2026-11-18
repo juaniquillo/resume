@@ -5,7 +5,6 @@ namespace App\Cruds\Schema\Education\Inputs;
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
@@ -14,6 +13,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class ScoreFactory
 {
@@ -78,7 +78,7 @@ class ScoreFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function (mixed $value) {
                     return $value ?? TableHelpers::emptyValue();
                 },

@@ -2,9 +2,9 @@
 
 namespace App\Cruds\Contracts;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 interface TableRenderer
 {
-    public function tableActionInstance(TableRowsAction $action): void;
+    public function tableActionInstance(TableCellsAction $action): void;
 }

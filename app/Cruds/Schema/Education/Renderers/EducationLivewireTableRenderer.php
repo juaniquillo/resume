@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Education\Renderers;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Livewire\Resume\Education\DeleteEducation;
@@ -16,6 +14,8 @@ use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 final class EducationLivewireTableRenderer implements TableRenderer
 {
@@ -24,9 +24,9 @@ final class EducationLivewireTableRenderer implements TableRenderer
         return new self;
     }
 
-    public function tableActionInstance(TableRowsAction $action): void
+    public function tableActionInstance(TableCellsAction $action): void
     {
-        $action->setExtraCell('Settings', new TableRowsRecipe(
+        $action->setExtraCell('Settings', new TableCellsRecipe(
             value: fn ($value, $model) => $this->renderSettings($model)
         ));
 
@@ -67,7 +67,7 @@ final class EducationLivewireTableRenderer implements TableRenderer
     public function renderExtraCells(): array
     {
         return [
-            'Courses' => new TableRowsRecipe(
+            'Courses' => new TableCellsRecipe(
                 value: function ($value, Model $model) {
 
                     /** @var Education $education */

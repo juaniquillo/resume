@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Profiles;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -25,6 +24,7 @@ use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -92,7 +92,7 @@ final class ProfilesCrud implements CrudForm, CrudInterface, CrudTable
         return $this->form();
     }
 
-    protected function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableCellsAction $action): void
     {
         $this->tableRenderer->tableActionInstance($action);
     }

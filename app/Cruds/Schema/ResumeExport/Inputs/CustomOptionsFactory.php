@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\ResumeExport;
@@ -19,6 +17,8 @@ use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\Factories\FluxLocalThemeComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Stringable;
 
 class CustomOptionsFactory
@@ -34,7 +34,7 @@ class CustomOptionsFactory
         /** Just for the table */
         $input->setType(FormHelpers::IGNORE_LIVEWIRE_BINDINGS);
         $input->onlyFor([
-            TableRowsAction::class,
+            TableCellsAction::class,
         ]);
 
         self::table($input);
@@ -45,7 +45,7 @@ class CustomOptionsFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function (Stringable|BackedEnum|array|null $value, Model $model): BackendComponent|CompoundComponent {
 
                     if (! $value) {

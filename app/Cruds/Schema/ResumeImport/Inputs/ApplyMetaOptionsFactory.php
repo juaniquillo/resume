@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
@@ -17,6 +16,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class ApplyMetaOptionsFactory
 {
@@ -83,7 +83,7 @@ class ApplyMetaOptionsFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            (new TableRowsRecipe(
+            (new TableCellsRecipe(
                 value: fn ($value, Model $model) => $model->{$input->getName()} ?? TableHelpers::emptyValue()
             ))
         );

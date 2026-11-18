@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Works;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -24,6 +23,7 @@ use Illuminate\Support\Str;
 use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 final class WorksCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -89,7 +89,7 @@ final class WorksCrud implements CrudForm, CrudInterface, CrudTable
      * Runs once after all inputs
      * are processed
      */
-    protected function tableOptions(TableRowsAction $action): void
+    protected function tableOptions(TableCellsAction $action): void
     {
         $this->tableRenderer->tableActionInstance($action);
     }

@@ -3,7 +3,6 @@
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ResumeTheme;
@@ -21,6 +20,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Stringable;
 
 class ExportThemeSelectFactory
@@ -83,7 +83,7 @@ class ExportThemeSelectFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 label: 'Theme',
                 value: function (Stringable|BackedEnum|string|array|null $value, Model $model) {
 

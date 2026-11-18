@@ -3,10 +3,10 @@
 namespace App\Cruds\Schema\Locations\Inputs;
 
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class UuidFactory
 {
@@ -29,7 +29,7 @@ class UuidFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            (new TableRowsRecipe)
+            (new TableCellsRecipe)
                 ->ignore()
         );
     }
