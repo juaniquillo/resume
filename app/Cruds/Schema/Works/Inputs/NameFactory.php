@@ -11,6 +11,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class NameFactory
 {
@@ -28,6 +29,8 @@ class NameFactory
         self::validation($input);
         self::factory($input);
         self::import($input);
+
+        self::table($input);
 
         return $input;
     }
@@ -71,5 +74,10 @@ class NameFactory
                 }
             )
         );
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(new TableCellsRecipe);
     }
 }

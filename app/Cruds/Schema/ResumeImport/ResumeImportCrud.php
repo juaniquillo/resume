@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeImport;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use App\Cruds\Concerns\HasHtmlForm;
 use App\Cruds\Concerns\HasHtmlTable;
 use App\Cruds\Concerns\IsCrud;
@@ -24,6 +23,7 @@ use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
 
 final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
 {
@@ -86,7 +86,7 @@ final class ResumeImportCrud implements CrudForm, CrudInterface, CrudTable
         return $this->formRenderer->getForm($this);
     }
 
-    public function tableOptions(TableRowsAction $action): void
+    public function tableOptions(TableCellsAction $action): void
     {
         $this->tableRenderer->tableActionInstance($action);
     }

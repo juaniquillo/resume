@@ -13,7 +13,9 @@
         "livewire/blaze",
         "spatie/laravel-pdf",
         "spatie/laravel-screenshot",
-        "fruitcake/laravel-debugbar"
+        "fruitcake/laravel-debugbar",
+        "juaniquillo/flux-backend-components",
+        "juaniquillo/table-component-action"
     ],
     "sail": false,
     "skills": [
@@ -24,8 +26,10 @@
         "fluxui-development",
         "livewire-development",
         "tailwindcss-development",
+        "flux-backend-development",
         "input-component-action",
         "backend-component",
+        "table-component-action",
         "blaze-optimize",
         "laravel-pdf",
         "laravel-screenshot",

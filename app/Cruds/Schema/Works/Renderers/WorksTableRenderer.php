@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\Works\Renderers;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Models\Work;
@@ -12,6 +10,8 @@ use Juaniquillo\BackendComponents\Enums\ComponentEnum;
 use Juaniquillo\BackendComponents\Factories\ComponentFactory;
 use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 final class WorksTableRenderer implements TableRenderer
 {
@@ -20,9 +20,9 @@ final class WorksTableRenderer implements TableRenderer
         return new self;
     }
 
-    public function tableActionInstance(TableRowsAction $action): void
+    public function tableActionInstance(TableCellsAction $action): void
     {
-        $action->setExtraCell('Settings', new TableRowsRecipe(
+        $action->setExtraCell('Settings', new TableCellsRecipe(
             value: fn ($value, $model) => $this->renderSettings($model)
         ));
 
@@ -56,7 +56,7 @@ final class WorksTableRenderer implements TableRenderer
     {
         // Implementation for rendering extra cells
         return [
-            'Highlights' => new TableRowsRecipe(
+            'Highlights' => new TableCellsRecipe(
                 value: function ($value, Model $model) {
                     /** @var Work $work */
                     $work = $model;

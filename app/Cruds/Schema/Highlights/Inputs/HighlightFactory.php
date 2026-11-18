@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\Highlights\Inputs;
 
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\FormHelpers;
 use App\Cruds\Helpers\TableHelpers;
@@ -21,6 +20,7 @@ use Juaniquillo\InputComponentAction\Contracts\ValueManager;
 use Juaniquillo\InputComponentAction\Groups\InputErrorGroup;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class HighlightFactory
 {
@@ -95,7 +95,7 @@ class HighlightFactory
     public static function table(InputInterface $input): void
     {
         $input->setRecipe(
-            new TableRowsRecipe(
+            new TableCellsRecipe(
                 value: function ($value) {
                     if ($value === null) {
                         return TableHelpers::emptyValue();

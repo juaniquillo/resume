@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Renderers;
 
-use App\Cruds\Actions\Presenters\TableRowsAction;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use App\Cruds\Contracts\TableRenderer;
 use App\Cruds\Helpers\TableHelpers;
 use App\Livewire\Resume\Export\DeleteResumeExport;
@@ -17,6 +15,8 @@ use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 final class ResumeExportLivewireTableRenderer implements TableRenderer
 {
@@ -32,9 +32,9 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
             ->setContent($model->created_at->diffForHumans());
     }
 
-    public function tableActionInstance(TableRowsAction $action): void
+    public function tableActionInstance(TableCellsAction $action): void
     {
-        $action->setExtraCell('Actions', new TableRowsRecipe(
+        $action->setExtraCell('Actions', new TableCellsRecipe(
             value: fn ($value, $model) => $this->renderSettings($model)
         ));
 
@@ -109,7 +109,7 @@ final class ResumeExportLivewireTableRenderer implements TableRenderer
     {
         // Implementation for rendering extra cells
         return [
-            'Created' => new TableRowsRecipe(
+            'Created' => new TableCellsRecipe(
                 value: function ($value, Model $model) {
                     /** @var ResumeExport $export */
                     $export = $model;

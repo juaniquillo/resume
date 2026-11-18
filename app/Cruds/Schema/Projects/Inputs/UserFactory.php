@@ -4,10 +4,10 @@ namespace App\Cruds\Schema\Projects\Inputs;
 
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\Model\LaravelFactoryRecipe;
-use App\Cruds\Actions\Presenters\TableRowsRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class UserFactory
 {
@@ -23,7 +23,7 @@ class UserFactory
 
         $input->setRecipe((new LaravelFactoryRecipe)->ignore());
 
-        $input->setRecipe((new TableRowsRecipe)->ignore());
+        $input->setRecipe((new TableCellsRecipe)->ignore());
 
         $input->setRecipe((new ModelToExportRecipe)->ignore());
 

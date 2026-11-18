@@ -16,7 +16,7 @@ class LaravelFillableRecipe implements RecipeInterface
         /** @var Closure(InputInterface $input):string|null */
         public readonly ?Closure $callback = null,
     ) {
-        $this->action = LaravelFillableRecipe::class;
+        $this->action = LaravelFillableAction::class;
     }
 
 }

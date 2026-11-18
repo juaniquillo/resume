@@ -2,8 +2,6 @@
 
 namespace App\Cruds\Concerns;
 
-use App\Cruds\Actions\Presenters\TableComponentUtil;
-use App\Cruds\Actions\Presenters\TableRowsAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -11,6 +9,8 @@ use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
 use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+use Juaniquillo\TableComponentAction\TableCellsAction;
+use Juaniquillo\TableComponentAction\Utils\TableComponentUtil;
 
 trait HasHtmlTable
 {
@@ -22,15 +22,15 @@ trait HasHtmlTable
 
         $crud = $this->make();
         $rows = [];
-        $headers = [];
+        $outputArray = [];
 
         $util = new TableComponentUtil(
             component: FluxBackendComponent::class
         );
 
-        foreach ($collection as $key => $model) {
+        foreach ($collection as $model) {
 
-            $action = new TableRowsAction(
+            $action = new TableCellsAction(
                 model: $model,
                 component: FluxBackendComponent::class,
                 type: FluxComponentEnum::TD,
@@ -43,13 +43,12 @@ trait HasHtmlTable
 
             $outputArray = $output->toArray();
 
-            if ($key === 0) {
-                $headers = $this->tableHeaders($util, $outputArray);
-            }
-
             $rows[] = $this->tableRows($util, $outputArray, $model);
 
         }
+
+        /** Generate headers based on the last model's output array keys */
+        $headers = $this->tableHeaders($util, $outputArray);
 
         return $this->tableComponent($util, $headers, $rows);
 
@@ -57,7 +56,7 @@ trait HasHtmlTable
 
     private function tableRows(TableComponentUtil $util, array $outputArray, Model $model): BackendComponent|CompoundComponent
     {
-        return $util->rows(
+        return $util->row(
             cells: $outputArray,
             type: FluxComponentEnum::TR,
             attributes: [
@@ -69,11 +68,12 @@ trait HasHtmlTable
     private function tableComponent(TableComponentUtil $util, array $headers, array $rows): BackendComponent|CompoundComponent
     {
         $tableContents = [
-            $util->tHead(
+            $util->head(
                 headers: $headers,
-                type: FluxComponentEnum::THEAD
+                type: FluxComponentEnum::THEAD,
+                rowType: FluxComponentEnum::TR,
             ),
-            $util->tBody(
+            $util->body(
                 rows: $rows,
                 type: FluxComponentEnum::TBODY
             ),
@@ -96,5 +96,5 @@ trait HasHtmlTable
             array_keys($outputArray));
     }
 
-    protected function tableOptions(TableRowsAction $action): void {}
+    protected function tableOptions(TableCellsAction $action): void {}
 }

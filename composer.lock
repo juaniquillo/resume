@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "909c033c6db9c5e6b71ba8ae84661da2",
+    "content-hash": "39ebeb7381bdad6ff57ee4526652bc9e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1908,6 +1908,76 @@
                 }
             ],
             "time": "2026-11-11T22:06:36+00:00"
+        },
+        {
+            "name": "juaniquillo/table-component-action",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/juaniquillo/table-component-action.git",
+                "reference": "18f9877e7f9f47d09c706a51bbe71f4bf965f222"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/juaniquillo/table-component-action/zipball/18f9877e7f9f47d09c706a51bbe71f4bf965f222",
+                "reference": "18f9877e7f9f47d09c706a51bbe71f4bf965f222",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^11.0||^12.0||^13.0",
+                "illuminate/support": "^11.0||^12.0||^13.0",
+                "juaniquillo/crud-assistant": "^0.3.0",
+                "juaniquillo/laravel-backend-component": "^0.12.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.15",
+                "laravel/pint": "^1.29",
+                "orchestra/testbench": "^11.3",
+                "pestphp/pest": "^5.3",
+                "pestphp/pest-plugin-laravel": "^5.0",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.3",
+                "rector/rector": "^2.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Juaniquillo\\TableComponentAction\\TableComponentActionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Juaniquillo\\TableComponentAction\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juaniquillo",
+                    "email": "juaniquillo@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Table cell action/recipe components and table builders for backend tables.",
+            "homepage": "https://github.com/juaniquillo/table-component-action",
+            "keywords": [
+                "backend-components",
+                "crud",
+                "laravel",
+                "table"
+            ],
+            "support": {
+                "issues": "https://github.com/juaniquillo/table-component-action/issues",
+                "source": "https://github.com/juaniquillo/table-component-action"
+            },
+            "time": "2026-11-18T15:46:57+00:00",
+            "published-time": "2026-11-18T15:47:31+00:00"
         },
         {
             "name": "juststeveking/resume-php",
@@ -14003,12 +14073,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.9.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.11.0"
 }

@@ -12,6 +12,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class OrganizationFactory
 {
@@ -28,6 +29,8 @@ class OrganizationFactory
         self::factory($input);
         self::import($input);
         self::export($input);
+
+        self::table($input);
 
         return $input;
     }
@@ -78,5 +81,10 @@ class OrganizationFactory
         $input->setRecipe(new ModelToExportRecipe(
             key: self::NAME
         ));
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(new TableCellsRecipe);
     }
 }

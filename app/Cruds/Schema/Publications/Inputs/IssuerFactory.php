@@ -12,6 +12,7 @@ use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class IssuerFactory
 {
@@ -30,6 +31,8 @@ class IssuerFactory
         self::factory($input);
         self::import($input);
         self::export($input);
+
+        self::table($input);
 
         return $input;
     }
@@ -80,5 +83,10 @@ class IssuerFactory
         $input->setRecipe(new ModelToExportRecipe(
             key: self::JSON_KEY
         ));
+    }
+
+    public static function table(InputInterface $input): void
+    {
+        $input->setRecipe(new TableCellsRecipe);
     }
 }
