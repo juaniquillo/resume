@@ -2,13 +2,12 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
-use App\Enums\ProcessStatus;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class StatusFactory
@@ -38,9 +37,7 @@ class StatusFactory
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new LaravelFactoryRecipe(
-                callback: fn () => ProcessStatus::PENDING->value
-            )
+            (new LaravelFactoryRecipe)->ignore()
         );
     }
 

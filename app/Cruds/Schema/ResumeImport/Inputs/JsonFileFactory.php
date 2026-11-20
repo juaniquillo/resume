@@ -2,18 +2,20 @@
 
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Enums\ProcessStatus;
 use App\Models\ResumeImport;
 use BackedEnum;
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\CrudAssistant\Contracts\DataContainerInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Stringable;
 
@@ -38,10 +40,10 @@ class JsonFileFactory
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new LaravelFactoryRecipe(callback: function ($input, $output, $faker) {
-                $output->file_path = $faker->filePath();
-                $output->file_name = $faker->word().'.json';
-                $output->status = ProcessStatus::COMPLETED;
+            new LaravelFactoryRecipe(callback: function (InputInterface $input, DataContainerInterface $output, Generator $faker) {
+                $output->set('file_path', $faker->filePath());
+                $output->set('file_name', $faker->word().'.json');
+                $output->set('status', ProcessStatus::COMPLETED);
             })
         );
     }
