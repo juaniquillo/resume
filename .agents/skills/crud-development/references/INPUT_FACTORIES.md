@@ -67,8 +67,8 @@ When dealing with dates, always use the project standard:
 - `LaravelValidationRulesRecipe`: Standard Laravel rules.
 - `InputComponentRecipe`: UI attributes for Flux/Backend components.
 - `ModelToExportRecipe`: Mapping for JSON resume export.
-- `LaravelFactoryRecipe`: Logic for Database Factories.
-- `TableRowsRecipe`: Rendering logic for dashboard tables.
+- `LaravelFactoryRecipe` (from `juaniquillo/laravel-model-actions`): Logic for Database Factories.
+- `TableCellsRecipe` (from `juaniquillo/table-component-action`): Rendering logic for dashboard tables.
 
 
 

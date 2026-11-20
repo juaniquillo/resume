@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\CoverLetters\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\LivewireHelpers;
 use App\Cruds\Schema\CoverLetters\CoverLettersCrud;
@@ -12,6 +11,7 @@ use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 
 class ContentFactory
 {
@@ -66,7 +66,7 @@ class ContentFactory
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new LaravelFactoryRecipe(callback: fn () => fake()->paragraph())
+            (new LaravelFactoryRecipe)->ignore()
         );
     }
 }

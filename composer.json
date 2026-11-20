@@ -20,6 +20,7 @@
         "juaniquillo/flux-backend-components": "^0.4.0",
         "juaniquillo/input-component-action": "^0.3.0",
         "juaniquillo/laravel-backend-component": "^0.12.0",
+        "juaniquillo/laravel-model-actions": "0.2.0",
         "juaniquillo/table-component-action": "^0.2.0",
         "juststeveking/resume-php": "^1.0",
         "laravel/fortify": "^1.41.0",

@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use App\Enums\ResumeExportType;
@@ -20,6 +19,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultDisableBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 use Stringable;
 
@@ -49,7 +49,7 @@ class ExportTypeSelectFactory
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new LaravelFactoryRecipe(callback: fn () => fake()->randomElement(ResumeExportType::cases())->value)
+            (new LaravelFactoryRecipe)->ignore()
         );
     }
 

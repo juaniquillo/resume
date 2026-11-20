@@ -2,20 +2,20 @@
 
 namespace App\Cruds\Schema\ResumeImport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesAction;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\CrudAssistant\Contracts\DataContainerInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\InputComponentAction;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class ApplyMetaOptionsFactory
@@ -73,8 +73,8 @@ class ApplyMetaOptionsFactory
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{$input->getName()} = (bool) $faker->boolean();
+                callback: function (InputInterface $input, DataContainerInterface $output, Generator $faker) {
+                    $output->set($input->getName(), (bool) $faker->boolean());
                 }
             )
         );

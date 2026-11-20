@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Helpers;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationLabelsRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationMessagesRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
@@ -15,6 +14,7 @@ use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultThemeBag;
 use Juaniquillo\InputComponentAction\Groups\SoleInputGroup;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class OtherFieldHelper

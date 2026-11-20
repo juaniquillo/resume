@@ -4,14 +4,14 @@ namespace App\Cruds\Schema\Awards\Inputs;
 
 use App\Cruds\Actions\General\ModelToExportRecipe;
 use App\Cruds\Actions\General\NameValueRecipe;
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use Faker\Generator;
+use Juaniquillo\CrudAssistant\Contracts\DataContainerInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class TitleFactory
@@ -68,8 +68,8 @@ class TitleFactory
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{ $input->getName() } = $faker->sentence(3);
+                callback: function (InputInterface $input, DataContainerInterface $output, Generator $faker) {
+                    $output->set($input->getName(), $faker->sentence(3));
                 }
             )
         );

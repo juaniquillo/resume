@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Cruds\Actions\Model\LaravelFactoryAction;
 use App\Cruds\Schema\Projects\ProjectsCrud;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Juaniquillo\LaravelModelActions\Actions\LaravelFactoryAction;
 
 /**
  * @extends Factory<Project>

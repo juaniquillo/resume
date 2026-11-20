@@ -2,16 +2,16 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
+use Juaniquillo\CrudAssistant\Contracts\DataContainerInterface;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
-use Juaniquillo\CrudAssistant\DataContainer;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class NameFactory
@@ -62,8 +62,8 @@ class NameFactory
     {
         $input->setRecipe(
             new LaravelFactoryRecipe(
-                callback: function (InputInterface $input, DataContainer $output, Generator $faker) {
-                    $output->{$input->getName()} = $faker->optional()->words(3, true);
+                callback: function (InputInterface $input, DataContainerInterface $output, Generator $faker) {
+                    $output->set($input->getName(), $faker->optional()->words(3, true));
                 }
             )
         );

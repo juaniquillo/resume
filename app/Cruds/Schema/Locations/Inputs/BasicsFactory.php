@@ -2,10 +2,10 @@
 
 namespace App\Cruds\Schema\Locations\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use Juaniquillo\CrudAssistant\Contracts\InputInterface;
 use Juaniquillo\CrudAssistant\Inputs\DefaultInput;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class BasicsFactory

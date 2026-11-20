@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Cruds\Actions\Model\LaravelFactoryAction;
 use App\Cruds\Schema\Volunteers\VolunteersCrud;
 use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Juaniquillo\LaravelModelActions\Actions\LaravelFactoryAction;
 
 /**
  * @extends Factory<Volunteer>

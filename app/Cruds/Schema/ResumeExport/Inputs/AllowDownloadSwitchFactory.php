@@ -2,7 +2,6 @@
 
 namespace App\Cruds\Schema\ResumeExport\Inputs;
 
-use App\Cruds\Actions\Model\LaravelFactoryRecipe;
 use App\Cruds\Actions\Validation\LaravelValidationRulesRecipe;
 use App\Cruds\Helpers\TableHelpers;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +11,7 @@ use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\InputComponentAction\Bags\DefaultAttributeBag;
 use Juaniquillo\InputComponentAction\Bags\DefaultComponentBag;
 use Juaniquillo\InputComponentAction\Recipes\InputComponentRecipe;
+use Juaniquillo\LaravelModelActions\Recipes\LaravelFactoryRecipe;
 use Juaniquillo\TableComponentAction\TableCellsRecipe;
 
 class AllowDownloadSwitchFactory
@@ -35,7 +35,7 @@ class AllowDownloadSwitchFactory
     public static function factory(InputInterface $input): void
     {
         $input->setRecipe(
-            new LaravelFactoryRecipe(callback: fn () => fake()->boolean())
+            (new LaravelFactoryRecipe)->ignore()
         );
     }
 
